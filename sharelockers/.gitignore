@@ -69,4 +69,11 @@ docs/_build/
 target/
 
 *.sqlite3
+
+
+#gulp
+
+node_modules
+
 .direnv/
+

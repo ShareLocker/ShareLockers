@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div>
+    <h4>You are logged in as {{ user }}.
+        {% if user.is_anonymous %}
+            <a href="{% url 'django.contrib.auth.views.login' %}"> Login</a>
+        {% else %}
+            <a href="{% url 'django.contrib.auth.views.logout' %}"> Logout</a>
+        {% endif %}
+    </h4>
+</div>
+<header>
+    <h1>ShareLocker</h1>
+</header>
+{% block content %}
+{% endblock %}
+</body>
+</html>

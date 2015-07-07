@@ -16,6 +16,7 @@ var del = require('del');
 var watch = require('gulp-watch');
 var sourcemaps = require('gulp-sourcemaps');
 
+
 // Common patterns used throughout the gulp configuration
 var src = {
   allHtml: './src/**/*.html',

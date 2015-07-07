@@ -71,13 +71,9 @@ target/
 *.sqlite3
 
 
-#gulp
-
-node_modules
-
 .direnv/
-
-../.direnv/
-../.envrc
+.envrc
+.DS_Store
 .idea/
-
+dev_settings.py
+node_modules

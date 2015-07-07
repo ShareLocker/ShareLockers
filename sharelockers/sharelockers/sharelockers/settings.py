@@ -40,6 +40,12 @@ INSTALLED_APPS = (
 
     'django_extensions',
     'rest_framework',
+
+    'hubs',
+    'items',
+    'lockers',
+    'profiles',
+    'transactions',
 )
 
 MIDDLEWARE_CLASSES = (

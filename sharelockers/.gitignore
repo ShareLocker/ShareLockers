@@ -70,6 +70,14 @@ target/
 
 *.sqlite3
 
+
 #gulp
 
 node_modules
+
+.direnv/
+
+../.direnv/
+../.envrc
+.idea/
+

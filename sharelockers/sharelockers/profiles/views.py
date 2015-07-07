@@ -12,10 +12,7 @@ def user_register(request):
         user_form = UserForm(request.POST)
         if user_form.is_valid():
             user = user_form.save()
-            #profile = Profile()
-            #profile.user = user
-            #profile.save()
-            #password = user.password
+            password = user.password
             user.set_password(password)
             user.save()
             user = authenticate(username=user.username,

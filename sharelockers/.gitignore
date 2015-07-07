@@ -81,3 +81,4 @@ node_modules
 ../.envrc
 .idea/
 
+migrations/

@@ -26,9 +26,9 @@ class LockerViewSet(viewsets.ModelViewSet):
         serializer.is_valid(raise_exception=True)
         self.perform_update(serializer)
 
-        hub = Hub.objects.get(pk=1)  # FIXME: Get the pk from the request
-        hub.open(1,2)  # FIXME: Get the col, row from the locker object
-        
+        hub = Hub.objects.get(secret_key=1)  # FIXME: Get the pk from the request
+        hub.open(1,1)  # FIXME: Get the col, row from the locker object
+
         return Response(serializer.data)
 
         # return super(LockerViewSet, self).update(self, request, *args, **kwargs)

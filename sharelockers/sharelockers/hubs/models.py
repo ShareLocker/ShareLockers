@@ -27,4 +27,6 @@ class Hub(models.Model):
         http = urllib3.PoolManager()
         astr = 'http://' + self.ip + '/?V='+str(col)+str(row)
         print(astr)
-        r = http.request('GET', astr)
+        self.occupied = True
+        self.save()
+        # r = http.request('GET', astr)

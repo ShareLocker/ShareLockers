@@ -10,7 +10,7 @@ class LockerSerializer(serializers.ModelSerializer): #FIXME: add Hyperlinked
 
     class Meta:
         model = Locker
-        fields = ('hub', 'row', 'column', 'owner', 'can_open')
+        fields = ('id', 'hub', 'row', 'column', 'owner', 'can_open')
 
     def get_can_open(self, obj):
         return True  # FIXME: Add validation that I am the owner
@@ -30,4 +30,4 @@ class HubSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Hub
-        fields = ('name','location', 'ip', 'locker_set')
+        fields = ('id', 'name','location', 'ip', 'locker_set')

@@ -13,7 +13,7 @@ class LockerViewSet(viewsets.ModelViewSet):
         return Locker.objects.filter(owner = self.request.user.profile)
 
     def perform_create(self, serializer):
-        serializer.save(owner = self.request.user)
+        serializer.save(owner = self.request.user.profile)
 
 
 class UserViewSet(viewsets.ModelViewSet):

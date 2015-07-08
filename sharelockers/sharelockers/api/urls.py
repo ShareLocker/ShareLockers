@@ -5,7 +5,7 @@ from api import views
 
 router = routers.DefaultRouter()
 router.register(r'lockers', views.LockerViewSet, base_name="lockers")
-router.register(r'users', views.ProfileViewSet, base_name="profiles")
+router.register(r'profiles', views.ProfileViewSet, base_name="profiles")
 
 urlpatterns = [
     url(r'^api/', include(router.urls)),

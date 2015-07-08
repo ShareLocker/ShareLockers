@@ -22,12 +22,11 @@
 <div class="pure-menu custom-restricted-width">
     <ul class="pure-menu-list">
         <% m.lockers.forEach(function (locker) { %>
-        	<li class="locker-container pure-menu-item">
+        	<li data-id="<%- locker.id %>" class="locker-container pure-menu-item">
         		Location:
                 <%- locker.column %>, <%- locker.row %><br>
         		Currently Rented By:
         		<%- locker.owner %>
-                <script><%- locker.id %></script>
                 <button class="lockerOpen">Open</button>
             </li>
             

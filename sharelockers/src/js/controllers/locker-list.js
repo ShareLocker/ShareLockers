@@ -24,10 +24,24 @@ router.route('location/locker', function () {
 		});
 		
 		$(document).on('click', '.locker-container' , function () {
-			var txt = this.innerHTML;
-			txt.toString().split('<script>');
-			
-			console.log(this.id);
+			var id = this.getAttribute('data-id');
+			var csrftoken = getCookie('csrftoken'); 
+			console.log(csrftoken);
+				$.ajax({
+					beforeSend: function (request){
+					console.log(csrftoken)
+		            request.setRequestHeader('X-CSRFToken', csrftoken);
+		           },
+					method: 'PUT', 
+					url: '/api/lockers/'+id,
+					data: {	"hub": 1,
+							"row": 1,
+							"column": 1
+						}
+		  		}).done(function (data){
+					console.log(data);
+				});
+
 			alert('yay');
 		})
 		

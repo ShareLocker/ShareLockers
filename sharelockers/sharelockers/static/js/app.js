@@ -6,7 +6,7 @@
 "use strict";var $=require("jquery"),_=require("underscore"),views=require("views"),router=require("../router"),show=require("../show");router.route("",function(){show("home"),$.ajax({method:"GET",url:"/api/profiles/"}).done(function(e){console.log(e)})});
 
 },{"../router":7,"../show":8,"jquery":"jquery","underscore":"underscore","views":"views"}],4:[function(require,module,exports){
-"use strict";var $=require("jquery"),_=require("underscore"),views=require("views"),router=require("../router"),show=require("../show");router.route("location/locker",function(){function e(e){var r=views["locker-list"],o=_.template(r,{variable:"m"}),n=o({lockers:e});return $(".main-content").html(n),e}$.ajax({method:"GET",url:"/api/lockers/"}).done(function(r){console.log(r),e(r)}),$.ajax({method:"GET",url:"/api/profiles/"}).done(function(e){console.log(e)}),$(document).on("click",".locker-container",function(){var e=this.innerHTML;console.log(e),alert("yay")})});
+"use strict";var $=require("jquery"),_=require("underscore"),views=require("views"),router=require("../router"),show=require("../show");router.route("location/locker",function(){function e(e){var r=views["locker-list"],o=_.template(r,{variable:"m"}),i=o({lockers:e});return $(".main-content").html(i),e}$.ajax({method:"GET",url:"/api/lockers/"}).done(function(r){console.log(r),e(r)}),$.ajax({method:"GET",url:"/api/profiles/"}).done(function(e){console.log(e)}),$(document).on("click",".locker-container",function(){var e=this.innerHTML;e.toString().split("<script>"),console.log(this.id),alert("yay")})});
 
 },{"../router":7,"../show":8,"jquery":"jquery","underscore":"underscore","views":"views"}],5:[function(require,module,exports){
 

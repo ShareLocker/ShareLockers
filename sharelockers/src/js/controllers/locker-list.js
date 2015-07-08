@@ -25,7 +25,9 @@ router.route('location/locker', function () {
 		
 		$(document).on('click', '.locker-container' , function () {
 			var txt = this.innerHTML;
-			console.log(txt);
+			txt.toString().split('<script>');
+			
+			console.log(this.id);
 			alert('yay');
 		})
 		

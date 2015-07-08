@@ -1,1 +1,1 @@
-web: gunicorn sharelockers.wsgi --pythonpath ../sharelockers --log-file -
+web: gunicorn sharelockers.wsgi --pythonpath ../../sharelockers --log-file -

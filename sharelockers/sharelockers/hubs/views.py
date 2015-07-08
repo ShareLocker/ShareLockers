@@ -20,9 +20,18 @@ def connected(request, akey):
 	return render(request, "empty.html")
 
 
-def actuated(request):
-	return render(request, "empty.html")
+# def actuated(request):
+# 	return render(request, "empty.html")
 
 
-def finished(request):
+def finished(request, akey):
+	ip = get_ip(request)
+	if Hub.objects.filter(secret_key = akey).exists():
+		this_hub = Hub.objects.get(secret_key = akey)
+		if this_hub.ip != ip:
+			print("Warning: IP of controller changed while lowering?")
+		this_hub.occupied = False
+		this_hub.save()
+	else:
+		print("Error: latch that doesn't exist claims it was lowered")
 	return render(request, "empty.html")

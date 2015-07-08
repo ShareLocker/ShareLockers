@@ -22,9 +22,11 @@ class Hub(models.Model):
     def __str__(self):
         return self.name
 
-    def open(self, row, col):
+    def open(self, col, row):
         from requests.packages import urllib3
         http = urllib3.PoolManager()
         astr = 'http://' + self.ip + '/?V='+str(col)+str(row)
-        print(astr)
         r = http.request('GET', astr)
+        print(astr)
+        self.occupied = True
+        self.save()

@@ -25,6 +25,8 @@ router.route('location/locker', function () {
 		
 		$(document).on('click', '.locker-container' , function () {
 			var id = this.getAttribute('data-id');
+			var col =this.getAttribute('data-column');
+			var row =this.getAttribute('data-row');
 			var csrftoken = getCookie('csrftoken'); 
 			console.log(csrftoken);
 				$.ajax({
@@ -35,8 +37,8 @@ router.route('location/locker', function () {
 					method: 'PUT', 
 					url: '/api/lockers/'+id,
 					data: {	"hub": 1,
-							"row": 1,
-							"column": 1
+							"row": row,
+							"column": col
 						}
 		  		}).done(function (data){
 					console.log(data);

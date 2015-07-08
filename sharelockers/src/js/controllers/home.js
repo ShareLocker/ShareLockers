@@ -9,5 +9,13 @@ var show = require('../show');
 router.route('', function () {
 		
 	show('home');
+	$.ajax({
+			method: 'GET', 
+			url: '/api/profiles/',
+  		}).done(function (data){
+			console.log(data);
+		});
+	
+
 
 });

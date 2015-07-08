@@ -76,5 +76,5 @@ target/
 .DS_Store
 .idea/
 dev_settings.py
-node_modules
+node_modules/
 migrations/

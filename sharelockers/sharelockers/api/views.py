@@ -2,7 +2,8 @@ from django.shortcuts import render
 from rest_framework import viewsets, generics, permissions
 from lockers.models import Locker
 from profiles.models import Profile
-from .serializers import LockerSerializer, UserSerializer, ProfileSerializer
+from hubs.models import Hub, Location
+from .serializers import LockerSerializer, UserSerializer, ProfileSerializer, HubSerializer
 from django.contrib.auth.models import User
 
 
@@ -26,3 +27,10 @@ class ProfileViewSet(viewsets.ModelViewSet):
     """
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
+
+class HubViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows hubs to be viewed or edited.
+    """
+    queryset = Hub.objects.all()
+    serializer_class = HubSerializer

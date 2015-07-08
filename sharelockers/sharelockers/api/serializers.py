@@ -1,13 +1,19 @@
 from lockers.models import Locker
 from profiles.models import Profile
+from hubs.models import Hub
 from django.contrib.auth.models import User
 from rest_framework import serializers
 
 
 class LockerSerializer(serializers.ModelSerializer): #FIXME: add Hyperlinked
+    can_open = serializers.SerializerMethodField()
+
     class Meta:
         model = Locker
-        fields = ('hub', 'row', 'column', 'owner',)
+        fields = ('hub', 'row', 'column', 'owner', 'can_open')
+
+    def get_can_open(self, obj):
+        return True  # FIXME: Add validation that I am the owner
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -18,3 +24,10 @@ class ProfileSerializer(serializers.ModelSerializer): #FIXME: add Hyperlinked
     class Meta:
         model = Profile
         fields = ('user', 'rating', 'description', 'alias')
+
+class HubSerializer(serializers.ModelSerializer):
+    locker_set = LockerSerializer(many=True, read_only=True)  # A nested list of 'locker' items.
+
+    class Meta:
+        model = Hub
+        fields = ('name','location', 'ip', 'locker_set')

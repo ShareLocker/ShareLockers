@@ -6,6 +6,7 @@ from api import views
 router = routers.DefaultRouter()
 router.register(r'lockers', views.LockerViewSet, base_name="lockers")
 router.register(r'profiles', views.ProfileViewSet, base_name="profiles")
+router.register(r'hubs', views.HubViewSet, base_name="hubs")
 
 urlpatterns = [
     url(r'^api/', include(router.urls)),

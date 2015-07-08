@@ -1,5 +1,6 @@
 from django.db import models
 from hubs.models import Hub
+from profiles.models import Profile
 
 
 class Locker(models.Model):
@@ -16,6 +17,7 @@ class Locker(models.Model):
         (8, 'H')
     )
     column = models.IntegerField(choices=column_options)
+    owner = models.ForeignKey(Profile, null=True) # FIXME remove after MVP
 
     class Meta:
         unique_together = ('hub', 'row', 'column',)

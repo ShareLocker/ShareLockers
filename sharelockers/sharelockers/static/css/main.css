@@ -19,7 +19,10 @@ h1 {
   bottom: 0;
   left: 0;
   right: 0;
-  top: 0; }
+  top: 0;
+  background: linear-gradient(RGBA(36, 40, 56, 0.5), RGBA(159, 129, 184, 1)), url("../img/city.jpg");
+  background-size: 100% 130%;
+  background-repeat: no-repeat; }
 
 .section1 {
   background-color: RGBA(36, 40, 56, 1);
@@ -35,19 +38,18 @@ h1 {
   min-height: 6em; }
 
 .section3 h1 {
-  background-color: RGBA(31, 141, 214, 1);
   padding: 0; }
 
 .my-page-header {
   padding: 3em 1.5em;
-  background-color: grey;
   position: fixed;
   top: 0;
   right: 0;
   left: 0; }
 
 .my-page-header.sticky {
-  padding: 1.5em; }
+  padding: 1.5em;
+  background-color: RGBA(69, 136, 156, 1); }
 
 ul {
   position: absolute;
@@ -65,4 +67,16 @@ a {
   background-color: #eee; }
 
 .register-btn {
-  background-color: #E25D3A; }
+  background-color: #E25D3A;
+  border: none;
+  font-size: 2em; }
+
+button {
+  border: none;
+  border-radius: 10px;
+  color: #eee;
+  padding: 0.2em; }
+
+button:hover {
+  background-color: #346392;
+  text-shadow: -1px 1px #27496d; }

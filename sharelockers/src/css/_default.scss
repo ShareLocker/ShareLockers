@@ -2,7 +2,6 @@
 @import url(http://fonts.googleapis.com/css?family=Kadwa);
 
 .container{
-  // width: 100%;
   padding: 0.5em;
   text-align: center;
   height: 100vh; 
@@ -26,18 +25,14 @@ h1{
   left: 0;
   right: 0;
   top: 0;
-  // bottom: 10;
-  // height: 100%;
-  // position: fixed !important;
-  // background: 
-	//   linear-gradient(
-  //     RGBA(108, 129, 184, 0.5), 
-  //     RGBA(159, 129, 184, 0.5)
-  //   ),
-  //   url("../img/locker.jpg");
-  //   background-size:cover;
-	//   background-position: bottom;
-  //   background-repeat: repeat-x;
+  background: 
+	  linear-gradient(
+      RGBA(36, 40, 56, 0.5), 
+      RGBA(159, 129, 184, 1)
+    ),
+    url("../img/city.jpg");
+    background-size: 100% 130%;
+    background-repeat:no-repeat;
 	  
 }
 
@@ -50,6 +45,7 @@ h1{
 .section2{
 	  background-color: #eee;
     min-height: 6em;
+    
 }
 
 .section3{
@@ -57,13 +53,12 @@ h1{
     min-height: 6em;
 }
 .section3 h1{
-  background-color:RGBA(31, 141, 214, 1);
+  // background-color:RGBA(31, 141, 214, 1);
   padding: 0;
 }
 
 .my-page-header{
   padding:3em 1.5em;
-  background-color: grey; 
   position: fixed;
   top:0;
   right: 0;
@@ -73,6 +68,7 @@ h1{
 
 .my-page-header.sticky {
   padding: 1.5em;
+  background-color: RGBA(69, 136, 156, 1);
   
 }
 
@@ -98,5 +94,21 @@ a{
 
 .register-btn{
   background-color: $register-button;
+  border: none;
+  font-size: 2em;
+ 
 }
 
+button{
+  border: none;
+  border-radius: 10px;
+  color: #eee;
+  padding: 0.2em;
+  
+
+}
+
+button:hover {
+  background-color: #346392;
+  text-shadow: -1px 1px #27496d;
+}

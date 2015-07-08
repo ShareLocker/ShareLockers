@@ -1,14 +1,11 @@
 @import 'variables';
 @import url(http://fonts.googleapis.com/css?family=Kadwa);
 
-
 .container{
-  width: 100%;
+  // width: 100%;
   padding: 0.5em;
   text-align: center;
-  height: 100vh;
-  
- 
+  height: 100vh; 
 }
 
 body{
@@ -21,11 +18,17 @@ h1{
 }
 
 .hero-container {
+  padding-top: 8.5em;
   background: #1f8dd6;
   z-index: -1;
-  bottom: 10;
-  height: 100%;
-  position: fixed !important;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  // bottom: 10;
+  // height: 100%;
+  // position: fixed !important;
   // background: 
 	//   linear-gradient(
   //     RGBA(108, 129, 184, 0.5), 
@@ -45,32 +48,32 @@ h1{
 }
 
 .section2{
-	  background-color: purple;
+	  background-color: #eee;
     min-height: 6em;
 }
 
 .section3{
-	  background-color: teal;
+	  background-color: #1f8dd6l;
     min-height: 6em;
 }
+.section3 h1{
+  background-color:RGBA(31, 141, 214, 1);
+  padding: 0;
+}
 
-.header{
-  padding: 1.5em;
+.my-page-header{
+  padding:3em 1.5em;
   background-color: grey; 
-  // position: fixed;
-  // top:0;
-  // right: 0;
-  // left: 0;
+  position: fixed;
+  top:0;
+  right: 0;
+  left: 0;
 
 }
 
-header.sticky {
-  font-size: 24px;
-  line-height: 48px;
-  height: 48px;
-  background: #efc47D;
-  text-align: left;
-  padding-left: 20px;
+.my-page-header.sticky {
+  padding: 1.5em;
+  
 }
 
 ul{
@@ -85,11 +88,15 @@ ul li{
 }
 
 a{
-  color: $button-color;
   text-decoration: none;
 }
 
-.pure-u-1{
-  background-color: red;
+.info{
+  background-color:#eee;
+}
+
+
+.register-btn{
+  background-color: $register-button;
 }
 

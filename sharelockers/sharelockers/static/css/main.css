@@ -1,6 +1,5 @@
 @import url(http://fonts.googleapis.com/css?family=Kadwa);
 .container {
-  width: 100%;
   padding: 0.5em;
   text-align: center;
   height: 100vh; }
@@ -13,11 +12,14 @@ h1 {
   font-size: 5em; }
 
 .hero-container {
+  padding-top: 8.5em;
   background: #1f8dd6;
   z-index: -1;
-  bottom: 10;
-  height: 100%;
-  position: fixed !important; }
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0; }
 
 .section1 {
   background-color: RGBA(36, 40, 56, 1);
@@ -25,24 +27,27 @@ h1 {
   margin-top: 100vh; }
 
 .section2 {
-  background-color: purple;
+  background-color: #eee;
   min-height: 6em; }
 
 .section3 {
-  background-color: teal;
+  background-color: #1f8dd6l;
   min-height: 6em; }
 
-.header {
-  padding: 1.5em;
-  background-color: grey; }
+.section3 h1 {
+  background-color: RGBA(31, 141, 214, 1);
+  padding: 0; }
 
-header.sticky {
-  font-size: 24px;
-  line-height: 48px;
-  height: 48px;
-  background: #efc47D;
-  text-align: left;
-  padding-left: 20px; }
+.my-page-header {
+  padding: 3em 1.5em;
+  background-color: grey;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0; }
+
+.my-page-header.sticky {
+  padding: 1.5em; }
 
 ul {
   position: absolute;
@@ -54,8 +59,10 @@ ul li {
   padding-right: 0.5em; }
 
 a {
-  color: RGBA(59, 194, 91, 1);
   text-decoration: none; }
 
-.pure-u-1 {
-  background-color: red; }
+.info {
+  background-color: #eee; }
+
+.register-btn {
+  background-color: #E25D3A; }

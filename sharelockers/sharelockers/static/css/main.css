@@ -1,21 +1,48 @@
+@import url(http://fonts.googleapis.com/css?family=Kadwa);
 .container {
   width: 100%;
-  padding: 1em;
-  text-align: center; }
+  padding: 0.5em;
+  text-align: center;
+  height: 100vh; }
+
+body {
+  min-height: 4em; }
+
+h1 {
+  font-family: 'Kadwa', serif;
+  font-size: 5em; }
 
 .hero-container {
   background: #1f8dd6;
   z-index: -1;
-  overflow: hidden;
-  height: 100%; }
+  bottom: 10;
+  height: 100%;
+  position: fixed !important; }
 
 .section1 {
   background-color: RGBA(36, 40, 56, 1);
-  position: absolute;
-  height: 50%; }
+  height: 100vh;
+  margin-top: 100vh; }
+
+.section2 {
+  background-color: purple;
+  min-height: 6em; }
+
+.section3 {
+  background-color: teal;
+  min-height: 6em; }
 
 .header {
-  padding: 1.5em; }
+  padding: 1.5em;
+  background-color: grey; }
+
+header.sticky {
+  font-size: 24px;
+  line-height: 48px;
+  height: 48px;
+  background: #efc47D;
+  text-align: left;
+  padding-left: 20px; }
 
 ul {
   position: absolute;
@@ -29,3 +56,6 @@ ul li {
 a {
   color: RGBA(59, 194, 91, 1);
   text-decoration: none; }
+
+.pure-u-1 {
+  background-color: red; }

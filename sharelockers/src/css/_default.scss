@@ -1,30 +1,76 @@
 @import 'variables';
+@import url(http://fonts.googleapis.com/css?family=Kadwa);
 
 
 .container{
- width: 100%; 
- padding: 1em;
- text-align: center;
+  width: 100%;
+  padding: 0.5em;
+  text-align: center;
+  height: 100vh;
+  
  
+}
+
+body{
+  min-height: 4em;
+}
+
+h1{
+ font-family: 'Kadwa', serif;
+ font-size: 5em;
 }
 
 .hero-container {
   background: #1f8dd6;
   z-index: -1;
-  overflow: hidden;
+  bottom: 10;
   height: 100%;
- 
+  position: fixed !important;
+  // background: 
+	//   linear-gradient(
+  //     RGBA(108, 129, 184, 0.5), 
+  //     RGBA(159, 129, 184, 0.5)
+  //   ),
+  //   url("../img/locker.jpg");
+  //   background-size:cover;
+	//   background-position: bottom;
+  //   background-repeat: repeat-x;
+	  
 }
 
 .section1{
-	background-color: RGBA(36, 40, 56, 1);
-  position: absolute;
-  height: 50%;
+  background-color: RGBA(36, 40, 56, 1);
+  height: 100vh;
+  margin-top: 100vh;
 }
 
+.section2{
+	  background-color: purple;
+    min-height: 6em;
+}
+
+.section3{
+	  background-color: teal;
+    min-height: 6em;
+}
 
 .header{
-padding: 1.5em;  
+  padding: 1.5em;
+  background-color: grey; 
+  // position: fixed;
+  // top:0;
+  // right: 0;
+  // left: 0;
+
+}
+
+header.sticky {
+  font-size: 24px;
+  line-height: 48px;
+  height: 48px;
+  background: #efc47D;
+  text-align: left;
+  padding-left: 20px;
 }
 
 ul{
@@ -42,3 +88,8 @@ a{
   color: $button-color;
   text-decoration: none;
 }
+
+.pure-u-1{
+  background-color: red;
+}
+

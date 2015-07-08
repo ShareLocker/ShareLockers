@@ -1,30 +1,75 @@
 @import 'variables';
-
+@import url(http://fonts.googleapis.com/css?family=Kadwa);
 
 .container{
- width: 100%; 
- padding: 1em;
- text-align: center;
- 
+  padding: 0.5em;
+  text-align: center;
+  height: 100vh; 
+}
+
+body{
+  min-height: 4em;
+}
+
+h1{
+ font-family: 'Kadwa', serif;
+ font-size: 5em;
 }
 
 .hero-container {
+  padding-top: 8.5em;
   background: #1f8dd6;
   z-index: -1;
-  overflow: hidden;
-  height: 100%;
- 
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  background: 
+	  linear-gradient(
+      RGBA(36, 40, 56, 0.5), 
+      RGBA(159, 129, 184, 1)
+    ),
+    url("../img/city.jpg");
+    background-size: 100% 130%;
+    background-repeat:no-repeat;
+	  
 }
 
 .section1{
-	background-color: RGBA(36, 40, 56, 1);
-  position: absolute;
-  height: 50%;
+  background-color: RGBA(36, 40, 56, 1);
+  height: 100vh;
+  margin-top: 100vh;
 }
 
+.section2{
+	  background-color: #eee;
+    min-height: 6em;
+    
+}
 
-.header{
-padding: 1.5em;  
+.section3{
+	  background-color: #1f8dd6l;
+    min-height: 6em;
+}
+.section3 h1{
+  // background-color:RGBA(31, 141, 214, 1);
+  padding: 0;
+}
+
+.my-page-header{
+  padding:3em 1.5em;
+  position: fixed;
+  top:0;
+  right: 0;
+  left: 0;
+
+}
+
+.my-page-header.sticky {
+  padding: 1.5em;
+  background-color: RGBA(69, 136, 156, 1);
+  
 }
 
 ul{
@@ -39,6 +84,31 @@ ul li{
 }
 
 a{
-  color: $button-color;
   text-decoration: none;
+}
+
+.info{
+  background-color:#eee;
+}
+
+
+.register-btn{
+  background-color: $register-button;
+  border: none;
+  font-size: 2em;
+ 
+}
+
+button{
+  border: none;
+  border-radius: 10px;
+  color: #eee;
+  padding: 0.2em;
+  
+
+}
+
+button:hover {
+  background-color: #346392;
+  text-shadow: -1px 1px #27496d;
 }

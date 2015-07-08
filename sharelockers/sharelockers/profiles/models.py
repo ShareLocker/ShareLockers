@@ -8,5 +8,6 @@ class Profile(models.Model):
     description = models.TextField(max_length=255, null=True)
     alias = models.CharField(max_length=255)
 
-    d
+    def __str__(self):
+        return self.alias
 

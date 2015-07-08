@@ -9,6 +9,8 @@ class Location(models.Model):
     host = models.ForeignKey(Profile, null=True, related_name="managed_location")
     residents = models.ManyToManyField(Profile, related_name="nearby_location", related_query_name="nearby_locations")
 
+    def __str__(self):
+        return self.description
 
 class Hub(models.Model):
     name = models.CharField(max_length=255)
@@ -16,3 +18,6 @@ class Hub(models.Model):
     secret_key = models.CharField(max_length=255, db_index=True)
     occupied = models.BooleanField(default=False)
     ip = models.CharField(null=True, max_length=255, db_index=True)
+
+    def __str__(self):
+        return self.name

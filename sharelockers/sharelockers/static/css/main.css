@@ -5,7 +5,8 @@
   height: 100vh; }
 
 body {
-  min-height: 4em; }
+  min-height: 4em;
+  background-color: lightblue; }
 
 h1 {
   font-family: 'Kadwa', serif;
@@ -80,3 +81,21 @@ button {
 button:hover {
   background-color: #346392;
   text-shadow: -1px 1px #27496d; }
+
+.locker-container {
+  padding-top: 1em;
+  display: block;
+  line-height: 1.7em;
+  text-align: left; }
+
+.list-container {
+  margin-left: auto;
+  margin-right: auto;
+  width: 17%;
+  text-align: center; }
+
+.locker-header {
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  text-align: center; }

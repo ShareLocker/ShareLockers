@@ -9,28 +9,22 @@
     </div>
 </div>
 
-<div class=" container hero-container">
-    <div>
-        <h1>Share <br> Lockers</h1>
-        <h3>
-            Buy and Sell Locally with Confidence!
-        </h3>
-    </div>
-</div>
+<h1 class="locker-header">
+    Current Lockers
+</h1>
 
-
-<div class="pure-menu custom-restricted-width">
+<div class="list-container pure-menu custom-restricted-width">
     <ul class="pure-menu-list">
         <% m.lockers.forEach(function (locker) { %>
         	<li data-column="<%- locker.column %>" data-row="<%- locker.row %>" data-id="<%- locker.id %>" class="locker-container pure-menu-item">
-        		Location:
-                <%- locker.column %>, <%- locker.row %><br>
+        		
+                Column: <%- locker.column %>  Row: <%- locker.row %><br>
         		Currently Rented By:
         		<%- locker.owner %>
                 <button class="lockerOpen">Open</button>
             </li>
-            
         <% }) %>
     </ul>
 </div>
+
 

@@ -18,11 +18,8 @@ def user_register(request):
             profile = profile_form.save(commit=False)
             profile.user = user
             profile.save()
-            password = user.password
-            user.set_password(password)
-            user.save()
-            user = authenticate(username=user.username,
-                                password=password)
+            user = authenticate(username=request.POST['username'],
+                                password=request.POST['password'])
             login(request, user)
             messages.add_message(
                 request, messages.SUCCESS,

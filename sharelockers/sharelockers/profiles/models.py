@@ -9,5 +9,5 @@ class Profile(models.Model):
     alias = models.CharField(max_length=255)
 
     def __str__(self):
-        return self.alias
+        return '{} (id: {})'.format(self.alias, self.id)
 

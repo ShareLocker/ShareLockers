@@ -16,7 +16,6 @@ var del = require('del');
 var watch = require('gulp-watch');
 var sourcemaps = require('gulp-sourcemaps');
 
-
 // Common patterns used throughout the gulp configuration
 var src = {
   allHtml: './src/**/*.html',
@@ -158,7 +157,7 @@ gulp.task('font', function () {
 
 // Clean the destination directory
 gulp.task('clean', function (cb) {
-  del('sharelockers/static', cb);
+  del(' sharelockers/static', cb);
 });
 
 // Prevent gulp from crashing and leaving a running Node process behind

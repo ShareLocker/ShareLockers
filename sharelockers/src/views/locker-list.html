@@ -1,0 +1,37 @@
+<div class="header">
+    <div>
+        <a href="">(logo)Share Lockers</a>
+        <ul class="select">
+            <li><a href="#">Home</a></li>
+            <li><a href="/login">Log-in</a></li>
+            <li><a href="/register">Register</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class=" container hero-container">
+    <div>
+        <h1>Share <br> Lockers</h1>
+        <h3>
+            Buy and Sell Locally with Confidence!
+        </h3>
+    </div>
+</div>
+
+
+<div class="pure-menu custom-restricted-width">
+    <ul class="pure-menu-list">
+        <% m.lockers.forEach(function (locker) { %>
+        	<li class="locker-container pure-menu-item">
+        		Location:
+                <%- locker.column %>, <%- locker.row %><br>
+        		Currently Rented By:
+        		<%- locker.owner %>
+                <script><%- locker.id %></script>
+                <button class="lockerOpen">Open</button>
+            </li>
+            
+        <% }) %>
+    </ul>
+</div>
+

@@ -23,7 +23,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 class ProfileSerializer(serializers.ModelSerializer): #FIXME: add Hyperlinked
     class Meta:
         model = Profile
-        fields = ('user', 'rating', 'description', 'alias')
+        fields = ('id', 'user', 'rating', 'description', 'alias')
 
 class HubSerializer(serializers.ModelSerializer):
     locker_set = LockerSerializer(many=True, read_only=True)  # A nested list of 'locker' items.

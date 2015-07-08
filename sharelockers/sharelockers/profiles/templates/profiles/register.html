@@ -6,6 +6,7 @@
     <form method="POST" action="{% url 'user_register' %}">
         {% csrf_token %}
         {{ user_form.as_p }}
+        {{ profile_form.as_p }}
 
         <!-- Provide a button to click to submit the form. -->
         <input type="submit" name="submit" value="Register"/>

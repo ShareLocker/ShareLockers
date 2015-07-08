@@ -16,3 +16,9 @@ class UserForm(forms.ModelForm):
         if commit:
             user.save()
         return user
+
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ('description', 'alias')

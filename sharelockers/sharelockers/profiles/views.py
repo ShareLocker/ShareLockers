@@ -3,15 +3,23 @@ from django.contrib.auth import authenticate, login
 from django.shortcuts import redirect
 from django.contrib import messages
 from profiles.models import Profile
-from profiles.forms import UserForm
+from profiles.models import ProfileSerializer
+from profiles.forms import UserForm, ProfileForm
+from rest_framework import viewsets
+
 
 def user_register(request):
     if request.method == "GET":
         user_form = UserForm()
+        profile_form = ProfileForm()
     elif request.method == "POST":
         user_form = UserForm(request.POST)
-        if user_form.is_valid():
+        profile_form = ProfileForm(request.POST)
+        if user_form.is_valid() and profile_form.is_valid():
             user = user_form.save()
+            profile = profile_form.save(commit=False)
+            profile.user = user
+            profile.save()
             password = user.password
             user.set_password(password)
             user.save()
@@ -23,4 +31,12 @@ def user_register(request):
                 "Congratulations, {}, on creating your new account! You are now logged in.".format(
                     user.username))
             return redirect('view_index')
-    return render(request, "profiles/register.html", {'user_form': user_form})
+    return render(request, "profiles/register.html", {'user_form': user_form,
+                                                      'profile_form': profile_form,
+                                                      })
+class ProfileViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows user profiles to be viewed or edited.
+    """
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializer

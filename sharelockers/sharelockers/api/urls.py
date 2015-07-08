@@ -1,10 +1,12 @@
 from django.conf.urls import include, url
 from rest_framework import routers
 from api import views
+# import profiles.views
 
 router = routers.DefaultRouter()
 router.register(r'lockers', views.LockerViewSet, base_name="lockers")
-router.register(r'users', views.UserViewSet, base_name="users")
+router.register(r'profiles', views.ProfileViewSet, base_name="profiles")
+router.register(r'hubs', views.HubViewSet, base_name="hubs")
 
 urlpatterns = [
     url(r'^api/', include(router.urls)),

@@ -5,7 +5,6 @@ from profiles.models import Profile
 
 class Locker(models.Model):
     hub = models.ForeignKey(Hub)
-    row = models.IntegerField()
     column_options = (
         (1, 'A'),
         (2, 'B'),
@@ -17,7 +16,11 @@ class Locker(models.Model):
         (8, 'H')
     )
     column = models.IntegerField(choices=column_options)
+    row = models.IntegerField()
     owner = models.ForeignKey(Profile, null=True) # FIXME remove after MVP
 
     class Meta:
         unique_together = ('hub', 'row', 'column',)
+
+    def __str__(self):
+        return 'h:{}-c:{}-r:{}'.format(self.hub, self.column, self.row)

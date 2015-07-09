@@ -39,11 +39,22 @@ def finished(request, akey):
 
 def poll(request, akey):
 	ip = get_ip(request)
+	to_open = "#" # character which is not a question mark
+	col = 1
+	row = 1 # placeholders
 	if Hub.objects.filter(secret_key = akey).exists():
 		this_hub = Hub.objects.get(secret_key = akey)
 		if this_hub.ip != ip:
 			print("Warning: IP of controller changed while lowering?")
 		print(" hub "+this_hub.secret_key+" polled us.")
+		if this_hub.waiting:
+			print("poll open data served")
+			this_hub.waiting = False
+			this_hub.save()
+			to_open = "?"
+			row = this_hub.waiting_row
+			col = this_hub.waiting_col
 	else:
 		print("Error: latch that doesn't exist claims it was lowered")
-	return render(request, "empty.html")
+	return render(request, "poll_response.html", {"to_open":to_open,
+	 							"col":col, "row":row})

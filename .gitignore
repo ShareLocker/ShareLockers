@@ -69,6 +69,7 @@ docs/_build/
 target/
 
 *.sqlite3
+*.sqlite3_old
 
 
 .direnv/

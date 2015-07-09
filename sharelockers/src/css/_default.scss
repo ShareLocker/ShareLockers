@@ -17,8 +17,8 @@ body{
 
 h1 , h2 , h3{
  font-family: mainFont , serif;
- 
 }
+
 h1{
   font-size: 5em;
 }
@@ -56,9 +56,11 @@ h1{
 }
 
 .section3{
-	  background-color: #1f8dd6l;
-    min-height: 6em;
+	  // background-color: #f8dd6l;
+    margin-bottom: 10em;
+    
 }
+
 .section3 h1{
   // background-color:RGBA(31, 141, 214, 1);
   padding: 0;
@@ -143,8 +145,6 @@ button:hover {
   text-align: center;
 }
 
-//virtual locker
-
  .locker-bank {
     margin-left: auto;
     margin-right: auto;
@@ -199,13 +199,9 @@ button:hover {
   display: none;
   transition: display 0.2s;
   opacity: 0.9;
-
-// .middle-box{
-//   border-right: 1px solid red;
-//   border-left: 1px solid #dfe0e1; 
-// }
+}
 
 .icon{
   font-size: 3em;
   color: black;
-}}
+  }

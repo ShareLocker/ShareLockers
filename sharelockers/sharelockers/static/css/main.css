@@ -785,8 +785,7 @@ h1 {
   max-height: 75vh; }
 
 .section3 {
-  background-color: #1f8dd6l;
-  min-height: 6em; }
+  margin-bottom: 10em; }
 
 .section3 h1 {
   padding: 0; }
@@ -904,9 +903,10 @@ button:hover {
   display: none;
   transition: display 0.2s;
   opacity: 0.9; }
-  .vpopout .icon {
-    font-size: 3em;
-    color: black; }
+
+.icon {
+  font-size: 3em;
+  color: black; }
 
 .login {
   text-align: center;

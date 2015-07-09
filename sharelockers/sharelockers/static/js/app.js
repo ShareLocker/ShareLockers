@@ -54,7 +54,8 @@ router.route('location/locker', function () {
 			showLockers(data);
 			lockerGenerator(arr, 8);
 			$(document).ready(function() {
-		            $('.vlocker').mouseover(function() {
+		            $('.vlocker').click(function() {
+						$(this).animate('flip');
 		                $(this).find('.vpopout').slideDown();
 		            });
 		            $('.vlocker').mouseleave(function() {

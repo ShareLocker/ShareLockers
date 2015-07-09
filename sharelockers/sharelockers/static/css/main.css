@@ -851,7 +851,6 @@ button:hover {
   width: 50%;
   text-align: center; }
 
-<<<<<<< HEAD
 .locker-bank {
   margin-left: auto;
   margin-right: auto;
@@ -905,10 +904,9 @@ button:hover {
   display: none;
   transition: display 0.2s;
   opacity: 0.9; }
-=======
-.icon {
-  font-size: 3em;
-  color: black; }
+  .vpopout .icon {
+    font-size: 3em;
+    color: black; }
 
 .login {
   text-align: center;
@@ -994,4 +992,3 @@ button:hover {
 
 .flaticon-wireless29:before {
   content: "\e011"; }
->>>>>>> 184e98407e275af120d79e584d5ff0022683403d

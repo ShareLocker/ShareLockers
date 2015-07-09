@@ -28,8 +28,8 @@ class LockerViewSet(viewsets.ModelViewSet):
 
         column = instance.column
         row = instance.row
-        hub = Hub.objects.get(pk=1)  # FIXME: Get the pk from the request
-        hub.open(column, row)  # FIXME: Get the col, row from the locker object        
+        hub = Hub.objects.get(secret_key=1)  # FIXME: Get the pk from the request
+        hub.open(column, row)  # FIXME: Get the col, row from the locker object
 
         return Response(serializer.data)
 

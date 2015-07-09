@@ -3,7 +3,8 @@ from rest_framework import viewsets, generics, permissions
 from lockers.models import Locker
 from profiles.models import Profile
 from hubs.models import Hub, Location
-from .serializers import LockerSerializer, UserSerializer, ProfileSerializer, HubSerializer
+from items.models import Item
+from .serializers import LockerSerializer, UserSerializer, ProfileSerializer, HubSerializer, OwnedItemsSerializer
 from django.contrib.auth.models import User
 
 
@@ -53,3 +54,8 @@ class HubViewSet(viewsets.ModelViewSet):
     """
     queryset = Hub.objects.all()
     serializer_class = HubSerializer
+
+
+class OwnedItemsViewSet(viewsets.ModelViewSet):
+    serializer_class = OwnedItemsSerializer
+    queryset = Item.objects.all()

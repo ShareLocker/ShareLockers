@@ -1,4 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Kadwa);
+/*@import url(http://fonts.googleapis.com/css?family=Kadwa);*/
 .container {
   padding: 0.5em;
   text-align: center;
@@ -26,13 +26,13 @@ h1 {
   background-repeat: no-repeat; }
 
 .section1 {
-  background-color: RGBA(36, 40, 56, 1);
+  background-color: #eee;
   height: 100vh;
   margin-top: 100vh; }
 
 .section2 {
-  background-color: #eee;
-  min-height: 6em; }
+  background-color: RGBA(36, 40, 56, 1);
+  max-height: 75vh; }
 
 .section3 {
   background-color: #1f8dd6l;

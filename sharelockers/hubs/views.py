@@ -35,3 +35,15 @@ def finished(request, akey):
 	else:
 		print("Error: latch that doesn't exist claims it was lowered")
 	return render(request, "empty.html")
+
+
+def poll(request, akey):
+	ip = get_ip(request)
+	if Hub.objects.filter(secret_key = akey).exists():
+		this_hub = Hub.objects.get(secret_key = akey)
+		if this_hub.ip != ip:
+			print("Warning: IP of controller changed while lowering?")
+		print(" hub "+this_hub.secret_key+" polled us.")
+	else:
+		print("Error: latch that doesn't exist claims it was lowered")
+	return render(request, "empty.html")

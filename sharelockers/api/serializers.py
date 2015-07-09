@@ -1,6 +1,7 @@
 from lockers.models import Locker
 from profiles.models import Profile
 from hubs.models import Hub
+from items.models import Item
 from django.contrib.auth.models import User
 from rest_framework import serializers
 
@@ -31,3 +32,10 @@ class HubSerializer(serializers.ModelSerializer):
     class Meta:
         model = Hub
         fields = ('id', 'name','location', 'ip', 'locker_set')
+
+
+class OwnedItemsSerializer(serializers.ModelSerializer):
+    item_set = ProfileSerializer(many=True, read_only=True)  # A nested list of 'locker' items.
+
+    class Meta:
+        model = Item

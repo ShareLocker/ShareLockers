@@ -1,5 +1,8 @@
 @import 'variables';
-@import url(http://fonts.googleapis.com/css?family=Kadwa);
+@font-face{
+  font-family: mainFont;
+  src: url(Kadwa-Regular.ttf);
+}
 
 .container{
   padding: 0.5em;
@@ -12,9 +15,12 @@ body{
   background-color: lightblue;
 }
 
+h1 , h2 , h3{
+ font-family: mainFont , serif;
+ 
+}
 h1{
- font-family: 'Kadwa', serif;
- font-size: 5em;
+  font-size: 5em;
 }
 
 .hero-container {
@@ -97,6 +103,7 @@ a{
   background-color: $register-button;
   border: none;
   font-size: 2em;
+  font-family: mainFont , serif;
  
 }
 
@@ -136,6 +143,7 @@ button:hover {
   text-align: center;
 }
 
+<<<<<<< HEAD
 
 //virtual locker
 
@@ -193,4 +201,14 @@ button:hover {
   display: none;
   transition: display 0.2s;
   opacity: 0.9;
+=======
+// .middle-box{
+//   border-right: 1px solid red;
+//   border-left: 1px solid #dfe0e1; 
+// }
+
+.icon{
+  font-size: 3em;
+  color: black;
+>>>>>>> 184e98407e275af120d79e584d5ff0022683403d
 }

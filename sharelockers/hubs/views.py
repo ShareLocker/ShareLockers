@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from ipware.ip import get_ip
 from hubs.models import Location, Hub
+from lockers.models import Locker
 
 
 def connected(request, akey):
@@ -17,6 +18,14 @@ def connected(request, akey):
 		loc = Location.objects.get(pk=1)
 		this_hub = Hub(name="blue", location=loc, secret_key=akey, ip=ip)
 		this_hub.save()
+		Nrow = 4
+		Ncol = 2
+		this_hub.Nrow = Nrow
+		this_hub.Ncol = Ncol
+		for i in range(Ncol):
+			for j in range(Nrow):
+				locker = Locker(hub = this_hub, row=j+1, column=i+1)
+				locker.save()
 	return render(request, "empty.html")
 
 

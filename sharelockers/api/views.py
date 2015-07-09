@@ -29,8 +29,9 @@ class LockerViewSet(viewsets.ModelViewSet):
 
         column = instance.column
         row = instance.row
-        hub = Hub.objects.get(secret_key=1)  # FIXME: Get the pk from the request
-        hub.open(column, row)  # FIXME: Get the col, row from the locker object
+        hub = Hub.objects.get(secret_key=1)
+        # hub.open(column, row) # open using Arduino as server
+        hub.poll_open(column, row) # open using Arduino as polling device
 
         return Response(serializer.data)
 

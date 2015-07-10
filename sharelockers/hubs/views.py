@@ -2,6 +2,8 @@ from django.shortcuts import render
 from ipware.ip import get_ip
 from hubs.models import Location, Hub
 from lockers.models import Locker
+from profiles.models import Profile
+from django.contrib.auth.models import User
 
 
 def connected(request, akey):
@@ -22,9 +24,18 @@ def connected(request, akey):
 		Ncol = 2
 		this_hub.Nrow = Nrow
 		this_hub.Ncol = Ncol
+		if Profile.objects.count() >= 1:
+			owning_profile = Profile.objects.all()[0]
+		else:
+			user = User(username="blank_user", password="pass")
+			user .save()
+			# user.set_password("pass")
+			# user.save() #
+			owning_profile = Profile(user=user, alias="blank_user", description="hello world")
+			owning_profile.save()
 		for i in range(Ncol):
 			for j in range(Nrow):
-				locker = Locker(hub = this_hub, row=j+1, column=i+1)
+				locker = Locker(hub = this_hub, row=j+1, column=i+1, owner=owning_profile)
 				locker.save()
 	return render(request, "empty.html")
 

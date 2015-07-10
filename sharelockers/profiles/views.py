@@ -15,6 +15,11 @@ def user_register(request):
         profile_form = ProfileForm(request.POST)
         if user_form.is_valid() and profile_form.is_valid():
             user = user_form.save()
+            # extra password thing
+			# password = user.password # The form doesn't know to call this special method on user.
+			# user.set_password(password)
+			# user.save() # You must call authenticate before login. :(
+            # end extra password thing
             profile = profile_form.save(commit=False)
             profile.user = user
             profile.save()
@@ -29,4 +34,3 @@ def user_register(request):
     return render(request, "profiles/register.html", {'user_form': user_form,
                                                       'profile_form': profile_form,
                                                       })
-

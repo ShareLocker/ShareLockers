@@ -33,8 +33,8 @@ def connected(request, akey):
 			# user.save() #
 			owning_profile = Profile(user=user, alias="blank_user", description="hello world")
 			owning_profile.save()
-		for i in range(Ncol):
-			for j in range(Nrow):
+		for j in range(Nrow):
+			for i in range(Ncol):
 				locker = Locker(hub = this_hub, row=j+1, column=i+1, owner=owning_profile)
 				locker.save()
 	return render(request, "empty.html")

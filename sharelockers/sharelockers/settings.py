@@ -110,7 +110,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-LOGIN_REDIRECT_URL = '/home/'
+LOGIN_REDIRECT_URL = '/#/dashboard'
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),

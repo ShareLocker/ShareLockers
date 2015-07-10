@@ -17,7 +17,7 @@ def connected(request, akey):
 		if Location.objects.count() == 0:
 			loc1 = Location(description="place_holder", latitude=0.0, longitude=0.0)
 			loc1.save()
-		loc = Location.objects.get(pk=1)
+		loc = Location.objects.all()[0]
 		this_hub = Hub(name="blue", location=loc, secret_key=akey, ip=ip)
 		this_hub.save()
 		Nrow = 4

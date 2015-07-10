@@ -12,6 +12,7 @@ $(window).scroll(function() {
 },{"jquery":"jquery"}],2:[function(require,module,exports){
 
 },{}],3:[function(require,module,exports){
+<<<<<<< HEAD
 <<<<<<< HEAD:sharelockers/static/js/app.js
 "use strict";var $=require("jquery"),_=require("underscore"),views=require("views"),router=require("../router"),show=require("../show");router.route("",function(){show("home"),$.ajax({method:"GET",url:"/api/profiles/"}).done(function(e){console.log(e)})});
 
@@ -31,6 +32,10 @@ $(window).scroll(function() {
 "use strict";var Backbone=require("backbone"),_=require("underscore"),SortedRouter=Backbone.Router.extend({sortedRoutes:{},route:function(){for(var e=arguments.length-1,t=arguments[arguments.length-1],r=0;e>r;++r)this.sortedRoutes[arguments[r]]=t},init:function(){var e=-1e6,t=this;_.chain(_.pairs(this.sortedRoutes)).sortBy(function(t){var r=t[0];return r.indexOf("*")>=0?e:-r.split(":").length}).each(function(e){Backbone.Router.prototype.route.apply(t,e)}),Backbone.history.start()}});module.exports=SortedRouter;
 
 =======
+=======
+arguments[4][2][0].apply(exports,arguments)
+},{"dup":2}],4:[function(require,module,exports){
+>>>>>>> 4a3417439ce5954a4b3c089a7ea931b6c93b311b
 'use strict';
 
 var $ = require('jquery');
@@ -52,7 +57,7 @@ router.route('', function () {
 
 
 });
-},{"../router":7,"../show":8,"jquery":"jquery","underscore":"underscore","views":"views"}],4:[function(require,module,exports){
+},{"../router":9,"../show":10,"jquery":"jquery","underscore":"underscore","views":"views"}],5:[function(require,module,exports){
 'use strict';
 
 var $ = require('jquery');
@@ -149,7 +154,9 @@ router.route('location/locker', function () {
 		}
 
 });
-},{"../lockerGenerator":6,"../router":7,"../show":8,"jquery":"jquery","underscore":"underscore","views":"views"}],5:[function(require,module,exports){
+},{"../lockerGenerator":8,"../router":9,"../show":10,"jquery":"jquery","underscore":"underscore","views":"views"}],6:[function(require,module,exports){
+arguments[4][2][0].apply(exports,arguments)
+},{"dup":2}],7:[function(require,module,exports){
 // TODO: put initialization logic here
 'use strict';
 
@@ -159,11 +166,11 @@ var router = require('./router');
 require('./animations');
 
 // Require all of our controllers
-({"controllers":({"dashboard":require("./controllers/dashboard.js"),"home":require("./controllers/home.js"),"locker-list":require("./controllers/locker-list.js")})});
+({"controllers":({"buy":require("./controllers/buy.js"),"dashboard":require("./controllers/dashboard.js"),"home":require("./controllers/home.js"),"locker-list":require("./controllers/locker-list.js"),"sell":require("./controllers/sell.js")})});
 
 // Start the router
 router.init();
-},{"./animations":1,"./controllers/dashboard.js":2,"./controllers/home.js":3,"./controllers/locker-list.js":4,"./router":7}],6:[function(require,module,exports){
+},{"./animations":1,"./controllers/buy.js":2,"./controllers/dashboard.js":3,"./controllers/home.js":4,"./controllers/locker-list.js":5,"./controllers/sell.js":6,"./router":9}],8:[function(require,module,exports){
 'use strict';
 
 var $ = require('jquery');
@@ -191,13 +198,13 @@ module.exports = function (arr, lockernumbers) {
 	};
 
 };
-},{"jquery":"jquery","underscore":"underscore","views":"views"}],7:[function(require,module,exports){
+},{"jquery":"jquery","underscore":"underscore","views":"views"}],9:[function(require,module,exports){
 'use strict';
 
 var SortedRouter = require('./sorted-router');
 
 module.exports = new SortedRouter();
-},{"./sorted-router":9}],8:[function(require,module,exports){
+},{"./sorted-router":11}],10:[function(require,module,exports){
 'use strict';
 
 var $ = require('jquery');
@@ -211,7 +218,7 @@ module.exports = function (templateName, model) {
   
   $('.main-content').html(hydratedHTML);
 };
-},{"jquery":"jquery","underscore":"underscore","views":"views"}],9:[function(require,module,exports){
+},{"jquery":"jquery","underscore":"underscore","views":"views"}],11:[function(require,module,exports){
 'use strict';
  
 var Backbone = require('backbone');
@@ -258,8 +265,12 @@ var SortedRouter = Backbone.Router.extend({
 });
  
 module.exports = SortedRouter;
+<<<<<<< HEAD
 >>>>>>> frontend:sharelockers/sharelockers/static/js/app.js
 },{"backbone":"backbone","underscore":"underscore"}]},{},[5])
+=======
+},{"backbone":"backbone","underscore":"underscore"}]},{},[7])
+>>>>>>> 4a3417439ce5954a4b3c089a7ea931b6c93b311b
 
 
 //# sourceMappingURL=app.js.map

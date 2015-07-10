@@ -5,8 +5,11 @@ var _ = require('underscore');
 var views = require('views');
 var router = require('../router');
 var show = require('../show');
+var lockerGenerator = require('../lockerGenerator');
 
 router.route('location/locker', function () {
+	var arr = [{title : 'teddy', details : 'A Really Big Teddy Bear'}, {title : 'car', details : 'A Super Fast car'}, {title : 'coat', details : 'A leather coat'}, {title : 'flowers', details : '1,000 Roses'}, {title : 'shoes', details : 'Air Jordans, size 9'}, {title : 'marbles', details : 'a million marbles'}, {title : 'liver', details : 'one human liver'}, {title : 'drugs', details : 'so many drugs'} ];
+	
 		
 		$.ajax({
 			method: 'GET', 
@@ -14,6 +17,16 @@ router.route('location/locker', function () {
   		}).done(function (data){
 			console.log(data);
 			showLockers(data);
+			lockerGenerator(arr, 8);
+			$(document).ready(function() {
+		            $('.vlocker').click(function() {
+						$(this).animate('flip');
+		                $(this).find('.vpopout').show('duration fast');
+		            });
+		            $('.vlocker').mouseleave(function() {
+		                $(this).find('.vpopout').hide('duration fast');
+		            });
+		    });
 		});
 		
 		$.ajax({
@@ -43,7 +56,9 @@ router.route('location/locker', function () {
 		  		}).done(function (data){
 					console.log(data);
 				});
-		})
+		});
+		
+		
 		
 
 
@@ -57,6 +72,8 @@ router.route('location/locker', function () {
 			$('.main-content').html(lockerHTML);
 			return data;
 		}
+		
+		
 		
 		
 		function getCookie(name) {

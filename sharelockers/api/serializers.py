@@ -12,12 +12,14 @@ class LockerSerializer(serializers.ModelSerializer):  # FIXME: add Hyperlinked
 
     def get_actions(self, obj):
         locker = obj
-        if locker.owner is None:
-            return ['can_stock']
-        elif locker.owner == self.context['request'].user:
-            return ['can_open']
-        else:
-            return ['can_buy']
+        if locker.item_set.all(): # Has item(s)
+            if locker.item_set.first().owner.user is None:  # FIXME: Change related name for item_set or make 1:1
+                return ['can_stock']  # FIXME: Is this needed
+            elif locker.item_set.first().owner.user == self.context['request'].user:
+                return ['can_open']
+            else:
+                return ['can_buy']
+        return ['can_stock', 'can_open']
 
     class Meta:
         model = Locker

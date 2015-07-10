@@ -873,8 +873,9 @@ button:hover {
   right: 1px;
   bottom: 1px;
   left: 1px;
-  background-color: #70AB8F;
-  border-radius: .5em; }
+  background-color: #5081FC;
+  border-radius: .5em;
+  box-shadow: 2px 2px 2px 2px #0094f7; }
 
 .lockerTitle {
   color: #eee;
@@ -903,11 +904,11 @@ button:hover {
   position: relative;
   width: 160%;
   height: 160%;
-  background-color: lightgreen;
+  background-color: #0445EA;
   z-index: 1000;
   display: none;
   transition: display 0.2s;
-  opacity: 0.9;
+  opacity: 0.95;
   border-radius: .5em; }
 
 .icon {

@@ -9,6 +9,10 @@ from rest_framework.fields import SerializerMethodField
 
 class LockerSerializer(serializers.ModelSerializer):  # FIXME: add Hyperlinked
     actions = SerializerMethodField()
+    local_code = SerializerMethodField()
+
+    def get_local_code(self, obj):
+        return obj.local_code()
 
     def get_actions(self, obj):
         locker = obj
@@ -23,7 +27,7 @@ class LockerSerializer(serializers.ModelSerializer):  # FIXME: add Hyperlinked
 
     class Meta:
         model = Locker
-        fields = ('id', 'hub', 'row', 'column', 'owner', 'actions')
+        fields = ('id', 'hub', 'row', 'column', 'owner', 'actions', 'local_code')
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):

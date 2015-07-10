@@ -17,7 +17,7 @@ def connected(request, akey):
 		if Location.objects.count() == 0:
 			loc1 = Location(description="place_holder", latitude=0.0, longitude=0.0)
 			loc1.save()
-		loc = Location.objects.get(pk=1)
+		loc = Location.objects.all()[0]
 		this_hub = Hub(name="blue", location=loc, secret_key=akey, ip=ip)
 		this_hub.save()
 		Nrow = 4
@@ -33,8 +33,8 @@ def connected(request, akey):
 			# user.save() #
 			owning_profile = Profile(user=user, alias="blank_user", description="hello world")
 			owning_profile.save()
-		for i in range(Ncol):
-			for j in range(Nrow):
+		for j in range(Nrow):
+			for i in range(Ncol):
 				locker = Locker(hub = this_hub, row=j+1, column=i+1, owner=owning_profile)
 				locker.save()
 	return render(request, "empty.html")

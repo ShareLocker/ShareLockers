@@ -1,6 +1,7 @@
 from django.db import models
 from items.models import Item
 from profiles.models import Profile
+from lockers.models import Locker
 
 
 class Purchase(models.Model):
@@ -10,3 +11,15 @@ class Purchase(models.Model):
     price = models.DecimalField(max_digits=5, decimal_places=2)
     item = models.ForeignKey(Item)
     payment_method = models.CharField(max_length=255)
+
+class Unlock(models.Model):
+    profile = models.ForeignKey(Profile)
+    waiting = models.BooleanField(default=True)
+    time = models.DateTimeField(auto_now_add=True)
+    locker = models.ForeignKey(Locker, null=True) # FIXME make this False
+
+    def __str__(self):
+        status = '+'
+        if self.waiting:
+            status = '-'
+        return '{}  {}@{} by {}'.format(status, self.locker, self.time, self.profile)

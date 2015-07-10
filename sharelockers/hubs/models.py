@@ -1,6 +1,6 @@
 from django.db import models
 from profiles.models import Profile
-
+#from transactions.models import Unlock  # FIXME: circular dependency
 
 class Location(models.Model):
     description = models.CharField(max_length=255)

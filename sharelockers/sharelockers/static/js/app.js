@@ -9,16 +9,6 @@ $(window).scroll(function() {
   }
 });
 
-// $(window).scroll(function() {
-//   if ($(this).scrollTop() > 1){  
-//     $('.my-page-header').addClass("sticky");
-//   } else if >1 {
-//     $('.my-page-header').removeClass("sticky");
-//   }
-//   else{
-    
-//   }
-// });
 },{"jquery":"jquery"}],2:[function(require,module,exports){
 
 },{}],3:[function(require,module,exports){

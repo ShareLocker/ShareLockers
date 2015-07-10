@@ -17,7 +17,10 @@
 
 
 <div>
-    <h4>You are logged in as {{ user }}.
+  
+  <!--Use the following tag for the dashboard only-->
+    <h4>
+      You are logged in as {{ user }}.
         {% if user.is_anonymous %}
             <a href="{% url 'django.contrib.auth.views.login' %}"> Login</a>
         {% else %}

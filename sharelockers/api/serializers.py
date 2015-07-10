@@ -9,6 +9,7 @@ from rest_framework.fields import SerializerMethodField
 
 class LockerSerializer(serializers.ModelSerializer):  # FIXME: add Hyperlinked
     actions = SerializerMethodField()
+    item = SerializerMethodField()
 
     def get_actions(self, obj):
         locker = obj
@@ -21,9 +22,17 @@ class LockerSerializer(serializers.ModelSerializer):  # FIXME: add Hyperlinked
                 return ['can_buy']
         return ['can_stock', 'can_open']
 
+    def get_item(self, obj):
+        locker = obj
+        item = None
+        if locker.item_set.all().exists():
+            item = locker.item_set.first()
+        return ItemSerializer(instance=item)
+
+
     class Meta:
         model = Locker
-        fields = ('id', 'hub', 'row', 'column', 'owner', 'actions')
+        fields = ('id', 'hub', 'row', 'column', 'owner', 'actions', 'item')
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -55,6 +64,11 @@ class OwnedItemsSerializer(serializers.ModelSerializer):
             return ['can_stock', 'can_delete']
         else:
             return ['can_open']
+
+    class Meta:
+        model = Item
+
+class ItemSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Item

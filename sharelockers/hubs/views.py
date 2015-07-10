@@ -75,6 +75,6 @@ def poll(request, akey):
 			row = this_hub.waiting_row
 			col = this_hub.waiting_col
 	else:
-		print("Error: latch that doesn't exist claims it was lowered")
+		print("Error: controller that doesn't exist polled us")
 	return render(request, "poll_response.html", {"to_open":to_open,
 	 							"col":col, "row":row})

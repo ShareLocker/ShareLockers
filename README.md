@@ -1,3 +1,24 @@
+# Instructions for Development Network
+
+1) install Node JS because it comes with npm
+
+https://nodejs.org/
+
+2) install localtunnel
+
+    $ npm install -g localtunnel
+
+3) do the runserver command as follows:
+
+    $ python manage.py runserver 0.0.0.0:8000
+
+4) open up a new terminal window and start the local tunnel
+
+    $ lt --port 8000 --subdomain sharelockers
+
+5) plug in the Arduino / RasPi
+
+
 # Welcome to your new Django single-page app project!
 
 This template will ease your way in building a single-page app backed by a Django API.

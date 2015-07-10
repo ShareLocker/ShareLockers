@@ -3,7 +3,8 @@ from rest_framework import viewsets, generics, permissions
 from lockers.models import Locker
 from profiles.models import Profile
 from hubs.models import Hub, Location
-from .serializers import LockerSerializer, UserSerializer, ProfileSerializer, HubSerializer
+from items.models import Item
+from .serializers import LockerSerializer, UserSerializer, ProfileSerializer, HubSerializer, OwnedItemsSerializer
 from django.contrib.auth.models import User
 
 
@@ -28,8 +29,9 @@ class LockerViewSet(viewsets.ModelViewSet):
 
         column = instance.column
         row = instance.row
-        hub = Hub.objects.get(pk=1)  # FIXME: Get the pk from the request
-        hub.open(column, row)  # FIXME: Get the col, row from the locker object        
+        hub = Hub.objects.get(secret_key=1)
+        # hub.open(column, row) # open using Arduino as server
+        hub.poll_open(column, row) # open using Arduino as polling device
 
         return Response(serializer.data)
 
@@ -53,3 +55,8 @@ class HubViewSet(viewsets.ModelViewSet):
     """
     queryset = Hub.objects.all()
     serializer_class = HubSerializer
+
+
+class OwnedItemsViewSet(viewsets.ModelViewSet):
+    serializer_class = OwnedItemsSerializer
+    queryset = Item.objects.all()

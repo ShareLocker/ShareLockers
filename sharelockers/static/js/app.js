@@ -162,10 +162,11 @@ module.exports = function (arr) {
 
 	while ( i < arr.length) {
 
-		var lockerTitle= arr[i].id;
+		var lockerTitle= arr[i].local_code;
 		var lockerActions= arr[i].actions;
+		
 		if (lockerActions[0] === 'can_stock'){
-		var squareHtml = '<div class="vlocker"><span class="card animated"><span class="lockerTitle">EMPTY</span><div class="vpopout"><span class="lockerDetails">EMPTY</span><button class="stock-button">STOCK</button></div></div>';
+		var squareHtml = '<div class="vlocker"><span class="card animated"><span class="lockerTitle">'+ lockerTitle +'<br>EMPTY</span><div class="vpopout"><span class="lockerDetails">EMPTY</span><button class="stock-button">STOCK</button></div></div>';
 		console.log(squareHtml);
 		$('.locker-bank').append(squareHtml);		
 		}

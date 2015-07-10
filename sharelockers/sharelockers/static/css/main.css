@@ -845,6 +845,7 @@ button:hover {
   text-align: center; }
 
 .locker-header {
+  font-size: 2em;
   margin-left: auto;
   margin-right: auto;
   width: 50%;
@@ -862,7 +863,8 @@ button:hover {
   position: relative;
   display: block;
   float: left;
-  box-sizing: border-box; }
+  box-sizing: border-box;
+  overflow: visible; }
 
 .card {
   display: block;
@@ -890,19 +892,23 @@ button:hover {
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%); }
 
-.vpopout {
-  position: fixed;
-  top: 50%;
+.buy-button {
+  position: absolute;
+  top: 90%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-  width: 40%;
-  height: 60%;
+  transform: translate(-50%, -50%); }
+
+.vpopout {
+  position: relative;
+  width: 160%;
+  height: 160%;
   background-color: lightgreen;
   z-index: 1000;
   display: none;
   transition: display 0.2s;
-  opacity: 0.9; }
+  opacity: 0.9;
+  border-radius: .5em; }
 
 .icon {
   font-size: 3em;

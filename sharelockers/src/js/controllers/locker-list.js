@@ -21,7 +21,7 @@ router.route('location/locker', function () {
 			$(document).ready(function() {
 		            $('.vlocker').click(function() {
 						$(this).animate('flip');
-		                $(this).find('.vpopout').slideDown();
+		                $(this).find('.vpopout').show('duration fast');
 		            });
 		            $('.vlocker').mouseleave(function() {
 		                $(this).find('.vpopout').hide('duration fast');

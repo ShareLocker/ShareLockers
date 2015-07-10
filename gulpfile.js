@@ -85,7 +85,7 @@ gulp.task('js', function () {
   try {
     stream = browserify('./src/js/init.js', { debug: true })
     .transform('bulkify')
-    .transform({ global: true }, 'uglifyify')
+    //.transform({ global: true }, 'uglifyify')
     .external('views')
     .external('jquery')
     .external('underscore')

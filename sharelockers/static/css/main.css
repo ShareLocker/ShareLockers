@@ -1,4 +1,7 @@
-/*@import url(http://fonts.googleapis.com/css?family=Kadwa);*/
+@font-face {
+  font-family: mainFont;
+  src: url(Kadwa-Regular.ttf); }
+
 .container {
   padding: 0.5em;
   text-align: center;
@@ -8,8 +11,10 @@ body {
   min-height: 4em;
   background-color: lightblue; }
 
+h1, h2, h3 {
+  font-family: mainFont , serif; }
+
 h1 {
-  font-family: 'Kadwa', serif;
   font-size: 5em; }
 
 .hero-container {
@@ -35,8 +40,9 @@ h1 {
   max-height: 75vh; }
 
 .section3 {
-  background-color: #1f8dd6l;
-  min-height: 6em; }
+  padding: 0.5em;
+  text-align: center;
+  margin-bottom: 23em; }
 
 .section3 h1 {
   padding: 0; }
@@ -70,7 +76,8 @@ a {
 .register-btn {
   background-color: #E25D3A;
   border: none;
-  font-size: 2em; }
+  font-size: 2em;
+  font-family: mainFont , serif; }
 
 button {
   border: none;
@@ -95,7 +102,72 @@ button:hover {
   text-align: center; }
 
 .locker-header {
+  font-size: 2em;
   margin-left: auto;
   margin-right: auto;
   width: 50%;
   text-align: center; }
+
+.locker-bank {
+  margin-left: auto;
+  margin-right: auto;
+  width: 30%; }
+
+.vlocker {
+  width: 50%;
+  padding-bottom: 50%;
+  font-size: 1em;
+  position: relative;
+  display: block;
+  float: left;
+  box-sizing: border-box;
+  overflow: visible; }
+
+.card {
+  display: block;
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  bottom: 1px;
+  left: 1px;
+  background-color: #5081FC;
+  border-radius: .5em;
+  box-shadow: 2px 2px 2px 2px #0094f7; }
+
+.lockerTitle {
+  color: #eee;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); }
+
+.lockerDetails {
+  color: #eee;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); }
+
+.buy-button {
+  position: absolute;
+  top: 90%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); }
+
+.vpopout {
+  position: relative;
+  width: 160%;
+  height: 160%;
+  background-color: #0445EA;
+  z-index: 1000;
+  display: none;
+  transition: display 0.2s;
+  opacity: 0.95;
+  border-radius: .5em; }
+
+.icon {
+  font-size: 3em;
+  color: black; }

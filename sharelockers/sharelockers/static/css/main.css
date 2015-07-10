@@ -847,6 +847,7 @@ button:hover {
   text-align: center; }
 
 .locker-header {
+  font-size: 2em;
   margin-left: auto;
   margin-right: auto;
   width: 50%;
@@ -864,7 +865,8 @@ button:hover {
   position: relative;
   display: block;
   float: left;
-  box-sizing: border-box; }
+  box-sizing: border-box;
+  overflow: visible; }
 
 .card {
   display: block;
@@ -873,8 +875,9 @@ button:hover {
   right: 1px;
   bottom: 1px;
   left: 1px;
-  background-color: #70AB8F;
-  border-radius: .5em; }
+  background-color: #5081FC;
+  border-radius: .5em;
+  box-shadow: 2px 2px 2px 2px #0094f7; }
 
 .lockerTitle {
   color: #eee;
@@ -892,19 +895,23 @@ button:hover {
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%); }
 
-.vpopout {
-  position: fixed;
-  top: 50%;
+.buy-button {
+  position: absolute;
+  top: 90%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-  width: 40%;
-  height: 60%;
-  background-color: lightgreen;
+  transform: translate(-50%, -50%); }
+
+.vpopout {
+  position: relative;
+  width: 160%;
+  height: 160%;
+  background-color: #0445EA;
   z-index: 1000;
   display: none;
   transition: display 0.2s;
-  opacity: 0.9; }
+  opacity: 0.95;
+  border-radius: .5em; }
 
 .icon {
   font-size: 3em;

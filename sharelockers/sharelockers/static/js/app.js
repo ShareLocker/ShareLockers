@@ -57,7 +57,7 @@ router.route('location/locker', function () {
 			$(document).ready(function() {
 		            $('.vlocker').click(function() {
 						$(this).animate('flip');
-		                $(this).find('.vpopout').slideDown();
+		                $(this).find('.vpopout').show('duration fast');
 		            });
 		            $('.vlocker').mouseleave(function() {
 		                $(this).find('.vpopout').hide('duration fast');
@@ -161,7 +161,7 @@ module.exports = function (arr, lockernumbers) {
 		var lockerTitle= arr[i].title;
 		var lockerDetails= arr[i].details;
 
-		var squareHtml = '<div class="vlocker"><span class="card animated"><span class="lockerTitle">'+ lockerTitle +'</span><div class="vpopout"><span class="lockerDetails">'+ lockerDetails+'</span></div></div>';
+		var squareHtml = '<div class="vlocker"><span class="card animated"><span class="lockerTitle">'+ lockerTitle +'</span><div class="vpopout"><span class="lockerDetails">'+ lockerDetails+'</span><button class="buy-button">Buy</button></div></div>';
 		console.log(squareHtml);
 		$('.locker-bank').append(squareHtml);		
 

@@ -74,6 +74,10 @@ def poll(request, akey):
 			to_open = "?"
 			row = this_hub.waiting_row
 			col = this_hub.waiting_col
+			# TODO: Set Unlock transaction's waiting attribute to False to indicate success
+            
+
+            # TODO: Set up queueing for multiple unlocks (check waiting Unlock objects rather than using hub.waiting_col, etc)
 	else:
 		print("Error: controller that doesn't exist polled us")
 	return render(request, "poll_response.html", {"to_open":to_open,

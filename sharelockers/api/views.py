@@ -4,7 +4,9 @@ from lockers.models import Locker
 from profiles.models import Profile
 from hubs.models import Hub, Location
 from items.models import Item
-from .serializers import LockerSerializer, UserSerializer, ProfileSerializer, HubSerializer, OwnedItemsSerializer
+from transactions.models import Unlock, Purchase
+from .serializers import LockerSerializer, UserSerializer, ProfileSerializer,\
+    HubSerializer, OwnedItemsSerializer, UnlockSerializer, PurchaseSerializer
 from django.contrib.auth.models import User
 
 
@@ -57,6 +59,21 @@ class HubViewSet(viewsets.ModelViewSet):
     serializer_class = HubSerializer
 
 
-class OwnedItemsViewSet(viewsets.ModelViewSet):
+class OwnedItemViewSet(viewsets.ModelViewSet):
     serializer_class = OwnedItemsSerializer
     queryset = Item.objects.all()
+
+class UnlockViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows hubs to be viewed or edited.
+    """
+    queryset = Unlock.objects.all()
+    serializer_class = UnlockSerializer
+
+class PurchaseViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows hubs to be viewed or edited.
+    """
+    queryset = Purchase.objects.all()
+    serializer_class = PurchaseSerializer
+

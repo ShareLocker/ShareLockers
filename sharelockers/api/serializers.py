@@ -2,6 +2,7 @@ from lockers.models import Locker
 from profiles.models import Profile
 from hubs.models import Hub
 from items.models import Item
+from transactions.models import Purchase, Unlock
 from django.contrib.auth.models import User
 from rest_framework import serializers
 from rest_framework.fields import SerializerMethodField
@@ -75,3 +76,13 @@ class ItemSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Item
+
+class UnlockSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Unlock
+
+class PurchaseSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Purchase

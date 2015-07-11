@@ -10,7 +10,7 @@ class Purchase(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     price = models.DecimalField(max_digits=5, decimal_places=2)
     item = models.ForeignKey(Item)
-    payment_method = models.CharField(max_length=255)
+    payment_method = models.CharField(max_length=255, default='CC')
 
 class Unlock(models.Model):
     profile = models.ForeignKey(Profile)

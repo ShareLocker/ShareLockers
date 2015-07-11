@@ -89,3 +89,9 @@ class PurchaseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Purchase
         # TODO: Add fields here?
+
+class MakePurchaseSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Purchase
+        fields = ('item', 'buyer')

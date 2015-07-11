@@ -6,7 +6,8 @@ from hubs.models import Hub, Location
 from items.models import Item
 from transactions.models import Unlock, Purchase
 from .serializers import LockerSerializer, UserSerializer, ProfileSerializer,\
-    HubSerializer, OwnedItemsSerializer, UnlockSerializer, PurchaseSerializer
+    HubSerializer, OwnedItemsSerializer, UnlockSerializer, PurchaseSerializer,\
+    MakePurchaseSerializer
 from django.contrib.auth.models import User
 
 
@@ -106,5 +107,53 @@ class PurchaseViewSet(viewsets.ModelViewSet):
     API endpoint that allows purchases to be viewed or edited.
     """
     queryset = Purchase.objects.all()
-    serializer_class = PurchaseSerializer
+    # serializer_class = MakePurchaseSerializer
+    def get_serializer_class(self):
+        if self.action == 'create':
+            return MakePurchaseSerializer
+        return PurchaseSerializer # for list/retrieve/destroy/update.
 
+
+    """
+    "price": null,
+    "payment_method": "",
+    "buyer": null,
+    "seller": null,
+    "item": null
+
+    +buyer = models.ForeignKey(Profile, related_name="bought_item", related_query_name="bought_item_set")
+    +seller = models.ForeignKey(Profile, related_name="sold_item", related_query_name="sold_item_set")
+    +date = models.DateTimeField(auto_now_add=True)
+    +price = models.DecimalField(max_digits=5, decimal_places=2)
+    +item = models.ForeignKey(Item)
+    |payment_method = models.CharField(max_length=255)
+    """
+
+    def perform_create(self, serializer):
+        print('Validating Purchase')
+        # FIXME: There must be a better way to do the following authentication
+        # print(serializer.data)
+        buyer_id = serializer.data['profile']  # FIXME: How to get this from session?
+        buyer = Profile.objects.get(id=buyer_id)
+        item_id = serializer.data['item']
+        item = Item.objects.get(id=item_id)
+        seller = item.owner
+        locker = item.locker
+        price = item.price  # TODO: Add payment method
+        serializer_data = {'buyer': buyer,
+                           'seller': seller,
+                           'price': price,
+                           'item': item,
+                           }
+        serializer = self.get_serializer(data=serializer_data)
+        # Validations
+        if buyer == seller:
+            print("You can't buy {}, because you already own it".format(item))
+            return   # FIXME: How to provide error code in json?
+
+        # Change owners
+        print("Transferring ownership of item {} from {} to {}".format(item, seller, buyer))
+        item.owner = buyer
+        item.save()
+
+        return super().perform_create(serializer)

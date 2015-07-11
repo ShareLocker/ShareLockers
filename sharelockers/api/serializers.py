@@ -50,6 +50,7 @@ class LockerSerializer(serializers.ModelSerializer):  # FIXME: add Hyperlinked
                 return ['can_open']
             else:
                 return ['can_buy']
+                # return str(self.context['request'].user)
         return ['can_stock', 'can_open']
 
     class Meta:
@@ -69,7 +70,7 @@ class HubSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Hub
-        fields = ('id', 'name', 'location', 'ip', 'locker_set')
+        fields = ('id', 'name', 'location', 'ip', 'waiting', 'waiting_row', 'waiting_col', 'locker_set')
 
 
 class ItemSerializer(serializers.ModelSerializer):
@@ -81,8 +82,10 @@ class UnlockSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Unlock
+        fields = ('id', 'waiting', 'time', 'profile', 'locker')
 
 class PurchaseSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Purchase
+        # TODO: Add fields here?

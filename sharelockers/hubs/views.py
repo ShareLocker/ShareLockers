@@ -4,6 +4,7 @@ from hubs.models import Location, Hub
 from lockers.models import Locker
 from profiles.models import Profile
 from django.contrib.auth.models import User
+from transactions.models import Unlock
 
 
 def connected(request, akey):
@@ -79,13 +80,14 @@ def poll(request, akey):
             print(" -- Poll open data served for hub: {} col: {}, row {}".format(
                 this_hub, row, col))
 
-            # # Set Unlock transaction's waiting attribute to False to indicate success
-            # unlock = Unlock.objects.last()
-            # # FIXME: This will only honor the most recent Unlock since the last poll
-            #
-            # unlock.waiting = False
-            #
-            # # TODO: Set up queueing for multiple unlocks (check waiting Unlock objects rather than using hub.waiting_col, etc)
+            # Set Unlock transaction's waiting attribute to False to indicate success
+            unlock = Unlock.objects.last()
+            # FIXME: This will only honor the most recent Unlock since the last poll
+            unlock.waiting = False
+            unlock.save()
+            print('Unlock action {} is no longer waiting.'.format(unlock))
+            # TODO: Set up queueing for multiple unlocks (check waiting Unlock objects rather than using hub.waiting_col, etc)
+
         else:
             print(' -- No action to take.')
     else:

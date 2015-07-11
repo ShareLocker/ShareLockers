@@ -19,7 +19,7 @@ class Unlock(models.Model):
     locker = models.ForeignKey(Locker, null=True) # FIXME make this False
 
     def __str__(self):
-        status = '+'
+        status = '+'  # '+' indicates completed, '-' is waiting
         if self.waiting:
             status = '-'
         return '{}  {}@{} by {}'.format(status, self.locker, self.time, self.profile)

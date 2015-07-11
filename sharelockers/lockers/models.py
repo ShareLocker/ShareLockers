@@ -23,7 +23,7 @@ class Locker(models.Model):
         unique_together = ('hub', 'row', 'column',)
 
     def __str__(self):
-        return 'h:{}-c:{}-r:{}'.format(self.hub, self.column, self.row)
+        return 'h:{}-c:{}-r:{} :: {}'.format(self.hub, self.column, self.row, self.item_set.first())
 
     def local_code(self):
         ret_st = ""

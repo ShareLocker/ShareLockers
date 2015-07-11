@@ -65,14 +65,45 @@ class OwnedItemViewSet(viewsets.ModelViewSet):
 
 class UnlockViewSet(viewsets.ModelViewSet):
     """
-    API endpoint that allows hubs to be viewed or edited.
+    API endpoint that allows unlock actions to be viewed or edited.
     """
     queryset = Unlock.objects.all()
     serializer_class = UnlockSerializer
 
+    def perform_create(self, serializer):
+        print('Validating Unlock')
+        # FIXME: There must be a better way to do the following authentication
+        # print(serializer.data)
+        opener_id = serializer.data['profile']
+        opener = Profile.objects.get(id=opener_id)
+        locker_id = serializer.data['locker']
+        locker = Locker.objects.get(id=locker_id)
+        item = locker.item_set.first() # FIXME: Do we want to allow multiple items?
+        owner = item.owner
+
+        # Logged in button-pusher  == locker.item.owner
+        if opener != owner:
+            print("You don't have access to this item, it belongs to {}".format(owner))
+            return   # FIXME: How to provide error code in json?
+
+        # Set hub waiting/row/column for next time the hub polls the server
+        print("Setting up for locker {} to open when server is polled".format(locker.local_code()))
+        hub = locker.hub
+        hub.waiting = True
+        hub.waiting_col = locker.column
+        hub.waiting_row = locker.row
+        hub.save()
+
+        # Destock the item from the locker
+        print("Destocking item {} from locker {}".format(item, item.locker))
+        item.locker = None
+        item.save()
+
+        return super().perform_create(serializer)
+
 class PurchaseViewSet(viewsets.ModelViewSet):
     """
-    API endpoint that allows hubs to be viewed or edited.
+    API endpoint that allows purchases to be viewed or edited.
     """
     queryset = Purchase.objects.all()
     serializer_class = PurchaseSerializer

@@ -87,7 +87,7 @@ def poll(request, akey):
             unlock.save()
             print('Unlock action {} is no longer waiting.'.format(unlock))
             # TODO: Set up queueing for multiple unlocks (check waiting Unlock objects rather than using hub.waiting_col, etc)
-
+            # FIXME: It should also verify that the locker of the Unlock action is in this hub
         else:
             print(' -- No action to take.')
     else:

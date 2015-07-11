@@ -2,6 +2,8 @@ from django.shortcuts import render
 from ipware.ip import get_ip
 from hubs.models import Location, Hub
 from lockers.models import Locker
+from profiles.models import Profile
+from django.contrib.auth.models import User
 
 
 def connected(request, akey):
@@ -15,16 +17,25 @@ def connected(request, akey):
 		if Location.objects.count() == 0:
 			loc1 = Location(description="place_holder", latitude=0.0, longitude=0.0)
 			loc1.save()
-		loc = Location.objects.get(pk=1)
+		loc = Location.objects.all()[0]
 		this_hub = Hub(name="blue", location=loc, secret_key=akey, ip=ip)
 		this_hub.save()
 		Nrow = 4
 		Ncol = 2
 		this_hub.Nrow = Nrow
 		this_hub.Ncol = Ncol
-		for i in range(Ncol):
-			for j in range(Nrow):
-				locker = Locker(hub = this_hub, row=j+1, column=i+1)
+		if Profile.objects.count() >= 1:
+			owning_profile = Profile.objects.all()[0]
+		else:
+			user = User(username="blank_user", password="pass")
+			user .save()
+			# user.set_password("pass")
+			# user.save() #
+			owning_profile = Profile(user=user, alias="blank_user", description="hello world")
+			owning_profile.save()
+		for j in range(Nrow):
+			for i in range(Ncol):
+				locker = Locker(hub = this_hub, row=j+1, column=i+1, owner=owning_profile)
 				locker.save()
 	return render(request, "empty.html")
 
@@ -64,6 +75,6 @@ def poll(request, akey):
 			row = this_hub.waiting_row
 			col = this_hub.waiting_col
 	else:
-		print("Error: latch that doesn't exist claims it was lowered")
+		print("Error: controller that doesn't exist polled us")
 	return render(request, "poll_response.html", {"to_open":to_open,
 	 							"col":col, "row":row})

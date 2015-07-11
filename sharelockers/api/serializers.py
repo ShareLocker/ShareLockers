@@ -7,8 +7,38 @@ from rest_framework import serializers
 from rest_framework.fields import SerializerMethodField
 
 
+
+class UserSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = User
+
+
+class ProfileSerializer(serializers.ModelSerializer):  # FIXME: add Hyperlinked
+    class Meta:
+        model = Profile
+        fields = ('id', 'user', 'rating', 'description', 'alias')
+
+class OwnedItemsSerializer(serializers.ModelSerializer):
+    item_set = ProfileSerializer(many=True, read_only=True)
+    actions = SerializerMethodField()
+
+    def get_actions(self, obj):
+        item = obj
+        if item.locker is None:
+            return ['can_stock', 'can_delete']
+        else:
+            return ['can_open']
+
+    class Meta:
+        model = Item
+
 class LockerSerializer(serializers.ModelSerializer):  # FIXME: add Hyperlinked
     actions = SerializerMethodField()
+    item_set = OwnedItemsSerializer(many=True, read_only=True)
+    local_code = SerializerMethodField()
+
+    def get_local_code(self, obj):
+        return obj.local_code()
 
     def get_actions(self, obj):
         locker = obj
@@ -23,18 +53,14 @@ class LockerSerializer(serializers.ModelSerializer):  # FIXME: add Hyperlinked
 
     class Meta:
         model = Locker
-        fields = ('id', 'hub', 'row', 'column', 'owner', 'actions')
+        fields = ('id', 'hub', 'row', 'column', 'owner', 'actions', 'item_set', 'local_code')
 
+class HubSerializer(serializers.ModelSerializer):
+    locker_set = LockerSerializer(many=True, read_only=True)  # A nested list of 'locker' items.
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = User
-
-
-class ProfileSerializer(serializers.ModelSerializer):  # FIXME: add Hyperlinked
-    class Meta:
-        model = Profile
-        fields = ('id', 'user', 'rating', 'description', 'alias')
+        model = Hub
+        fields = ('id', 'name', 'location', 'ip', 'locker_set')
 
 
 class HubSerializer(serializers.ModelSerializer):
@@ -45,16 +71,7 @@ class HubSerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'location', 'ip', 'locker_set')
 
 
-class OwnedItemsSerializer(serializers.ModelSerializer):
-    item_set = ProfileSerializer(many=True, read_only=True)
-    actions = SerializerMethodField()
-
-    def get_actions(self, obj):
-        item = obj
-        if item.locker is None:
-            return ['can_stock', 'can_delete']
-        else:
-            return ['can_open']
+class ItemSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Item

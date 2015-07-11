@@ -1,7 +1,11 @@
+
 {% extends "profiles/base.html" %}
 
+
 {% block content %}
-    <h2>Register</h2>
+  <div class="login">
+    <h2 >Register</h2>
+    
 
     <form method="POST" action="{% url 'user_register' %}">
         {% csrf_token %}
@@ -9,6 +13,7 @@
         {{ profile_form.as_p }}
 
         <!-- Provide a button to click to submit the form. -->
-        <input type="submit" name="submit" value="Register"/>
+        <input  class="pure-button pure-button-primary" type="submit" name="submit" value="Register"/>
     </form>
+ </div>
 {% endblock %}

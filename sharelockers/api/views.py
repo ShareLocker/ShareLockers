@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from rest_framework import viewsets, generics, permissions
+from rest_framework import viewsets, generics, permissions, serializers
 from lockers.models import Locker
 from profiles.models import Profile
 from hubs.models import Hub, Location
@@ -9,6 +9,8 @@ from .serializers import LockerSerializer, UserSerializer, ProfileSerializer,\
     HubSerializer, OwnedItemsSerializer, UnlockSerializer, PurchaseSerializer,\
     MakePurchaseSerializer
 from django.contrib.auth.models import User
+from rest_framework import status
+
 
 
 from rest_framework.response import Response # FIXME: Temporary
@@ -85,7 +87,7 @@ class UnlockViewSet(viewsets.ModelViewSet):
         # Logged in button-pusher  == locker.item.owner
         if opener != owner:
             print("You don't have access to this item, it belongs to {}".format(owner))
-            return   # FIXME: How to provide error code in json?
+            raise serializers.ValidationError("You don't have access to this item, it belongs to {}".format(owner))
 
         # Set hub waiting/row/column for next time the hub polls the server
         print("Setting up for locker {} to open when server is polled".format(locker.local_code()))
@@ -140,22 +142,25 @@ class PurchaseViewSet(viewsets.ModelViewSet):
         seller = item.owner
         locker = item.locker
         price = item.price  # TODO: Add payment method
-        serializer_data = {'buyer': buyer,
-                           'seller': seller,
+        serializer_data = {'buyer': buyer.pk,
+                           'seller': seller.pk,
                            'price': price,
-                           'item': item,
+                           'item': item.pk,
                            }
-        serializer = self.get_serializer(data=serializer_data)
+        serializer = PurchaseSerializer(data=serializer_data)
+        serializer.is_valid(raise_exception=True)
+
         # Validations
         if buyer == seller:
             print("You can't buy {}, because you already own it".format(item))
-            return   # FIXME: How to provide error code in json?
+            raise serializers.ValidationError('Buyer and seller cannot be the same user.')
+            # return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
 
         # Change owners
         print("Transferring ownership of item {} from {} to {}".format(item, seller, buyer))
         item.owner = buyer
         item.save()
 
-        return super().create(serializer)  # Jump back to create since we have a new serializer
+        return super().perform_create(serializer)
         # FIXME: Purchase is not being created, but ownership is transferred
         # FIXME: Sanity check on how this Purchase is done

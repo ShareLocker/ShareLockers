@@ -5,8 +5,8 @@
 {% block content %}
   <div class="login">
 {% if user.is_authenticated %}
-    <p>Log out to create a new account</p>
-    <p>Or view your <a href="/dashboard.html">dashboard</a></p>
+    <p><a href="/logout/">log out</a> to create a new account</p>
+    <p>Or view your <a href="/#/dashboard/">dashboard</a></p>
 {% else %}
     <h2 >Register</h2>
 

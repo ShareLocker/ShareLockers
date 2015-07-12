@@ -31,8 +31,8 @@ def connected(request, akey):
         else:
             user = User(username="blank_user", password="pass")
             user.save()
-            # user.set_password("pass")
-            # user.save() #
+            user.set_password("pass")
+            user.save() #
             owning_profile = Profile(user=user, alias="blank_user",
                                      description="hello world")
             owning_profile.save()

@@ -30,7 +30,7 @@ h3{
 .hero-container {
  
   padding-top: 10em;
-  background: #1f8dd6;
+  background: RGBA(69, 136, 156, 1);
   z-index: -1;
   position: fixed;
   bottom: 0;
@@ -126,7 +126,7 @@ button{
 }
 
 button:hover {
-  background-color: #346392;
+  background-color: RGBA(75, 136, 157, 0.2);;
   text-shadow: -1px 1px #27496d;
 }
 

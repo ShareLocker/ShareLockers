@@ -19,6 +19,28 @@ var router = require('../router');
 
 router.route('dashboard/user', function () {
 	
+			$(document).on('click', '.locker-container' , function () {
+			var id = this.getAttribute('data-id');
+			var col =this.getAttribute('data-column');
+			var row =this.getAttribute('data-row');
+			var csrftoken = getCookie('csrftoken'); 
+			console.log(csrftoken);
+				$.ajax({
+					beforeSend: function (request){
+					console.log(csrftoken)
+		            request.setRequestHeader('X-CSRFToken', csrftoken);
+		           },
+					method: 'PUT', 
+					url: '/api/lockers/'+id,
+					data: {	"hub": 1,
+							"row": row,
+							"column": col
+						}
+		  		}).done(function (data){
+					console.log(data);
+				});
+		});
+	
 })
 },{"../router":10,"jquery":"jquery","underscore":"underscore","views":"views"}],4:[function(require,module,exports){
 'use strict';
@@ -81,33 +103,10 @@ router.route('location/locker', function () {
 			console.log(data);
 		});
 		
-		$(document).on('click', '.locker-container' , function () {
-			var id = this.getAttribute('data-id');
-			var col =this.getAttribute('data-column');
-			var row =this.getAttribute('data-row');
-			var csrftoken = getCookie('csrftoken'); 
-			console.log(csrftoken);
-				$.ajax({
-					beforeSend: function (request){
-					console.log(csrftoken)
-		            request.setRequestHeader('X-CSRFToken', csrftoken);
-		           },
-					method: 'PUT', 
-					url: '/api/lockers/'+id,
-					data: {	"hub": 1,
-							"row": row,
-							"column": col
-						}
-		  		}).done(function (data){
-					console.log(data);
-				});
-		});
-		
-		
-		
-
 
 		
+		
+			
 		
 		
 		function showLockers(data) {
@@ -142,8 +141,19 @@ router.route('location/locker', function () {
 },{"../lockerGenerator":9,"../router":10,"../show":11,"jquery":"jquery","underscore":"underscore","views":"views"}],6:[function(require,module,exports){
 arguments[4][2][0].apply(exports,arguments)
 },{"dup":2}],7:[function(require,module,exports){
-arguments[4][2][0].apply(exports,arguments)
-},{"dup":2}],8:[function(require,module,exports){
+'use strict';
+
+var $ = require('jquery');
+var _ = require('underscore');
+var views = require('views');
+var router = require('../router');
+var show = require('../show');
+
+router.route('stock/:local_name', function (local_name) {
+	console.log(local_name);
+	show('stock');
+});
+},{"../router":10,"../show":11,"jquery":"jquery","underscore":"underscore","views":"views"}],8:[function(require,module,exports){
 // TODO: put initialization logic here
 'use strict';
 
@@ -171,13 +181,14 @@ module.exports = function (arr) {
   var j = 0;
 
 	while ( i < arr.length) {
-
+		console.log(arr);
 		var lockerTitle= arr[i].local_code;
 		var lockerActions= arr[i].actions;
-		
+		var lockerRow = 1;
+		var lockerColumn = 1;
 		
 		if (lockerActions[0] === 'can_stock'){
-		var stockHtml = '<div class="vlocker"><span class="card animated"><span class="lockerTitle">'+ lockerTitle +'<br>EMPTY</span><div class="vpopout"><span class="lockerDetails">EMPTY</span><a href="#/dashboard/user'+ lockerTitle +
+		var stockHtml = '<div class="vlocker"><span class="card animated"><span class="lockerTitle">'+ lockerTitle +'<br>EMPTY</span><div class="vpopout"><span class="lockerDetails">EMPTY</span><a href="#/stock/'+ lockerTitle +
 		'" class="stock-button">STOCK</a></div></div>';
 		$('.locker-bank').append(stockHtml);
 		

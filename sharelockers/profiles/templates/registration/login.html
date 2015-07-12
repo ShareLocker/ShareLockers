@@ -15,6 +15,10 @@
     {% endif %}
 {% endif %}
 
+{% if user.is_authenticated %}
+<p>To log in as a different user, first <a href="/logout/">log out</a> of your
+    current account.</p>    
+{% else %}
 <form method="post" action="{% url 'django.contrib.auth.views.login' %}">
 {% csrf_token %}
 <table>
@@ -32,4 +36,7 @@
 <input type="hidden" name="next" value="{{ next }}" />
 </form>
 </div>
+
+{% endif %}
+
 {% endblock %}

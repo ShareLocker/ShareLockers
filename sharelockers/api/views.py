@@ -81,8 +81,12 @@ class UnlockViewSet(viewsets.ModelViewSet):
         opener = Profile.objects.get(id=opener_id)
         locker_id = serializer.data['locker']
         locker = Locker.objects.get(id=locker_id)
-        item = locker.item_set.first() # FIXME: Do we want to allow multiple items?
-        owner = item.owner
+        if locker.item_set.all():
+            item = locker.item_set.first() # FIXME: Do we want to allow multiple items?
+            owner = item.owner
+        else:
+            owner = opener  # If locker is empty, whoever tries to open it is temporarily the owner
+            item = None
 
         # Logged in button-pusher  == locker.item.owner
         if opener != owner:
@@ -98,9 +102,10 @@ class UnlockViewSet(viewsets.ModelViewSet):
         hub.save()
 
         # Destock the item from the locker
-        print("Destocking item {} from locker {}".format(item, item.locker))
-        item.locker = None
-        item.save()
+        if item:
+            print("Destocking item {} from locker {}".format(item, item.locker))
+            item.locker = None
+            item.save()
 
         return super().perform_create(serializer)
 

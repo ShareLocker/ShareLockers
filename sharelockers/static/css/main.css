@@ -1,3 +1,120 @@
+.info {
+  color: #E25D3A;
+  font-size: 3em; }
+
+.info-card {
+  min-height: 22em;
+  max-height: 22em;
+  display: inline-block;
+  width: 30%;
+  padding: 1em;
+  border-radius: 5px;
+  box-shadow: 3px 5px 5px 2px #888888;
+  overflow: auto; }
+
+.info-card:hover {
+  background-color: RGBA(75, 136, 157, 0.2); }
+
+h6 {
+  font-size: 1em; }
+
+.tagline {
+  font-size: 1.5em;
+  color: #eee;
+  text-shadow: 1px 3px #27496d; }
+
+.action-call {
+  color: #eee;
+  text-shadow: 1px 3px #27496d; }
+
+button {
+  font-size: 1em;
+  border: none;
+  border-radius: 10px;
+  color: black;
+  padding-left: 0.6em;
+  padding-right: 0.6em;
+  padding-top: 0.4em;
+  padding-bottom: 0.4em; }
+
+button:hover {
+  color: #eee;
+  background-color: RGBA(69, 136, 156, 0.6);
+  text-shadow: -1px 1px #27496d;
+  border: 1px solid black; }
+
+[class^="flaticon-"]:before, [class*=" flaticon-"]:before, [class^="flaticon-"]:after, [class*=" flaticon-"]:after {
+  color: RGBA(69, 136, 156, 1);
+  font-size: 10em; }
+
+@font-face {
+  font-family: "Flaticon";
+  src: url("flaticon.eot");
+  src: url("flaticon.eot#iefix") format("embedded-opentype"), url("flaticon.woff") format("woff"), url("flaticon.ttf") format("truetype"), url("flaticon.svg") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+[class^="flaticon-"]:before, [class*=" flaticon-"]:before,
+[class^="flaticon-"]:after, [class*=" flaticon-"]:after {
+  font-family: Flaticon;
+  font-size: 20px;
+  font-style: normal;
+  margin-left: 20px; }
+
+.flaticon-add182:before {
+  content: "\e000"; }
+
+.flaticon-archive34:before {
+  content: "\e001"; }
+
+.flaticon-barcode12:before {
+  content: "\e002"; }
+
+.flaticon-businessman267:before {
+  content: "\e003"; }
+
+.flaticon-cancel19:before {
+  content: "\e004"; }
+
+.flaticon-computers7:before {
+  content: "\e005"; }
+
+.flaticon-days2:before {
+  content: "\e006"; }
+
+.flaticon-internet16:before {
+  content: "\e007"; }
+
+.flaticon-magnifying59:before {
+  content: "\e008"; }
+
+.flaticon-man237:before {
+  content: "\e009"; }
+
+.flaticon-money181:before {
+  content: "\e00a"; }
+
+.flaticon-payment7:before {
+  content: "\e00b"; }
+
+.flaticon-protected9:before {
+  content: "\e00c"; }
+
+.flaticon-round57:before {
+  content: "\e00d"; }
+
+.flaticon-rounded54:before {
+  content: "\e00e"; }
+
+.flaticon-servers1:before {
+  content: "\e00f"; }
+
+.flaticon-smartphone54:before {
+  content: "\e010"; }
+
+.flaticon-wireless29:before {
+  content: "\e011"; }
+
 @font-face {
   font-family: mainFont;
   src: url(Kadwa-Regular.ttf); }
@@ -17,8 +134,11 @@ h1, h2, h3 {
 h1 {
   font-size: 5em; }
 
+h3 {
+  font-size: 2.5em; }
+
 .hero-container {
-  padding-top: 8.5em;
+  padding-top: 10em;
   background: #1f8dd6;
   z-index: -1;
   position: fixed;
@@ -32,17 +152,16 @@ h1 {
 
 .section1 {
   background-color: #eee;
-  height: 100vh;
+  height: 80vh;
   margin-top: 100vh; }
 
 .section2 {
-  background-color: RGBA(36, 40, 56, 1);
   max-height: 75vh; }
 
 .section3 {
   padding: 0.5em;
   text-align: center;
-  margin-bottom: 23em; }
+  margin-bottom: 30em; }
 
 .section3 h1 {
   padding: 0; }
@@ -168,6 +287,19 @@ button:hover {
   opacity: 0.95;
   border-radius: .5em; }
 
-.icon {
-  font-size: 3em;
-  color: black; }
+.login {
+  text-align: center;
+  background-color: rgba(234, 235, 230, 0.5);
+  padding: 2em;
+  margin-top: 1em;
+  width: 60%;
+  margin: auto;
+  border-radius: 30px; }
+
+.center {
+  text-align: center;
+  padding-left: 2em;
+  padding-right: 2em;
+  width: 60%;
+  margin: auto;
+  border-radius: 30px; }

@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from faker import Faker
+import random
 
 
 class Profile(models.Model):
@@ -11,3 +13,22 @@ class Profile(models.Model):
     def __str__(self):
         return '{} (id: {})'.format(self.alias, self.id)
 
+
+def create_users(num):
+    for i in range(1, num + 1):
+        user = User.objects.create_user(
+            "user{}".format(i),
+            "user{}@theironyard.com".format(i),
+            "user{}".format(i)
+        )
+        user.save()
+
+
+def create_profiles():
+    fake = Faker()
+    for user in User.objects.all():
+        rating = random.randint(1, 5)
+        description = fake.text(max_nb_chars=20)
+        alias = "I am {}".format(user)
+        profile = Profile(user=user, rating=rating, description=description, alias=alias)
+        profile.save()

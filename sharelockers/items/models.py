@@ -1,7 +1,7 @@
 from django.db import models
 from lockers.models import Locker
 from profiles.models import Profile
-from faker import Faker
+from faker import Factory
 import random
 
 
@@ -18,7 +18,7 @@ class Item(models.Model):
 
 
 def create_items(num):
-    fake = Faker()
+    fake = Factory.create()
     for profile in Profile.objects.all():
         for _ in range(num):
             title = fake.sentence(nb_words=2)

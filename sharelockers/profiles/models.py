@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from faker import Faker
+from faker import Factory
 import random
 
 
@@ -25,7 +25,7 @@ def create_users(num):
 
 
 def create_profiles():
-    fake = Faker()
+    fake = Factory.create()
     for user in User.objects.all():
         rating = random.randint(1, 5)
         description = fake.text(max_nb_chars=20)

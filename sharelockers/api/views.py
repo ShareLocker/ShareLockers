@@ -149,7 +149,7 @@ class PurchaseViewSet(viewsets.ModelViewSet):
                            }
         serializer = PurchaseSerializer(data=serializer_data)
         serializer.is_valid(raise_exception=True)
-
+        print(serializer.data)
         # Validations
         if buyer == seller:
             print("You can't buy {}, because you already own it".format(item))
@@ -161,6 +161,11 @@ class PurchaseViewSet(viewsets.ModelViewSet):
         item.owner = buyer
         item.save()
 
-        return super().perform_create(serializer)
-        # FIXME: Purchase is not being created, but ownership is transferred
+
+        # return super().perform_create(serializer) # Override this so that we can return our own full serializer
+        print(serializer.data)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+        # FIXME: How to return the full object rather than the limited one used for POSTing?
+        #         If this doesn't work, just return super()... as above instead
         # FIXME: Sanity check on how this Purchase is done

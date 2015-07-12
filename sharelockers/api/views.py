@@ -133,7 +133,7 @@ class PurchaseViewSet(viewsets.ModelViewSet):
         print('Validating Purchase')
         # FIXME: There must be a better way to do the following authentication
         # print(serializer.data)
-        buyer_id = serializer.data['profile']  # FIXME: How to get this from session?
+        buyer_id = serializer.data['buyer']  # FIXME: How to get this from session?
         buyer = Profile.objects.get(id=buyer_id)
         item_id = serializer.data['item']
         item = Item.objects.get(id=item_id)
@@ -156,4 +156,6 @@ class PurchaseViewSet(viewsets.ModelViewSet):
         item.owner = buyer
         item.save()
 
-        return super().perform_create(serializer)
+        return super().create(serializer)  # Jump back to create since we have a new serializer
+        # FIXME: Purchase is not being created, but ownership is transferred
+        # FIXME: Sanity check on how this Purchase is done

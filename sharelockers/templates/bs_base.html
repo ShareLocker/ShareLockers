@@ -25,7 +25,7 @@
 				<li role="presentation">Hi, {{ request.user.username }}</li>
 				{% else %}
 				<li role="presentation"><a href="{% url 'view_login' %}">log in</a></li>
-				<li role="presentation"><a href="{% url 'view_register' %}">register</a></li>
+				<li role="presentation"><a href="{% url 'user_register' %}">register</a></li>
 				{% endif %}
 			</ul>
 		</nav>

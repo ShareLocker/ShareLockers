@@ -4,10 +4,29 @@
 
 <h3>Global list of connected hubs</h3>
 
-{% for hub in hubs %}
-<p>{{ hub.name }} at {{ hub.location }}</p>
 
-{% endfor %}
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>Hub Name</th>
+			<th>Location</th>
+			<th>Is Connected</th>
+			<th>Time Since <br />Last Connection</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for hub in hubs %}
+		<tr>
+			<td>{{ hub.name }}</td>
+			<td>{{ hub.location }}</td>
+			<td>{{ hub.connected }}</td>
+			{% if hub.connected %}
+			<td>{{ hub.connected_duration }}</td>
+			{% endif %}
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
 
 {% bootstrap_pagination page_obj %}
 

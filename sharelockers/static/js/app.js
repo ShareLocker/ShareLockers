@@ -65,11 +65,13 @@ router.route('dashboard', function () {
     };
 
 }(this, this.document));
+// api info for 'My Items' TAB IS BELOW	
+
 $('.items').on('click', function() {
 
     $.ajax({
     			method: 'GET', 
-    			url: 'api/hubs/',
+    			url: '/api/owneditems/',
       		}).done(function (data){
     			console.log(data);
           showLists(data, 'my-items', '.generated');
@@ -80,10 +82,10 @@ $('.items').on('click', function() {
 //api info for LOCATION TAB IS BELOW
 
 $('.location').on('click', function() {
-    alert('yay');
+    
     $.ajax({
     			method: 'GET', 
-    			url: 'api/hubs/',
+    			url: '/api/hubs/',
       		}).done(function (data){
     			console.log(data);
           showLists(data, 'locations', '.generated');
@@ -91,9 +93,23 @@ $('.location').on('click', function() {
     });
 
 });
+
+//api info for PROFILES TAB IS BELOW
+
+$('.items').on('click', function() {
+
+    $.ajax({
+    			method: 'GET', 
+    			url: '/profiles/{id}',
+      		}).done(function (data){
+    			console.log(data);
+          showLists(data, 'my-items', '.generated');
+    			
+    });
+   });
 });
     
-// api info for 'My Items' TAB IS BELOW	
+
 
 // $.ajax({
 // 			method: 'GET', 

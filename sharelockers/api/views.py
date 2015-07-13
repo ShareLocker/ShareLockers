@@ -35,8 +35,11 @@ class LockerViewSet(viewsets.ModelViewSet):
         column = instance.column
         row = instance.row
         hub = Hub.objects.get(secret_key=1)
+        # FIXME: depreciate opening by Locker object entirely
         # hub.open(column, row) # open using Arduino as server
         hub.poll_open(column, row) # open using Arduino as polling device
+        unlock = Unlock(profile=self.request.user.profile, locker=instance)
+        unlock.save()
 
         return Response(serializer.data)
 
@@ -156,7 +159,7 @@ class PurchaseViewSet(viewsets.ModelViewSet):
         serializer.is_valid(raise_exception=True)
         print(serializer.data)
         # Validations
-        # if buyer == seller:
+        # if buyer == seller: # FIXME: do correct validation for buyer
         #     print("You can't buy {}, because you already own it".format(item))
         #     raise serializers.ValidationError('Buyer and seller cannot be the same user.')
             # return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)

@@ -85,11 +85,11 @@ def poll(request, akey):
                 this_hub, col, row))
 
             # Set Unlock transaction's waiting attribute to False to indicate success
-            # unlock = Unlock.objects.last()
+            unlock = Unlock.objects.last()
             # FIXME: This will only honor the most recent Unlock since the last poll
-            # unlock.waiting = False
-            # unlock.save()
-            # print('Unlock action {} is no longer waiting.'.format(unlock))
+            unlock.waiting = False
+            unlock.save()
+            print('Unlock action {} is no longer waiting.'.format(unlock))
             # TODO: Set up queueing for multiple unlocks (check waiting Unlock objects rather than using hub.waiting_col, etc)
             # FIXME: It should also verify that the locker of the Unlock action is in this hub
         else:

@@ -207,6 +207,12 @@ button:hover {
 	transform: translate(-50%, -50%);
 }
 
+.open-button {
+	position: absolute;
+	top: 90%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
 .vpopout {
   position: relative;
   width: 160%;

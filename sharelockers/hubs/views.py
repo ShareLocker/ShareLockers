@@ -9,12 +9,13 @@ from transactions.models import Unlock
 
 def connected(request, akey):
     ip = get_ip(request)
-    print(ip)
     if Hub.objects.filter(secret_key=akey).exists():
+        print("Known hub connected at IP: "+ip)
         this_hub = Hub.objects.get(secret_key=akey)
         this_hub.ip = ip
         this_hub.save()
     else:
+        print("New hub connected at IP: "+ip)
         if Location.objects.count() == 0:
             loc1 = Location(description="place_holder", latitude=0.0,
                             longitude=0.0)
@@ -31,8 +32,8 @@ def connected(request, akey):
         else:
             user = User(username="blank_user", password="pass")
             user.save()
-            # user.set_password("pass")
-            # user.save() #
+            user.set_password("pass")
+            user.save() #
             owning_profile = Profile(user=user, alias="blank_user",
                                      description="hello world")
             owning_profile.save()
@@ -54,6 +55,7 @@ def finished(request, akey):
         this_hub = Hub.objects.get(secret_key=akey)
         if this_hub.ip != ip:
             print("Warning: IP of controller changed while lowering?")
+            this_hub.ip = ip
         this_hub.occupied = False
         this_hub.save()
     else:
@@ -78,7 +80,7 @@ def poll(request, akey):
             row = this_hub.waiting_row
             col = this_hub.waiting_col
             print(" -- Poll open data served for hub: {} col: {}, row {}".format(
-                this_hub, row, col))
+                this_hub, col, row))
 
             # Set Unlock transaction's waiting attribute to False to indicate success
             unlock = Unlock.objects.last()

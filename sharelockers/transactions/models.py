@@ -10,7 +10,7 @@ class Purchase(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     price = models.DecimalField(max_digits=5, decimal_places=2)
     item = models.ForeignKey(Item)
-    payment_method = models.CharField(max_length=255)
+    payment_method = models.CharField(max_length=255, default='CC')
 
 class Unlock(models.Model):
     profile = models.ForeignKey(Profile)
@@ -23,3 +23,24 @@ class Unlock(models.Model):
         if self.waiting:
             status = '-'
         return '{}  {}@{} by {}'.format(status, self.locker, self.time, self.profile)
+
+class Request(models.Model):
+    buyer = models.ForeignKey(Profile, related_name="want",
+                    related_query_name="want_set")
+    seller = models.ForeignKey(Profile, related_name="requested",
+                    related_query_name="requested_set")
+
+    status_options = (
+        (1, "outstanding"), # requested, no other action taken yet
+        (2, "rejected"),    # potential seller removed request
+        (3, "withdrawn"),   # potential buyer removed request
+        (4, "expired"),     # potential seller never stocked and time ran out
+        (11, "reserved"),  # in locker, waiting for buyer
+        (12, "halted"),    # after stocking, potential seller changes mind
+        (13, "abandoned"), # potential buyer no longer wants stocked item
+    )
+    status = models.IntegerField(choices=status_options)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    stocked_at = models.DateTimeField()
+    ended_at = models.DateTimeField()

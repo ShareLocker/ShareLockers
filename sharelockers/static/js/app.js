@@ -15,8 +15,6 @@ $(window).scroll(function() {
 
 
 },{"jquery":"jquery"}],2:[function(require,module,exports){
-<<<<<<< HEAD
-=======
 'use strict';
 
 var $ = require ('jquery');
@@ -50,9 +48,6 @@ module.exports = function (button) {
 	
 }
 },{"../js/getCookie":10,"jquery":"jquery","underscore":"underscore","views":"views"}],3:[function(require,module,exports){
-
-},{}],4:[function(require,module,exports){
->>>>>>> 6b429e7c269149d2671abf1a0c9b17e06e098318
 'use strict';
 
 var $ = require('jquery');
@@ -132,7 +127,6 @@ $('.location').on('click', function() {
 
 });
 
-<<<<<<< HEAD
 //api info for PROFILES TAB IS BELOW
 
 $('.items').on('click', function() {
@@ -163,10 +157,7 @@ $('.items').on('click', function() {
 		
 
 
-},{"../router":13,"../show":14,"../showLists":15,"jquery":"jquery","underscore":"underscore","views":"views"}],3:[function(require,module,exports){
-=======
-},{"../router":14,"../show":15,"jquery":"jquery","underscore":"underscore","views":"views"}],5:[function(require,module,exports){
->>>>>>> 6b429e7c269149d2671abf1a0c9b17e06e098318
+},{"../router":14,"../show":15,"../showLists":16,"jquery":"jquery","underscore":"underscore","views":"views"}],4:[function(require,module,exports){
 'use strict';
 
 var $ = require('jquery');
@@ -188,15 +179,11 @@ router.route('', function () {
 
 
 });
-<<<<<<< HEAD
-},{"../router":13,"../show":14,"jquery":"jquery","underscore":"underscore","views":"views"}],4:[function(require,module,exports){
+},{"../router":14,"../show":15,"jquery":"jquery","underscore":"underscore","views":"views"}],5:[function(require,module,exports){
 
-},{}],5:[function(require,module,exports){
-arguments[4][4][0].apply(exports,arguments)
-},{"dup":4}],6:[function(require,module,exports){
-=======
-},{"../router":14,"../show":15,"jquery":"jquery","underscore":"underscore","views":"views"}],6:[function(require,module,exports){
->>>>>>> 6b429e7c269149d2671abf1a0c9b17e06e098318
+},{}],6:[function(require,module,exports){
+arguments[4][5][0].apply(exports,arguments)
+},{"dup":5}],7:[function(require,module,exports){
 'use strict';
 
 var $ = require('jquery');
@@ -251,11 +238,7 @@ router.route('location/locker', function () {
 
 
 });
-<<<<<<< HEAD
-},{"../getCookie":9,"../lockerGenerator":11,"../router":13,"../show":14,"jquery":"jquery","underscore":"underscore","views":"views"}],7:[function(require,module,exports){
-=======
-},{"../buyItem":2,"../getCookie":10,"../lockerGenerator":12,"../openLocker":13,"../router":14,"../show":15,"jquery":"jquery","underscore":"underscore","views":"views"}],7:[function(require,module,exports){
->>>>>>> 6b429e7c269149d2671abf1a0c9b17e06e098318
+},{"../buyItem":2,"../getCookie":10,"../lockerGenerator":12,"../openLocker":13,"../router":14,"../show":15,"jquery":"jquery","underscore":"underscore","views":"views"}],8:[function(require,module,exports){
 var $ = require('jquery');
 var _ = require('underscore');
 var views = require('views');
@@ -278,13 +261,7 @@ router.route('my-items/user', function () {
 		  });
 		
  });
-<<<<<<< HEAD
-},{"../getCookie":9,"../openLocker":12,"../router":13,"../show":14,"../showLists":15,"jquery":"jquery","underscore":"underscore","views":"views"}],8:[function(require,module,exports){
-=======
-},{"../getCookie":10,"../openLocker":13,"../router":14,"../show":15,"../showLists":16,"jquery":"jquery","underscore":"underscore","views":"views"}],8:[function(require,module,exports){
-arguments[4][3][0].apply(exports,arguments)
-},{"dup":3}],9:[function(require,module,exports){
->>>>>>> 6b429e7c269149d2671abf1a0c9b17e06e098318
+},{"../getCookie":10,"../openLocker":13,"../router":14,"../show":15,"../showLists":16,"jquery":"jquery","underscore":"underscore","views":"views"}],9:[function(require,module,exports){
 'use strict';
 
 var $ = require('jquery');
@@ -364,11 +341,7 @@ require('./animations');
 
 // Start the router
 router.init();
-<<<<<<< HEAD
-},{"./animations":1,"./controllers/dashboard.js":2,"./controllers/home.js":3,"./controllers/items.js":4,"./controllers/locations.js":5,"./controllers/locker-list.js":6,"./controllers/my-items.js":7,"./controllers/stock.js":8,"./router":13}],11:[function(require,module,exports){
-=======
-},{"./animations":1,"./controllers/buy.js":3,"./controllers/dashboard.js":4,"./controllers/home.js":5,"./controllers/locker-list.js":6,"./controllers/my-items.js":7,"./controllers/sell.js":8,"./controllers/stock.js":9,"./router":14}],12:[function(require,module,exports){
->>>>>>> 6b429e7c269149d2671abf1a0c9b17e06e098318
+},{"./animations":1,"./controllers/dashboard.js":3,"./controllers/home.js":4,"./controllers/items.js":5,"./controllers/locations.js":6,"./controllers/locker-list.js":7,"./controllers/my-items.js":8,"./controllers/stock.js":9,"./router":14}],12:[function(require,module,exports){
 'use strict';
 
 var $ = require('jquery');

@@ -17,12 +17,12 @@
     <link rel="stylesheet" href="{% static 'css/grids-responsive-min.css' %}">
 <!--<![endif]-->
 
-  <link rel="shortcut icon" href="{% static 'favicon.ico' %}" />
-  <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+  <link rel="shortcut icon" href="{% static 'favicon.ico' %}"/>
+  <link rel="stylesheet" href="{% static 'css/main.css' %}"/>
 </head>
 
 <body>
-
+  <a href="#" class="user-id" data-id="{{user.id}}" data-alias="{{ user.profile.alias }}">{{ user.username }}</a>
   <div class="main-content"></div>
 
   <script src="{% static 'js/vendor.js' %}"></script>

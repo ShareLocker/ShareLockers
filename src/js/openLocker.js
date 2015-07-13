@@ -9,7 +9,9 @@ module.exports = function (button) {
 	$(document).on('click', button ,function () {
 			console.log(this);
 			var id = this.getAttribute('data-id');
+			var profile = $('.user-id').getAttribute('data-id')
 			var csrftoken = getCookie('csrftoken'); 
+			var profile = 
 			console.log(csrftoken);
 				$.ajax({
 					beforeSend: function (request){
@@ -20,7 +22,7 @@ module.exports = function (button) {
 					url: '/api/unlocks/',
 					data: {
 					   "waiting": true,
-					   "profile": 1,
+					   "profile": profile,
 					   "locker": id
 					}
 		  		}).done(function (data){

@@ -233,7 +233,7 @@ router.route('stock/:stockURL', function (stockURL) {
 		var title = $('.item-title').val();
 		var description = $('.item-description').val();
 		var price = $('.item-price').val();
-		var owner = $('.owner').val();
+		var owner = $('.user-id').attr('data-id');
 
 		
 		$.ajax({

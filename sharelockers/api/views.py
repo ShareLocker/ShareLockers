@@ -156,9 +156,9 @@ class PurchaseViewSet(viewsets.ModelViewSet):
         serializer.is_valid(raise_exception=True)
         print(serializer.data)
         # Validations
-        if buyer == seller:
-            print("You can't buy {}, because you already own it".format(item))
-            raise serializers.ValidationError('Buyer and seller cannot be the same user.')
+        # if buyer == seller:
+        #     print("You can't buy {}, because you already own it".format(item))
+        #     raise serializers.ValidationError('Buyer and seller cannot be the same user.')
             # return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
 
         # Change owners

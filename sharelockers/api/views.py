@@ -89,9 +89,9 @@ class UnlockViewSet(viewsets.ModelViewSet):
             item = None
 
         # Logged in button-pusher  == locker.item.owner
-        if opener != owner:
-            print("You don't have access to this item, it belongs to {}".format(owner))
-            raise serializers.ValidationError("You don't have access to this item, it belongs to {}".format(owner))
+        # if opener != owner: # FIXME: enable for actual owner
+        #     print("You don't have access to this item, it belongs to {}".format(owner))
+        #     raise serializers.ValidationError("You don't have access to this item, it belongs to {}".format(owner))
 
         # Set hub waiting/row/column for next time the hub polls the server
         print("Setting up for locker {} to open when server is polled".format(locker.local_code()))

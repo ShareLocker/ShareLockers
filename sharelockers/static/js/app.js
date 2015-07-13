@@ -1,4 +1,6 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+// HEADER ANIMATION
+
 var $ = require("jquery");
 
 $(window).scroll(function() {
@@ -9,13 +11,22 @@ $(window).scroll(function() {
   }
 });
 
+
+
+
 },{"jquery":"jquery"}],2:[function(require,module,exports){
 
 },{}],3:[function(require,module,exports){
+<<<<<<< HEAD
+=======
+'use strict';
+
+>>>>>>> 0f5338f2fd2613239551a04f511fb52df9b445fd
 var $ = require('jquery');
 var _ = require('underscore');
 var views = require('views');
 var router = require('../router');
+<<<<<<< HEAD
 
 router.route('dashboard/user', function () {
 	
@@ -42,7 +53,70 @@ router.route('dashboard/user', function () {
 		});
 	
 })
+<<<<<<< HEAD
 },{"../router":13,"jquery":"jquery","underscore":"underscore","views":"views"}],4:[function(require,module,exports){
+=======
+},{"../router":10,"jquery":"jquery","underscore":"underscore","views":"views"}],4:[function(require,module,exports){
+=======
+var show = require('../show');
+
+
+router.route('dashboard', function () {
+		
+	show('dashboard');
+	$.ajax({
+			method: 'GET', 
+			url: '/api/profiles/',
+  		}).done(function (data){
+			console.log(data);
+
+// RESPONSIVE DASHBOARD MENU
+			
+			(function () {
+    
+    var layout   = document.getElementById('layout'),
+        menu     = document.getElementById('menu'),
+        menuLink = document.getElementById('menuLink');
+
+    function toggleClass(element, className) {
+        var classes = element.className.split(/\s+/),
+            length = classes.length,
+            i = 0;
+
+        for(; i < length; i++) {
+          if (classes[i] === className) {
+            classes.splice(i, 1);
+            break;
+          }
+        }
+        // The className is not found
+        if (length === classes.length) {
+            classes.push(className);
+        }
+
+        element.className = classes.join(' ');
+    }
+
+    menuLink.onclick = function (e) {
+        var active = 'active';
+
+        e.preventDefault();
+        toggleClass(layout, active);
+        toggleClass(menu, active);
+        toggleClass(menuLink, active);
+    };
+
+}(this, this.document));
+
+		});
+	
+
+
+});
+
+},{"../router":9,"../show":10,"jquery":"jquery","underscore":"underscore","views":"views"}],4:[function(require,module,exports){
+>>>>>>> 0f5338f2fd2613239551a04f511fb52df9b445fd
+>>>>>>> master
 'use strict';
 
 var $ = require('jquery');
@@ -76,7 +150,7 @@ var getCookie = require('../getCookie');
 var lockerGenerator = require('../lockerGenerator');
 
 router.route('location/locker', function () {
-	//var arr = [{title : 'teddy', details : 'A Really Big Teddy Bear'}, {title : 'car', details : 'A Super Fast car'}, {title : 'coat', details : 'A leather coat'}, {title : 'flowers', details : '1,000 Roses'}, {title : 'shoes', details : 'Air Jordans, size 9'}, {title : 'marbles', details : 'a million marbles'}, {title : 'liver', details : 'one human liver'}, {title : 'drugs', details : 'so many drugs'} ];
+	var arr = [{title : 'teddy', details : 'A Really Big Teddy Bear'}, {title : 'car', details : 'A Super Fast car'}, {title : 'coat', details : 'A leather coat'}, {title : 'flowers', details : '1,000 Roses'}, {title : 'shoes', details : 'Air Jordans, size 9'}, {title : 'marbles', details : 'a million marbles'}, {title : 'liver', details : 'one human liver'}, {title : 'drugs', details : 'so many drugs'} ];
 	
 		
 		$.ajax({

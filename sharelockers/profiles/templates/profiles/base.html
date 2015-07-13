@@ -5,25 +5,26 @@
     <meta charset="UTF-8">
     <title>Share Lockers</title>
     <link rel="stylesheet" href="{% static 'css/main.css' %}" />
-    
+
 </head>
 <body>
   <div>
-   
+
         <h1 class="center"><a href=" ">Share Lockers</a></h1>
-        
+
 </div>
-  
+
 
 
 <div>
-  
+
   <!--Use the following tag for the dashboard only-->
     <h4>
-      You are logged in as {{ user }}.
         {% if user.is_anonymous %}
+          You are not loged in.
             <a href="{% url 'django.contrib.auth.views.login' %}"> Login</a>
         {% else %}
+          You are logged in as {{ user }}.
             <a href="{% url 'django.contrib.auth.views.logout' %}"> Logout</a>
         {% endif %}
     </h4>

@@ -22,17 +22,12 @@ var _ = require('underscore');
 var views = require('views');
 var router = require('../router');
 var show = require('../show');
+var showLists =require('../showLists');
 
 
 router.route('dashboard', function () {
+  show('dashboard');
 		
-	show('dashboard');
-	$.ajax({
-			method: 'GET', 
-			url: '/api/profiles/',
-  		}).done(function (data){
-			console.log(data);
-
 // RESPONSIVE DASHBOARD MENU
 			
 			(function () {
@@ -70,31 +65,50 @@ router.route('dashboard', function () {
     };
 
 }(this, this.document));
+$('.items').on('click', function() {
 
-		});
+    $.ajax({
+    			method: 'GET', 
+    			url: 'api/hubs/',
+      		}).done(function (data){
+    			console.log(data);
+          showLists(data, 'my-items', '.generated');
+    			
+    });
+   });
+
+//api info for LOCATION TAB IS BELOW
+
+$('.location').on('click', function() {
+    alert('yay');
+    $.ajax({
+    			method: 'GET', 
+    			url: 'api/hubs/',
+      		}).done(function (data){
+    			console.log(data);
+          showLists(data, 'locations', '.generated');
+    			
+    });
 
 });
-
-
+});
+    
 // api info for 'My Items' TAB IS BELOW	
-$.ajax({
-			method: 'GET', 
-			url: '/owneditems/',
-  		}).done(function (data){
-			console.log(data);
+
+// $.ajax({
+// 			method: 'GET', 
+// 			url: 'api/owneditems/',
+//   		}).done(function (data){
+// 			console.log(data);
 			
-});			
+// });			
 			
 			
-// api info for LOCATION TAB IS BELOW			
-$.ajax({
-			method: 'GET', 
-			url: '/hubs/',
-  		}).done(function (data){
-			console.log(data);
 			
-});		
-},{"../router":13,"../show":14,"jquery":"jquery","underscore":"underscore","views":"views"}],3:[function(require,module,exports){
+		
+
+
+},{"../router":13,"../show":14,"../showLists":15,"jquery":"jquery","underscore":"underscore","views":"views"}],3:[function(require,module,exports){
 'use strict';
 
 var $ = require('jquery');

@@ -15,8 +15,40 @@ $(window).scroll(function() {
 
 
 },{"jquery":"jquery"}],2:[function(require,module,exports){
+'use strict';
 
-},{}],3:[function(require,module,exports){
+var $ = require ('jquery');
+var _ = require ('underscore');
+var views = require ('views');
+var getCookie = require ('../js/getCookie');
+
+module.exports = function (button) {
+	$(document).on('click', button ,function () {
+			console.log(this);
+			var id = this.getAttribute('data-id');
+			var csrftoken = getCookie('csrftoken'); 
+			console.log(csrftoken);
+				$.ajax({
+					beforeSend: function (request){
+					console.log(csrftoken)
+		            request.setRequestHeader('X-CSRFToken', csrftoken);
+		           },
+					method: 'POST', 
+					url: '/api/purchases/',
+					data: {
+					   "item": id,
+					   "buyer": 2
+					}
+		  		}).done(function (data){
+					console.log(data);
+				});
+				document.location.href = '/#/my-items/user'
+		});
+	
+}
+},{"../js/getCookie":10,"jquery":"jquery","underscore":"underscore","views":"views"}],3:[function(require,module,exports){
+
+},{}],4:[function(require,module,exports){
 'use strict';
 
 var $ = require('jquery');
@@ -79,7 +111,7 @@ router.route('dashboard', function () {
 
 });
 
-},{"../router":13,"../show":14,"jquery":"jquery","underscore":"underscore","views":"views"}],4:[function(require,module,exports){
+},{"../router":14,"../show":15,"jquery":"jquery","underscore":"underscore","views":"views"}],5:[function(require,module,exports){
 'use strict';
 
 var $ = require('jquery');
@@ -101,7 +133,7 @@ router.route('', function () {
 
 
 });
-},{"../router":13,"../show":14,"jquery":"jquery","underscore":"underscore","views":"views"}],5:[function(require,module,exports){
+},{"../router":14,"../show":15,"jquery":"jquery","underscore":"underscore","views":"views"}],6:[function(require,module,exports){
 'use strict';
 
 var $ = require('jquery');
@@ -111,7 +143,8 @@ var router = require('../router');
 var show = require('../show');
 var getCookie = require('../getCookie');
 var lockerGenerator = require('../lockerGenerator');
-var openLocker = require('../openLocker')
+var openLocker = require('../openLocker');
+var buyItem = require('../buyItem');
 
 router.route('location/locker', function () {
 	//var arr = [{title : 'teddy', details : 'A Really Big Teddy Bear'}, {title : 'car', details : 'A Super Fast car'}, {title : 'coat', details : 'A leather coat'}, {title : 'flowers', details : '1,000 Roses'}, {title : 'shoes', details : 'Air Jordans, size 9'}, {title : 'marbles', details : 'a million marbles'}, {title : 'liver', details : 'one human liver'}, {title : 'drugs', details : 'so many drugs'} ];
@@ -133,6 +166,7 @@ router.route('location/locker', function () {
 		                $(this).find('.vpopout').hide('duration fast');
 		            });
 					openLocker('.open-button');
+					buyItem('.buy-button');
 		    });
 		});
 		
@@ -154,7 +188,7 @@ router.route('location/locker', function () {
 
 
 });
-},{"../getCookie":9,"../lockerGenerator":11,"../openLocker":12,"../router":13,"../show":14,"jquery":"jquery","underscore":"underscore","views":"views"}],6:[function(require,module,exports){
+},{"../buyItem":2,"../getCookie":10,"../lockerGenerator":12,"../openLocker":13,"../router":14,"../show":15,"jquery":"jquery","underscore":"underscore","views":"views"}],7:[function(require,module,exports){
 var $ = require('jquery');
 var _ = require('underscore');
 var views = require('views');
@@ -177,9 +211,9 @@ router.route('my-items/user', function () {
 		  });
 		
  });
-},{"../getCookie":9,"../openLocker":12,"../router":13,"../show":14,"../showLists":15,"jquery":"jquery","underscore":"underscore","views":"views"}],7:[function(require,module,exports){
-arguments[4][2][0].apply(exports,arguments)
-},{"dup":2}],8:[function(require,module,exports){
+},{"../getCookie":10,"../openLocker":13,"../router":14,"../show":15,"../showLists":16,"jquery":"jquery","underscore":"underscore","views":"views"}],8:[function(require,module,exports){
+arguments[4][3][0].apply(exports,arguments)
+},{"dup":3}],9:[function(require,module,exports){
 'use strict';
 
 var $ = require('jquery');
@@ -221,7 +255,7 @@ router.route('stock/:stockURL', function (stockURL) {
 	})
 	
 });
-},{"../getCookie":9,"../router":13,"../show":14,"jquery":"jquery","underscore":"underscore","views":"views"}],9:[function(require,module,exports){
+},{"../getCookie":10,"../router":14,"../show":15,"jquery":"jquery","underscore":"underscore","views":"views"}],10:[function(require,module,exports){
 'use strict';
 
 var $ = require('jquery');
@@ -245,7 +279,7 @@ module.exports = function getCookie(name) {
 		   return cookieValue;
 		
 };
-},{"jquery":"jquery","underscore":"underscore","views":"views"}],10:[function(require,module,exports){
+},{"jquery":"jquery","underscore":"underscore","views":"views"}],11:[function(require,module,exports){
 // TODO: put initialization logic here
 'use strict';
 
@@ -259,7 +293,7 @@ require('./animations');
 
 // Start the router
 router.init();
-},{"./animations":1,"./controllers/buy.js":2,"./controllers/dashboard.js":3,"./controllers/home.js":4,"./controllers/locker-list.js":5,"./controllers/my-items.js":6,"./controllers/sell.js":7,"./controllers/stock.js":8,"./router":13}],11:[function(require,module,exports){
+},{"./animations":1,"./controllers/buy.js":3,"./controllers/dashboard.js":4,"./controllers/home.js":5,"./controllers/locker-list.js":6,"./controllers/my-items.js":7,"./controllers/sell.js":8,"./controllers/stock.js":9,"./router":14}],12:[function(require,module,exports){
 'use strict';
 
 var $ = require('jquery');
@@ -270,7 +304,6 @@ var views = require('views');
 
 module.exports = function (arr) {
   var i = 0;
-  var j = 0;
 
 	while ( i < arr.length) {
 		console.log(arr);
@@ -279,7 +312,8 @@ module.exports = function (arr) {
 		var lockerActions= arr[i].actions;
 		// var lockerRow = arr[i].row;
 		// var lockerColumn = arr[i].column;
-		var lockerId = arr[i].id;
+		
+		
 		
 		if (lockerActions[1] === "can_open" ){
 		var openHTML = '<div class="vlocker" ><span class="card animated"><span class="lockerTitle">'+ lockerTitle +'<br>EMPTY</span><div class="vpopout"><span class="lockerDetails">EMPTY</span><a href="#/stock/'+ lockerId +
@@ -296,7 +330,8 @@ module.exports = function (arr) {
 		else {
 		var itemTitle = arr[i].item_set[0].title;
 		var itemDetails = arr[i].item_set[0].description;
-		var buyHtml = '<div class="vlocker"><span class="card animated"><span class="lockerTitle">'+ lockerTitle + '<br>' + itemTitle +'</span><div class="vpopout"><span class="lockerDetails">'+ itemDetails +'</span><button class="buy-button">Buy</button></div></div>';
+		var itemId = arr[i].item_set[0].id
+		var buyHtml = '<div class="vlocker"><span class="card animated"><span class="lockerTitle">'+ lockerTitle + '<br>' + itemTitle +'</span><div class="vpopout"><span class="lockerDetails">'+ itemDetails +'</span><button class="buy-button" data-id = '+itemId+'>Buy</button></div></div>';
 		$('.locker-bank').append(buyHtml);
 		 
 		}
@@ -306,7 +341,7 @@ module.exports = function (arr) {
 	};
 
 };
-},{"jquery":"jquery","underscore":"underscore","views":"views"}],12:[function(require,module,exports){
+},{"jquery":"jquery","underscore":"underscore","views":"views"}],13:[function(require,module,exports){
 'use strict';
 
 var $ = require ('jquery');
@@ -338,13 +373,13 @@ module.exports = function (button) {
 		});
 	
 }
-},{"../js/getCookie":9,"jquery":"jquery","underscore":"underscore","views":"views"}],13:[function(require,module,exports){
+},{"../js/getCookie":10,"jquery":"jquery","underscore":"underscore","views":"views"}],14:[function(require,module,exports){
 'use strict';
 
 var SortedRouter = require('./sorted-router');
 
 module.exports = new SortedRouter();
-},{"./sorted-router":16}],14:[function(require,module,exports){
+},{"./sorted-router":17}],15:[function(require,module,exports){
 'use strict';
 
 var $ = require('jquery');
@@ -358,7 +393,7 @@ module.exports = function (templateName, model) {
   
   $('.main-content').html(hydratedHTML);
 };
-},{"jquery":"jquery","underscore":"underscore","views":"views"}],15:[function(require,module,exports){
+},{"jquery":"jquery","underscore":"underscore","views":"views"}],16:[function(require,module,exports){
 'use strict';
 
 var $ = require('jquery');
@@ -372,7 +407,7 @@ module.exports = function showLists(data, view, html) {
 			$(html).html(listHTML);
 			return data;
 		};
-},{"jquery":"jquery","underscore":"underscore","views":"views"}],16:[function(require,module,exports){
+},{"jquery":"jquery","underscore":"underscore","views":"views"}],17:[function(require,module,exports){
 'use strict';
  
 var Backbone = require('backbone');
@@ -419,7 +454,7 @@ var SortedRouter = Backbone.Router.extend({
 });
  
 module.exports = SortedRouter;
-},{"backbone":"backbone","underscore":"underscore"}]},{},[10])
+},{"backbone":"backbone","underscore":"underscore"}]},{},[11])
 
 
 //# sourceMappingURL=app.js.map

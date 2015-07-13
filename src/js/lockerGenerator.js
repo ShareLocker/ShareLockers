@@ -8,7 +8,6 @@ var views = require('views');
 
 module.exports = function (arr) {
   var i = 0;
-  var j = 0;
 
 	while ( i < arr.length) {
 		console.log(arr);
@@ -17,7 +16,8 @@ module.exports = function (arr) {
 		var lockerActions= arr[i].actions;
 		// var lockerRow = arr[i].row;
 		// var lockerColumn = arr[i].column;
-		var lockerId = arr[i].id;
+		
+		
 		
 		if (lockerActions[1] === "can_open" ){
 		var openHTML = '<div class="vlocker" ><span class="card animated"><span class="lockerTitle">'+ lockerTitle +'<br>EMPTY</span><div class="vpopout"><span class="lockerDetails">EMPTY</span><a href="#/stock/'+ lockerId +
@@ -34,7 +34,8 @@ module.exports = function (arr) {
 		else {
 		var itemTitle = arr[i].item_set[0].title;
 		var itemDetails = arr[i].item_set[0].description;
-		var buyHtml = '<div class="vlocker"><span class="card animated"><span class="lockerTitle">'+ lockerTitle + '<br>' + itemTitle +'</span><div class="vpopout"><span class="lockerDetails">'+ itemDetails +'</span><button class="buy-button">Buy</button></div></div>';
+		var itemId = arr[i].item_set[0].id
+		var buyHtml = '<div class="vlocker"><span class="card animated"><span class="lockerTitle">'+ lockerTitle + '<br>' + itemTitle +'</span><div class="vpopout"><span class="lockerDetails">'+ itemDetails +'</span><button class="buy-button" data-id = '+itemId+'>Buy</button></div></div>';
 		$('.locker-bank').append(buyHtml);
 		 
 		}

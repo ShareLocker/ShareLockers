@@ -21,6 +21,7 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', TemplateView.as_view(template_name="index.html"), name="view_index"),
     url(r'^', include('profiles.urls')),
+    url(r'^', include('lockers.urls')),
     url(r'^', include('api.urls')),
     url(r'^', include('hubs.urls')),
 ]

@@ -17,8 +17,8 @@ class Hub(models.Model):
     name = models.CharField(max_length=255)
     location = models.ForeignKey(Location)
     secret_key = models.CharField(max_length=255, db_index=True)
-    occupied = models.BooleanField(default=False)
     ip = models.CharField(null=True, max_length=255, db_index=True)
+    # connected = models.BooleanField(default=False)
 
     waiting = models.BooleanField(default=False)
     waiting_row = models.IntegerField(default=1)

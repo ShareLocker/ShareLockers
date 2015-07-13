@@ -14,6 +14,7 @@ module.exports = function (arr) {
 		var lockerId = arr[i].id
 		var lockerTitle= arr[i].local_code;
 		var lockerActions= arr[i].actions;
+		var currentUser = $('.user-id').attr('data-id');
 		// var lockerRow = arr[i].row;
 		// var lockerColumn = arr[i].column;
 		
@@ -31,13 +32,20 @@ module.exports = function (arr) {
 		$('.locker-bank').append(stockHtml);
 		}
 		
+		
 		else {
+		var itemOwner = arr[i].item_set[0].owner;
 		var itemTitle = arr[i].item_set[0].title;
 		var itemDetails = arr[i].item_set[0].description;
-		var itemId = arr[i].item_set[0].id
-		var buyHtml = '<div class="vlocker"><span class="card animated"><span class="lockerTitle">'+ lockerTitle + '<br>' + itemTitle +'</span><div class="vpopout"><span class="lockerDetails">'+ itemDetails +'</span><button class="buy-button" data-id = '+itemId+'>Buy</button></div></div>';
-		$('.locker-bank').append(buyHtml);
-		 
+		var itemId = arr[i].item_set[0].id;
+		if (currentUser = itemOwner ) {
+			var ownerHtml = '<div class="vlocker"><span class="card animated"><span class="lockerTitle">'+ lockerTitle + '<br>' + itemTitle +'</span><div class="vpopout"><span class="lockerDetails">'+ itemDetails +'</span><button class="open-button" data-id = '+lockerId+'>Open</button></div></div>';
+			$('.locker-bank').append(ownerHtml);
+		}
+		else {
+			var buyHtml = '<div class="vlocker"><span class="card animated"><span class="lockerTitle">'+ lockerTitle + '<br>' + itemTitle +'</span><div class="vpopout"><span class="lockerDetails">'+ itemDetails +'</span><button class="buy-button" data-id = '+itemId+'>Buy</button></div></div>';
+			$('.locker-bank').append(buyHtml);
+		}
 		}
 
 		++i;	 

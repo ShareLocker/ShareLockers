@@ -46,6 +46,7 @@ INSTALLED_APPS = (
     'lockers',
     'profiles',
     'transactions',
+    'bootstrap3',
 )
 
 MIDDLEWARE_CLASSES = (

@@ -8,6 +8,7 @@
   padding: 0.5em;
   text-align: center;
   height: 100vh;
+ 
 }
 
 body{
@@ -22,10 +23,14 @@ h1 , h2 , h3{
 h1{
   font-size: 5em;
 }
+h3{
+  font-size: 2.5em;
+}
 
 .hero-container {
-  padding-top: 8.5em;
-  background: #1f8dd6;
+ 
+  padding-top: 10em;
+  background: RGBA(69, 136, 156, 1);
   z-index: -1;
   position: fixed;
   bottom: 0;
@@ -45,12 +50,13 @@ h1{
 
 .section1{
   background-color:#eee;
-  height: 100vh;
+  height: 80vh;
   margin-top: 100vh;
+  
 }
 
 .section2{
-	  background-color: RGBA(36, 40, 56, 1);
+	  // background-color:#6F6789;
     max-height:75vh;
 
 }
@@ -59,11 +65,11 @@ h1{
 
 	  padding: 0.5em;
     text-align: center;
-    margin-bottom:23em;
+    margin-bottom:30em;
 }
 
 .section3 h1{
-  // background-color:RGBA(31, 141, 214, 1);
+ 
   padding: 0;
 }
 
@@ -120,7 +126,7 @@ button{
 }
 
 button:hover {
-  background-color: #346392;
+  background-color: RGBA(75, 136, 157, 0.2);;
   text-shadow: -1px 1px #27496d;
 }
 
@@ -213,7 +219,3 @@ button:hover {
   border-radius: .5em;
 }
 
-.icon{
-  font-size: 3em;
-  color: black;
-  }

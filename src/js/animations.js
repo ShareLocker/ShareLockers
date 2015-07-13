@@ -1,3 +1,5 @@
+// HEADER ANIMATION
+
 var $ = require("jquery");
 
 $(window).scroll(function() {
@@ -7,3 +9,6 @@ $(window).scroll(function() {
     $('.my-page-header').removeClass("sticky");
   }
 });
+
+
+

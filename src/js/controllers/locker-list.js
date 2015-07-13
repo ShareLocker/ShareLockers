@@ -21,7 +21,6 @@ router.route('location/locker', function () {
 			lockerGenerator(data);
 			$(document).ready(function() {
 		            $('.vlocker').click(function() {
-						$(this).animate('flip');
 		                $(this).find('.vpopout').show('duration fast');
 		            });
 		            $('.vlocker').mouseleave(function() {
@@ -37,23 +36,5 @@ router.route('location/locker', function () {
 			console.log(data);
 		});
 		
-
-		
-		
-			
-		
-		
-		function showLockers(data) {
-			var lockerTemplate = views['locker-list'];
-		    var templateFn = _.template(lockerTemplate, { variable: 'm' });
-		    var lockerHTML = templateFn({ lockers: data });
-			$('.main-content').html(lockerHTML);
-			return data;
-		}
-		
-		
-		
-		
-
 
 });

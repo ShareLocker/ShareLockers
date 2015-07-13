@@ -42,7 +42,7 @@ router.route('dashboard/user', function () {
 		});
 	
 })
-},{"../router":11,"jquery":"jquery","underscore":"underscore","views":"views"}],4:[function(require,module,exports){
+},{"../router":13,"jquery":"jquery","underscore":"underscore","views":"views"}],4:[function(require,module,exports){
 'use strict';
 
 var $ = require('jquery');
@@ -64,7 +64,7 @@ router.route('', function () {
 
 
 });
-},{"../router":11,"../show":12,"jquery":"jquery","underscore":"underscore","views":"views"}],5:[function(require,module,exports){
+},{"../router":13,"../show":14,"jquery":"jquery","underscore":"underscore","views":"views"}],5:[function(require,module,exports){
 'use strict';
 
 var $ = require('jquery');
@@ -88,7 +88,6 @@ router.route('location/locker', function () {
 			lockerGenerator(data);
 			$(document).ready(function() {
 		            $('.vlocker').click(function() {
-						$(this).animate('flip');
 		                $(this).find('.vpopout').show('duration fast');
 		            });
 		            $('.vlocker').mouseleave(function() {
@@ -105,28 +104,33 @@ router.route('location/locker', function () {
 		});
 		
 
-		
-		
-			
-		
-		
-		function showLockers(data) {
-			var lockerTemplate = views['locker-list'];
-		    var templateFn = _.template(lockerTemplate, { variable: 'm' });
-		    var lockerHTML = templateFn({ lockers: data });
-			$('.main-content').html(lockerHTML);
-			return data;
-		}
-		
-		
-		
-		
-
-
 });
-},{"../getCookie":8,"../lockerGenerator":10,"../router":11,"../show":12,"jquery":"jquery","underscore":"underscore","views":"views"}],6:[function(require,module,exports){
+},{"../getCookie":9,"../lockerGenerator":11,"../router":13,"../show":14,"jquery":"jquery","underscore":"underscore","views":"views"}],6:[function(require,module,exports){
+var $ = require('jquery');
+var _ = require('underscore');
+var views = require('views');
+var router = require('../router');
+var show = require('../show');
+var showLists = require('../showLists')
+var getCookie = require('../getCookie')
+var openLocker = require('../openLocker')
+
+router.route('my-items/user', function () {
+	
+	
+		$.ajax({
+			method: 'GET', 
+			url: '/api/owneditems/',
+  		}).done(function (data){
+			console.log(data);
+			showLists(data, 'my-items', '.main-content');
+			openLocker('.list-item');
+		  });
+		
+ });
+},{"../getCookie":9,"../openLocker":12,"../router":13,"../show":14,"../showLists":15,"jquery":"jquery","underscore":"underscore","views":"views"}],7:[function(require,module,exports){
 arguments[4][2][0].apply(exports,arguments)
-},{"dup":2}],7:[function(require,module,exports){
+},{"dup":2}],8:[function(require,module,exports){
 'use strict';
 
 var $ = require('jquery');
@@ -145,12 +149,12 @@ router.route('stock/:stockURL', function (stockURL) {
 		var title = $('.item-title').val();
 		var description = $('.item-description').val();
 		var price = $('.item-price').val();
+		var owner = $('.owner').val();
 
 		
 		$.ajax({
 			
 					beforeSend: function (request){
-					console.log(csrftoken)
 		            request.setRequestHeader('X-CSRFToken', csrftoken);
 		           },
 					method: 'POST', 
@@ -158,17 +162,17 @@ router.route('stock/:stockURL', function (stockURL) {
 					data: {	"title": title,
 							"description": description,
 							"price": price,
-							"owner": 1,
+							"owner": owner,
 							"locker": stockURL					
 						}
 		  		}).done(function (data){
 					console.log(data);
 				});
-			window.location.href = '/#/location/locker';
+			window.location.href = '/#/my-items/user';
 	})
 	
 });
-},{"../getCookie":8,"../router":11,"../show":12,"jquery":"jquery","underscore":"underscore","views":"views"}],8:[function(require,module,exports){
+},{"../getCookie":9,"../router":13,"../show":14,"jquery":"jquery","underscore":"underscore","views":"views"}],9:[function(require,module,exports){
 'use strict';
 
 var $ = require('jquery');
@@ -192,7 +196,7 @@ module.exports = function getCookie(name) {
 		   return cookieValue;
 		
 };
-},{"jquery":"jquery","underscore":"underscore","views":"views"}],9:[function(require,module,exports){
+},{"jquery":"jquery","underscore":"underscore","views":"views"}],10:[function(require,module,exports){
 // TODO: put initialization logic here
 'use strict';
 
@@ -202,11 +206,11 @@ var router = require('./router');
 require('./animations');
 
 // Require all of our controllers
-({"controllers":({"buy":require("./controllers/buy.js"),"dashboard":require("./controllers/dashboard.js"),"home":require("./controllers/home.js"),"locker-list":require("./controllers/locker-list.js"),"sell":require("./controllers/sell.js"),"stock":require("./controllers/stock.js")})});
+({"controllers":({"buy":require("./controllers/buy.js"),"dashboard":require("./controllers/dashboard.js"),"home":require("./controllers/home.js"),"locker-list":require("./controllers/locker-list.js"),"my-items":require("./controllers/my-items.js"),"sell":require("./controllers/sell.js"),"stock":require("./controllers/stock.js")})});
 
 // Start the router
 router.init();
-},{"./animations":1,"./controllers/buy.js":2,"./controllers/dashboard.js":3,"./controllers/home.js":4,"./controllers/locker-list.js":5,"./controllers/sell.js":6,"./controllers/stock.js":7,"./router":11}],10:[function(require,module,exports){
+},{"./animations":1,"./controllers/buy.js":2,"./controllers/dashboard.js":3,"./controllers/home.js":4,"./controllers/locker-list.js":5,"./controllers/my-items.js":6,"./controllers/sell.js":7,"./controllers/stock.js":8,"./router":13}],11:[function(require,module,exports){
 'use strict';
 
 var $ = require('jquery');
@@ -246,13 +250,45 @@ module.exports = function (arr) {
 	};
 
 };
-},{"jquery":"jquery","underscore":"underscore","views":"views"}],11:[function(require,module,exports){
+},{"jquery":"jquery","underscore":"underscore","views":"views"}],12:[function(require,module,exports){
+'use strict';
+
+var $ = require ('jquery');
+var _ = require ('underscore');
+var views = require ('views');
+var getCookie = require ('../js/getCookie');
+
+module.exports = function (button) {
+	$(document).on('click', button ,function () {
+			console.log(this);
+			var id = this.getAttribute('data-id');
+			var csrftoken = getCookie('csrftoken'); 
+			console.log(csrftoken);
+				$.ajax({
+					beforeSend: function (request){
+					console.log(csrftoken)
+		            request.setRequestHeader('X-CSRFToken', csrftoken);
+		           },
+					method: 'POST', 
+					url: '/api/unlocks/',
+					data: {
+					   "waiting": true,
+					   "profile": 1,
+					   "locker": id
+					}
+		  		}).done(function (data){
+					console.log(data);
+				});
+		});
+	
+}
+},{"../js/getCookie":9,"jquery":"jquery","underscore":"underscore","views":"views"}],13:[function(require,module,exports){
 'use strict';
 
 var SortedRouter = require('./sorted-router');
 
 module.exports = new SortedRouter();
-},{"./sorted-router":13}],12:[function(require,module,exports){
+},{"./sorted-router":16}],14:[function(require,module,exports){
 'use strict';
 
 var $ = require('jquery');
@@ -266,7 +302,21 @@ module.exports = function (templateName, model) {
   
   $('.main-content').html(hydratedHTML);
 };
-},{"jquery":"jquery","underscore":"underscore","views":"views"}],13:[function(require,module,exports){
+},{"jquery":"jquery","underscore":"underscore","views":"views"}],15:[function(require,module,exports){
+'use strict';
+
+var $ = require('jquery');
+var _ = require('underscore');
+var views = require('views');
+
+module.exports = function showLists(data, view, html) {
+			var listTemplate = views[view];
+		    var templateFn = _.template(listTemplate, { variable: 'm' });
+		    var listHTML = templateFn({ items: data });
+			$(html).html(listHTML);
+			return data;
+		};
+},{"jquery":"jquery","underscore":"underscore","views":"views"}],16:[function(require,module,exports){
 'use strict';
  
 var Backbone = require('backbone');
@@ -313,7 +363,7 @@ var SortedRouter = Backbone.Router.extend({
 });
  
 module.exports = SortedRouter;
-},{"backbone":"backbone","underscore":"underscore"}]},{},[9])
+},{"backbone":"backbone","underscore":"underscore"}]},{},[10])
 
 
 //# sourceMappingURL=app.js.map

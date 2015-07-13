@@ -22,7 +22,6 @@ router.route('stock/:stockURL', function (stockURL) {
 		$.ajax({
 			
 					beforeSend: function (request){
-					console.log(csrftoken)
 		            request.setRequestHeader('X-CSRFToken', csrftoken);
 		           },
 					method: 'POST', 
@@ -36,7 +35,7 @@ router.route('stock/:stockURL', function (stockURL) {
 		  		}).done(function (data){
 					console.log(data);
 				});
-			window.location.href = '/#/location/locker';
+			window.location.href = '/#/my-items/user';
 	})
 	
 });

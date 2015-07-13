@@ -111,6 +111,7 @@ var router = require('../router');
 var show = require('../show');
 var getCookie = require('../getCookie');
 var lockerGenerator = require('../lockerGenerator');
+var openLocker = require('../openLocker')
 
 router.route('location/locker', function () {
 	//var arr = [{title : 'teddy', details : 'A Really Big Teddy Bear'}, {title : 'car', details : 'A Super Fast car'}, {title : 'coat', details : 'A leather coat'}, {title : 'flowers', details : '1,000 Roses'}, {title : 'shoes', details : 'Air Jordans, size 9'}, {title : 'marbles', details : 'a million marbles'}, {title : 'liver', details : 'one human liver'}, {title : 'drugs', details : 'so many drugs'} ];
@@ -131,6 +132,7 @@ router.route('location/locker', function () {
 		            $('.vlocker').mouseleave(function() {
 		                $(this).find('.vpopout').hide('duration fast');
 		            });
+					openLocker('.vlocker');
 		    });
 		});
 		
@@ -142,11 +144,6 @@ router.route('location/locker', function () {
 		});
 		
 
-		
-		
-			
-		
-		
 		function showLockers(data) {
 			var lockerTemplate = views['locker-list'];
 		    var templateFn = _.template(lockerTemplate, { variable: 'm' });
@@ -154,14 +151,10 @@ router.route('location/locker', function () {
 			$('.main-content').html(lockerHTML);
 			return data;
 		}
-		
-		
-		
-		
 
 
 });
-},{"../getCookie":9,"../lockerGenerator":11,"../router":13,"../show":14,"jquery":"jquery","underscore":"underscore","views":"views"}],6:[function(require,module,exports){
+},{"../getCookie":9,"../lockerGenerator":11,"../openLocker":12,"../router":13,"../show":14,"jquery":"jquery","underscore":"underscore","views":"views"}],6:[function(require,module,exports){
 var $ = require('jquery');
 var _ = require('underscore');
 var views = require('views');
@@ -281,18 +274,25 @@ module.exports = function (arr) {
 
 	while ( i < arr.length) {
 		console.log(arr);
+		var lockerId = arr[i].id
 		var lockerTitle= arr[i].local_code;
 		var lockerActions= arr[i].actions;
 		// var lockerRow = arr[i].row;
 		// var lockerColumn = arr[i].column;
 		var lockerId = arr[i].id;
 		
-		if (lockerActions[0] === 'can_stock'){
+		if (lockerActions[1] === "can_open" ){
+		var openHTML = '<div class="vlocker" data-id = '+lockerId+'><span class="card animated"><span class="lockerTitle">'+ lockerTitle +'<br>EMPTY</span><div class="vpopout"><span class="lockerDetails">EMPTY</span><a href="#/stock/'+ lockerId +
+		'" class="stock-button">STOCK</a><button class="open-button">Open</button></div></div>';
+		$('.locker-bank').append(openHTML);
+		}
+		
+		else if (lockerActions[0] === 'can_stock'){
 		var stockHtml = '<div class="vlocker"><span class="card animated"><span class="lockerTitle">'+ lockerTitle +'<br>EMPTY</span><div class="vpopout"><span class="lockerDetails">EMPTY</span><a href="#/stock/'+ lockerId +
 		'" class="stock-button">STOCK</a></div></div>';
 		$('.locker-bank').append(stockHtml);
-		
 		}
+		
 		else {
 		var itemTitle = arr[i].item_set[0].title;
 		var itemDetails = arr[i].item_set[0].description;

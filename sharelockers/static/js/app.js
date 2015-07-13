@@ -48,8 +48,6 @@ module.exports = function (button) {
 	
 }
 },{"../js/getCookie":10,"jquery":"jquery","underscore":"underscore","views":"views"}],3:[function(require,module,exports){
-
-},{}],4:[function(require,module,exports){
 'use strict';
 
 var $ = require('jquery');
@@ -57,17 +55,12 @@ var _ = require('underscore');
 var views = require('views');
 var router = require('../router');
 var show = require('../show');
+var showLists =require('../showLists');
 
 
 router.route('dashboard', function () {
+  show('dashboard');
 		
-	show('dashboard');
-	$.ajax({
-			method: 'GET', 
-			url: '/api/profiles/',
-  		}).done(function (data){
-			console.log(data);
-
 // RESPONSIVE DASHBOARD MENU
 			
 			(function () {
@@ -105,14 +98,66 @@ router.route('dashboard', function () {
     };
 
 }(this, this.document));
+// api info for 'My Items' TAB IS BELOW	
 
-		});
-	
+$('.items').on('click', function() {
 
+    $.ajax({
+    			method: 'GET', 
+    			url: '/api/owneditems/',
+      		}).done(function (data){
+    			console.log(data);
+          showLists(data, 'my-items', '.generated');
+    			
+    });
+   });
+
+//api info for LOCATION TAB IS BELOW
+
+$('.location').on('click', function() {
+    
+    $.ajax({
+    			method: 'GET', 
+    			url: '/api/hubs/',
+      		}).done(function (data){
+    			console.log(data);
+          showLists(data, 'locations', '.generated');
+    			
+    });
 
 });
 
-},{"../router":14,"../show":15,"jquery":"jquery","underscore":"underscore","views":"views"}],5:[function(require,module,exports){
+//api info for PROFILES TAB IS BELOW
+
+$('.items').on('click', function() {
+
+    $.ajax({
+    			method: 'GET', 
+    			url: '/profiles/{id}',
+      		}).done(function (data){
+    			console.log(data);
+          showLists(data, 'my-items', '.generated');
+    			
+    });
+   });
+});
+    
+
+
+// $.ajax({
+// 			method: 'GET', 
+// 			url: 'api/owneditems/',
+//   		}).done(function (data){
+// 			console.log(data);
+			
+// });			
+			
+			
+			
+		
+
+
+},{"../router":14,"../show":15,"../showLists":16,"jquery":"jquery","underscore":"underscore","views":"views"}],4:[function(require,module,exports){
 'use strict';
 
 var $ = require('jquery');
@@ -134,7 +179,11 @@ router.route('', function () {
 
 
 });
-},{"../router":14,"../show":15,"jquery":"jquery","underscore":"underscore","views":"views"}],6:[function(require,module,exports){
+},{"../router":14,"../show":15,"jquery":"jquery","underscore":"underscore","views":"views"}],5:[function(require,module,exports){
+
+},{}],6:[function(require,module,exports){
+arguments[4][5][0].apply(exports,arguments)
+},{"dup":5}],7:[function(require,module,exports){
 'use strict';
 
 var $ = require('jquery');
@@ -189,7 +238,7 @@ router.route('location/locker', function () {
 
 
 });
-},{"../buyItem":2,"../getCookie":10,"../lockerGenerator":12,"../openLocker":13,"../router":14,"../show":15,"jquery":"jquery","underscore":"underscore","views":"views"}],7:[function(require,module,exports){
+},{"../buyItem":2,"../getCookie":10,"../lockerGenerator":12,"../openLocker":13,"../router":14,"../show":15,"jquery":"jquery","underscore":"underscore","views":"views"}],8:[function(require,module,exports){
 var $ = require('jquery');
 var _ = require('underscore');
 var views = require('views');
@@ -212,9 +261,7 @@ router.route('my-items/user', function () {
 		  });
 		
  });
-},{"../getCookie":10,"../openLocker":13,"../router":14,"../show":15,"../showLists":16,"jquery":"jquery","underscore":"underscore","views":"views"}],8:[function(require,module,exports){
-arguments[4][3][0].apply(exports,arguments)
-},{"dup":3}],9:[function(require,module,exports){
+},{"../getCookie":10,"../openLocker":13,"../router":14,"../show":15,"../showLists":16,"jquery":"jquery","underscore":"underscore","views":"views"}],9:[function(require,module,exports){
 'use strict';
 
 var $ = require('jquery');
@@ -290,11 +337,11 @@ var router = require('./router');
 require('./animations');
 
 // Require all of our controllers
-({"controllers":({"buy":require("./controllers/buy.js"),"dashboard":require("./controllers/dashboard.js"),"home":require("./controllers/home.js"),"locker-list":require("./controllers/locker-list.js"),"my-items":require("./controllers/my-items.js"),"sell":require("./controllers/sell.js"),"stock":require("./controllers/stock.js")})});
+({"controllers":({"dashboard":require("./controllers/dashboard.js"),"home":require("./controllers/home.js"),"items":require("./controllers/items.js"),"locations":require("./controllers/locations.js"),"locker-list":require("./controllers/locker-list.js"),"my-items":require("./controllers/my-items.js"),"stock":require("./controllers/stock.js")})});
 
 // Start the router
 router.init();
-},{"./animations":1,"./controllers/buy.js":3,"./controllers/dashboard.js":4,"./controllers/home.js":5,"./controllers/locker-list.js":6,"./controllers/my-items.js":7,"./controllers/sell.js":8,"./controllers/stock.js":9,"./router":14}],12:[function(require,module,exports){
+},{"./animations":1,"./controllers/dashboard.js":3,"./controllers/home.js":4,"./controllers/items.js":5,"./controllers/locations.js":6,"./controllers/locker-list.js":7,"./controllers/my-items.js":8,"./controllers/stock.js":9,"./router":14}],12:[function(require,module,exports){
 'use strict';
 
 var $ = require('jquery');

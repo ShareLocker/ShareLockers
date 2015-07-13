@@ -5,7 +5,7 @@
 }
 
 .container{
-  padding: 0.5em;
+  padding: 0.5em 0;
   text-align: center;
   height: 100vh;
  
@@ -23,8 +23,13 @@ h1 , h2 , h3{
 h1{
   font-size: 5em;
 }
-h3{
+
+h3 ,.tagline{
   font-size: 2.5em;
+}
+h3, .tagline {
+  
+  font-family: 'Helvetica Neue', 'Lucida Grande', sans-serif;
 }
 
 .hero-container {
@@ -50,14 +55,21 @@ h3{
 
 .section1{
   background-color:#eee;
-  height: 80vh;
+  height: 100vh;
   margin-top: 100vh;
   
 }
 
 .section2{
-	  // background-color:#6F6789;
-    max-height:75vh;
+	  background:
+	  // linear-gradient(
+    //   RGBA(36, 40, 56, 0.5),
+    //   RGBA(159, 129, 184, 1)
+    // ),
+    url("../img/mockup.jpg");
+    background-size: 100% 100%;
+    background-repeat:no-repeat;
+    height:100vh;
 
 }
 
@@ -121,7 +133,8 @@ button{
   border-radius: 10px;
   color: #eee;
   padding: 0.2em;
-
+  font-family: 'Helvetica Neue', 'Lucida Grande', sans-serif;
+  
 
 }
 

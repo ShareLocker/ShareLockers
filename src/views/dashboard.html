@@ -11,12 +11,12 @@
 
             <ul class="pure-menu-list">
               
-                <li class="pure-menu-item"><a href="#" class="pure-menu-link">My Items</a></li>         
+                <li class="pure-menu-item"><a href="#" class="pure-menu-link"><span class="flaticon-archive34">My Items</a></li>         
                 
                 
-                <li class="pure-menu-item"><a href="#" class="pure-menu-link">Locations</a></li>
+                <li class="pure-menu-item"><a href="#" class="pure-menu-link"><span class="flaticon-computers7">Locations</a></li>
 
-                 <li class="pure-menu-item"><a href="#" class="pure-menu-link">My Profile</a></li>
+                 <li class="pure-menu-item"><a href="#" class="pure-menu-link"><span class="flaticon-internet16">My Profile</a></li>
 
                 
                 <li class="pure-menu-item"><a href="#" class="pure-menu-link">Log Out</a></li>
@@ -27,11 +27,12 @@
 <!--API SECTION is BELLOW-->
     <div id="main">
         <div class="header">
-            <h1>Welcome {user}</h1>
+            <h1>Welcome {{ user }}</h1>
         </div>
 
         <div class="content">
           <div class="dash-card">
+            
             <h2 class="content-subhead">Profile</h2>
             <p>
                 Use an ajax call to list profile information about a user. (Allow editing here) assciated with {user id}.
@@ -50,6 +51,8 @@
             <p>
                 Show all available locations here!
             </p>
+            
+            <div class="generated"></div>
           </div>
         </div>
     </div>

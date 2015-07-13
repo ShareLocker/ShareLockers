@@ -56,8 +56,15 @@ h3{
 }
 
 .section2{
-	  // background-color:#6F6789;
-    max-height:75vh;
+	  background:
+	  // linear-gradient(
+    //   RGBA(36, 40, 56, 0.5),
+    //   RGBA(159, 129, 184, 1)
+    // ),
+    url("../img/mockup.jpg");
+    background-size: 100% 100%;
+    background-repeat:no-repeat;
+    max-height:100vh;
 
 }
 

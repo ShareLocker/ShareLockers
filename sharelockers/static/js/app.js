@@ -15,8 +15,6 @@ $(window).scroll(function() {
 
 
 },{"jquery":"jquery"}],2:[function(require,module,exports){
-
-},{}],3:[function(require,module,exports){
 'use strict';
 
 var $ = require('jquery');
@@ -74,12 +72,29 @@ router.route('dashboard', function () {
 }(this, this.document));
 
 		});
-	
-
 
 });
 
-},{"../router":9,"../show":10,"jquery":"jquery","underscore":"underscore","views":"views"}],4:[function(require,module,exports){
+
+// api info for 'My Items' TAB IS BELOW	
+$.ajax({
+			method: 'GET', 
+			url: '/owneditems/',
+  		}).done(function (data){
+			console.log(data);
+			
+});			
+			
+			
+// api info for LOCATION TAB IS BELOW			
+$.ajax({
+			method: 'GET', 
+			url: '/hubs/',
+  		}).done(function (data){
+			console.log(data);
+			
+});		
+},{"../router":9,"../show":10,"jquery":"jquery","underscore":"underscore","views":"views"}],3:[function(require,module,exports){
 'use strict';
 
 var $ = require('jquery');
@@ -101,7 +116,11 @@ router.route('', function () {
 
 
 });
-},{"../router":9,"../show":10,"jquery":"jquery","underscore":"underscore","views":"views"}],5:[function(require,module,exports){
+},{"../router":9,"../show":10,"jquery":"jquery","underscore":"underscore","views":"views"}],4:[function(require,module,exports){
+
+},{}],5:[function(require,module,exports){
+arguments[4][4][0].apply(exports,arguments)
+},{"dup":4}],6:[function(require,module,exports){
 'use strict';
 
 var $ = require('jquery');
@@ -198,9 +217,7 @@ router.route('location/locker', function () {
 		}
 
 });
-},{"../lockerGenerator":8,"../router":9,"../show":10,"jquery":"jquery","underscore":"underscore","views":"views"}],6:[function(require,module,exports){
-arguments[4][2][0].apply(exports,arguments)
-},{"dup":2}],7:[function(require,module,exports){
+},{"../lockerGenerator":8,"../router":9,"../show":10,"jquery":"jquery","underscore":"underscore","views":"views"}],7:[function(require,module,exports){
 // TODO: put initialization logic here
 'use strict';
 
@@ -210,11 +227,11 @@ var router = require('./router');
 require('./animations');
 
 // Require all of our controllers
-({"controllers":({"buy":require("./controllers/buy.js"),"dashboard":require("./controllers/dashboard.js"),"home":require("./controllers/home.js"),"locker-list":require("./controllers/locker-list.js"),"sell":require("./controllers/sell.js")})});
+({"controllers":({"dashboard":require("./controllers/dashboard.js"),"home":require("./controllers/home.js"),"items":require("./controllers/items.js"),"locations":require("./controllers/locations.js"),"locker-list":require("./controllers/locker-list.js")})});
 
 // Start the router
 router.init();
-},{"./animations":1,"./controllers/buy.js":2,"./controllers/dashboard.js":3,"./controllers/home.js":4,"./controllers/locker-list.js":5,"./controllers/sell.js":6,"./router":9}],8:[function(require,module,exports){
+},{"./animations":1,"./controllers/dashboard.js":2,"./controllers/home.js":3,"./controllers/items.js":4,"./controllers/locations.js":5,"./controllers/locker-list.js":6,"./router":9}],8:[function(require,module,exports){
 'use strict';
 
 var $ = require('jquery');

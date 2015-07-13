@@ -779,7 +779,7 @@ The content `<div>` is where all your content goes.
   margin: 0;
   color: #333;
   text-align: center;
-  padding: 2.5em 2em 0;
+  padding: 0.5em 2em 0;
   border-bottom: 1px solid #eee; }
 
 .header h1 {
@@ -822,7 +822,7 @@ appears on the left side of the page.
 #menu a {
   color: #999;
   border: none;
-  padding: 0.6em 0 0.6em 0.6em; }
+  padding: 0.6em; }
 
 /*
     Remove all background/borders, since we are applying them to #menu.
@@ -837,14 +837,19 @@ appears on the left side of the page.
     */
 #menu .pure-menu ul,
 #menu .pure-menu .menu-item-divided {
-  border-top: 1px solid #333; }
+  padding: 0.5em;
+  margin-top: 1em; }
 
 /*
         Change color of the anchor links on hover/focus.
         */
+#menu .pure-menu ul li {
+  padding-top: 2em; }
+
 #menu .pure-menu li a:hover,
 #menu .pure-menu li a:focus {
-  background: #333; }
+  border-top: 1px solid #333;
+  border-bottom: 1px solid #333; }
 
 /*
     This styles the selected menu item `<li>`.
@@ -1119,7 +1124,10 @@ h3 {
   margin-top: 100vh; }
 
 .section2 {
-  max-height: 75vh; }
+  background: url("../img/mockup.jpg");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  max-height: 100vh; }
 
 .section3 {
   padding: 0.5em;

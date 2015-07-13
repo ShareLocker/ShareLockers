@@ -55,7 +55,25 @@ router.route('dashboard', function () {
 }(this, this.document));
 
 		});
-	
-
 
 });
+
+
+// api info for 'My Items' TAB IS BELOW	
+$.ajax({
+			method: 'GET', 
+			url: '/owneditems/',
+  		}).done(function (data){
+			console.log(data);
+			
+});			
+			
+			
+// api info for LOCATION TAB IS BELOW			
+$.ajax({
+			method: 'GET', 
+			url: '/hubs/',
+  		}).done(function (data){
+			console.log(data);
+			
+});		

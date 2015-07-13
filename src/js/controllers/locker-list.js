@@ -28,7 +28,7 @@ router.route('location/locker', function () {
 		            $('.vlocker').mouseleave(function() {
 		                $(this).find('.vpopout').hide('duration fast');
 		            });
-					openLocker('.vlocker');
+					openLocker('.open-button');
 		    });
 		});
 		

@@ -132,7 +132,7 @@ router.route('location/locker', function () {
 		            $('.vlocker').mouseleave(function() {
 		                $(this).find('.vpopout').hide('duration fast');
 		            });
-					openLocker('.vlocker');
+					openLocker('.open-button');
 		    });
 		});
 		
@@ -282,8 +282,8 @@ module.exports = function (arr) {
 		var lockerId = arr[i].id;
 		
 		if (lockerActions[1] === "can_open" ){
-		var openHTML = '<div class="vlocker" data-id = '+lockerId+'><span class="card animated"><span class="lockerTitle">'+ lockerTitle +'<br>EMPTY</span><div class="vpopout"><span class="lockerDetails">EMPTY</span><a href="#/stock/'+ lockerId +
-		'" class="stock-button">STOCK</a><button class="open-button">Open</button></div></div>';
+		var openHTML = '<div class="vlocker" ><span class="card animated"><span class="lockerTitle">'+ lockerTitle +'<br>EMPTY</span><div class="vpopout"><span class="lockerDetails">EMPTY</span><a href="#/stock/'+ lockerId +
+		'" class="stock-button">STOCK</a><button class="open-button" data-id = '+lockerId+'>Open</button></div></div>';
 		$('.locker-bank').append(openHTML);
 		}
 		

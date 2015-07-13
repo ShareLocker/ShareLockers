@@ -71,7 +71,9 @@ def poll(request, akey):
     if Hub.objects.filter(secret_key=akey).exists():
         this_hub = Hub.objects.get(secret_key=akey)
         if this_hub.ip != ip:
-            print("Warning: IP of controller changed while lowering?")
+            print("Warning: IP of controller changed to "+ip)
+            this_hub.ip = ip
+            this_hub.save()
         print(" hub " + this_hub.secret_key + " polled us.", end='')
         if this_hub.waiting:
             this_hub.waiting = False

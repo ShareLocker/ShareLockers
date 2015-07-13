@@ -35,8 +35,11 @@ class LockerViewSet(viewsets.ModelViewSet):
         column = instance.column
         row = instance.row
         hub = Hub.objects.get(secret_key=1)
+        # FIXME: depreciate opening by Locker object entirely
         # hub.open(column, row) # open using Arduino as server
         hub.poll_open(column, row) # open using Arduino as polling device
+        unlock = Unlock(profile=self.request.user.profile, locker=instance)
+        unlock.save()
 
         return Response(serializer.data)
 
@@ -89,9 +92,9 @@ class UnlockViewSet(viewsets.ModelViewSet):
             item = None
 
         # Logged in button-pusher  == locker.item.owner
-        if opener != owner:
-            print("You don't have access to this item, it belongs to {}".format(owner))
-            raise serializers.ValidationError("You don't have access to this item, it belongs to {}".format(owner))
+        # if opener != owner: # FIXME: enable for actual owner
+        #     print("You don't have access to this item, it belongs to {}".format(owner))
+        #     raise serializers.ValidationError("You don't have access to this item, it belongs to {}".format(owner))
 
         # Set hub waiting/row/column for next time the hub polls the server
         print("Setting up for locker {} to open when server is polled".format(locker.local_code()))
@@ -156,9 +159,9 @@ class PurchaseViewSet(viewsets.ModelViewSet):
         serializer.is_valid(raise_exception=True)
         print(serializer.data)
         # Validations
-        if buyer == seller:
-            print("You can't buy {}, because you already own it".format(item))
-            raise serializers.ValidationError('Buyer and seller cannot be the same user.')
+        # if buyer == seller: # FIXME: do correct validation for buyer
+        #     print("You can't buy {}, because you already own it".format(item))
+        #     raise serializers.ValidationError('Buyer and seller cannot be the same user.')
             # return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
 
         # Change owners

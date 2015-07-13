@@ -8,8 +8,8 @@ var getCookie = require ('../js/getCookie');
 module.exports = function (button) {
 	$(document).on('click', button ,function () {
 			console.log(this);
-			var id = this.getAttribute('data-id');
-			var profile = $('.user-id').attr('data-id');
+			var itemId = this.getAttribute('data-id');
+			var buyerId = $('.user-id').attr('data-id');
 			var csrftoken = getCookie('csrftoken'); 
 			console.log(csrftoken);
 				$.ajax({
@@ -18,15 +18,15 @@ module.exports = function (button) {
 		            request.setRequestHeader('X-CSRFToken', csrftoken);
 		           },
 					method: 'POST', 
-					url: '/api/unlocks/',
+					url: '/api/purchases/',
 					data: {
-					   "waiting": true,
-					   "profile": profile,
-					   "locker": id
+					   "item": itemId,
+					   "buyer": buyerId
 					}
 		  		}).done(function (data){
 					console.log(data);
 				});
+				document.location.href = '/#/my-items/user'
 		});
 	
 }

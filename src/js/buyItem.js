@@ -8,7 +8,8 @@ var getCookie = require ('../js/getCookie');
 module.exports = function (button) {
 	$(document).on('click', button ,function () {
 			console.log(this);
-			var id = this.getAttribute('data-id');
+			var itemId = this.getAttribute('data-id');
+			var buyerId = $('.user.id').getAttribute('data-id');
 			var csrftoken = getCookie('csrftoken'); 
 			console.log(csrftoken);
 				$.ajax({
@@ -19,8 +20,8 @@ module.exports = function (button) {
 					method: 'POST', 
 					url: '/api/purchases/',
 					data: {
-					   "item": id,
-					   "buyer": 2
+					   "item": itemId,
+					   "buyer": buyerId
 					}
 		  		}).done(function (data){
 					console.log(data);

@@ -4,18 +4,16 @@ from django.contrib.auth import authenticate, login
 from django.shortcuts import redirect
 from django.contrib import messages
 from profiles.models import Profile
-<<<<<<< HEAD
 from profiles.forms import UserForm, ProfileForm
 import stripe
 
-=======
 from profiles.forms import UserForm, ProfileForm, ReservationForm
 from items.models import Item
 from items.forms import ItemForm
 # view classes
 import django.views.generic as django_views
 from django.views.generic.edit import CreateView
->>>>>>> a6e3452948c97c597963e8d1048bb5c055e843fe
+
 
 def user_register(request):
     if request.method == "GET":
@@ -46,7 +44,6 @@ def user_register(request):
                                                       'profile_form': profile_form,
                                                       })
 
-<<<<<<< HEAD
 from django.views.decorators.csrf import csrf_exempt
 @csrf_exempt #FIXME: Before pushing to heroku
 def stripe_charge_view(request):
@@ -73,7 +70,7 @@ def stripe_charge_view(request):
     return HttpResponse('Charged {}{} via token "{}"'.format(charge.amount / 100, str.upper(charge.currency), token))
         # FIXME: Redirect to a meaningful place, with a message that they were charged
         # request.user.profile.stripe_token = token
-=======
+
 
 class SelfInventoryView(django_views.ListView):
     model = Item
@@ -115,4 +112,4 @@ class ReservationCreateView(CreateView):
         messages.add_message(self.request, messages.SUCCESS, msg_text)
 		# form.save()
         return super(ReservationCreateView, self).form_valid(form)
->>>>>>> a6e3452948c97c597963e8d1048bb5c055e843fe
+

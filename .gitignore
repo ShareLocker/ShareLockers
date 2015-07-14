@@ -79,3 +79,4 @@ target/
 dev_settings.py
 node_modules/
 migrations/
+photos/

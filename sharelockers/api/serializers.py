@@ -22,6 +22,11 @@ class ProfileSerializer(serializers.ModelSerializer):  # FIXME: add Hyperlinked
 class OwnedItemsSerializer(serializers.ModelSerializer):
     item_set = ProfileSerializer(many=True, read_only=True)
     actions = SerializerMethodField()
+    # thumbnail_url = SerializerMethodField()
+    #
+    #
+    # def get_thumbnail_url(self, obj):
+    #     return obj.photo.url
 
     def get_actions(self, obj):
         item = obj

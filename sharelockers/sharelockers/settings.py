@@ -46,7 +46,16 @@ INSTALLED_APPS = (
     'lockers',
     'profiles',
     'transactions',
+
+    'storages',
 )
+
+AWS_STORAGE_BUCKET_NAME = 'sharelockers'
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')  # 'AKIAJG3SNSIKGVGHJ2WA'
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')  # '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'
+# STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+# STATIC_URL = 'http://' + AWS_STORAGE_BUCKET_NAME + '.s3.amazonaws.com/'
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',

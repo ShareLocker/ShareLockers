@@ -23,4 +23,5 @@ urlpatterns = [
     url(r'^', include('profiles.urls')),
     url(r'^', include('api.urls')),
     url(r'^', include('hubs.urls')),
+    url(r'^item/', 'items.views.create', name='create')
 ]

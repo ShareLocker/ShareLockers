@@ -67,7 +67,10 @@ class HubViewSet(viewsets.ModelViewSet):
 
 class OwnedItemViewSet(viewsets.ModelViewSet):
     serializer_class = OwnedItemsSerializer
-    queryset = Item.objects.all()
+    # queryset = Item.objects.all()
+
+    def get_queryset(self):
+        return Item.objects.filter(owner=self.request.user.profile)
 
 class UnlockViewSet(viewsets.ModelViewSet):
     """

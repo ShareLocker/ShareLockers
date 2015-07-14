@@ -10,6 +10,8 @@ class Profile(models.Model):
     description = models.TextField(max_length=255, null=True)
     alias = models.CharField(max_length=255)
     # stripe_token = models.CharField(max_length=255, null=True)
+    credits = models.DecimalField(max_digits=5, decimal_places=2, default=0)
+
     def __str__(self):
         return '{} (id: {})'.format(self.alias, self.id)
 

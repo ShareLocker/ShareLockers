@@ -60,6 +60,11 @@ def stripe_charge_view(request):
             # The card has been declined
             return HttpResponse('Card declined, please try again.')
             pass
+    print("Adding {} credits to {}'s account".format(10.00, request.user.profile))
+    from decimal import Decimal
+    request.user.profile.credits += Decimal(10.00)
+    request.user.profile.save()
+
     return HttpResponse('Charged {}{} via token "{}"'.format(charge.amount / 100, str.upper(charge.currency), token))
         # FIXME: Redirect to a meaningful place, with a message that they were charged
         # request.user.profile.stripe_token = token

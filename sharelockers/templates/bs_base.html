@@ -34,6 +34,34 @@
 {% block content %}
 {% endblock %}
 
+<hr />
+<h4>Navigation pages</h4>
+
+
+<div class="col-lg-4">
+  <h4>Administrator Tools</h4>
+  <ul>
+	  <li><a href="{% url 'view_locs' %}">Location List</a></li>
+	  <li><a href="{% url 'view_hubs' %}">Hub List</a></li>
+  </ul>
+</div>
+
+<div class="col-lg-4">
+  <h4>Profile Tools</h4>
+  <ul>
+	  <li><a href="{% url 'self_inventory' %}">Your Items</a></li>
+  </ul>
+</div>
+
+<div class="col-lg-4">
+  <h4>Global Tools</h4>
+  <ul>
+	  <li><a href="{% url 'view_marketplace' pk=1 %}">Marketplace</a></li>
+  </ul>
+</div>
+
+<hr />
+
 <footer class="footer">
 	<p>Iron Yard final project</p>
 </footer>

@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from profiles.models import Profile
-
+from transactions.models import Reservation
 
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
@@ -22,3 +22,9 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ('description', 'alias')
+
+
+class ReservationForm(forms.ModelForm):
+    class Meta:
+        model = Reservation
+        fields = ('buyer', )

@@ -2,7 +2,7 @@ from django.shortcuts import render
 import django.views.generic as django_views
 from django.views.generic.edit import CreateView
 from items.models import Item
-from items.forms import RequestForm
+from items.forms import RequestForm, ItemForm
 from hubs.models import Hub
 
 
@@ -43,9 +43,19 @@ class RequestCreateView(CreateView):
 		return context
 
 	def form_valid(self, form):
-		form.item = self.item
-		form.buyer = self.request.user
-		form.seller = self.item.owner
-		form.status = 1
-		form.save()
+		form.instance.item = self.item
+		form.instance.buyer = self.request.user
+		form.instance.seller = self.item.owner
+		form.instance.status = 1
 		return super(RequestCreateView, self).form_valid(form)
+
+
+class ItemCreateView(CreateView):
+	form_class = ItemForm
+	success_url = "my_items.html"
+	template_name = "items/make_item.html"
+
+	def form_valid(self, form):
+		form.instance.owner = self.request.user.profile
+		return super(ItemCreateView, self).form_valid(form)
+		# form.save()

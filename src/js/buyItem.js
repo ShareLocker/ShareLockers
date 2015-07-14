@@ -9,7 +9,7 @@ module.exports = function (button) {
 	$(document).on('click', button ,function () {
 			console.log(this);
 			var itemId = this.getAttribute('data-id');
-			var buyerId = $('.user.id').getAttribute('data-id');
+			var buyerId = $('.user-id').attr('data-id');
 			var csrftoken = getCookie('csrftoken'); 
 			console.log(csrftoken);
 				$.ajax({

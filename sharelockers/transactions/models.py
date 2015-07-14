@@ -31,6 +31,7 @@ class Request(models.Model):
                     related_query_name="want_set")
     seller = models.ForeignKey(Profile, related_name="requested",
                     related_query_name="requested_set")
+    item = models.ForeignKey(Item)
 
     status_options = (
         (1, "outstanding"), # requested, no other action taken yet
@@ -53,6 +54,7 @@ class Reservation(models.Model):
                     related_query_name="moved_set")
     seller = models.ForeignKey(Profile, related_name="stocked",
                     related_query_name="stocked_set")
+    item = models.ForeignKey(Item)
 
     status_options = (
         (1, "reserved"),  # in locker, waiting for buyer

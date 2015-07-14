@@ -1,0 +1,42 @@
+{% load staticfiles %}
+{% load bootstrap3 %}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="shortcut icon" href="{% static 'favicon.ico' %}" />
+	{% bootstrap_css %}
+	{% bootstrap_javascript %}
+	<link rel="stylesheet" href="{% static 'bs_style.css' %}" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Share Lockers</title>
+</head>
+<body>
+<div class="container">
+	<div class="header clearfix">
+		<nav>
+			<ul class="nav nav-pills pull-left">
+				<li><h3 class="text-muted">Share Lockers</h3></li>
+				<li role="presentation"><a href="/">main</a></li>
+			</ul>
+			<ul class="nav nav-pills pull-right">
+				{% if request.user.is_authenticated %}
+				<li role="presentation">Hi, {{ request.user.username }}</li>
+				{% else %}
+				<li role="presentation"><a href="{% url 'view_login' %}">log in</a></li>
+				<li role="presentation"><a href="{% url 'user_register' %}">register</a></li>
+				{% endif %}
+			</ul>
+		</nav>
+	</div>
+{% bootstrap_messages %}
+{% block content %}
+{% endblock %}
+
+<footer class="footer">
+	<p>Iron Yard final project</p>
+</footer>
+</div>
+</body>
+</html>

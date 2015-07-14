@@ -17,8 +17,12 @@ class Hub(models.Model):
     name = models.CharField(max_length=255)
     location = models.ForeignKey(Location)
     secret_key = models.CharField(max_length=255, db_index=True)
-    occupied = models.BooleanField(default=False)
     ip = models.CharField(null=True, max_length=255, db_index=True)
+
+    connected = models.BooleanField(default=False)
+    connected_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    polled_at = models.DateTimeField(auto_now_add=True)
 
     waiting = models.BooleanField(default=False)
     waiting_row = models.IntegerField(default=1)
@@ -26,6 +30,21 @@ class Hub(models.Model):
 
     def __str__(self):
         return self.name
+
+    def flag_connect(self):
+        import datetime
+        self.connected_at = datetime.datetime.now()
+        self.polled_at = self.connected_at
+        self.connected = True
+        self.save()
+
+    def connected_duration(self):
+        from django.utils import timezone
+        return (timezone.now() - self.connected_at).total_seconds()
+
+    def polled_duration(self):
+        from django.utils import timezone
+        return (timezone.now() - self.polled_at).total_seconds()
 
     def open(self, col, row):
         from requests.packages import urllib3

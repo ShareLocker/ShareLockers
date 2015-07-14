@@ -46,7 +46,7 @@ INSTALLED_APPS = (
     'lockers',
     'profiles',
     'transactions',
-
+    'bootstrap3',
     'storages',
 )
 

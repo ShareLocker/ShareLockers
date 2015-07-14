@@ -1,0 +1,19 @@
+{% extends "bs_base.html" %}
+{% load bootstrap3 %}
+{% block content %}
+
+<h3>Create Reservation</h3>
+
+<p>This action will reserve your item for the specified user.
+	After you stock it, no one other than yourself or the intended user will be able
+	to open the locker.</p>
+<p>Are you sure?</p>
+
+<form action="" method="post">
+	{% csrf_token %}
+	{{ form.as_p }}
+	<input type="submit" value="Yes, Create Reservation" />
+</form>
+
+
+{% endblock %}

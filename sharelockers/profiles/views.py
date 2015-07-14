@@ -4,9 +4,18 @@ from django.contrib.auth import authenticate, login
 from django.shortcuts import redirect
 from django.contrib import messages
 from profiles.models import Profile
+<<<<<<< HEAD
 from profiles.forms import UserForm, ProfileForm
 import stripe
 
+=======
+from profiles.forms import UserForm, ProfileForm, ReservationForm
+from items.models import Item
+from items.forms import ItemForm
+# view classes
+import django.views.generic as django_views
+from django.views.generic.edit import CreateView
+>>>>>>> a6e3452948c97c597963e8d1048bb5c055e843fe
 
 def user_register(request):
     if request.method == "GET":
@@ -37,6 +46,7 @@ def user_register(request):
                                                       'profile_form': profile_form,
                                                       })
 
+<<<<<<< HEAD
 from django.views.decorators.csrf import csrf_exempt
 @csrf_exempt #FIXME: Before pushing to heroku
 def stripe_charge_view(request):
@@ -63,3 +73,46 @@ def stripe_charge_view(request):
     return HttpResponse('Charged {}{} via token "{}"'.format(charge.amount / 100, str.upper(charge.currency), token))
         # FIXME: Redirect to a meaningful place, with a message that they were charged
         # request.user.profile.stripe_token = token
+=======
+
+class SelfInventoryView(django_views.ListView):
+    model = Item
+    template_name="my_items.html"
+    context_object_name='items'
+    paginate_by=100
+    profile = None
+
+    # def dispatch(self, *args, **kwargs):
+    #     return super(SelfInventoryView, self).dispatch(*args, **kwargs)
+
+    def get_queryset(self):
+        self.profile = self.request.user.profile
+        return self.profile.item_set.all()
+
+
+class ReservationCreateView(CreateView):
+    form_class = ReservationForm
+    success_url = "/my_items.html"
+    template_name="reservation/make_reservation.html"
+    item = None
+
+    def dispatch(self, *args, **kwargs):
+        self.item = Item.objects.get(pk=kwargs['pk'])
+        return super(ReservationCreateView, self).dispatch(*args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(ReservationCreateView, self).get_context_data(**kwargs)
+        context['item'] = self.item
+        return context
+
+    def form_valid(self, form):
+        form.instance.item = self.item
+        form.instance.seller = self.request.user.profile
+        form.instance.status = 1
+        print(form.instance.buyer.alias)
+        msg_text = "You have reserved " + self.item.title
+        msg_text += " for user " + form.instance.buyer.alias
+        messages.add_message(self.request, messages.SUCCESS, msg_text)
+		# form.save()
+        return super(ReservationCreateView, self).form_valid(form)
+>>>>>>> a6e3452948c97c597963e8d1048bb5c055e843fe

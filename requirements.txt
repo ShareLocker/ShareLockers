@@ -9,4 +9,11 @@ static3==0.6.1
 django-ipware==1.1.0
 requests==2.7.0
 fake-factory==0.5.2
+<<<<<<< HEAD
 stripe==1.23.0
+=======
+boto==2.38.0
+django-boto==0.3.9
+django-storages-redux==1.2.3
+Pillow==2.8.2
+>>>>>>> a6e3452948c97c597963e8d1048bb5c055e843fe

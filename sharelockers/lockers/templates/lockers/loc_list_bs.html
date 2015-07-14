@@ -1,0 +1,39 @@
+{% extends "bs_base.html" %}
+{% load bootstrap3 %}
+{% block content %}
+
+<h2>Global list of Locations</h2>
+
+<h3>Create a New Location</h3>
+
+<form action="" method="post">
+	{% csrf_token %}
+	{{ form.as_p }}
+	<input type="submit" value="create this location" />
+</form>
+
+<h3>Existing Locations</h3>
+
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>Location</th>
+			<th>Lattitude</th>
+			<th>Longitude</th>
+			<th>Host</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for loc in locations %}
+		<tr>
+			<td><a href="{% url 'edit_loc' pk=loc.id %}">{{ loc.description }}</a></td>
+			<td>{{ loc.latitude }}</td>
+			<td>{{ loc.longitude }}</td>
+			<td>{{ loc.host }}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+
+
+{% endblock %}

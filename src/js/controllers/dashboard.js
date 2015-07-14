@@ -5,17 +5,12 @@ var _ = require('underscore');
 var views = require('views');
 var router = require('../router');
 var show = require('../show');
+var showLists =require('../showLists');
 
 
 router.route('dashboard', function () {
+  show('dashboard');
 		
-	show('dashboard');
-	$.ajax({
-			method: 'GET', 
-			url: '/api/profiles/',
-  		}).done(function (data){
-			console.log(data);
-
 // RESPONSIVE DASHBOARD MENU
 			
 			(function () {
@@ -53,9 +48,61 @@ router.route('dashboard', function () {
     };
 
 }(this, this.document));
+// api info for 'My Items' TAB IS BELOW	
 
-		});
-	
+$('.items').on('click', function() {
 
+    $.ajax({
+    			method: 'GET', 
+    			url: '/api/owneditems/',
+      		}).done(function (data){
+    			console.log(data);
+          showLists(data, 'my-items', '.generated');
+    			
+    });
+   });
+
+//api info for LOCATION TAB IS BELOW
+
+$('.location').on('click', function() {
+    
+    $.ajax({
+    			method: 'GET', 
+    			url: '/api/hubs/',
+      		}).done(function (data){
+    			console.log(data);
+          showLists(data, 'locations', '.generated');
+    			
+    });
 
 });
+
+//api info for PROFILES TAB IS BELOW
+
+$('.items').on('click', function() {
+
+    $.ajax({
+    			method: 'GET', 
+    			url: '/profiles/{id}',
+      		}).done(function (data){
+    			console.log(data);
+          showLists(data, 'my-items', '.generated');
+    			
+    });
+   });
+});
+    
+
+
+// $.ajax({
+// 			method: 'GET', 
+// 			url: 'api/owneditems/',
+//   		}).done(function (data){
+// 			console.log(data);
+			
+// });			
+			
+			
+			
+		
+

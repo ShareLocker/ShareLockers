@@ -1,0 +1,32 @@
+{% extends "bs_base.html" %}
+{% load bootstrap3 %}
+{% block content %}
+
+<h3>List of your personal inventory</h3>
+
+<p>Or, <a href="{% url 'make_item' %}">add a new item</a> to your inventory</p>
+
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>Item</th>
+			<th>Description</th>
+			<th>Price</th>
+			<th>Make Reservation</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for item in items %}
+		<tr>
+			<td>{{ item.title }}</td>
+			<td>{{ item.description }}</td>
+			<td>{{ item.price }}</td>
+			<td><a href="{% url 'make_reservation' pk=item.id %}">Reserve</a></td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+
+{% bootstrap_pagination page_obj %}
+
+{% endblock %}

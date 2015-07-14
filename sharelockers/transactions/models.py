@@ -42,7 +42,7 @@ class Request(models.Model):
     status = models.IntegerField(choices=status_options)
 
     created_at = models.DateTimeField(auto_now_add=True)
-    ended_at = models.DateTimeField(blank=True)
+    ended_at = models.DateTimeField(null=True, blank=True)
 
     def age(self):
         from django.utils import timezone
@@ -65,7 +65,7 @@ class Reservation(models.Model):
     status = models.IntegerField(choices=status_options)
 
     created_at = models.DateTimeField(auto_now_add=True)
-    ended_at = models.DateTimeField(blank=True)
+    ended_at = models.DateTimeField(null=True, blank=True)
 
     def age(self):
         from django.utils import timezone

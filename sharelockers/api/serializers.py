@@ -39,12 +39,19 @@ class OwnedItemsSerializer(serializers.ModelSerializer):
         model = Item
 
 class LockerSerializer(serializers.ModelSerializer):  # FIXME: add Hyperlinked
-    actions = SerializerMethodField()
+    actions = SerializerMethodField() # FIXME: add color
     item_set = OwnedItemsSerializer(many=True, read_only=True)
     local_code = SerializerMethodField()
+    # status = SerializerMethodField()
 
     def get_local_code(self, obj):
         return obj.local_code()
+
+    # def get_status(self, obj):
+    #     locker = obj
+    #     return locker.status()
+    #     pass
+    #     # FIXME: return status number of locker
 
     def get_actions(self, obj):
         locker = obj

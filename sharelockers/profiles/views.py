@@ -45,14 +45,10 @@ class SelfInventoryView(django_views.ListView):
     template_name="my_items.html"
     context_object_name='items'
     paginate_by=100
-    profile = None
-
-    # def dispatch(self, *args, **kwargs):
-    #     return super(SelfInventoryView, self).dispatch(*args, **kwargs)
 
     def get_queryset(self):
-        self.profile = self.request.user.profile
-        return self.profile.item_set.all()
+        profile = self.request.user.profile
+        return profile.item_set.all()
 
 
 class ReservationCreateView(CreateView):

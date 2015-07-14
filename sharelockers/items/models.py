@@ -17,6 +17,21 @@ class Item(models.Model):
     def __str__(self):
         return "{}'s {}".format(self.owner, self.title)
 
+    def is_reserved(self):
+        flag = False
+        for res in self.reservation_set.all():
+            if res.status == 1:
+                flag = True
+        return flag
+
+    def reserved_for(self, profile):
+        flag = False
+        for res in self.reservation_set.all():
+            if res.status == 1:
+                if res.buyer == profile:
+                    flag = True
+        return flag
+
 
 def create_items(num):
     fake = Factory.create()

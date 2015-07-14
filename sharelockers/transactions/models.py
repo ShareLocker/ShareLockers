@@ -50,8 +50,8 @@ class Request(models.Model):
 
 
 class Reservation(models.Model):
-    buyer = models.ForeignKey(Profile, related_name="moved",
-                    related_query_name="moved_set")
+    buyer = models.ForeignKey(Profile, related_name="ready",
+                    related_query_name="ready_set")
     seller = models.ForeignKey(Profile, related_name="stocked",
                     related_query_name="stocked_set")
     item = models.ForeignKey(Item)

@@ -62,20 +62,13 @@ class LockerSerializer(serializers.ModelSerializer):  # FIXME: add Hyperlinked
         model = Locker
         fields = ('id', 'hub', 'row', 'column', 'owner', 'actions', 'item_set', 'local_code')
 
-class HubSerializer(serializers.ModelSerializer):
-    locker_set = LockerSerializer(many=True, read_only=True)  # A nested list of 'locker' items.
-
-    class Meta:
-        model = Hub
-        fields = ('id', 'name', 'location', 'ip', 'locker_set')
-
 
 class HubSerializer(serializers.ModelSerializer):
     locker_set = LockerSerializer(many=True, read_only=True)  # A nested list of 'locker' items.
 
     class Meta:
         model = Hub
-        fields = ('id', 'name', 'location', 'ip', 'waiting', 'waiting_row', 'waiting_col', 'locker_set')
+        fields = ('id', 'secret_key', 'name', 'location', 'ip', 'waiting', 'waiting_row', 'waiting_col', 'locker_set' )
 
 
 class ItemSerializer(serializers.ModelSerializer):

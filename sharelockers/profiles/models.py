@@ -9,7 +9,7 @@ class Profile(models.Model):
     rating = models.IntegerField(null=True, default=0)
     description = models.TextField(max_length=255, null=True)
     alias = models.CharField(max_length=255)
-
+    # stripe_token = models.CharField(max_length=255, null=True)
     def __str__(self):
         return '{} (id: {})'.format(self.alias, self.id)
 

@@ -1,11 +1,25 @@
-<h2>Stock This Locker</h1>
+<h2>Stock With a New Item</h1>
 
 <form class="stock-item">
 	
 	<input class="item-title" placeholder="Title"><br>
 	<textarea class="item-description" rows="4" cols="50" placeholder="Item Description"></textarea><br>
 	<input class="item-price" placeholder="price"><br>
+	<input class="item-id" type="hidden">
 	<button class="item-stock">Stock Item</button>
 	
 	
 </form>
+
+<h2>or Stock a With an Item in Your Inventory</h2>
+
+<select class="item-inventory">
+	  <option>-</option>
+	  <% m.items.forEach(function (item) { %>
+        	<option data-description="<%- item.description %>" data-id="<%- item.id %>"  data-title="<%- item.title %>" data-price="<%- item.price %>" class="inventory-item">   		
+                Item: <%- item.title %>,  Price: <%- item.price %>          
+            </option>
+       <% }) %>
+</select>
+		
+		

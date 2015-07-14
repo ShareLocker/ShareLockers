@@ -38,9 +38,13 @@ module.exports = function (arr) {
 		var itemTitle = arr[i].item_set[0].title;
 		var itemDetails = arr[i].item_set[0].description;
 		var itemId = arr[i].item_set[0].id;
-		if (currentUser = itemOwner ) {
+		
+		if (currentUser == itemOwner ) {
+			
 			var ownerHtml = '<div class="vlocker"><span class="card animated"><span class="lockerTitle">'+ lockerTitle + '<br>' + itemTitle +'</span><div class="vpopout"><span class="lockerDetails">'+ itemDetails +'</span><button class="open-button" data-id = '+lockerId+'>Open</button></div></div>';
 			$('.locker-bank').append(ownerHtml);
+			console.log(currentUser);
+			console.log(itemOwner);
 		}
 		else {
 			var buyHtml = '<div class="vlocker"><span class="card animated"><span class="lockerTitle">'+ lockerTitle + '<br>' + itemTitle +'</span><div class="vpopout"><span class="lockerDetails">'+ itemDetails +'</span><button class="buy-button" data-id = '+itemId+'>Buy</button></div></div>';

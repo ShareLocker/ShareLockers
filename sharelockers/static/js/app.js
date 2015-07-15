@@ -60,7 +60,7 @@ module.exports = function (button) {
 		});
 	
 }
-},{"../js/getCookie":10,"jquery":"jquery","underscore":"underscore","views":"views"}],3:[function(require,module,exports){
+},{"../js/getCookie":9,"jquery":"jquery","underscore":"underscore","views":"views"}],3:[function(require,module,exports){
 'use strict';
 
 var $ = require('jquery');
@@ -165,7 +165,7 @@ $('.profile').on('click', function() {
 		
 
 
-},{"../router":14,"../show":15,"../showLists":16,"jquery":"jquery","underscore":"underscore","views":"views"}],4:[function(require,module,exports){
+},{"../router":13,"../show":14,"../showLists":15,"jquery":"jquery","underscore":"underscore","views":"views"}],4:[function(require,module,exports){
 'use strict';
 
 var $ = require('jquery');
@@ -187,11 +187,9 @@ router.route('', function () {
 
 
 });
-},{"../router":14,"../show":15,"jquery":"jquery","underscore":"underscore","views":"views"}],5:[function(require,module,exports){
+},{"../router":13,"../show":14,"jquery":"jquery","underscore":"underscore","views":"views"}],5:[function(require,module,exports){
 
 },{}],6:[function(require,module,exports){
-arguments[4][5][0].apply(exports,arguments)
-},{"dup":5}],7:[function(require,module,exports){
 'use strict';
 
 var $ = require('jquery');
@@ -246,7 +244,7 @@ router.route('location/locker', function () {
 
 
 });
-},{"../buyItem":2,"../getCookie":10,"../lockerGenerator":12,"../openLocker":13,"../router":14,"../show":15,"jquery":"jquery","underscore":"underscore","views":"views"}],8:[function(require,module,exports){
+},{"../buyItem":2,"../getCookie":9,"../lockerGenerator":11,"../openLocker":12,"../router":13,"../show":14,"jquery":"jquery","underscore":"underscore","views":"views"}],7:[function(require,module,exports){
 var $ = require('jquery');
 var _ = require('underscore');
 var views = require('views');
@@ -269,7 +267,7 @@ router.route('my-items/user', function () {
 		  });
 		
  });
-},{"../getCookie":10,"../openLocker":13,"../router":14,"../show":15,"../showLists":16,"jquery":"jquery","underscore":"underscore","views":"views"}],9:[function(require,module,exports){
+},{"../getCookie":9,"../openLocker":12,"../router":13,"../show":14,"../showLists":15,"jquery":"jquery","underscore":"underscore","views":"views"}],8:[function(require,module,exports){
 'use strict';
 
 var $ = require('jquery');
@@ -311,7 +309,7 @@ router.route('stock/:stockURL', function (stockURL) {
 	})
 	
 });
-},{"../getCookie":10,"../router":14,"../show":15,"jquery":"jquery","underscore":"underscore","views":"views"}],10:[function(require,module,exports){
+},{"../getCookie":9,"../router":13,"../show":14,"jquery":"jquery","underscore":"underscore","views":"views"}],9:[function(require,module,exports){
 'use strict';
 
 var $ = require('jquery');
@@ -335,7 +333,7 @@ module.exports = function getCookie(name) {
 		   return cookieValue;
 		
 };
-},{"jquery":"jquery","underscore":"underscore","views":"views"}],11:[function(require,module,exports){
+},{"jquery":"jquery","underscore":"underscore","views":"views"}],10:[function(require,module,exports){
 // TODO: put initialization logic here
 'use strict';
 
@@ -345,11 +343,11 @@ var router = require('./router');
 require('./animations');
 
 // Require all of our controllers
-({"controllers":({"dashboard":require("./controllers/dashboard.js"),"home":require("./controllers/home.js"),"items":require("./controllers/items.js"),"locations":require("./controllers/locations.js"),"locker-list":require("./controllers/locker-list.js"),"my-items":require("./controllers/my-items.js"),"stock":require("./controllers/stock.js")})});
+({"controllers":({"dashboard":require("./controllers/dashboard.js"),"home":require("./controllers/home.js"),"locations":require("./controllers/locations.js"),"locker-list":require("./controllers/locker-list.js"),"my-items":require("./controllers/my-items.js"),"stock":require("./controllers/stock.js")})});
 
 // Start the router
 router.init();
-},{"./animations":1,"./controllers/dashboard.js":3,"./controllers/home.js":4,"./controllers/items.js":5,"./controllers/locations.js":6,"./controllers/locker-list.js":7,"./controllers/my-items.js":8,"./controllers/stock.js":9,"./router":14}],12:[function(require,module,exports){
+},{"./animations":1,"./controllers/dashboard.js":3,"./controllers/home.js":4,"./controllers/locations.js":5,"./controllers/locker-list.js":6,"./controllers/my-items.js":7,"./controllers/stock.js":8,"./router":13}],11:[function(require,module,exports){
 'use strict';
 
 var $ = require('jquery');
@@ -405,7 +403,7 @@ module.exports = function (arr) {
 	};
 
 };
-},{"jquery":"jquery","underscore":"underscore","views":"views"}],13:[function(require,module,exports){
+},{"jquery":"jquery","underscore":"underscore","views":"views"}],12:[function(require,module,exports){
 'use strict';
 
 var $ = require ('jquery');
@@ -438,13 +436,13 @@ module.exports = function (button) {
 		});
 	
 }
-},{"../js/getCookie":10,"jquery":"jquery","underscore":"underscore","views":"views"}],14:[function(require,module,exports){
+},{"../js/getCookie":9,"jquery":"jquery","underscore":"underscore","views":"views"}],13:[function(require,module,exports){
 'use strict';
 
 var SortedRouter = require('./sorted-router');
 
 module.exports = new SortedRouter();
-},{"./sorted-router":17}],15:[function(require,module,exports){
+},{"./sorted-router":16}],14:[function(require,module,exports){
 'use strict';
 
 var $ = require('jquery');
@@ -458,7 +456,7 @@ module.exports = function (templateName, model) {
   
   $('.main-content').html(hydratedHTML);
 };
-},{"jquery":"jquery","underscore":"underscore","views":"views"}],16:[function(require,module,exports){
+},{"jquery":"jquery","underscore":"underscore","views":"views"}],15:[function(require,module,exports){
 'use strict';
 
 var $ = require('jquery');
@@ -472,7 +470,7 @@ module.exports = function showLists(data, view, html) {
 			$(html).html(listHTML);
 			return data;
 		};
-},{"jquery":"jquery","underscore":"underscore","views":"views"}],17:[function(require,module,exports){
+},{"jquery":"jquery","underscore":"underscore","views":"views"}],16:[function(require,module,exports){
 'use strict';
  
 var Backbone = require('backbone');
@@ -519,7 +517,7 @@ var SortedRouter = Backbone.Router.extend({
 });
  
 module.exports = SortedRouter;
-},{"backbone":"backbone","underscore":"underscore"}]},{},[11])
+},{"backbone":"backbone","underscore":"underscore"}]},{},[10])
 
 
 //# sourceMappingURL=app.js.map

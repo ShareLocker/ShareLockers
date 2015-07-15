@@ -1,11 +1,4 @@
-// body {
-//     color: #777;
-// }
 
-// .pure-img-responsive {
-//     max-width: 100%;
-//     height: auto;
-// }
 
 /*
 Add transition to containers so they can push in and out.
@@ -44,6 +37,7 @@ The content `<div>` is where all your content goes.
     max-width: 100%;
     margin-bottom: 50px;
     line-height: 1.6em;
+    
 }
 
 .header {
@@ -138,7 +132,7 @@ appears on the left side of the page.
     */
     #menu .pure-menu-selected,
     #menu .pure-menu-heading {
-        background: RGBA(69, 136, 156, 1);
+        background-color:#EEE;
     }
         /*
         This styles a link within a selected menu item `<li>`.
@@ -259,10 +253,8 @@ Hides the menu at `48em`, but modify this based on your app's needs.
 /*MY STYLES*/
 
 .dash-card{
-  max-height: 15em;
-  min-height: 15em;
   display: inline-block;
-  width: 30%;
+  width: auto;
   background-color: RGBA(233, 238, 241, 1);
   padding: 1em;
   border-radius: 5px;

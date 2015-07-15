@@ -12,11 +12,10 @@
 }
 
 body{
-  min-height: 4em;
-  background-color: lightblue;
+ background-color: RGBA(69, 136, 156, 0.5);
 }
 
-h1 , h2 , h3{
+h1 , h2 {
  font-family: mainFont , serif;
 }
 
@@ -26,63 +25,7 @@ h1{
 
 h3 ,.tagline{
   font-size: 2.5em;
-}
-h3, .tagline {
-  
-  font-family: 'Helvetica Neue', 'Lucida Grande', sans-serif;
-}
-
-.hero-container {
- 
-  padding-top: 10em;
-  background: RGBA(69, 136, 156, 1);
-  z-index: -1;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  top: 0;
-  background:
-	  linear-gradient(
-      RGBA(36, 40, 56, 0.5),
-      RGBA(159, 129, 184, 1)
-    ),
-    url("../img/city.jpg");
-    background-size: 100% 130%;
-    background-repeat:no-repeat;
-
-}
-
-.section1{
-  background-color:#eee;
-  height: 100vh;
-  margin-top: 100vh;
-  
-}
-
-.section2{
-	  background:
-	  // linear-gradient(
-    //   RGBA(36, 40, 56, 0.5),
-    //   RGBA(159, 129, 184, 1)
-    // ),
-    url("../img/mockup.jpg");
-    background-size: 100% 100%;
-    background-repeat:no-repeat;
-    height:100vh;
-
-}
-
-.section3{
-
-	  padding: 0.5em;
-    text-align: center;
-    margin-bottom:30em;
-}
-
-.section3 h1{
- 
-  padding: 0;
+  font-family: Georgia, serif;
 }
 
 .my-page-header{
@@ -96,7 +39,7 @@ h3, .tagline {
 
 .my-page-header.sticky {
   padding: 1.5em;
-  background-color: RGBA(69, 136, 156, 1);
+  background-color: RGBA(69, 136, 156, 0.5);
 
 }
 
@@ -118,6 +61,37 @@ a{
 .info{
   background-color:#eee;
 }
+//BUTTONS
+
+button {
+  font-size: 1em;
+  border: none;
+  border-radius: 10px;
+  color: #eee;
+  padding-left: 0.6em;
+  padding-right: 0.6em;
+  padding-top: 0.4em;
+  padding-bottom: 0.4em; }
+
+button:hover {
+  color:#eee;
+  background-color: RGBA(69, 136, 156, 0.6);
+  text-shadow: -1px 1px #27496d;
+  border: 1px solid black; }
+  
+  .buy-button {
+	position: absolute;
+	top: 90%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.open-button {
+	position: absolute;
+	top: 90%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
 
 
 .register-btn{
@@ -128,20 +102,11 @@ a{
 
 }
 
-button{
-  border: none;
-  border-radius: 10px;
-  color: #eee;
-  padding: 0.2em;
-  font-family: 'Helvetica Neue', 'Lucida Grande', sans-serif;
-  
-
+.login-btn{
+  font-size: 1.5em;
+  color: black;
 }
 
-button:hover {
-  background-color: RGBA(75, 136, 157, 0.2);;
-  text-shadow: -1px 1px #27496d;
-}
 
 .locker-container {
   padding-top: 1em;
@@ -183,8 +148,6 @@ button:hover {
 	overflow: visible;
 }
 
-
-
 .card, {
 	display: block;
 	position: absolute;
@@ -213,19 +176,6 @@ button:hover {
 	transform: translate(-50%, -50%);
 }
 
-.buy-button {
-	position: absolute;
-	top: 90%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-}
-
-.open-button {
-	position: absolute;
-	top: 90%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-}
 .vpopout {
   position: relative;
   width: 160%;
@@ -238,3 +188,9 @@ button:hover {
   border-radius: .5em;
 }
 
+footer{
+  background-color: RGBA(43, 44, 45, 0.6);
+  color: #eee;
+  text-align: center;
+  
+}

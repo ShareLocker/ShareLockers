@@ -2,18 +2,33 @@
 {% load bootstrap3 %}
 {% block content %}
 
-<h3>Create Reservation</h3>
+<h2>Create Reservation</h2>
 
-<p>This action will reserve your item for the specified user.
-	After you stock it, no one other than yourself or the intended user will be able
-	to open the locker.</p>
-<p>Are you sure?</p>
+<div class="row">
+<div class="col-lg-6">
+	<h4>Option 1: Reserve for User</h4>
+	<p>This action will reserve your item for the specified user.
+		After you stock it, no one other than yourself or the intended user will be able
+		to open the locker.</p>
+	<p>Are you sure?</p>
+	<form action="{% url 'make_reservation' item.id %}" method="post">
+		{% csrf_token %}
+		{{ user_form.as_p }}
+		<input type="submit" name="user_reservation" value="Yes, Reserve for User" />
+	</form>
+</div>
 
-<form action="" method="post">
-	{% csrf_token %}
-	{{ form.as_p }}
-	<input type="submit" value="Yes, Create Reservation" />
-</form>
-
+<div class="col-lg-6">
+	<h4>Option 2: Reserve with Hash</h4>
+	<p>This action will create a unique URL that you can give to the intended
+		recipient of the item, even if they do not have an account.</p>
+	<p>Are you sure?</p>
+	<form action="{% url 'make_reservation' item.id %}" method="post">
+		{% csrf_token %}
+		{{ hash_form.as_p }}
+		<input type="submit" name="hash_reservation" value="Yes, Create Hash" />
+	</form>
+</div>
+</div>
 
 {% endblock %}

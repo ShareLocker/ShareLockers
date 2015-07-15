@@ -1094,7 +1094,7 @@ button:hover {
 
 body {
   min-height: 4em;
-  background-color: lightblue; }
+  background-color: #eee; }
 
 h1, h2, h3 {
   font-family: mainFont , serif; }
@@ -1200,7 +1200,10 @@ button:hover {
   margin-left: auto;
   margin-right: auto;
   width: 50%;
-  text-align: center; }
+  text-align: center;
+  color: #FF4B4B;
+  font-family: sans-serif;
+  font-weight: 100; }
 
 .locker-bank {
   margin-left: auto;
@@ -1220,13 +1223,16 @@ button:hover {
 .card {
   display: block;
   position: absolute;
-  top: 1px;
-  right: 1px;
-  bottom: 1px;
-  left: 1px;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
   background-color: #5081FC;
   border-radius: .5em;
-  box-shadow: 2px 2px 2px 2px #0094f7; }
+  border: solid 2px;
+  border-color: white;
+  box-shadow: 0px 0px 10px 0px white;
+  transition: all 0.5s; }
 
 .lockerTitle {
   color: #eee;
@@ -1268,6 +1274,58 @@ button:hover {
   transition: display 0.2s;
   opacity: 0.95;
   border-radius: .5em; }
+
+.stock-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  background-color: #eee;
+  border-radius: .5em;
+  color: #FF4B4B;
+  z-index: 1000;
+  padding: 2em;
+  font-size: 1em;
+  padding-bottom: 4em;
+  font-weight: 100;
+  display: none; }
+
+.stock-item .item-stock {
+  margin-top: 1em;
+  position: absolute;
+  top: 87%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); }
+
+.stock-item input {
+  margin-bottom: .5em; }
+
+.stock-item textarea {
+  margin-bottom: .5em; }
+
+.stock-wrapper {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: black;
+  opacity: 0.7;
+  display: none; }
+
+.close {
+  position: fixed;
+  float: right;
+  top: 10px;
+  right: 10px;
+  border-radius: 50%;
+  width: 1.45em; }
+
+.close:hover {
+  background-color: #5081FC;
+  border: none; }
 
 .login {
   text-align: center;

@@ -21,10 +21,16 @@ class UserForm(forms.ModelForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ('description', 'alias')
+        fields = ('description', 'alias', 'location')
 
 
-class ReservationForm(forms.ModelForm):
+class UserReservationForm(forms.ModelForm):
     class Meta:
         model = Reservation
         fields = ('buyer', )
+
+
+class HashReservationForm(forms.ModelForm):
+    class Meta:
+        model = Reservation
+        fields = ()

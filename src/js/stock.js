@@ -3,18 +3,28 @@
 var $ = require('jquery');
 var _ = require('underscore');
 var views = require('views');
-var router = require('../router');
-var getCookie = require('../getCookie');
-var show = require('../show');
-var showLists = require('../showLists');
+var router = require('../js/router');
+var getCookie = require('../js/getCookie');
+var show = require('../js/show');
+var showLists = require('../js/showLists');
 
-router.route('stock/:stockURL', function (stockURL) {
+module.exports = function () {
+	 $('.stock-button').click(function() {
+		 var lockerId = $(this).attr('data-id');
+		 console.log(lockerId);
+		 $('.stock-wrapper').fadeIn('duration fast');
+		 $('.stock-container').fadeIn('duration fast');
+		 $('.close').click(function(){
+			 $('.stock-wrapper').hide();
+		 	 $('.stock-container').hide();
+		 })
+	
 	$.ajax({
 			method: 'GET', 
 			url: '/api/owneditems/',
   		}).done(function (data){
 			console.log(data);
-			showLists(data, 'stock', '.main-content');
+			showLists(data, 'stock', '.item-select');
 			$('.item-inventory').on('change', function () {
 				$('.item-title').val($(".item-inventory option:selected").data('title'));
 				$('.item-description').val($(".item-inventory option:selected").data('description'));
@@ -22,6 +32,7 @@ router.route('stock/:stockURL', function (stockURL) {
 				$('.item-id').val($(".item-inventory option:selected").data('id'));
 			});
 				$('.item-stock').click(function (e) {
+				e.stopPropagation();	
 				e.preventDefault();
 				var csrftoken = getCookie('csrftoken');
 				var title = $('.item-title').val();
@@ -39,12 +50,12 @@ router.route('stock/:stockURL', function (stockURL) {
 								"description": description,
 								"price": price,
 								"owner": owner,
-								"locker": stockURL					
+								"locker": lockerId					
 							}
 			  			}).done(function (data){
 							console.log(data);
 						});
-						document.location.href = '/#/my-items/user';
+						document.location.href = '/#/dashboard';
 					}
 					else {
 						var itemId = $('.item-id').val();
@@ -58,13 +69,14 @@ router.route('stock/:stockURL', function (stockURL) {
 								"description": description,
 								"price": price,
 								"owner": owner,
-								"locker": stockURL					
+								"locker": lockerId					
 							}
 			  			}).done(function (data){
 							console.log(data);
 						});
-						document.location.href = '/#/my-items/user';
+						document.location.href = '/#/dashboard';
 					}
 				});
 		  });
-})
+	});
+};

@@ -15,22 +15,21 @@ module.exports = function (arr) {
 		var lockerTitle= arr[i].local_code;
 		var lockerActions= arr[i].actions;
 		var currentUser = $('.user-id').attr('data-id');
-		// var lockerRow = arr[i].row;
-		// var lockerColumn = arr[i].column;
+		
 		
 		
 		
 		if (lockerActions[1] === "can_open" ){
-		var openHTML = '<div class="vlocker" ><span class="card animated"><span class="lockerTitle">'+ lockerTitle +'<br>EMPTY</span><div class="vpopout"><span class="lockerDetails">EMPTY</span><a href="#/stock/'+ lockerId +
-		'" class="stock-button">STOCK</a><button class="open-button" data-id = '+lockerId+'>Open</button></div></div>';
+		var openHTML = '<div class="vlocker" ><span class="card animated"><span class="lockerTitle">'+ lockerTitle +'<br>EMPTY</span><div class="vpopout"><span class="lockerDetails">EMPTY</span><button data-id='+ lockerId +
+		' class="stock-button">STOCK</button><button class="open-button" data-id = '+lockerId+'>Open</button></div></div>';
 		$('.locker-bank').append(openHTML);
 		}
 		
-		else if (lockerActions[0] === 'can_stock'){
-		var stockHtml = '<div class="vlocker"><span class="card animated"><span class="lockerTitle">'+ lockerTitle +'<br>EMPTY</span><div class="vpopout"><span class="lockerDetails">EMPTY</span><a href="#/stock/'+ lockerId +
-		'" class="stock-button">STOCK</a></div></div>';
-		$('.locker-bank').append(stockHtml);
-		}
+		// else if (lockerActions[0] === 'can_stock'){
+		// var stockHtml = '<div class="vlocker"><span class="card animated"><span class="lockerTitle">'+ lockerTitle +'<br>EMPTY</span><div class="vpopout"><span class="lockerDetails">EMPTY</span><a href="#/stock/'+ lockerId +
+		// '" class="stock-button">STOCK</a></div></div>';
+		// $('.locker-bank').append(stockHtml);
+		// }
 		
 		
 		else {

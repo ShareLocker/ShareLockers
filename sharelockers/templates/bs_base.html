@@ -8,7 +8,8 @@
 	<link rel="shortcut icon" href="{% static 'favicon.ico' %}" />
 	{% bootstrap_css %}
 	{% bootstrap_javascript %}
-	<link rel="stylesheet" href="{% static 'bs_style.css' %}" />
+	<link rel="stylesheet" href="{% static 'css/bs_style.css' %}" />
+    <!-- <link rel="stylesheet" href="{% static 'css/main.css' %}"/> -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Share Lockers</title>
 </head>
@@ -37,7 +38,7 @@
 <hr />
 <h4>Navigation pages</h4>
 
-
+<div class="row">
 <div class="col-lg-4">
   <h4>Administrator Tools</h4>
   <ul>
@@ -58,6 +59,7 @@
   <ul>
 	  <li><a href="{% url 'view_marketplace' pk=1 %}">Marketplace</a></li>
   </ul>
+</div>
 </div>
 
 <hr />

@@ -17,7 +17,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 class ProfileSerializer(serializers.ModelSerializer):  # FIXME: add Hyperlinked
     class Meta:
         model = Profile
-        fields = ('id', 'user', 'rating', 'description', 'alias')
+        fields = ('id', 'user', 'rating', 'description', 'alias', 'credits')
 
 class OwnedItemsSerializer(serializers.ModelSerializer):
     item_set = ProfileSerializer(many=True, read_only=True)

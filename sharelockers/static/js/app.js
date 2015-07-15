@@ -374,6 +374,7 @@ module.exports = function (arr) {
 		var itemTitle = arr[i].item_set[0].title;
 		var itemDetails = arr[i].item_set[0].description;
 		var itemId = arr[i].item_set[0].id;
+		var itemPrice = arr[i].item_set[0].price;
 		
 		if (currentUser == itemOwner ) {
 			
@@ -383,7 +384,7 @@ module.exports = function (arr) {
 			console.log(itemOwner);
 		}
 		else {
-			var buyHtml = '<div class="vlocker"><span class="card animated"><span class="lockerTitle">'+ lockerTitle + '<br>' + itemTitle +'</span><div class="vpopout"><span class="lockerDetails">'+ itemDetails +'</span><button class="buy-button" data-id = '+itemId+'>Buy</button></div></div>';
+			var buyHtml = '<div class="vlocker"><span class="card animated"><span class="lockerTitle">'+ lockerTitle + '<br>' + itemTitle +'</span><div class="vpopout"><span class="lockerDetails">'+ itemDetails + ' '+ itemPrice +' credits </span><button class="buy-button" data-id = '+itemId+'>Buy</button></div></div>';
 			$('.locker-bank').append(buyHtml);
 		}
 		}

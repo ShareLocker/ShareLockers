@@ -171,7 +171,7 @@ class PurchaseViewSet(viewsets.ModelViewSet):
             # return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
 
         if price > credits:
-            print("{} can't buy {}, because they already own it".format(buyer, item))
+            print("Insufficient funds. {} needs {} more credits to buy {}".format(buyer, price - credits, item))
             raise serializers.ValidationError('Insufficient funds. Buy more credits to proceed with purchase.')
             return Response(serializer.data, status=status.HTTP_402_PAYMENT_REQUIRED)  # FIXME: Delete after verifying that this will probably never be called
 

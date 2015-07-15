@@ -4,11 +4,13 @@
 .container{
   padding: 0.5em 0;
   text-align: center;
-  height: 100vh;
+  min-height: 100vh;
+  z-index: 1;
+  position: relative;
  
 }
 
-a:visited{ color: inherit; }
+h1 a:visited{ color: inherit; }
 
 body{
  background-color: RGBA(69, 136, 156, 0.5);
@@ -35,6 +37,7 @@ h3 ,.tagline{
 }
 
 .my-page-header{
+  z-index: 1;
   padding:3em 1.5em;
   position: fixed;
   top:0;

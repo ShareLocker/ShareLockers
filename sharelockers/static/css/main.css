@@ -1232,7 +1232,7 @@ button:hover {
   border: solid 2px;
   border-color: white;
   box-shadow: 0px 0px 10px 0px white;
-  transition: all 0.5s; }
+  transition: all 0.7s; }
 
 .lockerTitle {
   color: #eee;

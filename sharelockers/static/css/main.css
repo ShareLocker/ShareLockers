@@ -1191,6 +1191,9 @@ footer {
   background-color: #5081FC;
   border: none; }
 
+fieldset {
+  border: none; }
+
 .info {
   color: #E25D3A;
   font-size: 3em; }

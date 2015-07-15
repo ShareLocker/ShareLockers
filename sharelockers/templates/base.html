@@ -1,0 +1,52 @@
+{% load staticfiles %}
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Share Lockers</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+  <link rel="shortcut icon" href="{% static 'favicon.ico' %}"/>
+  <link href='http://fonts.googleapis.com/css?family=Kadwa' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="{% static 'css/main.css' %}"/>
+</head>
+
+<body>
+
+    <!--<a href="#" class="user-id" data-id="{{user.id}}" data-alias="{{ user.profile.alias }}">{{ user.username }}</a>
+    <div class="main-content"></div>
+    -->
+
+{% if user.is_authenticated %}
+  <a href="#" class="user-id" data-id="{{user.profile.id}}" data-alias="{{ user.profile.alias }}">{{ user.username }}</a>
+  <div class="my-page-header">
+   <div>
+       <!-- <a href=" "><img src="static/img/logo.svg"></a>        -->
+        <ul class="select">
+           <li><a href=" ">Home</a></li>
+           <li><a href="{% url 'view_logout' %}"><button class="logout-btn" >Logout</button></a></li>
+        </ul>
+   </div>
+</div>
+{% else %}
+  <a href="#" class="user-id" data-id="{{user.profile.id}}" data-alias="{{ user.profile.alias }}">Logo</a>
+<div class="my-page-header">
+   <div>
+       <!--<a href=" "><img src="static/img/logo.svg"></a>-->
+       <ul class="select">
+           <!--<li><a href=" ">Home</a></li>-->
+           <li><a href="{% url 'view_login' %}"><button class="login-btn" >Log-in</button></a></li>
+           <li><a href="{% url 'user_register' %}"><button class="register-btn">Register</button></a></li>        </ul>
+   </div>
+</div>
+{% endif %}
+
+  {% block content %}
+  {% endblock %}
+
+</body>
+
+</html>

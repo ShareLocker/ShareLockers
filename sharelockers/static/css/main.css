@@ -974,10 +974,7 @@ Hides the menu at `48em`, but modify this based on your app's needs.
   height: 100vh; }
 
 body {
-
   background-color: RGBA(69, 136, 156, 0.5); }
-
-
 
 h1, h2 {
   font-family: mainFont , serif; }
@@ -1133,11 +1130,62 @@ button:hover {
   opacity: 0.95;
   border-radius: .5em; }
 
-
 footer {
   background-color: RGBA(43, 44, 45, 0.6);
   color: #eee;
   text-align: center; }
+
+.stock-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  background-color: #eee;
+  border-radius: .5em;
+  color: #FF4B4B;
+  z-index: 1000;
+  padding: 2em;
+  font-size: 1em;
+  padding-bottom: 4em;
+  font-weight: 100;
+  display: none; }
+
+.stock-item .item-stock {
+  margin-top: 1em;
+  position: absolute;
+  top: 87%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); }
+
+.stock-item input {
+  margin-bottom: .5em; }
+
+.stock-item textarea {
+  margin-bottom: .5em; }
+
+.stock-wrapper {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: black;
+  opacity: 0.7;
+  display: none; }
+
+.close {
+  position: fixed;
+  float: right;
+  top: 10px;
+  right: 10px;
+  border-radius: 50%;
+  width: 1.45em; }
+
+.close:hover {
+  background-color: #5081FC;
+  border: none; }
 
 .info {
   color: #E25D3A;
@@ -1349,59 +1397,6 @@ h6 {
 
 .flaticon-wireless29:before {
   content: "\e011"; }
-
-.stock-container {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-  background-color: #eee;
-  border-radius: .5em;
-  color: #FF4B4B;
-  z-index: 1000;
-  padding: 2em;
-  font-size: 1em;
-  padding-bottom: 4em;
-  font-weight: 100;
-  display: none; }
-
-.stock-item .item-stock {
-  margin-top: 1em;
-  position: absolute;
-  top: 87%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%); }
-
-.stock-item input {
-  margin-bottom: .5em; }
-
-.stock-item textarea {
-  margin-bottom: .5em; }
-
-.stock-wrapper {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: black;
-  opacity: 0.7;
-  display: none; }
-
-.close {
-  position: fixed;
-  float: right;
-  top: 10px;
-  right: 10px;
-  border-radius: 50%;
-  width: 1.45em; }
-
-.close:hover {
-  background-color: #5081FC;
-  border: none; }
-
 
 .login {
   text-align: center;

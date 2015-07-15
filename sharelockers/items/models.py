@@ -14,22 +14,10 @@ def upload_photo_to(instance, filename):
     import os
     from django.utils.timezone import now
 
-    # filename_base, filename_ext = os.path.splitext(filename)
-    # return 'photos/{}{}'.format(
-    #     now().strftime("%Y%m%d%H%M%S"),
-    #     filename_ext.lower()
-    # print(instance.photo)
-    # print(dir(instance.photo))
-    size = 128, 128
-    image = Image.open(instance.photo.file)
-    image.thumbnail(size)
-    print(image)
-    print(dir(image))
-    print(dir(image.im))
-    instance.photo.file = image
-    return('photos/{}.jpg'.format(
-         now().strftime("%Y%m%d%H%M%S")))
-
+    filename_base, filename_ext = os.path.splitext(filename)
+    return 'photos/{}{}'.format(
+        now().strftime("%Y%m%d%H%M%S"),
+        filename_ext.lower())
 
 
 class Item(models.Model):
@@ -43,21 +31,6 @@ class Item(models.Model):
 
     def __str__(self):
         return "{}'s {}".format(self.owner, self.title)
-
-    def save(self, *args, **kwargs):
-
-        size = 128, 128
-        # file_path = self.photo.name
-        # filename_base, filename_ext = os.path.splitext(file_path)
-        # image = Image.open(file_path)
-        image = Image.open(self.photo.file)
-        image.thumbnail(size)
-        # image.save(filename_base+"_thumbnail.jpg")
-        # image.save('thumbnail.jpg')
-        # image.save('photos/{}.jpg'.format(
-        #     now().strftime("%Y%m%d%H%M%S")))
-        super(Item, self).save(*args, **kwargs)
-
 
 
 

@@ -974,12 +974,10 @@ Hides the menu at `48em`, but modify this based on your app's needs.
   height: 100vh; }
 
 body {
-<<<<<<< HEAD
+
   background-color: RGBA(69, 136, 156, 0.5); }
-=======
-  min-height: 4em;
-  background-color: #eee; }
->>>>>>> 37a2f9728d8e691a9aa4f117bccc7dd3e87ecd40
+
+
 
 h1, h2 {
   font-family: mainFont , serif; }
@@ -1135,7 +1133,7 @@ button:hover {
   opacity: 0.95;
   border-radius: .5em; }
 
-<<<<<<< HEAD
+
 footer {
   background-color: RGBA(43, 44, 45, 0.6);
   color: #eee;
@@ -1351,7 +1349,7 @@ h6 {
 
 .flaticon-wireless29:before {
   content: "\e011"; }
-=======
+
 .stock-container {
   position: fixed;
   top: 50%;
@@ -1403,7 +1401,7 @@ h6 {
 .close:hover {
   background-color: #5081FC;
   border: none; }
->>>>>>> 37a2f9728d8e691a9aa4f117bccc7dd3e87ecd40
+
 
 .login {
   text-align: center;

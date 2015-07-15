@@ -5,15 +5,10 @@ from faker import Factory
 import random
 import os
 from PIL import Image
-from django.core.files.storage import default_storage as storage
-import math
 from django.utils.timezone import now
 
 
 def upload_photo_to(instance, filename):
-    import os
-    from django.utils.timezone import now
-
     filename_base, filename_ext = os.path.splitext(filename)
     return 'photos/{}{}'.format(
         now().strftime("%Y%m%d%H%M%S"),

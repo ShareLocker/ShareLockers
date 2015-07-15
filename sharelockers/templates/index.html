@@ -9,12 +9,20 @@
 
 
   <link rel="shortcut icon" href="{% static 'favicon.ico' %}"/>
+  <link href='http://fonts.googleapis.com/css?family=Kadwa' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="{% static 'css/main.css' %}"/>
 </head>
 
 <body>
+
+
+    <!--<a href="#" class="user-id" data-id="{{user.id}}" data-alias="{{ user.profile.alias }}">{{ user.username }}</a>
+    <div class="main-content"></div>
+    -->
+
   <a href="#" class="user-id" data-id="{{user.profile.id}}" data-alias="{{ user.profile.alias }}">{{ user.username }}</a>
   <div class="main-content"></div>
+
 
   <script src="{% static 'js/vendor.js' %}"></script>
   <script src="{% static 'js/views.js' %}"></script>

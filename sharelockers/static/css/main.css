@@ -983,8 +983,12 @@ h1 {
 h3, .tagline {
   font-size: 2.5em; }
 
+.tagline {
+  color: #eee; }
+
 .title {
   color: #eee;
+  text-shadow: 1px 3px #27496d;
   font-family: "Kadwa", serif; }
 
 .my-page-header {
@@ -1206,11 +1210,6 @@ footer {
 
 h6 {
   font-size: 1em; }
-
-.tagline {
-  font-size: 1.5em;
-  color: #eee;
-  text-shadow: 1px 3px #27496d; }
 
 .action-call {
   color: #eee;

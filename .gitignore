@@ -79,4 +79,5 @@ target/
 dev_settings.py
 node_modules/
 migrations/
+!.gitkeep
 photos/

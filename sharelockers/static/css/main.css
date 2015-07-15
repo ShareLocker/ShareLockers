@@ -968,7 +968,6 @@ Hides the menu at `48em`, but modify this based on your app's needs.
 .container {
   padding: 0.5em 0;
   text-align: center;
-  min-height: 100vh;
   z-index: 1;
   position: relative; }
 
@@ -1462,10 +1461,10 @@ h6 {
 
 /*  GRID OF TWO  */
 .span_2_of_2 {
-  width: 100%; }
+  width: 30%; }
 
 .span_1_of_2 {
-  width: 49.2%; }
+  width: 60%; }
 
 /*  GO FULL WIDTH BELOW 480 PIXELS */
 @media only screen and (max-width: 930px) {

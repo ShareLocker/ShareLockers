@@ -12,10 +12,9 @@ def connected(request, akey):
     ip = get_ip(request)
     if Hub.objects.filter(secret_key=akey).exists():
         print("Known hub connected at IP: "+ip)
-        this_hub = Hub.objects.get(secret_key=akey)
-        this_hub.flag_connect()
-        this_hub.ip = ip
+        this_hub = Hub.objects.get(secret_key=akey, ip=ip)
         this_hub.save()
+        this_hub.flag_connect()
     else:
         print("New hub connected at IP: "+ip)
         if Location.objects.count() == 0:
@@ -24,8 +23,8 @@ def connected(request, akey):
             loc1.save()
         loc = Location.objects.all()[0]
         this_hub = Hub(name="blue", location=loc, secret_key=akey, ip=ip)
-        this_hub.flag_connect()
         this_hub.save()
+        this_hub.flag_connect()
         Nrow = 4
         Ncol = 2
         this_hub.Nrow = Nrow

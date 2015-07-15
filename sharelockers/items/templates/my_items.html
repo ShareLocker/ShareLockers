@@ -1,0 +1,65 @@
+{% extends "bs_base.html" %}
+{% load bootstrap3 %}
+{% block content %}
+
+<h3>List of your personal inventory</h3>
+
+<p>Or, <a href="{% url 'make_item' %}">add a new item</a> to your inventory</p>
+
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>Item</th>
+			<th>Description</th>
+			<th>Price</th>
+			<th>Make <br /> Reservation</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for item in items %}
+		{% if not item.is_reserved %}
+		<tr>
+			<td>{{ item.title }}</td>
+			<td>{{ item.description }}</td>
+			<td>{{ item.price }}</td>
+			<td><a href="{% url 'make_reservation' pk=item.id %}">Reserve</a></td>
+		</tr>
+		{% endif %}
+		{% endfor %}
+	</tbody>
+</table>
+
+<h3>Items that are currently reserved</h3>
+
+<p>You have attached these items to a specific user already and other users
+	will not be able to buy the item (if stocked) unless you cancel the
+	reservation.</p>
+
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>Item</th>
+			<th>Description</th>
+			<th>Price</th>
+			<th>Cancel <br /> Reservation</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for item in items %}
+		{% if item.is_reserved %}
+		<tr>
+			<td>{{ item.title }}</td>
+			<td>{{ item.description }}</td>
+			<td>{{ item.price }}</td>
+			<td><a href="{% url 'delete_reservation' pk=item.id %}">Withdraw</a></td>
+		</tr>
+		{% endif %}
+		{% endfor %}
+	</tbody>
+</table>
+
+{% if is_paginated %}
+    {% bootstrap_pagination page_obj %}
+{% endif %}
+
+{% endblock %}

@@ -32,6 +32,7 @@ class Request(models.Model):
     seller = models.ForeignKey(Profile, related_name="requested",
                     related_query_name="requested_set")
     item = models.ForeignKey(Item)
+    instructions = models.TextField(blank=True, null=True)
 
     status_options = (
         (1, "outstanding"), # requested, no other action taken yet
@@ -42,7 +43,7 @@ class Request(models.Model):
     status = models.IntegerField(choices=status_options)
 
     created_at = models.DateTimeField(auto_now_add=True)
-    ended_at = models.DateTimeField(blank=True)
+    ended_at = models.DateTimeField(null=True, blank=True)
 
     def age(self):
         from django.utils import timezone
@@ -50,8 +51,8 @@ class Request(models.Model):
 
 
 class Reservation(models.Model):
-    buyer = models.ForeignKey(Profile, related_name="moved",
-                    related_query_name="moved_set")
+    buyer = models.ForeignKey(Profile, related_name="ready",
+                    related_query_name="ready_set", null=True)
     seller = models.ForeignKey(Profile, related_name="stocked",
                     related_query_name="stocked_set")
     item = models.ForeignKey(Item)
@@ -65,7 +66,7 @@ class Reservation(models.Model):
     status = models.IntegerField(choices=status_options)
 
     created_at = models.DateTimeField(auto_now_add=True)
-    ended_at = models.DateTimeField(blank=True)
+    ended_at = models.DateTimeField(null=True, blank=True)
 
     def age(self):
         from django.utils import timezone

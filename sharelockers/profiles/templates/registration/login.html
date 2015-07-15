@@ -18,7 +18,7 @@
 {% if user.is_authenticated %}
 <p>To log in as a different user, first <a href="/logout/">log out</a> of your
     current account.</p>
-    <p>Or view your <a href="/#/dashboard/">dashboard</a></p>    
+    <p>Or view your <a href="/#/dashboard">dashboard</a></p>    
 {% else %}
 <form method="post" action="{% url 'django.contrib.auth.views.login' %}">
 {% csrf_token %}

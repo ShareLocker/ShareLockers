@@ -15,6 +15,7 @@ from items.forms import ItemForm
 # view classes
 import django.views.generic as django_views
 from django.views.generic.edit import CreateView
+from decimal import Decimal
 
 
 def user_register(request):
@@ -25,7 +26,9 @@ def user_register(request):
         user_form = UserForm(request.POST)
         profile_form = ProfileForm(request.POST)
         if user_form.is_valid() and profile_form.is_valid():
-            user = user_form.save() # setting password done in forms.py
+            user = user_form.save(commit=False) # setting password done in forms.py
+            user.alias = user.username
+            user.save()
             # extra password thing
 			# password = user.password # The form doesn't know to call this special method on user.
 			# user.set_password(password)
@@ -60,7 +63,7 @@ def stripe_charge_view(request):
         # Create the charge on Stripe's servers - this will charge the user's card
         try:
             charge = stripe.Charge.create(
-                amount=1000,  # amount in cents, again
+                amount=10000,  # amount in cents, again
                 currency="usd",
                 source=token,
                 description="Example charge"
@@ -69,6 +72,12 @@ def stripe_charge_view(request):
             # The card has been declined
             return HttpResponse('Card declined, please try again.')
             pass
+
+        print("Adding {} credits to {}'s account".format(100.00, request.user.profile))
+
+    request.user.profile.credits += Decimal(10.00)
+    request.user.profile.save()
+
     return HttpResponse('Charged {}{} via token "{}"'.format(charge.amount / 100, str.upper(charge.currency), token))
         # FIXME: Redirect to a meaningful place, with a message that they were charged
         # request.user.profile.stripe_token = token

@@ -38,6 +38,6 @@ class LocListView(CreateView):
 
 class LocEditView(UpdateView):
 	model = Location
-	fields = ['description', 'latitude', 'longitude', 'host']
+	fields = ['description', 'latitude', 'longitude']
 	template_name="lockers/loc_edit_bs.html"
 	success_url = '/loc_list_bs.html'

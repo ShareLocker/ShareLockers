@@ -67,7 +67,10 @@ class HubViewSet(viewsets.ModelViewSet):
 
 class OwnedItemViewSet(viewsets.ModelViewSet):
     serializer_class = OwnedItemsSerializer
-    queryset = Item.objects.all()
+    # queryset = Item.objects.all()
+
+    def get_queryset(self):
+        return Item.objects.filter(owner = self.request.user.profile)
 
 class UnlockViewSet(viewsets.ModelViewSet):
     """
@@ -77,14 +80,15 @@ class UnlockViewSet(viewsets.ModelViewSet):
     serializer_class = UnlockSerializer
 
     def perform_create(self, serializer):
-        print('Validating Unlock')
+        print('Validating Unlock, user: ', end="")
         # FIXME: Verrify this code
         # print(serializer.data)
         print(self.request.user.profile)
-        # opener = self.request.user.profile
         # print(" unlock by "+opener)
-        opener_id = serializer.data['profile']
-        opener = Profile.objects.get(id=opener_id)
+        # opener_id = serializer.data['profile']
+        # opener = Profile.objects.get(id=opener_id)
+        # print(opener)
+        opener = self.request.user.profile
         locker_id = serializer.data['locker']
         locker = Locker.objects.get(id=locker_id)
         if locker.item_set.all():
@@ -153,6 +157,7 @@ class PurchaseViewSet(viewsets.ModelViewSet):
         seller = item.owner
         locker = item.locker
         price = item.price  # TODO: Add payment method
+        credits = buyer.credits
         serializer_data = {'buyer': buyer.pk,
                            'seller': seller.pk,
                            'price': price,
@@ -167,8 +172,18 @@ class PurchaseViewSet(viewsets.ModelViewSet):
         #     raise serializers.ValidationError('Buyer and seller cannot be the same user.')
             # return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
 
+        if price > credits:
+            print("Insufficient funds. {} needs {} more credits to buy {}".format(buyer, price - credits, item))
+            raise serializers.ValidationError('Insufficient funds. Buy more credits to proceed with purchase.')
+            return Response(serializer.data, status=status.HTTP_402_PAYMENT_REQUIRED)  # FIXME: Delete after verifying that this will probably never be called
+
+
         # Change owners
         print("Transferring ownership of item {} from {} to {}".format(item, seller, buyer))
+        buyer.credits -= price
+        buyer.save()
+        seller.credits += price
+        seller.save()
         item.owner = buyer
         item.save()
 

@@ -5,7 +5,10 @@ confirm = input('All database data/migrations will be delted. Are you sure you w
 if confirm == 'y':
     directories = ['api', 'hubs', 'items', 'lockers', 'profiles', 'transactions']
     for directory in directories:
-        call(['mkdir', directory + '/migrations/'])
+        try:
+            call(['mkdir', directory + '/migrations/'])
+        except:
+            pass
         call(['rm', '-rf', directory + '/migrations/*'])
     call(['mv', 'db.sqlite3', '../db-backup.sqlite3'])
     call(['python', 'manage.py', 'makemigrations'])

@@ -1,11 +1,15 @@
 <h2>Your Current Items</h2>
 
-<div class="list-container">
+<div class="list-container ">
         <% m.items.forEach(function (item) { %>
-        	<li data-title="<%- item.title %>" data-id="<%- item.locker %>"  class="list-item">
+        	<li data-title="<%- item.title %>" data-id="<%- item.locker %>"  class="list-item dash-card">
         		
-                Item: <%- item.title %>  Price: <%- item.price %><br>
+                Item: <%- item.title %> 
+                  <br>
+                Price: <%- item.price %>
+                  <br>
                 Location: <%- item.locker %> 
+                  <br>
                 <button class="lockerOpen">Open</button>
             </li>
         <% }) %>

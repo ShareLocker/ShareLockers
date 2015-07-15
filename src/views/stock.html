@@ -1,11 +1,13 @@
-<h2>Stock This Locker</h1>
+<select class="item-inventory">
+	  <option>-</option>
+	  <% m.items.forEach(function (item) { %>
+        	<option data-description="<%- item.description %>" data-id="<%- item.id %>"  data-title="<%- item.title %>" data-price="<%- item.price %>" class="inventory-item">   		
+                Item: <%- item.title %>,  Price: <%- item.price %>          
+            </option>
+       <% }) %>
+</select>
 
-<form class="stock-item">
-	
-	<input class="item-title" placeholder="Title"><br>
-	<textarea class="item-description" rows="4" cols="50" placeholder="Item Description"></textarea><br>
-	<input class="item-price" placeholder="price"><br>
-	<button class="item-stock">Stock Item</button>
-	
-	
-</form>
+
+
+		
+		

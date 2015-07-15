@@ -5,15 +5,16 @@ from lockers.models import Locker
 from profiles.models import Profile
 from django.contrib.auth.models import User
 from transactions.models import Unlock
+from django.utils import timezone
 
 
 def connected(request, akey):
     ip = get_ip(request)
     if Hub.objects.filter(secret_key=akey).exists():
         print("Known hub connected at IP: "+ip)
-        this_hub = Hub.objects.get(secret_key=akey)
-        this_hub.ip = ip
+        this_hub = Hub.objects.get(secret_key=akey, ip=ip)
         this_hub.save()
+        this_hub.flag_connect()
     else:
         print("New hub connected at IP: "+ip)
         if Location.objects.count() == 0:
@@ -23,6 +24,7 @@ def connected(request, akey):
         loc = Location.objects.all()[0]
         this_hub = Hub(name="blue", location=loc, secret_key=akey, ip=ip)
         this_hub.save()
+        this_hub.flag_connect()
         Nrow = 4
         Ncol = 2
         this_hub.Nrow = Nrow
@@ -70,6 +72,7 @@ def poll(request, akey):
     row = 1  # placeholders
     if Hub.objects.filter(secret_key=akey).exists():
         this_hub = Hub.objects.get(secret_key=akey)
+        this_hub.polled_at = timezone.now()
         if this_hub.ip != ip:
             print("Warning: IP of controller changed to "+ip)
             this_hub.ip = ip

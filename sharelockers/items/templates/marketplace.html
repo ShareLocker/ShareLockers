@@ -1,0 +1,35 @@
+{% extends "bs_base.html" %}
+{% load bootstrap3 %}
+{% block content %}
+
+<h3>Available Items in Broad Marketplace</h3>
+<h2>Request item to propt owner to stock in their local set of Share Lockers</h2>
+
+{% bootstrap_pagination page_obj %}
+
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>Item</th>
+			<th>Description</th>
+			<th>Price</th>
+			<th>Make Request</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for item in items %}
+		<tr>
+			<td>{{ item.title }}</td>
+			<td>{{ item.description }}</td>
+			<td>{{ item.price }}</td>
+			<td><a href="{% url 'make_request' pk=item.id %}">Request</a></td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+
+{% if is_paginated %}
+    {% bootstrap_pagination page_obj %}
+{% endif %}
+
+{% endblock %}

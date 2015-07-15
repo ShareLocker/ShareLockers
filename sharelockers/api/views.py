@@ -78,8 +78,11 @@ class UnlockViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         print('Validating Unlock')
-        # FIXME: There must be a better way to do the following authentication
+        # FIXME: Verrify this code
         # print(serializer.data)
+        print(self.request.user.profile)
+        # opener = self.request.user.profile
+        # print(" unlock by "+opener)
         opener_id = serializer.data['profile']
         opener = Profile.objects.get(id=opener_id)
         locker_id = serializer.data['locker']
@@ -92,9 +95,9 @@ class UnlockViewSet(viewsets.ModelViewSet):
             item = None
 
         # Logged in button-pusher  == locker.item.owner
-        # if opener != owner: # FIXME: enable for actual owner
-        #     print("You don't have access to this item, it belongs to {}".format(owner))
-        #     raise serializers.ValidationError("You don't have access to this item, it belongs to {}".format(owner))
+        if opener != owner:
+            print("You don't have access to this item, it belongs to {}".format(owner))
+            raise serializers.ValidationError("You don't have access to this item, it belongs to {}".format(owner))
 
         # Set hub waiting/row/column for next time the hub polls the server
         print("Setting up for locker {} to open when server is polled".format(locker.local_code()))

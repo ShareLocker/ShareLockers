@@ -12,9 +12,37 @@ class Item(models.Model):
     title = models.CharField(max_length=255)
     description = models.CharField(max_length=255)
     price = models.DecimalField(max_digits=5, decimal_places=2)
+    photo = models.ImageField(upload_to='photos', null=True, blank=True, default=None)
 
     def __str__(self):
         return "{}'s {}".format(self.owner, self.title)
+
+    def is_reserved(self):
+        flag = False
+        for res in self.reservation_set.all():
+            if res.status == 1:
+                flag = True
+        return flag
+
+    def reserved_for(self, profile):
+        flag = False
+        for res in self.reservation_set.all():
+            if res.status == 1:
+                if res.buyer == profile:
+                    flag = True
+        return flag
+
+    def remove_reservations_seller(self):
+        for res in self.reservation_set.all():
+            if res.status == 1:
+                res.status = 2
+                res.save()
+
+    def remove_reservations_buyer(self):
+        for res in self.reservation_set.all():
+            if res.status == 1:
+                res.status = 3
+                res.save()
 
 
 def create_items(num):

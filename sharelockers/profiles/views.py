@@ -25,7 +25,9 @@ def user_register(request):
         user_form = UserForm(request.POST)
         profile_form = ProfileForm(request.POST)
         if user_form.is_valid() and profile_form.is_valid():
-            user = user_form.save() # setting password done in forms.py
+            user = user_form.save(commit=False) # setting password done in forms.py
+            user.alias = user.username
+            user.save()
             # extra password thing
 			# password = user.password # The form doesn't know to call this special method on user.
 			# user.set_password(password)

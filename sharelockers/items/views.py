@@ -1,9 +1,11 @@
 from django.shortcuts import render
 import django.views.generic as django_views
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import UpdateView, CreateView
 from items.models import Item
-from items.forms import RequestForm, ItemForm
+from items.forms import RequestForm, ItemForm, UnlockForm
 from hubs.models import Hub
+from transactions.models import Reservation
+from django.views.generic.base import TemplateView
 
 
 class MarketplaceView(django_views.ListView):
@@ -59,3 +61,74 @@ class ItemCreateView(CreateView):
 		form.instance.owner = self.request.user.profile
 		return super(ItemCreateView, self).form_valid(form)
 		# form.save()
+
+
+class ReservationSellerView(UpdateView):
+	model = Reservation
+	fields = ['buyer', 'instructions']
+	template_name = "items/reservation_seller.html"
+	success_url = '/my_items.html'
+
+	def get_context_data(self, **kwargs):
+		context = super(ReservationSellerView, self).get_context_data(**kwargs)
+		context['reservation'] = Reservation.objects.get(pk=kwargs['pk'])
+		return context
+
+
+class ReservationBuyerView(CreateView):
+	form_class = UnlockForm
+	success_url = "/my_items.html"
+	template_name = "items/reservation_buyer.html"
+	reservation = None
+
+	def dispatch(self, *args, **kwargs):
+		self.reservation = Reservation.objects.get(pk=kwargs['pk'])
+		return super(ReservationBuyerView, self).dispatch(*args, **kwargs)
+
+	def get_context_data(self, **kwargs):
+		context = super(ReservationBuyerView, self).get_context_data(**kwargs)
+		context['reservation'] = self.reservation
+		profile = self.request.user.profile
+		right_user = False
+		if profile == self.reservation.buyer:
+			right_user = True
+		context['right_user'] = right_user
+		return context
+
+	def form_valid(self, form):
+		profile = self.request.user.profile
+		locker = self.reservation.item.locker
+		form.instance.profile = profile
+		form.instance.locker = locker
+		hub.poll_open(locker.column, locker.row)
+		return super(ReservationBuyerView, self).form_valid(form)
+
+
+class ReservationHashView(CreateView):
+	form_class = UnlockForm
+	success_url = "/my_items.html"
+	template_name = "items/reservation_hash.html"
+	reservation = None
+	code = None
+
+	def dispatch(self, *args, **kwargs):
+		self.reservation = Reservation.objects.get(pk=kwargs['pk'])
+		self.code = kwargs['code']
+		return super(ReservationHashView, self).dispatch(*args, **kwargs)
+
+	def get_context_data(self, **kwargs):
+		context = super(ReservationBuyerView, self).get_context_data(**kwargs)
+		context['reservation'] = self.reservation
+		right_hash = False
+		if self.code == self.reservation.code:
+			right_hash = True
+		context['right_hash'] = right_hash
+		return context
+
+	def form_valid(self, form):
+		profile = self.request.user.profile
+		locker = self.reservation.item.locker
+		form.instance.profile = profile
+		form.instance.locker = locker
+		hub.poll_open(locker.column, locker.row)
+		return super(ReservationBuyerView, self).form_valid(form)

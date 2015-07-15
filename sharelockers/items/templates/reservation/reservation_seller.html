@@ -1,0 +1,39 @@
+{% extends "bs_base.html" %}
+{% load bootstrap3 %}
+{% block content %}
+
+<h3>Reservation Details and Instructions</h3>
+
+{% if reservation.is_open %}
+{% if reservation.buyer.exists %}
+
+<p>The reservation is currently standing and can be opened
+	by the following account.</p>
+<ul>
+	<li>Item: {{ reservation.item }}</li>
+	<li>Receiver: {{ reservation.buyer }}</li>
+</ul>
+
+{% else %}
+
+<p>The reservation is standing, and can be opened by anyone with the following URL.
+	Please be careful who you share this with</p>
+
+	<p><b>{% url 'view_index' %}{{ reservation.url }}</b></p>
+
+{% endif %}
+
+<form action="" method="post">
+	{% csrf_token %}
+	{{ form.as_p }}
+	<input type="submit" value="edit Reservation" />
+</form>
+
+{% else %}
+
+<p>This reservation has been closed</p>
+
+{% endif %}
+
+
+{% endblock %}

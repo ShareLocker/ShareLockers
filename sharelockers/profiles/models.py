@@ -12,7 +12,7 @@ class Profile(models.Model):
     alias = models.CharField(max_length=255)
     location = models.ForeignKey(Location, null=True)
     # stripe_token = models.CharField(max_length=255, null=True)
-    credits = models.DecimalField(max_digits=5, decimal_places=2, default=0)
+    credits = models.DecimalField(max_digits=5, decimal_places=2, default=100)
 
     def __str__(self):
         return '{} (id: {})'.format(self.alias, self.id)

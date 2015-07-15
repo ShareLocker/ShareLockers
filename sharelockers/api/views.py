@@ -155,6 +155,7 @@ class PurchaseViewSet(viewsets.ModelViewSet):
         seller = item.owner
         locker = item.locker
         price = item.price  # TODO: Add payment method
+        credits = buyer.credits
         serializer_data = {'buyer': buyer.pk,
                            'seller': seller.pk,
                            'price': price,
@@ -169,8 +170,18 @@ class PurchaseViewSet(viewsets.ModelViewSet):
         #     raise serializers.ValidationError('Buyer and seller cannot be the same user.')
             # return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
 
+        if price > credits:
+            print("{} can't buy {}, because they already own it".format(buyer, item))
+            raise serializers.ValidationError('Insufficient funds. Buy more credits to proceed with purchase.')
+            return Response(serializer.data, status=status.HTTP_402_PAYMENT_REQUIRED)  # FIXME: Delete after verifying that this will probably never be called
+
+
         # Change owners
         print("Transferring ownership of item {} from {} to {}".format(item, seller, buyer))
+        buyer.credits -= price
+        buyer.save()
+        seller.credits += price
+        seller.save()
         item.owner = buyer
         item.save()
 

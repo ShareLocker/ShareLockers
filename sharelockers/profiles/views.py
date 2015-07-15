@@ -61,7 +61,7 @@ def stripe_charge_view(request):
         # Create the charge on Stripe's servers - this will charge the user's card
         try:
             charge = stripe.Charge.create(
-                amount=1000,  # amount in cents, again
+                amount=10000,  # amount in cents, again
                 currency="usd",
                 source=token,
                 description="Example charge"
@@ -71,7 +71,7 @@ def stripe_charge_view(request):
             return HttpResponse('Card declined, please try again.')
             pass
 
-        print("Adding {} credits to {}'s account".format(10.00, request.user.profile))
+        print("Adding {} credits to {}'s account".format(100.00, request.user.profile))
 
     request.user.profile.credits += Decimal(10.00)
     request.user.profile.save()

@@ -55,7 +55,7 @@ module.exports = function () {
 			  			}).done(function (data){
 							console.log(data);
 						});
-						document.location.href = '/#/dashboard';
+						document.location.href = '/#/location/locker';
 					}
 					else {
 						var itemId = $('.item-id').val();
@@ -74,7 +74,7 @@ module.exports = function () {
 			  			}).done(function (data){
 							console.log(data);
 						});
-						document.location.href = '/#/dashboard';
+						document.location.href = '/#/location/locker';
 					}
 				});
 		  });

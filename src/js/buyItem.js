@@ -25,8 +25,12 @@ module.exports = function (button) {
 					}
 		  		}).done(function (data){
 					console.log(data);
+					alert("The Item is Yours!")
+				}).fail(function(data){
+					console.log(data);
 				});
-				document.location.href = '/#/my-items/user'
+				
+				document.location.href = '/#/location/locker'
 		});
 	
 }

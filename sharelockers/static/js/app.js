@@ -55,8 +55,12 @@ module.exports = function (button) {
 					}
 		  		}).done(function (data){
 					console.log(data);
+					alert("The Item is Yours!")
+				}).fail(function(data){
+					console.log(data);
 				});
-				document.location.href = '/#/my-items/user'
+				
+				document.location.href = '/#/location/locker'
 		});
 	
 }
@@ -364,6 +368,7 @@ module.exports = function (arr) {
 		
 		
 		else {
+		var itemPrice = arr[i].item_set[0].price;
 		var itemOwner = arr[i].item_set[0].owner;
 		var itemTitle = arr[i].item_set[0].title;
 		var itemDetails = arr[i].item_set[0].description;
@@ -371,7 +376,7 @@ module.exports = function (arr) {
 		
 		if (currentUser == itemOwner ) {
 			
-			var ownerHtml = '<div class="vlocker"><span class="card animated"><span class="lockerTitle">'+ lockerTitle + '<br>' + itemTitle +'</span><div class="vpopout"><span class="lockerDetails">'+ itemDetails +'</span><button class="open-button" data-id = '+lockerId+'>Open</button></div></div>';
+			var ownerHtml = '<div class="vlocker"><span class="card animated"><span class="lockerTitle">'+ lockerTitle + '<br>' + itemTitle +'</span><div class="vpopout"><span class="lockerDetails">'+ itemDetails +'<br>'+'$'+ itemPrice + '</span><button class="open-button" data-id = '+lockerId+'>Open</button></div></div>';
 			$('.locker-bank').append(ownerHtml);
 			console.log(currentUser);
 			console.log(itemOwner);
@@ -559,7 +564,7 @@ module.exports = function () {
 			  			}).done(function (data){
 							console.log(data);
 						});
-						document.location.href = '/#/dashboard';
+						document.location.href = '/#/location/locker';
 					}
 					else {
 						var itemId = $('.item-id').val();
@@ -578,7 +583,7 @@ module.exports = function () {
 			  			}).done(function (data){
 							console.log(data);
 						});
-						document.location.href = '/#/dashboard';
+						document.location.href = '/#/location/locker';
 					}
 				});
 		  });

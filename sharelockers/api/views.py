@@ -80,13 +80,15 @@ class UnlockViewSet(viewsets.ModelViewSet):
     serializer_class = UnlockSerializer
 
     def perform_create(self, serializer):
-        print('Validating Unlock')
+        print('Validating Unlock, user: ', end="")
         # FIXME: Verrify this code
         # print(serializer.data)
-        opener = self.request.user.profile
-        print(" unlock by "+profile)
+        print(self.request.user.profile)
+        # print(" unlock by "+opener)
         # opener_id = serializer.data['profile']
         # opener = Profile.objects.get(id=opener_id)
+        # print(opener)
+        opener = self.request.user.profile
         locker_id = serializer.data['locker']
         locker = Locker.objects.get(id=locker_id)
         if locker.item_set.all():

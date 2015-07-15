@@ -78,15 +78,16 @@ $('.location').on('click', function() {
 });
 
 //api info for PROFILES TAB IS BELOW
-
-$('.items').on('click', function() {
-
+  var buyerId = $('.user-id').attr('data-id');
+  
+$('.profile').on('click', function() {
+     
     $.ajax({
     			method: 'GET', 
-    			url: '/profiles/{id}',
+    			url: '/api/profiles/' + buyerId,
       		}).done(function (data){
     			console.log(data);
-          showLists(data, 'my-items', '.generated');
+          showLists(data, 'profile', '.generated');
     			
     });
    });
@@ -94,13 +95,7 @@ $('.items').on('click', function() {
     
 
 
-// $.ajax({
-// 			method: 'GET', 
-// 			url: 'api/owneditems/',
-//   		}).done(function (data){
-// 			console.log(data);
-			
-// });			
+	
 			
 			
 			

@@ -9,6 +9,7 @@ normalize.css v^3.0 | MIT License | git.io/normalize
 Copyright (c) Nicolas Gallagher and Jonathan Neal
 */
 /*! normalize.css v3.0.2 | MIT License | git.io/normalize */
+@import url(http://fonts.googleapis.com/css?family=Kadwa);
 html {
   font-family: sans-serif;
   -ms-text-size-adjust: 100%;
@@ -964,27 +965,27 @@ Hides the menu at `48em`, but modify this based on your app's needs.
   box-shadow: 10px 10px 5px #888888;
   overflow: auto; }
 
-@font-face {
-  font-family: mainFont;
-  src: url(Kadwa-Regular.ttf); }
-
 .container {
   padding: 0.5em 0;
   text-align: center;
   height: 100vh; }
 
-body {
-  background-color: RGBA(69, 136, 156, 0.5); }
+a:visited {
+  color: inherit; }
 
-h1, h2 {
-  font-family: mainFont , serif; }
+body {
+  background-color: RGBA(69, 136, 156, 0.5);
+  font-family: sans-serif; }
 
 h1 {
   font-size: 5em; }
 
 h3, .tagline {
-  font-size: 2.5em;
-  font-family: Georgia, serif; }
+  font-size: 2.5em; }
+
+.title {
+  color: #eee;
+  font-family: "Kadwa", serif; }
 
 .my-page-header {
   padding: 3em 1.5em;
@@ -1042,14 +1043,13 @@ button:hover {
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%); }
 
-.register-btn {
+.register-btn, .login-btn {
   background-color: #E25D3A;
   border: none;
-  font-size: 2em;
-  font-family: mainFont , serif; }
+  font-size: 2em; }
 
 .login-btn {
-  font-size: 1.5em;
+  background-color: #eee;
   color: black; }
 
 .locker-container {

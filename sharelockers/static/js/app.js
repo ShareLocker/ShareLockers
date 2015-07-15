@@ -185,11 +185,7 @@ $('.profile').on('click', function() {
 		
 
 
-<<<<<<< HEAD
-},{"../router":13,"../show":14,"../showLists":15,"jquery":"jquery","underscore":"underscore","views":"views"}],4:[function(require,module,exports){
-=======
-},{"../router":14,"../show":15,"../showLists":16,"jquery":"jquery","underscore":"underscore","views":"views"}],5:[function(require,module,exports){
->>>>>>> 37a2f9728d8e691a9aa4f117bccc7dd3e87ecd40
+},{"../router":13,"../show":14,"../showLists":15,"jquery":"jquery","underscore":"underscore","views":"views"}],5:[function(require,module,exports){
 'use strict';
 
 var $ = require('jquery');
@@ -211,17 +207,9 @@ router.route('', function () {
 
 
 });
-<<<<<<< HEAD
-},{"../router":13,"../show":14,"jquery":"jquery","underscore":"underscore","views":"views"}],5:[function(require,module,exports){
-
-},{}],6:[function(require,module,exports){
-=======
-},{"../router":14,"../show":15,"jquery":"jquery","underscore":"underscore","views":"views"}],6:[function(require,module,exports){
+},{"../router":13,"../show":14,"jquery":"jquery","underscore":"underscore","views":"views"}],6:[function(require,module,exports){
 
 },{}],7:[function(require,module,exports){
-arguments[4][6][0].apply(exports,arguments)
-},{"dup":6}],8:[function(require,module,exports){
->>>>>>> 37a2f9728d8e691a9aa4f117bccc7dd3e87ecd40
 'use strict';
 
 var $ = require('jquery');
@@ -279,11 +267,7 @@ router.route('location/locker', function () {
 
 
 });
-<<<<<<< HEAD
-},{"../buyItem":2,"../getCookie":9,"../lockerGenerator":11,"../openLocker":12,"../router":13,"../show":14,"jquery":"jquery","underscore":"underscore","views":"views"}],7:[function(require,module,exports){
-=======
-},{"../buyItem":2,"../colorGen":3,"../getCookie":10,"../lockerGenerator":12,"../openLocker":13,"../router":14,"../show":15,"../stock":18,"jquery":"jquery","underscore":"underscore","views":"views"}],9:[function(require,module,exports){
->>>>>>> 37a2f9728d8e691a9aa4f117bccc7dd3e87ecd40
+},{"../buyItem":2,"../colorGen":3,"../getCookie":9,"../lockerGenerator":11,"../openLocker":12,"../router":13,"../show":14,"../stock":17,"jquery":"jquery","underscore":"underscore","views":"views"}],8:[function(require,module,exports){
 var $ = require('jquery');
 var _ = require('underscore');
 var views = require('views');
@@ -306,53 +290,7 @@ router.route('my-items/user', function () {
 		  });
 		
  });
-<<<<<<< HEAD
-},{"../getCookie":9,"../openLocker":12,"../router":13,"../show":14,"../showLists":15,"jquery":"jquery","underscore":"underscore","views":"views"}],8:[function(require,module,exports){
-'use strict';
-
-var $ = require('jquery');
-var _ = require('underscore');
-var views = require('views');
-var router = require('../router');
-var getCookie = require('../getCookie');
-var show = require('../show');
-
-router.route('stock/:stockURL', function (stockURL) {
-	
-	show('stock');
-	$('.item-stock').click(function (e) {
-		e.preventDefault();
-		var csrftoken = getCookie('csrftoken');
-		var title = $('.item-title').val();
-		var description = $('.item-description').val();
-		var price = $('.item-price').val();
-		var owner = $('.user-id').attr('data-id');
-
-		
-		$.ajax({
-			
-					beforeSend: function (request){
-		            request.setRequestHeader('X-CSRFToken', csrftoken);
-		           },
-					method: 'POST', 
-					url: '/api/owneditems/',
-					data: {	"title": title,
-							"description": description,
-							"price": price,
-							"owner": owner,
-							"locker": stockURL					
-						}
-		  		}).done(function (data){
-					console.log(data);
-				});
-			window.location.href = '/#/my-items/user';
-	})
-	
-});
-},{"../getCookie":9,"../router":13,"../show":14,"jquery":"jquery","underscore":"underscore","views":"views"}],9:[function(require,module,exports){
-=======
-},{"../getCookie":10,"../openLocker":13,"../router":14,"../show":15,"../showLists":16,"jquery":"jquery","underscore":"underscore","views":"views"}],10:[function(require,module,exports){
->>>>>>> 37a2f9728d8e691a9aa4f117bccc7dd3e87ecd40
+},{"../getCookie":9,"../openLocker":12,"../router":13,"../show":14,"../showLists":15,"jquery":"jquery","underscore":"underscore","views":"views"}],9:[function(require,module,exports){
 'use strict';
 
 var $ = require('jquery');
@@ -386,19 +324,11 @@ var router = require('./router');
 require('./animations');
 
 // Require all of our controllers
-<<<<<<< HEAD
-({"controllers":({"dashboard":require("./controllers/dashboard.js"),"home":require("./controllers/home.js"),"locations":require("./controllers/locations.js"),"locker-list":require("./controllers/locker-list.js"),"my-items":require("./controllers/my-items.js"),"stock":require("./controllers/stock.js")})});
+({"controllers":({"dashboard":require("./controllers/dashboard.js"),"home":require("./controllers/home.js"),"locations":require("./controllers/locations.js"),"locker-list":require("./controllers/locker-list.js"),"my-items":require("./controllers/my-items.js")})});
 
 // Start the router
 router.init();
-},{"./animations":1,"./controllers/dashboard.js":3,"./controllers/home.js":4,"./controllers/locations.js":5,"./controllers/locker-list.js":6,"./controllers/my-items.js":7,"./controllers/stock.js":8,"./router":13}],11:[function(require,module,exports){
-=======
-({"controllers":({"dashboard":require("./controllers/dashboard.js"),"home":require("./controllers/home.js"),"items":require("./controllers/items.js"),"locations":require("./controllers/locations.js"),"locker-list":require("./controllers/locker-list.js"),"my-items":require("./controllers/my-items.js")})});
-
-// Start the router
-router.init();
-},{"./animations":1,"./controllers/dashboard.js":4,"./controllers/home.js":5,"./controllers/items.js":6,"./controllers/locations.js":7,"./controllers/locker-list.js":8,"./controllers/my-items.js":9,"./router":14}],12:[function(require,module,exports){
->>>>>>> 37a2f9728d8e691a9aa4f117bccc7dd3e87ecd40
+},{"./animations":1,"./controllers/dashboard.js":4,"./controllers/home.js":5,"./controllers/locations.js":6,"./controllers/locker-list.js":7,"./controllers/my-items.js":8,"./router":13}],11:[function(require,module,exports){
 'use strict';
 
 var $ = require('jquery');
@@ -571,10 +501,7 @@ var SortedRouter = Backbone.Router.extend({
 });
  
 module.exports = SortedRouter;
-<<<<<<< HEAD
-},{"backbone":"backbone","underscore":"underscore"}]},{},[10])
-=======
-},{"backbone":"backbone","underscore":"underscore"}],18:[function(require,module,exports){
+},{"backbone":"backbone","underscore":"underscore"}],17:[function(require,module,exports){
 'use strict';
 
 var $ = require('jquery');
@@ -657,8 +584,7 @@ module.exports = function () {
 		  });
 	});
 };
-},{"../js/getCookie":10,"../js/router":14,"../js/show":15,"../js/showLists":16,"jquery":"jquery","underscore":"underscore","views":"views"}]},{},[11])
->>>>>>> 37a2f9728d8e691a9aa4f117bccc7dd3e87ecd40
+},{"../js/getCookie":9,"../js/router":13,"../js/show":14,"../js/showLists":15,"jquery":"jquery","underscore":"underscore","views":"views"}]},{},[10])
 
 
 //# sourceMappingURL=app.js.map

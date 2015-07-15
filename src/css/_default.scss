@@ -1,8 +1,5 @@
 @import 'variables';
-@font-face{
-  font-family: mainFont;
-  src: url(Kadwa-Regular.ttf);
-}
+@import url(http://fonts.googleapis.com/css?family=Kadwa);
 
 .container{
   padding: 0.5em 0;
@@ -11,17 +8,11 @@
  
 }
 
+a:visited{ color: inherit; }
+
 body{
-
  background-color: RGBA(69, 136, 156, 0.5);
-
-  // min-height: 4em;
-  // background-color: #eee;
-
-}
-
-h1 , h2 {
- font-family: mainFont , serif;
+ font-family: sans-serif;
 }
 
 h1{
@@ -30,7 +21,11 @@ h1{
 
 h3 ,.tagline{
   font-size: 2.5em;
-  font-family: Georgia, serif;
+  
+}
+.title{
+  color: #eee;
+  font-family: $title-font;
 }
 
 .my-page-header{
@@ -99,16 +94,16 @@ button:hover {
 }
 
 
-.register-btn{
+.register-btn, .login-btn{
   background-color: $register-button;
   border: none;
   font-size: 2em;
-  font-family: mainFont , serif;
+  
 
 }
 
 .login-btn{
-  font-size: 1.5em;
+  background-color: #eee;
   color: black;
 }
 
@@ -264,4 +259,5 @@ footer{
   background-color: #5081FC;
   border: none;
 }
+
 

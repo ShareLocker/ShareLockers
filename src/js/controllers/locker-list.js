@@ -37,12 +37,12 @@ router.route('location/locker', function () {
 		    });
 		});
 		
-		$.ajax({
-			method: 'GET', 
-			url: '/api/profiles/',
-  		}).done(function (data){
-			console.log(data);
-		});
+		// $.ajax({
+		// 	method: 'GET', 
+		// 	url: '/api/profiles/',
+  		// }).done(function (data){
+		// 	console.log(data);
+		// });
 		
 
 		function showLockers(data) {

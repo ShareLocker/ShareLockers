@@ -47,7 +47,7 @@ module.exports = function (arr) {
 			console.log(itemOwner);
 		}
 		else {
-			var buyHtml = '<div class="vlocker"><span class="card animated"><span class="lockerTitle">'+ lockerTitle + '<br>' + itemTitle +'</span><div class="vpopout"><span class="lockerDetails">'+ itemDetails +'</span><button class="buy-button" data-id = '+itemId+'>Buy</button></div></div>';
+			var buyHtml = '<div class="vlocker"><span class="card animated"><span class="lockerTitle">'+ lockerTitle + '<br>' + itemTitle +'</span><div class="vpopout"><span class="lockerDetails">'+ itemDetails+'<br>'+'$'+ itemPrice + '</span><button class="buy-button" data-id = '+itemId+'>Buy</button></div></div>';
 			$('.locker-bank').append(buyHtml);
 		}
 		}

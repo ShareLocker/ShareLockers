@@ -247,12 +247,12 @@ router.route('location/locker', function () {
 		    });
 		});
 		
-		$.ajax({
-			method: 'GET', 
-			url: '/api/profiles/',
-  		}).done(function (data){
-			console.log(data);
-		});
+		// $.ajax({
+		// 	method: 'GET', 
+		// 	url: '/api/profiles/',
+  		// }).done(function (data){
+		// 	console.log(data);
+		// });
 		
 
 		function showLockers(data) {
@@ -376,7 +376,7 @@ module.exports = function (arr) {
 			console.log(itemOwner);
 		}
 		else {
-			var buyHtml = '<div class="vlocker"><span class="card animated"><span class="lockerTitle">'+ lockerTitle + '<br>' + itemTitle +'</span><div class="vpopout"><span class="lockerDetails">'+ itemDetails +'</span><button class="buy-button" data-id = '+itemId+'>Buy</button></div></div>';
+			var buyHtml = '<div class="vlocker"><span class="card animated"><span class="lockerTitle">'+ lockerTitle + '<br>' + itemTitle +'</span><div class="vpopout"><span class="lockerDetails">'+ itemDetails+'<br>'+'$'+ itemPrice + '</span><button class="buy-button" data-id = '+itemId+'>Buy</button></div></div>';
 			$('.locker-bank').append(buyHtml);
 		}
 		}
@@ -415,7 +415,11 @@ module.exports = function (button) {
 					}
 		  		}).done(function (data){
 					console.log(data);
-				});
+					alert("Locker Open");
+				}).fail(function (data){
+					console.log(data);
+					alert("Unable to Open at this Time");
+				})
 		});
 	
 }
@@ -537,24 +541,36 @@ module.exports = function () {
 				$('.item-stock').click(function (e) {
 				e.stopPropagation();	
 				e.preventDefault();
+					var data = new FormData();
+					var file = $('.item-photo').get(0).files[0];
+					data.append('Item', file);
+					console.log(data);
 				var csrftoken = getCookie('csrftoken');
 				var title = $('.item-title').val();
 				var description = $('.item-description').val();
 				var price = $('.item-price').val();
 				var owner = $('.user-id').attr('data-id');
+				var photo = $('.item-photo').val();
 					if ($('.item-id').val() == 0) {
+						alert('it made it here');
 						$.ajax({		
 						beforeSend: function (request){
 			            request.setRequestHeader('X-CSRFToken', csrftoken);
 			           },
+					   
 						method: 'POST', 
 						url: '/api/owneditems/',
 						data: {	"title": title,
 								"description": description,
 								"price": price,
+								"photo": data,
 								"owner": owner,
 								"locker": lockerId					
-							}
+							},
+						//cache: false,
+						dataType: 'json',
+  						processData: false // Don't process the files
+  						// contentType: false
 			  			}).done(function (data){
 							console.log(data);
 						});

@@ -34,24 +34,36 @@ module.exports = function () {
 				$('.item-stock').click(function (e) {
 				e.stopPropagation();	
 				e.preventDefault();
+					var data = new FormData();
+					var file = $('.item-photo').get(0).files[0];
+					data.append('Item', file);
+					console.log(data);
 				var csrftoken = getCookie('csrftoken');
 				var title = $('.item-title').val();
 				var description = $('.item-description').val();
 				var price = $('.item-price').val();
 				var owner = $('.user-id').attr('data-id');
+				var photo = $('.item-photo').val();
 					if ($('.item-id').val() == 0) {
+						alert('it made it here');
 						$.ajax({		
 						beforeSend: function (request){
 			            request.setRequestHeader('X-CSRFToken', csrftoken);
 			           },
+					   
 						method: 'POST', 
 						url: '/api/owneditems/',
 						data: {	"title": title,
 								"description": description,
 								"price": price,
+								"photo": data,
 								"owner": owner,
 								"locker": lockerId					
-							}
+							},
+						//cache: false,
+						dataType: 'json',
+  						processData: false // Don't process the files
+  						// contentType: false
 			  			}).done(function (data){
 							console.log(data);
 						});

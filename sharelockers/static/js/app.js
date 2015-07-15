@@ -142,9 +142,9 @@ $('.location').on('click', function() {
 
 //api info for PROFILES TAB IS BELOW
   var buyerId = $('.user-id').attr('data-id');
-  var owner = $('.user-id').attr('data-alias');
+  
 $('.profile').on('click', function() {
-
+     
     $.ajax({
     			method: 'GET', 
     			url: '/api/profiles/' + buyerId,

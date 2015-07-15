@@ -856,7 +856,7 @@ appears on the left side of the page.
     */
 #menu .pure-menu-selected,
 #menu .pure-menu-heading {
-  background: RGBA(69, 136, 156, 1); }
+  background-color: #EEE; }
 
 /*
         This styles a link within a selected menu item `<li>`.
@@ -974,9 +974,7 @@ Hides the menu at `48em`, but modify this based on your app's needs.
   height: 100vh; }
 
 body {
-  background: linear-gradient(RGBA(36, 40, 56, 0.6), RGBA(159, 129, 184, 0.9)), url("../img/city.jpg");
-  background-size: cover;
-  background-repeat: no-repeat; }
+  background-color: RGBA(69, 136, 156, 0.5); }
 
 h1, h2 {
   font-family: mainFont , serif; }

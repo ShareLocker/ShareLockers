@@ -13,4 +13,6 @@ urlpatterns = [
                                     name='self_inventory'),
     url(r'^make_reservation(?P<pk>\d+).html$', users_views.ReservationCreateView.as_view(),
                                     name='make_reservation'),
+    url(r'^delete_reservation(?P<pk>\d+).html$', users_views.ReservationDeleteView.as_view(),
+                                    name='delete_reservation'),
 ]

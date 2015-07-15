@@ -30,3 +30,19 @@ class Locker(models.Model):
         ret_st += self.get_column_display()
         ret_st += str(self.row)
         return ret_st
+
+    def status(self, profile):
+        if self.item_set.exists:
+            item = self.item_set.all()[0]
+            if item.owner == profile:
+                return 2 # you own it
+            else:
+                if item.is_reserved():
+                    if item.reserved_for(profile):
+                        return 3 # reserved for you
+                    else:
+                        return 4 # reserved for someone else
+                else:
+                    return 1 # not yours, but not reserved, so you can buy
+        else:
+            return 0 # empty locker

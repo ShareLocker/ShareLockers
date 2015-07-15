@@ -6,8 +6,10 @@ from django.contrib import messages
 from profiles.models import Profile
 from profiles.forms import UserForm, ProfileForm
 import stripe
+from django.http import HttpResponseRedirect, HttpResponse
+from django.views.generic import TemplateView
 
-from profiles.forms import UserForm, ProfileForm, ReservationForm
+from profiles.forms import UserForm, ProfileForm, UserReservationForm, HashReservationForm
 from items.models import Item
 from items.forms import ItemForm
 # view classes
@@ -23,7 +25,7 @@ def user_register(request):
         user_form = UserForm(request.POST)
         profile_form = ProfileForm(request.POST)
         if user_form.is_valid() and profile_form.is_valid():
-            user = user_form.save()
+            user = user_form.save() # setting password done in forms.py
             # extra password thing
 			# password = user.password # The form doesn't know to call this special method on user.
 			# user.set_password(password)
@@ -77,18 +79,14 @@ class SelfInventoryView(django_views.ListView):
     template_name="my_items.html"
     context_object_name='items'
     paginate_by=100
-    profile = None
-
-    # def dispatch(self, *args, **kwargs):
-    #     return super(SelfInventoryView, self).dispatch(*args, **kwargs)
 
     def get_queryset(self):
-        self.profile = self.request.user.profile
-        return self.profile.item_set.all()
+        profile = self.request.user.profile
+        return profile.item_set.all()
 
 
-class ReservationCreateView(CreateView):
-    form_class = ReservationForm
+class ReservationCreateView(TemplateView):
+    # form_class = UserReservationForm
     success_url = "/my_items.html"
     template_name="reservation/make_reservation.html"
     item = None
@@ -97,19 +95,53 @@ class ReservationCreateView(CreateView):
         self.item = Item.objects.get(pk=kwargs['pk'])
         return super(ReservationCreateView, self).dispatch(*args, **kwargs)
 
+    # def get_success_url(self):
+    #     return success_url
+
     def get_context_data(self, **kwargs):
         context = super(ReservationCreateView, self).get_context_data(**kwargs)
         context['item'] = self.item
+        context['hash_form'] = HashReservationForm()
+        context['user_form'] = UserReservationForm()
         return context
 
-    def form_valid(self, form):
-        form.instance.item = self.item
-        form.instance.seller = self.request.user.profile
-        form.instance.status = 1
-        print(form.instance.buyer.alias)
-        msg_text = "You have reserved " + self.item.title
-        msg_text += " for user " + form.instance.buyer.alias
-        messages.add_message(self.request, messages.SUCCESS, msg_text)
-		# form.save()
-        return super(ReservationCreateView, self).form_valid(form)
+    def post(self, *args, **kwargs):
+        if 'hash_reservation' in self.request.POST:
+            print("hash form submitted")
+            hash_form = HashReservationForm(self.request.POST)
+            reservation = hash_form.save(commit=False)
+            reservation.item = self.item
+            reservation.seller = self.request.user.profile
+            reservation.status = 1
+            reservation.save()
+            msg_text = "You have reserved " + self.item.title
+            msg_text += " as a hash based reservation "
+            messages.add_message(self.request, messages.SUCCESS, msg_text)
+            return HttpResponseRedirect(self.success_url)
+        else:
+            user_form = UserReservationForm(self.request.POST)
+            reservation = user_form.save(commit=False)
+            reservation.item = self.item
+            reservation.seller = self.request.user.profile
+            reservation.status = 1
+            reservation.save()
+            msg_text = "You have reserved " + self.item.title
+            msg_text += " for user " + reservation.buyer.alias
+            messages.add_message(self.request, messages.SUCCESS, msg_text)
+            return HttpResponseRedirect(self.success_url)
+            # return super(ReservationCreateView, self).form_valid(form)
 
+
+class ReservationDeleteView(django_views.RedirectView):
+    permanent = False
+    query_string = False
+    # pattern_name = 'self_inventory'
+    url = '/my_items.html'
+
+    def dispatch(self, *args, **kwargs):
+        item = Item.objects.get(pk=kwargs['pk'])
+        item.remove_reservations_seller()
+
+        message_text = "You have lifted the reservation on " + item.title
+        messages.add_message(self.request, messages.SUCCESS, message_text)
+        return super(ReservationDeleteView, self).dispatch(*args, **kwargs)

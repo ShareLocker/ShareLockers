@@ -23,8 +23,8 @@ def connected(request, akey):
             loc1.save()
         loc = Location.objects.all()[0]
         this_hub = Hub(name="blue", location=loc, secret_key=akey, ip=ip)
-        this_hub.flag_connect()
         this_hub.save()
+        this_hub.flag_connect()
         Nrow = 4
         Ncol = 2
         this_hub.Nrow = Nrow

@@ -1,14 +1,13 @@
 from django.db import models
-from profiles.models import Profile
+# from profiles.models import Profile
 #from transactions.models import Unlock  # FIXME: circular dependency
 
 class Location(models.Model):
     description = models.CharField(max_length=255)
     latitude = models.FloatField(blank=True, null=True)
     longitude = models.FloatField(blank=True, null=True)
-    host = models.ForeignKey(Profile, null=True, related_name="managed_location")
-    residents = models.ManyToManyField(Profile, related_name="nearby_location", related_query_name="nearby_locations")
-
+    # host = models.ForeignKey(Profile, null=True, related_name="managed_location")
+    # residents = models.ManyToManyField(Profile, related_name="nearby_location", related_query_name="nearby_locations")
 
     def __str__(self):
         return self.description

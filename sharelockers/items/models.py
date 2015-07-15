@@ -32,6 +32,18 @@ class Item(models.Model):
                     flag = True
         return flag
 
+    def remove_reservations_seller(self):
+        for res in self.reservation_set.all():
+            if res.status == 1:
+                res.status = 2
+                res.save()
+
+    def remove_reservations_buyer(self):
+        for res in self.reservation_set.all():
+            if res.status == 1:
+                res.status = 3
+                res.save()
+
 
 def create_items(num):
     fake = Factory.create()

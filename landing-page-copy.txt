@@ -36,16 +36,3 @@ Meet the Team
       Alan
       John
       Manish
-
-
-
-ShareLockers is a peer-to-peer commerce platform with a physical presence firmly rooted in your local economy.
-
-Our modular, scalable, web-connected lockers provide a secure, 24-hour, automated storefront ideally suited for
-high foot-traffic areas, such as student unions and metro stations. The sharelockers.com web portal enables users
-to quickly and painlessly stock, buy, or search items in the immediate vicinity without shipping hassles or safety
-concerns. Offering immediacy and impulse-buying opportunities no online retailer can touch, without the overhead of a
-brick-and-mortar presence. ShareLockers puts the power of e-commerce in your hands!
-
-Internet classifieds and auctions have made buying and selling used goods easier, but significant issues
-still remain for the average person to take advantage of the Sharing Economy. Shipping hassles

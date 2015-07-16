@@ -54,6 +54,13 @@ class Item(models.Model):
                 res.status = 3
                 res.save()
 
+    def active_reservation(self):
+        res_ret = None
+        for res in self.reservation_set.all():
+            print(res.status)
+            if res.status == 1:
+                res_ret = res
+        return res_ret
 
 
 def create_items(num):

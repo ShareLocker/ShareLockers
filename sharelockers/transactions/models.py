@@ -82,6 +82,5 @@ class Reservation(models.Model):
 
     def url(self):
         st = "reservation_h_"
-        st += self.id + ".html/"
-        st += self.code
+        st += str(self.id) + ".html/" + self.code
         return st

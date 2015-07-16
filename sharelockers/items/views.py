@@ -6,6 +6,7 @@ from items.forms import RequestForm, ItemForm, UnlockForm
 from hubs.models import Hub
 from transactions.models import Reservation
 from django.views.generic.base import TemplateView
+from django.core.urlresolvers import reverse
 
 
 class MarketplaceView(django_views.ListView):
@@ -66,19 +67,30 @@ class ItemCreateView(CreateView):
 class ReservationSellerView(UpdateView):
 	model = Reservation
 	fields = ['buyer', 'instructions']
-	template_name = "items/reservation_seller.html"
+	template_name = "reservation/reservation_seller.html"
 	success_url = '/my_items.html'
+	reservation = None
+
+	def dispatch(self, *args, **kwargs):
+		item = Item.objects.get(pk=kwargs['pk'])
+		self.reservation = item.active_reservation()
+		return super(ReservationSellerView, self).dispatch(*args, **kwargs)
 
 	def get_context_data(self, **kwargs):
 		context = super(ReservationSellerView, self).get_context_data(**kwargs)
-		context['reservation'] = Reservation.objects.get(pk=kwargs['pk'])
+		context['reservation'] = self.reservation
+		context['hash_url'] = self.request.build_absolute_uri(reverse('view_index')) \
+								+ self.reservation.url()
 		return context
+
+	def get_object(self):
+		return self.reservation
 
 
 class ReservationBuyerView(CreateView):
 	form_class = UnlockForm
 	success_url = "/my_items.html"
-	template_name = "items/reservation_buyer.html"
+	template_name = "reservation/reservation_buyer.html"
 	reservation = None
 
 	def dispatch(self, *args, **kwargs):
@@ -107,7 +119,8 @@ class ReservationBuyerView(CreateView):
 class ReservationHashView(CreateView):
 	form_class = UnlockForm
 	success_url = "/my_items.html"
-	template_name = "items/reservation_hash.html"
+	template_name = "reservation/reservation_hash.html"
+	item = None
 	reservation = None
 	code = None
 
@@ -117,9 +130,10 @@ class ReservationHashView(CreateView):
 		return super(ReservationHashView, self).dispatch(*args, **kwargs)
 
 	def get_context_data(self, **kwargs):
-		context = super(ReservationBuyerView, self).get_context_data(**kwargs)
+		context = super(ReservationHashView, self).get_context_data(**kwargs)
 		context['reservation'] = self.reservation
 		right_hash = False
+		print(self.code + " : " + self.reservation.code)
 		if self.code == self.reservation.code:
 			right_hash = True
 		context['right_hash'] = right_hash
@@ -128,6 +142,7 @@ class ReservationHashView(CreateView):
 	def form_valid(self, form):
 		profile = self.request.user.profile
 		locker = self.reservation.item.locker
+		hub = locker.hub
 		form.instance.profile = profile
 		form.instance.locker = locker
 		hub.poll_open(locker.column, locker.row)

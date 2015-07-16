@@ -8,12 +8,12 @@
 
 {% if reservation.is_open %}
 
+{% if reservation.item.locker.exists %}
+
 <p>This reservation is intended for you and is currently open.
 	When you are at the locker, click the following button to unlock.</p>
-
 <p>Please do not share this link with other people without the
 	permission of the owner of the item.</p>
-
 <p>Make special care to avoid posting the link publically, since it controls
 	a real locker</p>
 
@@ -29,15 +29,16 @@
 </form>
 
 {% else %}
-
-<p>This reservation has been closed</p>
-
-{% endif %}
+<p>This reserved item has not been stocked in a locker yet.</p>
+{% endif %} <!-- Not yet placed -->
 
 {% else %}
+<p>This reservation has already been picked up</p>
+<p>Or this reservation has already been picked up</p>
+{% endif %} <!-- Is still open -->
 
-<p>This reservation is intended for another user.</p>
-
-{% endif %}
+{% else %}
+<p>You do not have the correct code to pick this item up.</p>
+{% endif %} <!-- has correct hash -->
 
 {% endblock %}

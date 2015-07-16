@@ -117,6 +117,7 @@ class ReservationCreateView(TemplateView):
     def post(self, *args, **kwargs):
         if 'hash_reservation' in self.request.POST:
             import random
+            import string
             print("hash form submitted")
             hash_form = HashReservationForm(self.request.POST)
             reservation = hash_form.save(commit=False)

@@ -7,7 +7,7 @@
 {% if reservation.is_open %}
 {% if reservation.buyer.exists %}
 
-<p>The reservation is currently standing and can be opened
+<p>The reservation is currently outstanding and can be opened
 	by the following account.</p>
 <ul>
 	<li>Item: {{ reservation.item }}</li>
@@ -16,10 +16,14 @@
 
 {% else %}
 
-<p>The reservation is standing, and can be opened by anyone with the following URL.
+<p>The reservation is outstanding, and can be opened by anyone with the following URL.
 	Please be careful who you share this with</p>
 
-	<p><b>{% url 'view_index' %}{{ reservation.url }}</b></p>
+	<ul>
+		<li>Item: {{ reservation.item }}</li>
+	</ul>
+
+	<p><b>{{ hash_url }}</b></p>
 
 {% endif %}
 

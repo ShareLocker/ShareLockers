@@ -34,28 +34,41 @@ module.exports = function () {
 				$('.item-stock').click(function (e) {
 				e.stopPropagation();	
 				e.preventDefault();
-				var csrftoken = getCookie('csrftoken');
-				var title = $('.item-title').val();
-				var description = $('.item-description').val();
-				var price = $('.item-price').val();
-				var owner = $('.user-id').attr('data-id');
+					var data = new FormData();
+					var file = $('.item-photo').get(0).files[0];
+					var csrftoken = getCookie('csrftoken');
+					var title = $('.item-title').val();
+					var description = $('.item-description').val();
+					var price = $('.item-price').val();
+					var owner = $('.user-id').attr('data-id');
+					data.append('photo', file);
+					data.append('title', title);
+					data.append('description', description);
+					data.append('price', price);
+					data.append('owner', owner);
+					data.append('locker', lockerId);
+
+					console.log(data);
+				
+				
 					if ($('.item-id').val() == 0) {
 						$.ajax({		
 						beforeSend: function (request){
 			            request.setRequestHeader('X-CSRFToken', csrftoken);
 			           },
+					   
 						method: 'POST', 
 						url: '/api/owneditems/',
-						data: {	"title": title,
-								"description": description,
-								"price": price,
-								"owner": owner,
-								"locker": lockerId					
-							}
+						data: data,
+						//cache: false,
+						dataType: 'json',
+  						processData: false, // Don't process the files
+  						contentType: false
 			  			}).done(function (data){
 							console.log(data);
+							setTimeout('parent.location.reload()',500);
 						});
-						document.location.href = '/#/location/locker';
+						
 					}
 					else {
 						var itemId = $('.item-id').val();
@@ -64,17 +77,16 @@ module.exports = function () {
 			            request.setRequestHeader('X-CSRFToken', csrftoken);
 			           },
 						method: 'PUT', 
-						url: '/api/owneditems/'+itemId,
-						data: {	"title": title,
-								"description": description,
-								"price": price,
-								"owner": owner,
-								"locker": lockerId					
-							}
+						url: '/api/owneditems/'+itemId+'/',
+						data: data,
+						dataType: 'json',
+  						processData: false, // Don't process the files
+  						contentType: false
 			  			}).done(function (data){
 							console.log(data);
+							setTimeout('parent.location.reload()',500);
 						});
-						document.location.href = '/#/location/locker';
+						
 					}
 				});
 		  });

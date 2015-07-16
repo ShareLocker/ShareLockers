@@ -49,6 +49,10 @@ class LockerViewSet(viewsets.ModelViewSet):
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    
+    #def get_serializer(self, *args, **kwargs):
+        
+        
 
 class ProfileViewSet(viewsets.ModelViewSet):
     """

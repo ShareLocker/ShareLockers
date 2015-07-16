@@ -20,16 +20,16 @@ router.route('location/locker', function () {
 			method: 'GET', 
 			url: '/api/lockers/',
   		}).done(function (data){
+			 
 			console.log(data);
 			showLockers(data);
 			lockerGenerator(data);
 			stock();
-			colorGen('.card');
 			$(document).ready(function() {
-		            $('.vlocker').click(function() {
-		                $(this).find('.vpopout').show('duration fast');
+		            $('.locker-wrapper').click(function() {
+		                $(this).find('.vpopout').slideDown('duration fast');
 		            });
-		            $('.vlocker').mouseleave(function() {
+		            $('.locker-wrapper').mouseleave(function() {
 		                $(this).find('.vpopout').hide('duration fast');
 		            });
 					openLocker('.open-button');
@@ -37,12 +37,12 @@ router.route('location/locker', function () {
 		    });
 		});
 		
-		$.ajax({
-			method: 'GET', 
-			url: '/api/profiles/',
-  		}).done(function (data){
-			console.log(data);
-		});
+		// $.ajax({
+		// 	method: 'GET', 
+		// 	url: '/api/profiles/',
+  		// }).done(function (data){
+		// 	console.log(data);
+		// });
 		
 
 		function showLockers(data) {

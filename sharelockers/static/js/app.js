@@ -55,6 +55,7 @@ module.exports = function (button) {
 					}
 		  		}).done(function (data){
 					console.log(data);
+					setTimeout('parent.location.reload()',500);
 					alert("The Item is Yours!")
 				}).fail(function(data){
 					console.log(data);
@@ -240,12 +241,12 @@ router.route('location/locker', function () {
 			showLockers(data);
 			lockerGenerator(data);
 			stock();
-			colorGen('.card');
+			//colorGen('.card');
 			$(document).ready(function() {
-		            $('.vlocker').click(function() {
-		                $(this).find('.vpopout').show('duration fast');
+		            $('.locker-wrapper').click(function() {
+		                $(this).find('.vpopout').slideDown('duration fast');
 		            });
-		            $('.vlocker').mouseleave(function() {
+		            $('.locker-wrapper').mouseleave(function() {
 		                $(this).find('.vpopout').hide('duration fast');
 		            });
 					openLocker('.open-button');
@@ -355,8 +356,8 @@ module.exports = function (arr) {
 		
 		
 		if (lockerActions[1] === "can_open" ){
-		var openHTML = '<div class="vlocker" ><span class="card animated"><span class="lockerTitle">'+ lockerTitle +'<br>EMPTY</span><div class="vpopout"><span class="lockerDetails">EMPTY</span><button data-id='+ lockerId +
-		' class="stock-button">STOCK</button><button class="open-button" data-id = '+lockerId+'>Open</button></div></div>';
+		var openHTML = '<div class="locker-wrapper"><div class="vlocker" ><span class="card animated"><span class="lockerTitle">'+ lockerTitle +'<br>EMPTY</span><div class="vpopout"><span class="lockerDetails">EMPTY</span><button data-id='+ lockerId +
+		' class="stock-button">STOCK</button><button class="open-button" data-id = '+lockerId+'>Open</button></div></div></div>';
 		$('.locker-bank').append(openHTML);
 		}
 		
@@ -368,6 +369,7 @@ module.exports = function (arr) {
 		
 		
 		else {
+		var itemPhoto = arr[i].item_set[0].photo;
 		var itemPrice = arr[i].item_set[0].price;
 		var itemOwner = arr[i].item_set[0].owner;
 		var itemTitle = arr[i].item_set[0].title;
@@ -377,14 +379,14 @@ module.exports = function (arr) {
 		
 		if (currentUser == itemOwner ) {
 			
-			var ownerHtml = '<div class="vlocker"><span class="card animated"><span class="lockerTitle">'+ lockerTitle + '<br>' + itemTitle +'</span><div class="vpopout"><span class="lockerDetails">'+ itemDetails +'<br>'+'$'+ itemPrice + '</span><button class="open-button" data-id = '+lockerId+'>Open</button></div></div>';
+			var ownerHtml = '<div class="locker-wrapper"><div class="vlocker"><span class="card animated"><div class="image-wrapper"><img src='+itemPhoto+'></div><span class="lockerTitle">'+ lockerTitle + '<br>' + itemTitle +'</span></div><div class="vpopout"><img src='+itemPhoto+'><span class="lockerDetails">'+ itemDetails +'<br>'+'$'+ itemPrice + '</span><button class="open-button" data-id = '+lockerId+'>Open</button></div></div>';
 			$('.locker-bank').append(ownerHtml);
 			console.log(currentUser);
 			console.log(itemOwner);
 		}
 		else {
 
-			var buyHtml = '<div class="vlocker"><span class="card animated"><span class="lockerTitle">'+ lockerTitle + '<br>' + itemTitle +'</span><div class="vpopout"><span class="lockerDetails">'+ itemDetails  +'<br>'+'$'+ itemPrice +' credits </span><button class="buy-button" data-id = '+itemId+'>Buy</button></div></div>';
+			var buyHtml = '<div class="locker-wrapper"><div class="vlocker"><span class="card animated"><div class="image-wrapper"><img src='+itemPhoto+'></div><span class="lockerTitle">'+ lockerTitle + '<br>' + itemTitle +'</span></div><div class="vpopout"><img src='+itemPhoto+'><span class="lockerDetails">'+ itemDetails +'<br>'+'$'+ itemPrice + '</span><button class="buy-button" data-id = '+itemId+'>Buy</button></div></div>';
 			$('.locker-bank').append(buyHtml);
 		}
 		}
@@ -424,6 +426,7 @@ module.exports = function (button) {
 		  		}).done(function (data){
 					console.log(data);
 					alert("Locker Open");
+					setTimeout('parent.location.reload()',500);
 				}).fail(function (data){
 					console.log(data);
 					alert("Unable to Open at this Time");
@@ -551,14 +554,21 @@ module.exports = function () {
 				e.preventDefault();
 					var data = new FormData();
 					var file = $('.item-photo').get(0).files[0];
-					data.append('Item', file);
+					var csrftoken = getCookie('csrftoken');
+					var title = $('.item-title').val();
+					var description = $('.item-description').val();
+					var price = $('.item-price').val();
+					var owner = $('.user-id').attr('data-id');
+					data.append('photo', file);
+					data.append('title', title);
+					data.append('description', description);
+					data.append('price', price);
+					data.append('owner', owner);
+					data.append('locker', lockerId);
+
 					console.log(data);
-				var csrftoken = getCookie('csrftoken');
-				var title = $('.item-title').val();
-				var description = $('.item-description').val();
-				var price = $('.item-price').val();
-				var owner = $('.user-id').attr('data-id');
-				var photo = $('.item-photo').val();
+				
+				
 					if ($('.item-id').val() == 0) {
 						alert('it made it here');
 						$.ajax({		
@@ -568,21 +578,16 @@ module.exports = function () {
 					   
 						method: 'POST', 
 						url: '/api/owneditems/',
-						data: {	"title": title,
-								"description": description,
-								"price": price,
-								"photo": data,
-								"owner": owner,
-								"locker": lockerId					
-							},
+						data: data,
 						//cache: false,
 						dataType: 'json',
-  						processData: false // Don't process the files
-  						// contentType: false
+  						processData: false, // Don't process the files
+  						contentType: false
 			  			}).done(function (data){
 							console.log(data);
+							setTimeout('parent.location.reload()',500);
 						});
-						document.location.href = '/#/location/locker';
+						
 					}
 					else {
 						var itemId = $('.item-id').val();
@@ -591,17 +596,16 @@ module.exports = function () {
 			            request.setRequestHeader('X-CSRFToken', csrftoken);
 			           },
 						method: 'PUT', 
-						url: '/api/owneditems/'+itemId,
-						data: {	"title": title,
-								"description": description,
-								"price": price,
-								"owner": owner,
-								"locker": lockerId					
-							}
+						url: '/api/owneditems/'+itemId+'/',
+						data: data,
+						dataType: 'json',
+  						processData: false, // Don't process the files
+  						contentType: false
 			  			}).done(function (data){
 							console.log(data);
+							setTimeout('parent.location.reload()',500);
 						});
-						document.location.href = '/#/location/locker';
+						
 					}
 				});
 		  });

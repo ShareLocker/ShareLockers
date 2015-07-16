@@ -24,12 +24,12 @@ router.route('location/locker', function () {
 			showLockers(data);
 			lockerGenerator(data);
 			stock();
-			colorGen('.card');
+			//colorGen('.card');
 			$(document).ready(function() {
-		            $('.vlocker').click(function() {
-		                $(this).find('.vpopout').show('duration fast');
+		            $('.locker-wrapper').click(function() {
+		                $(this).find('.vpopout').slideDown('duration fast');
 		            });
-		            $('.vlocker').mouseleave(function() {
+		            $('.locker-wrapper').mouseleave(function() {
 		                $(this).find('.vpopout').hide('duration fast');
 		            });
 					openLocker('.open-button');

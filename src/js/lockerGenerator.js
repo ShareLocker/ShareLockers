@@ -20,8 +20,8 @@ module.exports = function (arr) {
 		
 		
 		if (lockerActions[1] === "can_open" ){
-		var openHTML = '<div class="vlocker" ><span class="card animated"><span class="lockerTitle">'+ lockerTitle +'<br>EMPTY</span><div class="vpopout"><span class="lockerDetails">EMPTY</span><button data-id='+ lockerId +
-		' class="stock-button">STOCK</button><button class="open-button" data-id = '+lockerId+'>Open</button></div></div>';
+		var openHTML = '<div class="locker-wrapper"><div class="vlocker" ><span class="card animated"><span class="lockerTitle">'+ lockerTitle +'<br>EMPTY</span><div class="vpopout"><span class="lockerDetails">EMPTY</span><button data-id='+ lockerId +
+		' class="stock-button">STOCK</button><button class="open-button" data-id = '+lockerId+'>Open</button></div></div></div>';
 		$('.locker-bank').append(openHTML);
 		}
 		
@@ -33,6 +33,7 @@ module.exports = function (arr) {
 		
 		
 		else {
+		var itemPhoto = arr[i].item_set[0].photo;
 		var itemPrice = arr[i].item_set[0].price;
 		var itemOwner = arr[i].item_set[0].owner;
 		var itemTitle = arr[i].item_set[0].title;
@@ -42,14 +43,14 @@ module.exports = function (arr) {
 		
 		if (currentUser == itemOwner ) {
 			
-			var ownerHtml = '<div class="vlocker"><span class="card animated"><span class="lockerTitle">'+ lockerTitle + '<br>' + itemTitle +'</span><div class="vpopout"><span class="lockerDetails">'+ itemDetails +'<br>'+'$'+ itemPrice + '</span><button class="open-button" data-id = '+lockerId+'>Open</button></div></div>';
+			var ownerHtml = '<div class="locker-wrapper"><div class="vlocker"><span class="card animated"><div class="image-wrapper"><img src='+itemPhoto+'></div><span class="lockerTitle">'+ lockerTitle + '<br>' + itemTitle +'</span></div><div class="vpopout"><img src='+itemPhoto+'><span class="lockerDetails">'+ itemDetails +'<br>'+'$'+ itemPrice + '</span><button class="open-button" data-id = '+lockerId+'>Open</button></div></div>';
 			$('.locker-bank').append(ownerHtml);
 			console.log(currentUser);
 			console.log(itemOwner);
 		}
 		else {
 
-			var buyHtml = '<div class="vlocker"><span class="card animated"><span class="lockerTitle">'+ lockerTitle + '<br>' + itemTitle +'</span><div class="vpopout"><span class="lockerDetails">'+ itemDetails  +'<br>'+'$'+ itemPrice +' credits </span><button class="buy-button" data-id = '+itemId+'>Buy</button></div></div>';
+			var buyHtml = '<div class="locker-wrapper"><div class="vlocker"><span class="card animated"><div class="image-wrapper"><img src='+itemPhoto+'></div><span class="lockerTitle">'+ lockerTitle + '<br>' + itemTitle +'</span></div><div class="vpopout"><img src='+itemPhoto+'><span class="lockerDetails">'+ itemDetails +'<br>'+'$'+ itemPrice + '</span><button class="buy-button" data-id = '+itemId+'>Buy</button></div></div>';
 			$('.locker-bank').append(buyHtml);
 		}
 		}

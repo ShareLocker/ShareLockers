@@ -19,7 +19,7 @@
                  <li class="pure-menu-item profile"><button class="pure-menu-link"><span class="flaticon-internet16">My Profile</button></li>
 
                 
-                <li class="pure-menu-item logout"><button class="pure-menu-link">Log Out</button></li>
+                <li class="pure-menu-item logout"><a href="logout/"><button class="pure-menu-link">Log Out</button></a></li>
             </ul>
         </div>
         <form action="/charge/" method="POST">
@@ -37,8 +37,8 @@
 <!--API SECTION is BELLOW-->
     <div id="main">
         <div class="header">
-            <h1>Welcome
-            <a href="#" class="user-id" data-id="{{user.id}}" data-alias="{{ user.profile.alias }}">Falon</a></h1>
+            <h1>Welcome <span class="this-user"> </span></h1>
+            
         </div>
 
         <div class="content">

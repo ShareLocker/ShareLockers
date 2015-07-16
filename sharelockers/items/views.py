@@ -133,7 +133,6 @@ class ReservationHashView(CreateView):
 		context = super(ReservationHashView, self).get_context_data(**kwargs)
 		context['reservation'] = self.reservation
 		right_hash = False
-		print(self.code + " : " + self.reservation.code)
 		if self.code == self.reservation.code:
 			right_hash = True
 		context['right_hash'] = right_hash
@@ -146,4 +145,4 @@ class ReservationHashView(CreateView):
 		form.instance.profile = profile
 		form.instance.locker = locker
 		hub.poll_open(locker.column, locker.row)
-		return super(ReservationBuyerView, self).form_valid(form)
+		return super(ReservationHashView, self).form_valid(form)

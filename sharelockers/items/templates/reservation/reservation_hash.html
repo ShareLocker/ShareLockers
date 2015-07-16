@@ -8,7 +8,7 @@
 
 {% if reservation.is_open %}
 
-{% if reservation.item.locker.exists %}
+{% if reservation.item.locker %}
 
 <p>This reservation is intended for you and is currently open.
 	When you are at the locker, click the following button to unlock.</p>

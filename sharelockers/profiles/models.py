@@ -20,6 +20,7 @@ class Profile(models.Model):
 
 local_users = ['Alan', 'John', 'Brendan', 'Falon', 'Manish']
 
+
 def create_users():
     for i in local_users:
         user = User.objects.create_user(
@@ -29,6 +30,7 @@ def create_users():
         )
         user.save()
     create_profiles()
+
 
 def create_profiles():
     fake = Factory.create()

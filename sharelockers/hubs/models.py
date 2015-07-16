@@ -1,6 +1,6 @@
 from django.db import models
 # from profiles.models import Profile
-#from transactions.models import Unlock  # FIXME: circular dependency
+# from transactions.models import Unlock  # FIXME: circular dependency
 
 class Location(models.Model):
     description = models.CharField(max_length=255)
@@ -11,6 +11,7 @@ class Location(models.Model):
 
     def __str__(self):
         return self.description
+
 
 class Hub(models.Model):
     name = models.CharField(max_length=255)
@@ -32,6 +33,7 @@ class Hub(models.Model):
 
     def flag_connect(self):
         import datetime
+
         self.connected_at = datetime.datetime.now()
         self.polled_at = self.connected_at
         self.connected = True
@@ -39,16 +41,19 @@ class Hub(models.Model):
 
     def connected_duration(self):
         from django.utils import timezone
+
         return (timezone.now() - self.connected_at).total_seconds()
 
     def polled_duration(self):
         from django.utils import timezone
+
         return (timezone.now() - self.polled_at).total_seconds()
 
     def open(self, col, row):
         from requests.packages import urllib3
+
         http = urllib3.PoolManager()
-        astr = 'http://' + self.ip + '/?V='+str(col)+str(row)
+        astr = 'http://' + self.ip + '/?V=' + str(col) + str(row)
         r = http.request('GET', astr)
         print(astr)
         self.occupied = True
@@ -59,4 +64,4 @@ class Hub(models.Model):
         self.waiting = True
         self.waiting_row = row
         self.waiting_col = col
-        self.save() # do nothing until Arduino calls
+        self.save()  # do nothing until Arduino calls

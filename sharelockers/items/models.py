@@ -62,13 +62,13 @@ class Item(models.Model):
                 res_ret = res
         return res_ret
 
-
+fake_items = ['Belking Router', 'Laptop', 'Aspirin', 'Phone Charger', 'Wireless Mouse', 'Used Phone']
 def create_items(num):
     fake = Factory.create()
     for profile in Profile.objects.all():
         for _ in range(num):
-            title = fake.sentence(nb_words=2)
-            description = fake.sentence(nb_words=7)
+            title = random.choice(fake_items)
+            description = fake.sentence(nb_words=4)
             price = round(random.uniform(1, 100), 2)
             item = Item(owner=profile, title=title, description=description, price=price)
             item.save()

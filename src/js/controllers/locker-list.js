@@ -20,11 +20,11 @@ router.route('location/locker', function () {
 			method: 'GET', 
 			url: '/api/lockers/',
   		}).done(function (data){
+			 
 			console.log(data);
 			showLockers(data);
 			lockerGenerator(data);
 			stock();
-			//colorGen('.card');
 			$(document).ready(function() {
 		            $('.locker-wrapper').click(function() {
 		                $(this).find('.vpopout').slideDown('duration fast');

@@ -52,7 +52,6 @@ module.exports = function () {
 				
 				
 					if ($('.item-id').val() == 0) {
-						alert('it made it here');
 						$.ajax({		
 						beforeSend: function (request){
 			            request.setRequestHeader('X-CSRFToken', csrftoken);

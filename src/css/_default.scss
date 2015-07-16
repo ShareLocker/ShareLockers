@@ -183,12 +183,8 @@ button:hover {
  transition: all 0.7s;
 }
 
-@media (width: 48em){
-  .vpopout {
-      height: 90%;
-      width: 2000px;
-}
-}
+
+
 .vpopout {
   position: fixed;
   height: 90%;

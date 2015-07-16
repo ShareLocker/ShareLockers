@@ -13,7 +13,7 @@ $(function () {
 	});
 	
 	// Scroll Indicator
-	var homeIconContainerTop = $('.home-icons').offset().top - ($(window).height());
+	//var homeIconContainerTop = $('.home-icons').offset().top - ($(window).height());
 	
 	$(window).scroll(function() {
 		
@@ -238,11 +238,11 @@ router.route('location/locker', function () {
 			method: 'GET', 
 			url: '/api/lockers/',
   		}).done(function (data){
+			 
 			console.log(data);
 			showLockers(data);
 			lockerGenerator(data);
 			stock();
-			//colorGen('.card');
 			$(document).ready(function() {
 		            $('.locker-wrapper').click(function() {
 		                $(this).find('.vpopout').slideDown('duration fast');
@@ -376,7 +376,7 @@ module.exports = function (arr) {
 		var itemTitle = arr[i].item_set[0].title;
 		var itemDetails = arr[i].item_set[0].description;
 		var itemId = arr[i].item_set[0].id;
-		var itemPrice = arr[i].item_set[0].price;
+		//var itemPrice = arr[i].item_set[0].price;
 		
 		if (currentUser == itemOwner ) {
 			
@@ -571,7 +571,6 @@ module.exports = function () {
 				
 				
 					if ($('.item-id').val() == 0) {
-						alert('it made it here');
 						$.ajax({		
 						beforeSend: function (request){
 			            request.setRequestHeader('X-CSRFToken', csrftoken);

@@ -244,14 +244,14 @@ router.route('location/locker', function () {
 			lockerGenerator(data);
 			stock();
 			$(document).ready(function() {
-		            $('.locker-wrapper').click(function() {
+		            $('.vlocker').click(function() {
 		                $(this).find('.vpopout').slideDown('duration fast');
 						$('.stock-wrapper').fadeIn('duration fast');
 		            });
-		            // $('.locker-wrapper').mouseleave(function() {
-		            //     $(this).find('.vpopout').hide('duration fast');
-					// 	$('.stock-wrapper').hide();
-		            // });
+		            $('.vlocker').mouseleave(function() {
+		                $(this).find('.vpopout').hide('duration fast');
+						$('.stock-wrapper').hide();
+		            });
 					openLocker('.open-button');
 					buyItem('.buy-button');
 		    });

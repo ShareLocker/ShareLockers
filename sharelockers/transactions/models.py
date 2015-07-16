@@ -56,6 +56,8 @@ class Reservation(models.Model):
     seller = models.ForeignKey(Profile, related_name="stocked",
                     related_query_name="stocked_set")
     item = models.ForeignKey(Item)
+    instructions = models.TextField(blank=True, null=True)
+    code = models.CharField(db_index=True, max_length=255)
 
     status_options = (
         (1, "reserved"),  # in locker, waiting for buyer
@@ -71,3 +73,14 @@ class Reservation(models.Model):
     def age(self):
         from django.utils import timezone
         return (timezone.now() - self.created_at).total_days()
+
+    def is_open(self):
+        if self.status == 1:
+            return True
+        else:
+            return False
+
+    def url(self):
+        st = "reservation_h_"
+        st += str(self.id) + ".html/" + self.code
+        return st

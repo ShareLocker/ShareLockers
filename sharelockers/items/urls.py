@@ -8,4 +8,10 @@ urlpatterns = [
                                                 name="make_request"),
     url(r'^make_item.html$', item_views.ItemCreateView.as_view(),
                                                 name="make_item"),
+    url(r'^reservation_s_(?P<pk>\d+).html$', item_views.ReservationSellerView.as_view(),
+                                                name="reservation_seller_detail"),
+    url(r'^reservation_b_(?P<pk>\d+).html$', item_views.ReservationBuyerView.as_view(),
+                                                name="reservation_buyer_detail"),
+    url(r'^reservation_h_(?P<pk>\d+).html/(?P<code>\w+)$', 
+            item_views.ReservationHashView.as_view(), name="reservation_buyer_detail"),
 ]

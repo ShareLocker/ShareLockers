@@ -1136,6 +1136,12 @@ button:hover {
   height: 50%;
   width: 50%; }
 
+@media (max-width: 48em) {
+  .vpopout {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%; } }
+
 .image-wrapper {
   height: 70%;
   width: 70%;

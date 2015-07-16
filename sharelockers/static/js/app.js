@@ -246,10 +246,12 @@ router.route('location/locker', function () {
 			$(document).ready(function() {
 		            $('.locker-wrapper').click(function() {
 		                $(this).find('.vpopout').slideDown('duration fast');
+						$('.stock-wrapper').fadeIn('duration fast');
 		            });
-		            $('.locker-wrapper').mouseleave(function() {
-		                $(this).find('.vpopout').hide('duration fast');
-		            });
+		            // $('.locker-wrapper').mouseleave(function() {
+		            //     $(this).find('.vpopout').hide('duration fast');
+					// 	$('.stock-wrapper').hide();
+		            // });
 					openLocker('.open-button');
 					buyItem('.buy-button');
 		    });
@@ -560,6 +562,8 @@ module.exports = function () {
 					var description = $('.item-description').val();
 					var price = $('.item-price').val();
 					var owner = $('.user-id').attr('data-id');
+					var photo = $('.item-photo').val();
+					console.log(photo);
 					data.append('photo', file);
 					data.append('title', title);
 					data.append('description', description);
@@ -571,42 +575,87 @@ module.exports = function () {
 				
 				
 					if ($('.item-id').val() == 0) {
-						$.ajax({		
-						beforeSend: function (request){
-			            request.setRequestHeader('X-CSRFToken', csrftoken);
-			           },
-					   
-						method: 'POST', 
-						url: '/api/owneditems/',
-						data: data,
-						//cache: false,
-						dataType: 'json',
-  						processData: false, // Don't process the files
-  						contentType: false
-			  			}).done(function (data){
-							console.log(data);
-							setTimeout('parent.location.reload()',500);
-						});
-						
+						if ( photo == 0 ) {
+									$.ajax({		
+										beforeSend: function (request){
+							            request.setRequestHeader('X-CSRFToken', csrftoken);
+							         },
+									   
+										method: 'POST', 
+										url: '/api/owneditems/',
+										data: {'title': title,
+												'description': description,
+												'price': price,
+												'owner': owner,
+												'locker': lockerId
+												}
+							  			}).done(function (data){
+											console.log(data);
+											setTimeout('parent.location.reload()',500);
+									});
+							
+						}
+						 else {
+									$.ajax({		
+									beforeSend: function (request){
+						            request.setRequestHeader('X-CSRFToken', csrftoken);
+						           },
+								   
+									method: 'POST', 
+									url: '/api/owneditems/',
+									data: data,
+									//cache: false,
+									dataType: 'json',
+			  						processData: false, // Don't process the files
+			  						contentType: false
+						  			}).done(function (data){
+										console.log(data);
+										setTimeout('parent.location.reload()',500);
+									});
+							 }
 					}
 					else {
 						var itemId = $('.item-id').val();
-						$.ajax({		
-						beforeSend: function (request){
-			            request.setRequestHeader('X-CSRFToken', csrftoken);
-			           },
-						method: 'PUT', 
-						url: '/api/owneditems/'+itemId+'/',
-						data: data,
-						dataType: 'json',
-  						processData: false, // Don't process the files
-  						contentType: false
-			  			}).done(function (data){
-							console.log(data);
-							setTimeout('parent.location.reload()',500);
-						});
+								if ( photo == 0 ) {
+										$.ajax({		
+											beforeSend: function (request){
+								            request.setRequestHeader('X-CSRFToken', csrftoken);
+								         },
+										   
+											method: 'PUT', 
+											url: '/api/owneditems/'+itemId,
+											data: {'title': title,
+													'description': description,
+													'price': price,
+													'owner': owner,
+													'locker': lockerId
+													}
+								  			}).done(function (data){
+												console.log(data);
+												setTimeout('parent.location.reload()',500);
+										});
+								
+								}
+								else {
+									$.ajax({		
+									beforeSend: function (request){
+						            request.setRequestHeader('X-CSRFToken', csrftoken);
+						           },
+								   
+									method: 'PUT', 
+									url: '/api/owneditems/'+itemId,
+									data: data,
+									//cache: false,
+									dataType: 'json',
+			  						processData: false, // Don't process the files
+			  						contentType: false
+						  			}).done(function (data){
+										console.log(data);
+										setTimeout('parent.location.reload()',500);
+									});
+							 }
 						
-					}
+					   }
 				});
 		  });
 	});

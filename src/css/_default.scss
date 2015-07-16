@@ -207,6 +207,16 @@ button:hover {
 	
 }
 
+
+ @media (max-width: 48em) {
+    .vpopout {
+    margin-left: auto;
+    margin-right: auto;
+
+    width:100%;
+ }
+ }
+
 .image-wrapper {
   height: 70%;
   width: 70%;

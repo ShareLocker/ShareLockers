@@ -2,15 +2,13 @@
   color: #E25D3A;
   font-size: 3em;
 	font-family: $title-font;
-  
 }
 
 .info-card{
   min-height: 22em;
   max-height: 22em;
   display: inline-block;
-  width: 30%;
-  
+  width: 30%;  
   padding: 1em;
   border-radius: 5px;
   box-shadow: 3px 5px 5px 2px #888888;
@@ -108,23 +106,31 @@ h6{
   
 }
 
-
-.section3{
-
-	  padding: 0.5em;
-    text-align: center;
-    margin-bottom:28em;
-}
-
-.section3 h1{
- 
-  padding: 0;
-}
-
 .section2 {
 	background-color: white;
 	
     }
+.section3{
+		background-color:#eee;
+	  padding: 0.5em;
+    text-align: center;
+    
+}
+
+
+
+.about-section{
+	background-color: white;
+}
+
+.section5{
+	margin-bottom:28em;
+}
+.section5 h1{
+  
+  padding: 0;
+}
+
 		
 	.slideRight{ 
 		

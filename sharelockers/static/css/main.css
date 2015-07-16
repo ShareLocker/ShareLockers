@@ -1016,9 +1016,6 @@ ul li {
 a {
   text-decoration: none; }
 
-.info {
-  background-color: #eee; }
-
 button {
   font-size: 1em;
   border: none;
@@ -1276,16 +1273,22 @@ h6 {
   background-color: #eee;
   margin-top: 100vh; }
 
-.section3 {
-  padding: 0.5em;
-  text-align: center;
-  margin-bottom: 28em; }
-
-.section3 h1 {
-  padding: 0; }
-
 .section2 {
   background-color: white; }
+
+.section3 {
+  background-color: #eee;
+  padding: 0.5em;
+  text-align: center; }
+
+.about-section {
+  background-color: white; }
+
+.section5 {
+  margin-bottom: 28em; }
+
+.section5 h1 {
+  padding: 0; }
 
 .slideRight {
   animation-name: slideRight;
@@ -1499,13 +1502,21 @@ h6 {
   .span_1_of_4, .span_2_of_4, .span_3_of_4, .span_4_of_4 {
     width: 50%; }
   .action-call {
-    font-size: 1.5em; } }
+    font-size: 1.5em; }
+  .col {
+    margin: 1% 0 1% 0%; }
+  .span_1_of_5, .span_2_of_5, .span_3_of_5, .span_4_of_5, .span_5_of_5 {
+    width: 20%; } }
 
 @media only screen and (max-width: 800px) {
   .col {
     margin: 1% 0 1% 0%; }
   .span_1_of_4, .span_2_of_4, .span_3_of_4, .span_4_of_4 {
-    width: 100%; } }
+    width: 50%; }
+  .col {
+    margin: 1% 0 1% 0%; }
+  .span_1_of_5, .span_2_of_5, .span_3_of_5, .span_4_of_5, .span_5_of_5 {
+    width: 50%; } }
 
 @media only screen and (max-width: 500px) {
   .col {
@@ -1518,4 +1529,12 @@ h6 {
   h3 {
     font-size: 1.5em; }
   .action-call {
-    font-size: 1.8em; } }
+    font-size: 1.8em; }
+  .col {
+    margin: 1% 0 1% 0%; }
+  .span_1_of_5, .span_2_of_5, .span_3_of_5, .span_4_of_5, .span_5_of_5 {
+    width: 100%; }
+  .col {
+    margin: 1% 0 1% 0%; }
+  .span_3_of_3, .span_2_of_3, .span_1_of_3 {
+    width: 100%; } }

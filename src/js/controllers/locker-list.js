@@ -30,10 +30,10 @@ router.route('location/locker', function () {
 		                $(this).find('.vpopout').slideDown('duration fast');
 						$('.stock-wrapper').fadeIn('duration fast');
 		            });
-		            // $('.locker-wrapper').mouseleave(function() {
-		            //     $(this).find('.vpopout').hide('duration fast');
-					// 	$('.stock-wrapper').hide();
-		            // });
+		            $('.locker-wrapper').mouseleave(function() {
+		                $(this).find('.vpopout').hide('duration fast');
+						$('.stock-wrapper').hide();
+		            });
 					openLocker('.open-button');
 					buyItem('.buy-button');
 		    });

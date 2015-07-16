@@ -116,12 +116,15 @@ class ReservationCreateView(TemplateView):
 
     def post(self, *args, **kwargs):
         if 'hash_reservation' in self.request.POST:
+            import random
+            import string
             print("hash form submitted")
             hash_form = HashReservationForm(self.request.POST)
             reservation = hash_form.save(commit=False)
             reservation.item = self.item
             reservation.seller = self.request.user.profile
             reservation.status = 1
+            reservation.code =''.join(random.choice(string.ascii_lowercase) for _ in range(8))
             reservation.save()
             msg_text = "You have reserved " + self.item.title
             msg_text += " as a hash based reservation "

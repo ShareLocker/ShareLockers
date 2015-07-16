@@ -47,11 +47,11 @@ class LockerSerializer(serializers.ModelSerializer):  # FIXME: add Hyperlinked
     def get_local_code(self, obj):
         return obj.local_code()
 
-    # def get_status(self, obj):
-    #     locker = obj
-    #     return locker.status()
-    #     pass
-    #     # FIXME: return status number of locker
+    def get_status(self, obj):
+        locker = obj
+        user = self.context['request'].user
+        profile = user.profile
+        return locker.status(profile)
 
     def get_actions(self, obj):
         locker = obj

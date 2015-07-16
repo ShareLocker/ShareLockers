@@ -139,10 +139,18 @@ class ReservationHashView(CreateView):
 		return context
 
 	def form_valid(self, form):
-		profile = self.request.user.profile
+		user = self.request.user
+		if user is not None and user.is_active:
+			profile = user.profile
+			by_proxy = False
+		else:
+			profile = self.reservation.seller
+			by_proxy = True
+			self.success_url = "/"
 		locker = self.reservation.item.locker
 		hub = locker.hub
 		form.instance.profile = profile
+		form.instance.by_proxy = by_proxy
 		form.instance.locker = locker
 		hub.poll_open(locker.column, locker.row)
 		return super(ReservationHashView, self).form_valid(form)

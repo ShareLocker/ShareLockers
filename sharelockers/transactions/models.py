@@ -16,6 +16,7 @@ class Purchase(models.Model):
 class Unlock(models.Model):
     profile = models.ForeignKey(Profile)
     waiting = models.BooleanField(default=True)
+    by_proxy = models.BooleanField(default=False)
     time = models.DateTimeField(auto_now_add=True)
     locker = models.ForeignKey(Locker, null=True) # FIXME make this False
 

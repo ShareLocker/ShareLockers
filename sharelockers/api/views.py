@@ -5,25 +5,24 @@ from profiles.models import Profile
 from hubs.models import Hub, Location
 from items.models import Item
 from transactions.models import Unlock, Purchase
-from .serializers import LockerSerializer, UserSerializer, ProfileSerializer,\
-    HubSerializer, OwnedItemsSerializer, UnlockSerializer, PurchaseSerializer,\
+from .serializers import LockerSerializer, UserSerializer, ProfileSerializer, \
+    HubSerializer, OwnedItemsSerializer, UnlockSerializer, PurchaseSerializer, \
     MakePurchaseSerializer
 from django.contrib.auth.models import User
 from rest_framework import status
 
+from rest_framework.response import Response  # FIXME: Temporary
 
-
-from rest_framework.response import Response # FIXME: Temporary
 
 class LockerViewSet(viewsets.ModelViewSet):
     serializer_class = LockerSerializer
 
     def get_queryset(self):
-        #return Locker.objects.filter(owner = self.request.user.profile)
+        # return Locker.objects.filter(owner = self.request.user.profile)
         return Locker.objects.all()
 
     def perform_create(self, serializer):
-        serializer.save(owner = self.request.user.profile)
+        serializer.save(owner=self.request.user.profile)
 
     def update(self, request, *args, **kwargs):
         partial = kwargs.pop('partial', False)
@@ -37,7 +36,7 @@ class LockerViewSet(viewsets.ModelViewSet):
         hub = Hub.objects.get(secret_key=1)
         # FIXME: depreciate opening by Locker object entirely
         # hub.open(column, row) # open using Arduino as server
-        hub.poll_open(column, row) # open using Arduino as polling device
+        hub.poll_open(column, row)  # open using Arduino as polling device
         unlock = Unlock(profile=self.request.user.profile, locker=instance)
         unlock.save()
 
@@ -49,10 +48,9 @@ class LockerViewSet(viewsets.ModelViewSet):
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    
-    #def get_serializer(self, *args, **kwargs):
-        
-        
+
+    # def get_serializer(self, *args, **kwargs):
+
 
 class ProfileViewSet(viewsets.ModelViewSet):
     """
@@ -60,6 +58,7 @@ class ProfileViewSet(viewsets.ModelViewSet):
     """
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
+
 
 class HubViewSet(viewsets.ModelViewSet):
     """
@@ -74,7 +73,8 @@ class OwnedItemViewSet(viewsets.ModelViewSet):
     # queryset = Item.objects.all()
 
     def get_queryset(self):
-        return Item.objects.filter(owner = self.request.user.profile)
+        return Item.objects.filter(owner=self.request.user.profile)
+
 
 class UnlockViewSet(viewsets.ModelViewSet):
     """
@@ -96,7 +96,7 @@ class UnlockViewSet(viewsets.ModelViewSet):
         locker_id = serializer.data['locker']
         locker = Locker.objects.get(id=locker_id)
         if locker.item_set.all():
-            item = locker.item_set.first() # FIXME: Do we want to allow multiple items?
+            item = locker.item_set.first()  # FIXME: Do we want to allow multiple items?
             owner = item.owner
         else:
             owner = opener  # If locker is empty, whoever tries to open it is temporarily the owner
@@ -123,6 +123,7 @@ class UnlockViewSet(viewsets.ModelViewSet):
 
         return super().perform_create(serializer)
 
+
 class PurchaseViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows purchases to be viewed or edited.
@@ -132,8 +133,7 @@ class PurchaseViewSet(viewsets.ModelViewSet):
     def get_serializer_class(self):
         if self.action == 'create':
             return MakePurchaseSerializer
-        return PurchaseSerializer # for list/retrieve/destroy/update.
-
+        return PurchaseSerializer  # for list/retrieve/destroy/update.
 
     """
     "price": null,
@@ -174,12 +174,13 @@ class PurchaseViewSet(viewsets.ModelViewSet):
         # if buyer == seller: # FIXME: do correct validation for buyer
         #     print("You can't buy {}, because you already own it".format(item))
         #     raise serializers.ValidationError('Buyer and seller cannot be the same user.')
-            # return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
+        # return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
 
         if price > credits:
             print("Insufficient funds. {} needs {} more credits to buy {}".format(buyer, price - credits, item))
             raise serializers.ValidationError('Insufficient funds. Buy more credits to proceed with purchase.')
-            return Response(serializer.data, status=status.HTTP_402_PAYMENT_REQUIRED)  # FIXME: Delete after verifying that this will probably never be called
+            return Response(serializer.data,
+                            status=status.HTTP_402_PAYMENT_REQUIRED)  # FIXME: Delete after verifying that this will probably never be called
 
 
         # Change owners

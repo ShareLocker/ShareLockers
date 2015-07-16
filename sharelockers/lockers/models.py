@@ -17,7 +17,7 @@ class Locker(models.Model):
     )
     column = models.IntegerField(choices=column_options)
     row = models.IntegerField()
-    owner = models.ForeignKey(Profile, null=True) # FIXME remove after MVP
+    owner = models.ForeignKey(Profile, null=True)  # FIXME remove after MVP
 
     class Meta:
         unique_together = ('hub', 'row', 'column',)
@@ -35,14 +35,14 @@ class Locker(models.Model):
         if self.item_set.exists:
             item = self.item_set.all()[0]
             if item.owner == profile:
-                return 2 # you own it
+                return 2  # you own it
             else:
                 if item.is_reserved():
                     if item.reserved_for(profile):
-                        return 3 # reserved for you
+                        return 3  # reserved for you
                     else:
-                        return 4 # reserved for someone else
+                        return 4  # reserved for someone else
                 else:
-                    return 1 # not yours, but not reserved, so you can buy
+                    return 1  # not yours, but not reserved, so you can buy
         else:
-            return 0 # empty locker
+            return 0  # empty locker

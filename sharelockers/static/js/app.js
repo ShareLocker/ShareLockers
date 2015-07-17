@@ -13,7 +13,7 @@ $(function () {
 	});
 	
 	// Scroll Indicator
-	var homeIconContainerTop = $('.home-icons').offset().top - ($(window).height());
+	//var homeIconContainerTop = $('.home-icons').offset().top - ($(window).height());
 	
 	$(window).scroll(function() {
 		
@@ -56,6 +56,7 @@ module.exports = function (button) {
 					}
 		  		}).done(function (data){
 					console.log(data);
+					setTimeout('parent.location.reload()',500);
 					alert("The Item is Yours!")
 				}).fail(function(data){
 					console.log(data);
@@ -238,29 +239,31 @@ router.route('location/locker', function () {
 			method: 'GET', 
 			url: '/api/lockers/',
   		}).done(function (data){
+			 
 			console.log(data);
 			showLockers(data);
 			lockerGenerator(data);
 			stock();
-			colorGen('.card');
 			$(document).ready(function() {
-		            $('.vlocker').click(function() {
-		                $(this).find('.vpopout').show('duration fast');
+		            $('.locker-wrapper').click(function() {
+		                $(this).find('.vpopout').slideDown('duration fast');
+						$('.stock-wrapper').fadeIn('duration fast');
 		            });
-		            $('.vlocker').mouseleave(function() {
+		            $('.locker-wrapper').mouseleave(function() {
 		                $(this).find('.vpopout').hide('duration fast');
+						$('.stock-wrapper').hide();
 		            });
 					openLocker('.open-button');
 					buyItem('.buy-button');
 		    });
 		});
 		
-		$.ajax({
-			method: 'GET', 
-			url: '/api/profiles/',
-  		}).done(function (data){
-			console.log(data);
-		});
+		// $.ajax({
+		// 	method: 'GET', 
+		// 	url: '/api/profiles/',
+  		// }).done(function (data){
+		// 	console.log(data);
+		// });
 		
 
 		function showLockers(data) {
@@ -357,8 +360,8 @@ module.exports = function (arr) {
 		
 		
 		if (lockerActions[1] === "can_open" ){
-		var openHTML = '<div class="vlocker" ><span class="card animated"><span class="lockerTitle">'+ lockerTitle +'<br>EMPTY</span><div class="vpopout"><span class="lockerDetails">EMPTY</span><button data-id='+ lockerId +
-		' class="stock-button">STOCK</button><button class="open-button" data-id = '+lockerId+'>Open</button></div></div>';
+		var openHTML = '<div class="locker-wrapper"><div class="vlocker" ><span class="card animated"><span class="lockerTitle">'+ lockerTitle +'<br>EMPTY</span><div class="vpopout"><span class="lockerDetails">EMPTY</span><button data-id='+ lockerId +
+		' class="stock-button">STOCK</button><button class="open-button" data-id = '+lockerId+'>Open</button></div></div></div>';
 		$('.locker-bank').append(openHTML);
 		}
 		
@@ -370,22 +373,24 @@ module.exports = function (arr) {
 		
 		
 		else {
+		var itemPhoto = arr[i].item_set[0].photo;
 		var itemPrice = arr[i].item_set[0].price;
 		var itemOwner = arr[i].item_set[0].owner;
 		var itemTitle = arr[i].item_set[0].title;
 		var itemDetails = arr[i].item_set[0].description;
 		var itemId = arr[i].item_set[0].id;
-		var itemPrice = arr[i].item_set[0].price;
+		//var itemPrice = arr[i].item_set[0].price;
 		
 		if (currentUser == itemOwner ) {
 			
-			var ownerHtml = '<div class="vlocker"><span class="card animated"><span class="lockerTitle">'+ lockerTitle + '<br>' + itemTitle +'</span><div class="vpopout"><span class="lockerDetails">'+ itemDetails +'<br>'+'$'+ itemPrice + '</span><button class="open-button" data-id = '+lockerId+'>Open</button></div></div>';
+			var ownerHtml = '<div class="locker-wrapper"><div class="vlocker"><span class="card animated"><div class="image-wrapper"><img src='+itemPhoto+'></div><span class="lockerTitle">'+ lockerTitle + '<br>' + itemTitle +'</span></div><div class="vpopout"><img src='+itemPhoto+'><span class="lockerDetails">'+ itemDetails +'<br>'+'$'+ itemPrice + '</span><button class="open-button" data-id = '+lockerId+'>Open</button></div></div>';
 			$('.locker-bank').append(ownerHtml);
 			console.log(currentUser);
 			console.log(itemOwner);
 		}
 		else {
-			var buyHtml = '<div class="vlocker"><span class="card animated"><span class="lockerTitle">'+ lockerTitle + '<br>' + itemTitle +'</span><div class="vpopout"><span class="lockerDetails">'+ itemDetails + ' '+ itemPrice +' credits </span><button class="buy-button" data-id = '+itemId+'>Buy</button></div></div>';
+
+			var buyHtml = '<div class="locker-wrapper"><div class="vlocker"><span class="card animated"><div class="image-wrapper"><img src='+itemPhoto+'></div><span class="lockerTitle">'+ lockerTitle + '<br>' + itemTitle +'</span></div><div class="vpopout"><img src='+itemPhoto+'><span class="lockerDetails">'+ itemDetails +'<br>'+'$'+ itemPrice + '</span><button class="buy-button" data-id = '+itemId+'>Buy</button></div></div>';
 			$('.locker-bank').append(buyHtml);
 		}
 		}
@@ -424,7 +429,12 @@ module.exports = function (button) {
 					}
 		  		}).done(function (data){
 					console.log(data);
-				});
+					alert("Locker Open");
+					setTimeout('parent.location.reload()',500);
+				}).fail(function (data){
+					console.log(data);
+					alert("Unable to Open at this Time");
+				})
 		});
 	
 }
@@ -546,48 +556,107 @@ module.exports = function () {
 				$('.item-stock').click(function (e) {
 				e.stopPropagation();	
 				e.preventDefault();
-				var csrftoken = getCookie('csrftoken');
-				var title = $('.item-title').val();
-				var description = $('.item-description').val();
-				var price = $('.item-price').val();
-				var owner = $('.user-id').attr('data-id');
+					var data = new FormData();
+					var file = $('.item-photo').get(0).files[0];
+					var csrftoken = getCookie('csrftoken');
+					var title = $('.item-title').val();
+					var description = $('.item-description').val();
+					var price = $('.item-price').val();
+					var owner = $('.user-id').attr('data-id');
+					var photo = $('.item-photo').val();
+					console.log(photo);
+					data.append('photo', file);
+					data.append('title', title);
+					data.append('description', description);
+					data.append('price', price);
+					data.append('owner', owner);
+					data.append('locker', lockerId);
+
+					console.log(data);
+				
+				
 					if ($('.item-id').val() == 0) {
-						$.ajax({		
-						beforeSend: function (request){
-			            request.setRequestHeader('X-CSRFToken', csrftoken);
-			           },
-						method: 'POST', 
-						url: '/api/owneditems/',
-						data: {	"title": title,
-								"description": description,
-								"price": price,
-								"owner": owner,
-								"locker": lockerId					
-							}
-			  			}).done(function (data){
-							console.log(data);
-						});
-						document.location.href = '/#/location/locker';
+						if ( photo == 0 ) {
+									$.ajax({		
+										beforeSend: function (request){
+							            request.setRequestHeader('X-CSRFToken', csrftoken);
+							         },
+									   
+										method: 'POST', 
+										url: '/api/owneditems/',
+										data: {'title': title,
+												'description': description,
+												'price': price,
+												'owner': owner,
+												'locker': lockerId
+												}
+							  			}).done(function (data){
+											console.log(data);
+											setTimeout('parent.location.reload()',500);
+									});
+							
+						}
+						 else {
+									$.ajax({		
+									beforeSend: function (request){
+						            request.setRequestHeader('X-CSRFToken', csrftoken);
+						           },
+								   
+									method: 'POST', 
+									url: '/api/owneditems/',
+									data: data,
+									//cache: false,
+									dataType: 'json',
+			  						processData: false, // Don't process the files
+			  						contentType: false
+						  			}).done(function (data){
+										console.log(data);
+										setTimeout('parent.location.reload()',500);
+									});
+							 }
 					}
 					else {
 						var itemId = $('.item-id').val();
-						$.ajax({		
-						beforeSend: function (request){
-			            request.setRequestHeader('X-CSRFToken', csrftoken);
-			           },
-						method: 'PUT', 
-						url: '/api/owneditems/'+itemId,
-						data: {	"title": title,
-								"description": description,
-								"price": price,
-								"owner": owner,
-								"locker": lockerId					
-							}
-			  			}).done(function (data){
-							console.log(data);
-						});
-						document.location.href = '/#/location/locker';
-					}
+								if ( photo == 0 ) {
+										$.ajax({		
+											beforeSend: function (request){
+								            request.setRequestHeader('X-CSRFToken', csrftoken);
+								         },
+										   
+											method: 'PUT', 
+											url: '/api/owneditems/'+itemId,
+											data: {'title': title,
+													'description': description,
+													'price': price,
+													'owner': owner,
+													'locker': lockerId
+													}
+								  			}).done(function (data){
+												console.log(data);
+												setTimeout('parent.location.reload()',500);
+										});
+								
+								}
+								else {
+									$.ajax({		
+									beforeSend: function (request){
+						            request.setRequestHeader('X-CSRFToken', csrftoken);
+						           },
+								   
+									method: 'PUT', 
+									url: '/api/owneditems/'+itemId,
+									data: data,
+									//cache: false,
+									dataType: 'json',
+			  						processData: false, // Don't process the files
+			  						contentType: false
+						  			}).done(function (data){
+										console.log(data);
+										setTimeout('parent.location.reload()',500);
+									});
+							 }
+						
+					   }
 				});
 		  });
 	});

@@ -6,19 +6,11 @@
 <p>Your username and password didn't match. Please try again.</p>
 {% endif %}
 
-{% if next %}
-    {% if user.is_authenticated %}
-    <p>Your account doesn't have access to this page. To proceed,
-    please login with an account that has access.</p>
-    {% else %}
-    <p>Please login to see this page.</p>
-    {% endif %}
-{% endif %}
 
 {% if user.is_authenticated %}
-<p>To log in as a different user, first <a href="/logout/">log out</a> of your
+<p class="pure-control-group">To log in as a different user, first <a href="/logout/">log out</a> of your
     current account.</p>
-    <p>Or view your <a href="/#/dashboard">dashboard</a></p>    
+    <p>Or view your <a href="/#/dashboard">dashboard</a></p>
 {% else %}
 <form method="post" action="{% url 'django.contrib.auth.views.login' %}">
 {% csrf_token %}
@@ -35,7 +27,7 @@
    </div>
 
     <!--<input  class="pure-button pure-button-primary" type="submit" value="login" />-->
-    
+
     <button class="login-btn"  type="submit"  value="login">Log-In</button>
     <input type="hidden" name="next" value="{{ next }}" />
 </form>
@@ -44,5 +36,3 @@
 {% endif %}
 </div>
 {% endblock %}
-
-

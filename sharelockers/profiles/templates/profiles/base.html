@@ -20,15 +20,7 @@
 <div>
 
   <!--Use the following tag for the dashboard only-->
-    <h4>
-        {% if user.is_anonymous %}
-          You are not loged in.
-            <a href="{% url 'django.contrib.auth.views.login' %}"> Login</a>
-        {% else %}
-          You are logged in as {{ user }}.
-            <a href="{% url 'django.contrib.auth.views.logout' %}"> Logout</a>
-        {% endif %}
-    </h4>
+
 </div>
 
 {% block content %}

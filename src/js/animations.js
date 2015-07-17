@@ -12,7 +12,7 @@ $(function () {
 	});
 	
 	// Scroll Indicator
-	var homeIconContainerTop = $('.home-icons').offset().top - ($(window).height());
+	//var homeIconContainerTop = $('.home-icons').offset().top - ($(window).height());
 	
 	$(window).scroll(function() {
 		

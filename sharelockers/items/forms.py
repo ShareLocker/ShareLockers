@@ -8,6 +8,13 @@ class RequestForm(forms.ModelForm):
         model = trans_models.Request
         fields = ()
 
+
+class UnlockForm(forms.ModelForm):
+    class Meta:
+        model = trans_models.Unlock
+        fields = ()
+
+
 class ItemForm(forms.ModelForm):
     class Meta:
         model = Item

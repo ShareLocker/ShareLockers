@@ -26,7 +26,12 @@ module.exports = function (button) {
 					}
 		  		}).done(function (data){
 					console.log(data);
-				});
+					alert("Locker Open");
+					setTimeout('parent.location.reload()',500);
+				}).fail(function (data){
+					console.log(data);
+					alert("Unable to Open at this Time");
+				})
 		});
 	
 }

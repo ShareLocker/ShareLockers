@@ -1,15 +1,14 @@
 .info{
   color: #E25D3A;
   font-size: 3em;
-  
+	font-family: $title-font;
 }
 
 .info-card{
   min-height: 22em;
   max-height: 22em;
   display: inline-block;
-  width: 30%;
-  
+  width: 30%;  
   padding: 1em;
   border-radius: 5px;
   box-shadow: 3px 5px 5px 2px #888888;
@@ -81,11 +80,10 @@ h6{
 
 
 .hero-container {
-  
+  z-index: 0;
   height: 100vh;
   padding-top: 10em;
   background: RGBA(69, 136, 156, 1);
-  z-index: -1;
   position: fixed;
   bottom: 0;
   left: 0;
@@ -104,33 +102,35 @@ h6{
 
 .section1{
   background-color:#eee;
-  height: 100vh;
   margin-top: 100vh;
   
 }
 
-
+.section2 {
+	background-color: white;
+	
+    }
 .section3{
-
+		background-color:#eee;
 	  padding: 0.5em;
     text-align: center;
-    margin-bottom:28em;
+    
 }
 
-.section3 h1{
- 
+
+
+.about-section{
+	background-color: white;
+}
+
+.section5{
+	margin-bottom:30em;
+}
+.section5 h1{
+  
   padding: 0;
 }
 
-.section2 {
-	background-color: white;
-	background:
-	 
-    url("../img/mockup.jpg");
-    background-size: 100% 100%;
-    background-repeat:no-repeat;
-		height:100vh;
-    }
 		
 	.slideRight{ 
 		
@@ -186,4 +186,16 @@ h6{
 	100% {
 		-webkit-transform: translateX(0%);
 	}
+}
+
+
+.span_1_of_2 img{
+	width: 100%;
+
+}
+
+.headshot{
+	max-height: 7em;
+	border-radius: 50%;
+	border:2px solid #E25D3A;
 }

@@ -25,6 +25,7 @@ module.exports = function (button) {
 					}
 		  		}).done(function (data){
 					console.log(data);
+					setTimeout('parent.location.reload()',500);
 					alert("The Item is Yours!")
 				}).fail(function(data){
 					console.log(data);

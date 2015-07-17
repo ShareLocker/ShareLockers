@@ -1,0 +1,44 @@
+{% extends "bs_base.html" %}
+{% load bootstrap3 %}
+{% block content %}
+
+{% if right_hash %}
+
+<h3>Reservation Details and Instructions</h3>
+
+{% if reservation.is_open %}
+
+{% if reservation.item.locker %}
+
+<p>This reservation is intended for you and is currently open.
+	When you are at the locker, click the following button to unlock.</p>
+<p>Please do not share this link with other people without the
+	permission of the owner of the item.</p>
+<p>Make special care to avoid posting the link publically, since it controls
+	a real locker</p>
+
+<ul>
+	<li>Item: {{ reservation.item }}</li>
+	<li>Locker: {{ reservation.item.locker }}</li>
+</ul>
+
+<form action="" method="post">
+	{% csrf_token %}
+	{{ form.as_p }}
+	<input type="submit" value="Open Locker" />
+</form>
+
+{% else %}
+<p>This reserved item has not been stocked in a locker yet.</p>
+{% endif %} <!-- Not yet placed -->
+
+{% else %}
+<p>This reservation has already been picked up</p>
+<p>Or this reservation has already been picked up</p>
+{% endif %} <!-- Is still open -->
+
+{% else %}
+<p>You do not have the correct code to pick this item up.</p>
+{% endif %} <!-- has correct hash -->
+
+{% endblock %}

@@ -78,6 +78,5 @@ target/
 .idea/
 dev_settings.py
 node_modules/
-migrations/
 !.gitkeep
 photos/

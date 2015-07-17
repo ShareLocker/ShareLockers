@@ -99,7 +99,8 @@ var showLists =require('../showLists');
 
 router.route('dashboard', function () {
   show('dashboard');
-		
+	$('.this-user').html($('.user-id').attr('data-name'));
+  
 // RESPONSIVE DASHBOARD MENU
 			
 			(function () {

@@ -85,14 +85,20 @@ button:hover {
   text-shadow: -1px 1px #27496d;
   border: 1px solid black; }
   
-  .buy-button {
+ .buy-button {
+  display: none;
 	position: absolute;
 	top: 90%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 }
 
+.stock-button {
+  display: none;
+}
+
 .open-button {
+  display: none;
 	position: absolute;
 	top: 90%;
 	left: 50%;

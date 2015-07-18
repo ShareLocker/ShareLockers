@@ -13,8 +13,7 @@ var stock = require('../stock');
 var colorGen = require('../colorGen');
 
 router.route('location/locker', function () {
-	//var arr = [{title : 'teddy', details : 'A Really Big Teddy Bear'}, {title : 'car', details : 'A Super Fast car'}, {title : 'coat', details : 'A leather coat'}, {title : 'flowers', details : '1,000 Roses'}, {title : 'shoes', details : 'Air Jordans, size 9'}, {title : 'marbles', details : 'a million marbles'}, {title : 'liver', details : 'one human liver'}, {title : 'drugs', details : 'so many drugs'} ];
-	
+
 		
 		$.ajax({
 			method: 'GET', 
@@ -26,15 +25,55 @@ router.route('location/locker', function () {
 			stock();
 			//colorGen('.card');
 			$(document).ready(function() {
+				var currentUser = parseInt($('.user-id').attr('data-id'));
 		            $('.locker-wrapper').click(function() {
-		                $(this).find('.vpopout').slideDown('duration fast');
+						if ($(this).data('id') !== undefined) {
+							if ($(this).data('photo') === null ) {
+								$('.item-photo').hide();
+							}
+							 else {
+								$('.item-photo').attr('src', $(this).data('photo'));
+								$('.item-photo').show(); 
+							 }
+			                $('.lockerDetails').html($(this).data('details'));
+							$('.lockerDetails').append('<br>$');
+							$('.lockerDetails').append($(this).data('price'));
+							if ($(this).data('owner') === currentUser){
+								$('.open-button').attr('data-id', $(this).data('locker'));
+								$('.stock-button').hide();
+								$('.open-button').show();
+								
+								
+							}
+							else {
+								$('.buy-button').attr('data-id', $(this).data('id'));
+								$('.stock-button').hide();
+								$('.buy-button').show();
+							}
+						}
+						else {
+							$('.open-button').attr('data-id', $(this).data('locker'));
+							$('.stock-button').attr('data-id', $(this).data('locker'));
+							$('.item-photo').hide();
+							$('.lockerDetails').html('EMPTY');
+							$('.stock-button').show();
+							$('.open-button').show();
+							$('.buy-button').hide();								
+						}
+						$('.vpopout').slideDown('duration fast');
+						$('.stock-wrapper').fadeIn('duration fast');
+						
 		            });
-		            $('.locker-wrapper').mouseleave(function() {
-		                $(this).find('.vpopout').hide('duration fast');
+		            $('.close').click(function() {
+		                $('.vpopout').hide('duration fast');
+						$('.stock-wrapper').fadeOut('duration fast');
 		            });
 					openLocker('.open-button');
 					buyItem('.buy-button');
 		    });
+			// $('.login-submit').on('click', function(){
+			// 	var username =$('.login-username').val();
+			// })
 		});
 		
 		// $.ajax({

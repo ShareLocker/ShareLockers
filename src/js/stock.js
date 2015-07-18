@@ -35,13 +35,13 @@ module.exports = function () {
 				e.stopPropagation();	
 				e.preventDefault();
 					var data = new FormData();
-					var file = $('.item-photo').get(0).files[0];
+					var file = $('.photo-input').get(0).files[0];
 					var csrftoken = getCookie('csrftoken');
 					var title = $('.item-title').val();
 					var description = $('.item-description').val();
 					var price = $('.item-price').val();
 					var owner = $('.user-id').attr('data-id');
-					var photo = $('.item-photo').val();
+					var photo = $('.photo-input').val();
 					console.log(photo);
 					data.append('photo', file);
 					data.append('title', title);

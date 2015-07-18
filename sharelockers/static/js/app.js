@@ -230,8 +230,7 @@ var stock = require('../stock');
 var colorGen = require('../colorGen');
 
 router.route('location/locker', function () {
-	//var arr = [{title : 'teddy', details : 'A Really Big Teddy Bear'}, {title : 'car', details : 'A Super Fast car'}, {title : 'coat', details : 'A leather coat'}, {title : 'flowers', details : '1,000 Roses'}, {title : 'shoes', details : 'Air Jordans, size 9'}, {title : 'marbles', details : 'a million marbles'}, {title : 'liver', details : 'one human liver'}, {title : 'drugs', details : 'so many drugs'} ];
-	
+
 		
 		$.ajax({
 			method: 'GET', 
@@ -243,15 +242,55 @@ router.route('location/locker', function () {
 			stock();
 			//colorGen('.card');
 			$(document).ready(function() {
+				var currentUser = parseInt($('.user-id').attr('data-id'));
 		            $('.locker-wrapper').click(function() {
-		                $(this).find('.vpopout').slideDown('duration fast');
+						if ($(this).data('id') !== undefined) {
+							if ($(this).data('photo') === null ) {
+								$('.item-photo').hide();
+							}
+							 else {
+								$('.item-photo').attr('src', $(this).data('photo'));
+								$('.item-photo').show(); 
+							 }
+			                $('.lockerDetails').html($(this).data('details'));
+							$('.lockerDetails').append('<br>$');
+							$('.lockerDetails').append($(this).data('price'));
+							if ($(this).data('owner') === currentUser){
+								$('.open-button').attr('data-id', $(this).data('locker'));
+								$('.stock-button').hide();
+								$('.open-button').show();
+								
+								
+							}
+							else {
+								$('.buy-button').attr('data-id', $(this).data('id'));
+								$('.stock-button').hide();
+								$('.buy-button').show();
+							}
+						}
+						else {
+							$('.open-button').attr('data-id', $(this).data('locker'));
+							$('.stock-button').attr('data-id', $(this).data('locker'));
+							$('.item-photo').hide();
+							$('.lockerDetails').html('EMPTY');
+							$('.stock-button').show();
+							$('.open-button').show();
+							$('.buy-button').hide();								
+						}
+						$('.vpopout').slideDown('duration fast');
+						$('.stock-wrapper').fadeIn('duration fast');
+						
 		            });
-		            $('.locker-wrapper').mouseleave(function() {
-		                $(this).find('.vpopout').hide('duration fast');
+		            $('.close').click(function() {
+		                $('.vpopout').hide('duration fast');
+						$('.stock-wrapper').fadeOut('duration fast');
 		            });
 					openLocker('.open-button');
 					buyItem('.buy-button');
 		    });
+			// $('.login-submit').on('click', function(){
+			// 	var username =$('.login-username').val();
+			// })
 		});
 		
 		// $.ajax({
@@ -356,8 +395,7 @@ module.exports = function (arr) {
 		
 		
 		if (lockerActions[1] === "can_open" ){
-		var openHTML = '<div class="locker-wrapper"><div class="vlocker" ><span class="card animated"><span class="lockerTitle">'+ lockerTitle +'<br>EMPTY</span><div class="vpopout"><span class="lockerDetails">EMPTY</span><button data-id='+ lockerId +
-		' class="stock-button">STOCK</button><button class="open-button" data-id = '+lockerId+'>Open</button></div></div></div>';
+		var openHTML = '<div class="locker-wrapper" data-locker='+lockerId+'><div class="vlocker"><span class="card animated"><span class="lockerTitle">'+ lockerTitle +'<br>EMPTY</span></span></div></div>';
 		$('.locker-bank').append(openHTML);
 		}
 		
@@ -370,25 +408,29 @@ module.exports = function (arr) {
 		
 		else {
 		var itemPhoto = arr[i].item_set[0].photo;
-		var itemPrice = arr[i].item_set[0].price;
 		var itemOwner = arr[i].item_set[0].owner;
 		var itemTitle = arr[i].item_set[0].title;
 		var itemDetails = arr[i].item_set[0].description;
 		var itemId = arr[i].item_set[0].id;
 		var itemPrice = arr[i].item_set[0].price;
 		
-		if (currentUser == itemOwner ) {
-			
-			var ownerHtml = '<div class="locker-wrapper"><div class="vlocker"><span class="card animated"><div class="image-wrapper"><img src='+itemPhoto+'></div><span class="lockerTitle">'+ lockerTitle + '<br>' + itemTitle +'</span></div><div class="vpopout"><img src='+itemPhoto+'><span class="lockerDetails">'+ itemDetails +'<br>'+'$'+ itemPrice + '</span><button class="open-button" data-id = '+lockerId+'>Open</button></div></div>';
-			$('.locker-bank').append(ownerHtml);
-			console.log(currentUser);
-			console.log(itemOwner);
-		}
-		else {
+		// if (currentUser == itemOwner ) { +'"'+
+			if (itemPhoto === null ) {
+				var html = '<div data-photo="'+itemPhoto+'" data-price='+itemPrice+' data-owner='+itemOwner+' data-details="'+itemDetails+'" data-id='+itemId+' data-locker='+lockerId+' class="locker-wrapper"><div class="vlocker"><span class="card animated"><span class="lockerTitle">'+ lockerTitle + '<br>' + itemTitle +'</span></span></div></div>';
+				$('.locker-bank').append(html);
+			}
+			else {
+				var ownerHtml = '<div data-photo="'+itemPhoto+'" data-price='+itemPrice+' data-owner='+itemOwner+' data-details="'+itemDetails+'" data-id='+itemId+' data-locker='+lockerId+' class="locker-wrapper"><div class="vlocker"><span class="card animated"><div class="image-wrapper"><img src='+itemPhoto+'></div><span class="lockerTitle">'+ lockerTitle + '<br>' + itemTitle +'</span></span></div></div>';
+				$('.locker-bank').append(ownerHtml);
+			}
+		// 	console.log(currentUser);
+		// 	console.log(itemOwner);
+		// }
+		// else {
 
-			var buyHtml = '<div class="locker-wrapper"><div class="vlocker"><span class="card animated"><div class="image-wrapper"><img src='+itemPhoto+'></div><span class="lockerTitle">'+ lockerTitle + '<br>' + itemTitle +'</span></div><div class="vpopout"><img src='+itemPhoto+'><span class="lockerDetails">'+ itemDetails +'<br>'+'$'+ itemPrice + '</span><button class="buy-button" data-id = '+itemId+'>Buy</button></div></div>';
-			$('.locker-bank').append(buyHtml);
-		}
+		// 	var buyHtml = '<div class="locker-wrapper"><div class="locker-containter><div class="vlocker"><span class="card animated"><div class="image-wrapper"><img src='+itemPhoto+'></div><span class="lockerTitle">'+ lockerTitle + '<br>' + itemTitle +'</span></div><div class="vpopout"><img src='+itemPhoto+'><span class="lockerDetails">'+ itemDetails +'<br>'+'$'+ itemPrice + '</span><button class="buy-button" data-id = '+itemId+'>Buy</button></div><button class="close">X</button></div></div>';
+		// 	$('.locker-bank').append(buyHtml);
+		// }
 		}
 
 		++i;	 
@@ -553,13 +595,13 @@ module.exports = function () {
 				e.stopPropagation();	
 				e.preventDefault();
 					var data = new FormData();
-					var file = $('.item-photo').get(0).files[0];
+					var file = $('.photo-input').get(0).files[0];
 					var csrftoken = getCookie('csrftoken');
 					var title = $('.item-title').val();
 					var description = $('.item-description').val();
 					var price = $('.item-price').val();
 					var owner = $('.user-id').attr('data-id');
-					var photo = $('.item-photo').val();
+					var photo = $('.photo-input').val();
 					console.log(photo);
 					data.append('photo', file);
 					data.append('title', title);

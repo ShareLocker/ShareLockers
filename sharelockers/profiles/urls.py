@@ -6,9 +6,9 @@ from profiles.views import ReservationCreateView
 
 urlpatterns = [
     url(r'^rest-auth/', include('rest_auth.urls')),
-    # url(r'^register/$', profiles_views.user_register, name="user_register"),
-    # url(r'^login/$',  'django.contrib.auth.views.login',  name='view_login'),
-    # url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}),
+    url(r'^register/$', profiles_views.user_register, name="user_register"),
+    url(r'^login/$',  'django.contrib.auth.views.login',  name='view_login'),
+    url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}),
     url(r'^charge/$', profiles_views.stripe_charge_view),
     url(r'^my_items.html$', users_views.SelfInventoryView.as_view(),
                                     name='self_inventory'),

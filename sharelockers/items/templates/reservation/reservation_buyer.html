@@ -1,0 +1,42 @@
+{% extends "nav_base.html" %}
+{% block content %}
+
+{% if right_user %}
+
+<h3>Reservation Details and Instructions</h3>
+
+{% if reservation.is_open %}
+
+<p>A user of Share Lockers has reserved an item for you! It has been stocked
+	in one of our web connected lockers, so
+	right now it is sitting there waiting for you to open it.</p>
+
+<p>To open it, you can simply use the button below. Careful!
+	If you are not physically present when you click the button, someone else
+	could take the item.
+	When you are at the locker, click the following button to unlock.</p>
+<ul class="pure-menu-list">
+	<li>Sender: {{ reservation.seller }}</li>
+	<li>Item: {{ reservation.item }}</li>
+	<li>Locker: {{ reservation.item.locker.address }}</li>
+</ul>
+
+<form action="" method="post">
+	{% csrf_token %}
+	{{ form.as_p }}
+	<input type="submit" value="Open Locker" />
+</form>
+
+{% else %}
+
+<p>This reservation has been closed</p>
+
+{% endif %}
+
+{% else %}
+
+<p>This reservation is intended for another user.</p>
+
+{% endif %}
+
+{% endblock %}

@@ -1,4 +1,4 @@
-{% extends "bs_base.html" %}
+{% extends "nav_base.html" %}
 {% load bootstrap3 %}
 {% block content %}
 
@@ -6,13 +6,14 @@
 
 <p>Or, <a href="{% url 'make_item' %}">add a new item</a> to your inventory</p>
 
-<table class="table table-striped">
+<table class="pure-table pure-table-bordered" align="center">
 	<thead>
 		<tr>
 			<th>Item</th>
 			<th>Description</th>
 			<th>Price</th>
 			<th>Make <br /> Reservation</th>
+			<th>Locker</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -23,6 +24,13 @@
 			<td>{{ item.description }}</td>
 			<td>{{ item.price }}</td>
 			<td><a href="{% url 'make_reservation' pk=item.id %}">Reserve</a></td>
+			<td>
+				{% if item.locker %}
+				{{ item.locker.address }}
+				{% else %}
+				-
+				{% endif %}
+			</td>
 		</tr>
 		{% endif %}
 		{% endfor %}
@@ -35,13 +43,15 @@
 	will not be able to buy the item (if stocked) unless you cancel the
 	reservation.</p>
 
-<table class="table table-striped">
+<table class="pure-table pure-table-bordered" align="center">
 	<thead>
 		<tr>
 			<th>Item</th>
 			<th>Description</th>
 			<th>Price</th>
+			<th>View <br /> Reservation </th>
 			<th>Cancel <br /> Reservation</th>
+			<th>Locker</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -51,7 +61,15 @@
 			<td>{{ item.title }}</td>
 			<td>{{ item.description }}</td>
 			<td>{{ item.price }}</td>
+			<td><a href="{% url 'reservation_seller_detail' pk=item.id %}">Details</a></td>
 			<td><a href="{% url 'delete_reservation' pk=item.id %}">Withdraw</a></td>
+			<td>
+				{% if item.locker.exists %}
+				{{ item.locker }}
+				{% else %}
+				-
+				{% endif %}
+			</td>
 		</tr>
 		{% endif %}
 		{% endfor %}

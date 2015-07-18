@@ -15,17 +15,21 @@ class Profile(models.Model):
     credits = models.DecimalField(max_digits=5, decimal_places=2, default=100)
 
     def __str__(self):
-        return '{} (id: {})'.format(self.alias, self.id)
+        return '{} (id: {})'.format(self.user.username, self.id)
 
 
-def create_users(num):
-    for i in range(1, num + 1):
+local_users = ['Alan', 'John', 'Brendan', 'Falon', 'Manish']
+
+
+def create_users():
+    for i in local_users:
         user = User.objects.create_user(
-            "user{}".format(i),
-            "user{}@theironyard.com".format(i),
-            "user{}".format(i)
+            "{}".format(i),
+            "{}@sharelockers.com".format(i),
+            "{}".format(i)
         )
         user.save()
+    create_profiles()
 
 
 def create_profiles():
@@ -33,6 +37,6 @@ def create_profiles():
     for user in User.objects.all():
         rating = random.randint(1, 5)
         description = fake.text(max_nb_chars=20)
-        alias = "I am {}".format(user)
+        alias = "{}".format(user)
         profile = Profile(user=user, rating=rating, description=description, alias=alias)
         profile.save()

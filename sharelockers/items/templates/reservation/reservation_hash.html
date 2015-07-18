@@ -1,0 +1,49 @@
+{% extends "nav_base.html" %}
+{% block content %}
+
+{% if right_hash %}
+
+<h3>Reservation Details and Instructions</h3>
+
+{% if reservation.is_open %}
+
+{% if reservation.item.locker %}
+
+<p>A user of Share Lockers has reserved an item for you! It has been stocked
+	in one of our web connected lockers, so
+	right now it is sitting there waiting for you to open it.
+	You don't even need an account. The locker can be opened with the button below.
+	Please do not share this link with other people without the
+	permission of the sender of this reservation.</p>
+<p>Make special care to avoid posting the link publically, since it controls
+	a real locker</p>
+
+<ul>
+	<li>Sender: {{ reservation.seller }}</li>
+	<li>Item: {{ reservation.item }}</li>
+	<li>Locker: {{ reservation.item.locker.address }}</li>
+	{% if reservation.instructions.exists %}
+	<li>Message: {{ reservation.instructions }}</li>
+	{% endif %}
+</ul>
+
+<form action="" method="post">
+	{% csrf_token %}
+	{{ form.as_p }}
+	<input type="submit" value="Open Locker" />
+</form>
+
+{% else %}
+<p>This reserved item has not been stocked in a locker yet.</p>
+{% endif %} <!-- Not yet placed -->
+
+{% else %}
+<p>This reservation has already been picked up</p>
+<p>Or this reservation has already been picked up</p>
+{% endif %} <!-- Is still open -->
+
+{% else %}
+<p>You do not have the correct code to pick this item up.</p>
+{% endif %} <!-- has correct hash -->
+
+{% endblock %}

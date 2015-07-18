@@ -14,16 +14,16 @@ var colorGen = require('../colorGen');
 
 router.route('location/locker', function () {
 
-		
+
 		$.ajax({
-			method: 'GET', 
+			method: 'GET',
 			url: '/api/lockers/',
   		}).done(function (data){
+
 			console.log(data);
 			showLockers(data);
 			lockerGenerator(data);
 			stock();
-			//colorGen('.card');
 			$(document).ready(function() {
 				var currentUser = parseInt($('.user-id').attr('data-id'));
 		            $('.locker-wrapper').click(function() {
@@ -33,7 +33,7 @@ router.route('location/locker', function () {
 							}
 							 else {
 								$('.item-photo').attr('src', $(this).data('photo'));
-								$('.item-photo').show(); 
+								$('.item-photo').show();
 							 }
 			                $('.lockerDetails').html($(this).data('details'));
 							$('.lockerDetails').append('<br>$');
@@ -42,8 +42,8 @@ router.route('location/locker', function () {
 								$('.open-button').attr('data-id', $(this).data('locker'));
 								$('.stock-button').hide();
 								$('.open-button').show();
-								
-								
+
+
 							}
 							else {
 								$('.buy-button').attr('data-id', $(this).data('id'));
@@ -58,11 +58,11 @@ router.route('location/locker', function () {
 							$('.lockerDetails').html('EMPTY');
 							$('.stock-button').show();
 							$('.open-button').show();
-							$('.buy-button').hide();								
+							$('.buy-button').hide();
 						}
 						$('.vpopout').slideDown('duration fast');
 						$('.stock-wrapper').fadeIn('duration fast');
-						
+
 		            });
 		            $('.close').click(function() {
 		                $('.vpopout').hide('duration fast');
@@ -75,14 +75,14 @@ router.route('location/locker', function () {
 			// 	var username =$('.login-username').val();
 			// })
 		});
-		
+
 		// $.ajax({
-		// 	method: 'GET', 
+		// 	method: 'GET',
 		// 	url: '/api/profiles/',
   		// }).done(function (data){
 		// 	console.log(data);
 		// });
-		
+
 
 		function showLockers(data) {
 			var lockerTemplate = views['locker-list'];

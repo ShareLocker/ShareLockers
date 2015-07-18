@@ -1,28 +1,29 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-// HEADER ANIMATION
-
 var $ = require("jquery");
 
-$(window).scroll(function() {
-  if ($(this).scrollTop() > 1){
-    $('.my-page-header').addClass("sticky");
-  } else {
-    $('.my-page-header').removeClass("sticky");
-  }
-});
-
-// Scroll Indicator
-
-$(window).scroll(function() {
-		$('.scroll').each(function(){
-		var imagePos = $(this).offset().top;
-
-		var topOfWindow = $(window).scrollTop();
-			if (imagePos < topOfWindow+400) {
-				$(this).addClass(".pulse");
-			}
-		});
+// HEADER ANIMATION
+$(function () {
+	
+	$(window).scroll(function() {
+	  if ($(this).scrollTop() > 1){
+	    $('.my-page-header').addClass("sticky");
+	  } else {
+	    $('.my-page-header').removeClass("sticky");
+	  }
 	});
+	
+	// Scroll Indicator
+	//var homeIconContainerTop = $('.home-icons').offset().top - ($(window).height());
+	
+	$(window).scroll(function() {
+		
+		if ($(window).scrollTop () > homeIconContainerTop) {
+			$('.home-icons').addClass('slideRight');
+		}
+			
+	});
+
+});
 
 // $(document).ready(function(){
 //   $(".scroll").animate( ".scroll" , 1000 , swing, complete);
@@ -98,7 +99,8 @@ var showLists =require('../showLists');
 
 router.route('dashboard', function () {
   show('dashboard');
-		
+	$('.this-user').html($('.user-id').attr('data-name'));
+  
 // RESPONSIVE DASHBOARD MENU
 			
 			(function () {
@@ -231,16 +233,16 @@ var colorGen = require('../colorGen');
 
 router.route('location/locker', function () {
 
-		
+
 		$.ajax({
-			method: 'GET', 
+			method: 'GET',
 			url: '/api/lockers/',
   		}).done(function (data){
+
 			console.log(data);
 			showLockers(data);
 			lockerGenerator(data);
 			stock();
-			//colorGen('.card');
 			$(document).ready(function() {
 				var currentUser = parseInt($('.user-id').attr('data-id'));
 		            $('.locker-wrapper').click(function() {
@@ -250,7 +252,7 @@ router.route('location/locker', function () {
 							}
 							 else {
 								$('.item-photo').attr('src', $(this).data('photo'));
-								$('.item-photo').show(); 
+								$('.item-photo').show();
 							 }
 			                $('.lockerDetails').html($(this).data('details'));
 							$('.lockerDetails').append('<br>$');
@@ -259,8 +261,8 @@ router.route('location/locker', function () {
 								$('.open-button').attr('data-id', $(this).data('locker'));
 								$('.stock-button').hide();
 								$('.open-button').show();
-								
-								
+
+
 							}
 							else {
 								$('.buy-button').attr('data-id', $(this).data('id'));
@@ -275,11 +277,11 @@ router.route('location/locker', function () {
 							$('.lockerDetails').html('EMPTY');
 							$('.stock-button').show();
 							$('.open-button').show();
-							$('.buy-button').hide();								
+							$('.buy-button').hide();
 						}
 						$('.vpopout').slideDown('duration fast');
 						$('.stock-wrapper').fadeIn('duration fast');
-						
+
 		            });
 		            $('.close').click(function() {
 		                $('.vpopout').hide('duration fast');
@@ -292,14 +294,14 @@ router.route('location/locker', function () {
 			// 	var username =$('.login-username').val();
 			// })
 		});
-		
+
 		// $.ajax({
-		// 	method: 'GET', 
+		// 	method: 'GET',
 		// 	url: '/api/profiles/',
   		// }).done(function (data){
 		// 	console.log(data);
 		// });
-		
+
 
 		function showLockers(data) {
 			var lockerTemplate = views['locker-list'];
@@ -311,6 +313,7 @@ router.route('location/locker', function () {
 
 
 });
+
 },{"../buyItem":2,"../colorGen":3,"../getCookie":9,"../lockerGenerator":11,"../openLocker":12,"../router":13,"../show":14,"../stock":17,"jquery":"jquery","underscore":"underscore","views":"views"}],8:[function(require,module,exports){
 var $ = require('jquery');
 var _ = require('underscore');
@@ -390,22 +393,22 @@ module.exports = function (arr) {
 		var lockerTitle= arr[i].local_code;
 		var lockerActions= arr[i].actions;
 		var currentUser = $('.user-id').attr('data-id');
-		
-		
-		
-		
+
+
+
+
 		if (lockerActions[1] === "can_open" ){
 		var openHTML = '<div class="locker-wrapper" data-locker='+lockerId+'><div class="vlocker"><span class="card animated"><span class="lockerTitle">'+ lockerTitle +'<br>EMPTY</span></span></div></div>';
 		$('.locker-bank').append(openHTML);
 		}
-		
+
 		// else if (lockerActions[0] === 'can_stock'){
 		// var stockHtml = '<div class="vlocker"><span class="card animated"><span class="lockerTitle">'+ lockerTitle +'<br>EMPTY</span><div class="vpopout"><span class="lockerDetails">EMPTY</span><a href="#/stock/'+ lockerId +
 		// '" class="stock-button">STOCK</a></div></div>';
 		// $('.locker-bank').append(stockHtml);
 		// }
-		
-		
+
+
 		else {
 		var itemPhoto = arr[i].item_set[0].photo;
 		var itemOwner = arr[i].item_set[0].owner;
@@ -413,7 +416,7 @@ module.exports = function (arr) {
 		var itemDetails = arr[i].item_set[0].description;
 		var itemId = arr[i].item_set[0].id;
 		var itemPrice = arr[i].item_set[0].price;
-		
+
 		// if (currentUser == itemOwner ) { +'"'+
 			if (itemPhoto === null ) {
 				var html = '<div data-photo="'+itemPhoto+'" data-price='+itemPrice+' data-owner='+itemOwner+' data-details="'+itemDetails+'" data-id='+itemId+' data-locker='+lockerId+' class="locker-wrapper"><div class="vlocker"><span class="card animated"><span class="lockerTitle">'+ lockerTitle + '<br>' + itemTitle +'</span></span></div></div>';
@@ -433,11 +436,12 @@ module.exports = function (arr) {
 		// }
 		}
 
-		++i;	 
-		
+		++i;
+
 	};
 
 };
+
 },{"jquery":"jquery","underscore":"underscore","views":"views"}],12:[function(require,module,exports){
 'use strict';
 
@@ -578,9 +582,9 @@ module.exports = function () {
 			 $('.stock-wrapper').hide();
 		 	 $('.stock-container').hide();
 		 })
-	
+
 	$.ajax({
-			method: 'GET', 
+			method: 'GET',
 			url: '/api/owneditems/',
   		}).done(function (data){
 			console.log(data);
@@ -592,7 +596,7 @@ module.exports = function () {
 				$('.item-id').val($(".item-inventory option:selected").data('id'));
 			});
 				$('.item-stock').click(function (e) {
-				e.stopPropagation();	
+				e.stopPropagation();
 				e.preventDefault();
 					var data = new FormData();
 					var file = $('.photo-input').get(0).files[0];
@@ -611,16 +615,16 @@ module.exports = function () {
 					data.append('locker', lockerId);
 
 					console.log(data);
-				
-				
+
+
 					if ($('.item-id').val() == 0) {
 						if ( photo == 0 ) {
-									$.ajax({		
+									$.ajax({
 										beforeSend: function (request){
 							            request.setRequestHeader('X-CSRFToken', csrftoken);
 							         },
-									   
-										method: 'POST', 
+
+										method: 'POST',
 										url: '/api/owneditems/',
 										data: {'title': title,
 												'description': description,
@@ -632,15 +636,15 @@ module.exports = function () {
 											console.log(data);
 											setTimeout('parent.location.reload()',500);
 									});
-							
+
 						}
 						 else {
-									$.ajax({		
+									$.ajax({
 									beforeSend: function (request){
 						            request.setRequestHeader('X-CSRFToken', csrftoken);
 						           },
-								   
-									method: 'POST', 
+
+									method: 'POST',
 									url: '/api/owneditems/',
 									data: data,
 									//cache: false,
@@ -656,12 +660,12 @@ module.exports = function () {
 					else {
 						var itemId = $('.item-id').val();
 								if ( photo == 0 ) {
-										$.ajax({		
+										$.ajax({
 											beforeSend: function (request){
 								            request.setRequestHeader('X-CSRFToken', csrftoken);
 								         },
-										   
-											method: 'PUT', 
+
+											method: 'PUT',
 											url: '/api/owneditems/'+itemId,
 											data: {'title': title,
 													'description': description,
@@ -673,15 +677,15 @@ module.exports = function () {
 												console.log(data);
 												setTimeout('parent.location.reload()',500);
 										});
-								
+
 								}
 								else {
-									$.ajax({		
+									$.ajax({
 									beforeSend: function (request){
 						            request.setRequestHeader('X-CSRFToken', csrftoken);
 						           },
-								   
-									method: 'PUT', 
+
+									method: 'PUT',
 									url: '/api/owneditems/'+itemId,
 									data: data,
 									//cache: false,
@@ -693,12 +697,13 @@ module.exports = function () {
 										setTimeout('parent.location.reload()',500);
 									});
 							 }
-						
+
 					   }
 				});
 		  });
 	});
 };
+
 },{"../js/getCookie":9,"../js/router":13,"../js/show":14,"../js/showLists":15,"jquery":"jquery","underscore":"underscore","views":"views"}]},{},[10])
 
 

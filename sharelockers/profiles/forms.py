@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from profiles.models import Profile
 from transactions.models import Reservation
 
+
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
     email = forms.EmailField(required=False)
@@ -35,10 +36,10 @@ class ProfileForm(forms.ModelForm):
 class UserReservationForm(forms.ModelForm):
     class Meta:
         model = Reservation
-        fields = ('buyer', )
+        fields = ('buyer', 'email',)
 
 
 class HashReservationForm(forms.ModelForm):
     class Meta:
         model = Reservation
-        fields = ()
+        fields = ('email',)

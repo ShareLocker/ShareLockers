@@ -7,6 +7,7 @@ from profiles.models import Profile
 from profiles.forms import UserForm, ProfileForm
 import stripe
 from django.http import HttpResponseRedirect, HttpResponse
+from django.core.urlresolvers import reverse
 from django.views.generic import TemplateView
 
 from profiles.forms import UserForm, ProfileForm, UserReservationForm, HashReservationForm
@@ -26,13 +27,13 @@ def user_register(request):
         user_form = UserForm(request.POST)
         profile_form = ProfileForm(request.POST)
         if user_form.is_valid() and profile_form.is_valid():
-            user = user_form.save(commit=False) # setting password done in forms.py
+            user = user_form.save(commit=False)  # setting password done in forms.py
             user.alias = user.username
             user.save()
             # extra password thing
-			# password = user.password # The form doesn't know to call this special method on user.
-			# user.set_password(password)
-			# user.save() # You must call authenticate before login. :(
+            # password = user.password # The form doesn't know to call this special method on user.
+            # user.set_password(password)
+            # user.save() # You must call authenticate before login. :(
             # end extra password thing
             profile = profile_form.save(commit=False)
             profile.user = user
@@ -49,10 +50,13 @@ def user_register(request):
                                                       'profile_form': profile_form,
                                                       })
 
+
 from django.views.decorators.csrf import csrf_exempt
-@csrf_exempt #FIXME: Before pushing to heroku
+
+
+@csrf_exempt  # FIXME: Before pushing to heroku
 def stripe_charge_view(request):
-    if request.method=="POST":
+    if request.method == "POST":
         # Set your secret key: remember to change this to your live secret key in production
         # See your keys here https://dashboard.stripe.com/account/apikeys
         stripe.api_key = "sk_test_BQokikJOvBiI2HlWgH4olfQ2"
@@ -79,15 +83,15 @@ def stripe_charge_view(request):
     request.user.profile.save()
 
     return HttpResponse('Charged {}{} via token "{}"'.format(charge.amount / 100, str.upper(charge.currency), token))
-        # FIXME: Redirect to a meaningful place, with a message that they were charged
-        # request.user.profile.stripe_token = token
+    # FIXME: Redirect to a meaningful place, with a message that they were charged
+    # request.user.profile.stripe_token = token
 
 
 class SelfInventoryView(django_views.ListView):
     model = Item
-    template_name="my_items.html"
-    context_object_name='items'
-    paginate_by=100
+    template_name = "my_items.html"
+    context_object_name = 'items'
+    paginate_by = 100
 
     def get_queryset(self):
         profile = self.request.user.profile
@@ -96,8 +100,8 @@ class SelfInventoryView(django_views.ListView):
 
 class ReservationCreateView(TemplateView):
     # form_class = UserReservationForm
-    success_url = "/my_items.html"
-    template_name="reservation/make_reservation.html"
+    # success_url = "/my_items.html"
+    template_name = "reservation/make_reservation.html"
     item = None
 
     def dispatch(self, *args, **kwargs):
@@ -105,7 +109,7 @@ class ReservationCreateView(TemplateView):
         return super(ReservationCreateView, self).dispatch(*args, **kwargs)
 
     # def get_success_url(self):
-    #     return success_url
+    #     return reverse('reservation_seller_detail', kwargs = {'pk':self.item.id})
 
     def get_context_data(self, **kwargs):
         context = super(ReservationCreateView, self).get_context_data(**kwargs)
@@ -116,17 +120,20 @@ class ReservationCreateView(TemplateView):
 
     def post(self, *args, **kwargs):
         if 'hash_reservation' in self.request.POST:
+            import random
+            import string
+
             print("hash form submitted")
             hash_form = HashReservationForm(self.request.POST)
             reservation = hash_form.save(commit=False)
             reservation.item = self.item
             reservation.seller = self.request.user.profile
             reservation.status = 1
+            reservation.code = ''.join(random.choice(string.ascii_lowercase) for _ in range(8))
             reservation.save()
             msg_text = "You have reserved " + self.item.title
             msg_text += " as a hash based reservation "
             messages.add_message(self.request, messages.SUCCESS, msg_text)
-            return HttpResponseRedirect(self.success_url)
         else:
             user_form = UserReservationForm(self.request.POST)
             reservation = user_form.save(commit=False)
@@ -137,8 +144,8 @@ class ReservationCreateView(TemplateView):
             msg_text = "You have reserved " + self.item.title
             msg_text += " for user " + reservation.buyer.alias
             messages.add_message(self.request, messages.SUCCESS, msg_text)
-            return HttpResponseRedirect(self.success_url)
-            # return super(ReservationCreateView, self).form_valid(form)
+        final_url = HttpResponseRedirect(reverse('reservation_seller_detail', kwargs = {'pk':self.item.id}))
+        return final_url
 
 
 class ReservationDeleteView(django_views.RedirectView):

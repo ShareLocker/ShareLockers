@@ -25,7 +25,7 @@ class Item(models.Model):
     photo = models.ImageField(upload_to=upload_photo_to, null=True, blank=True, default=None)
 
     def __str__(self):
-        return "{}'s {}".format(self.owner, self.title)
+        return "{}'s {}".format(self.owner.user.username, self.title)
 
     def is_reserved(self):
         flag = False
@@ -54,14 +54,23 @@ class Item(models.Model):
                 res.status = 3
                 res.save()
 
+    def active_reservation(self):
+        res_ret = None
+        for res in self.reservation_set.all():
+            if res.status == 1:
+                res_ret = res
+        return res_ret
+
+
+fake_items = ['Belkin Router', 'Laptop', 'Aspirin', 'Phone Charger', 'Wireless Mouse', 'Used Phone']
 
 
 def create_items(num):
     fake = Factory.create()
     for profile in Profile.objects.all():
         for _ in range(num):
-            title = fake.sentence(nb_words=2)
-            description = fake.sentence(nb_words=7)
+            title = random.choice(fake_items)
+            description = fake.sentence(nb_words=4)
             price = round(random.uniform(1, 100), 2)
             item = Item(owner=profile, title=title, description=description, price=price)
             item.save()

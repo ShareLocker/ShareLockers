@@ -16,8 +16,9 @@ class Purchase(models.Model):
 class Unlock(models.Model):
     profile = models.ForeignKey(Profile)
     waiting = models.BooleanField(default=True)
+    by_proxy = models.BooleanField(default=False)
     time = models.DateTimeField(auto_now_add=True)
-    locker = models.ForeignKey(Locker, null=True) # FIXME make this False
+    locker = models.ForeignKey(Locker, null=True)  # FIXME make this False
 
     def __str__(self):
         status = '+'  # '+' indicates completed, '-' is waiting
@@ -28,17 +29,17 @@ class Unlock(models.Model):
 
 class Request(models.Model):
     buyer = models.ForeignKey(Profile, related_name="want",
-                    related_query_name="want_set")
+                              related_query_name="want_set")
     seller = models.ForeignKey(Profile, related_name="requested",
-                    related_query_name="requested_set")
+                               related_query_name="requested_set")
     item = models.ForeignKey(Item)
     instructions = models.TextField(blank=True, null=True)
 
     status_options = (
-        (1, "outstanding"), # requested, no other action taken yet
-        (2, "rejected"),    # potential seller removed request
-        (3, "withdrawn"),   # potential buyer removed request
-        (4, "expired"),     # time ran out and system cleared item
+        (1, "outstanding"),  # requested, no other action taken yet
+        (2, "rejected"),  # potential seller removed request
+        (3, "withdrawn"),  # potential buyer removed request
+        (4, "expired"),  # time ran out and system cleared item
     )
     status = models.IntegerField(choices=status_options)
 
@@ -47,21 +48,25 @@ class Request(models.Model):
 
     def age(self):
         from django.utils import timezone
+
         return (timezone.now() - self.created_at).total_days()
 
 
 class Reservation(models.Model):
     buyer = models.ForeignKey(Profile, related_name="ready",
-                    related_query_name="ready_set", null=True)
+                              related_query_name="ready_set", blank=True, null=True)
     seller = models.ForeignKey(Profile, related_name="stocked",
-                    related_query_name="stocked_set")
+                               related_query_name="stocked_set")
     item = models.ForeignKey(Item)
+    instructions = models.TextField(blank=True, null=True)
+    code = models.CharField(db_index=True, max_length=255)
+    email = models.EmailField(blank=True, null=True)
 
     status_options = (
         (1, "reserved"),  # in locker, waiting for buyer
-        (2, "halted"),    # after stocking, potential seller changes mind
-        (3, "abandoned"), # potential buyer no longer wants stocked itemd
-        (4, "processed"), # time ran out and processing action was taken
+        (2, "halted"),  # after stocking, potential seller changes mind
+        (3, "abandoned"),  # potential buyer no longer wants stocked itemd
+        (4, "processed"),  # time ran out and processing action was taken
     )
     status = models.IntegerField(choices=status_options)
 
@@ -70,4 +75,16 @@ class Reservation(models.Model):
 
     def age(self):
         from django.utils import timezone
+
         return (timezone.now() - self.created_at).total_days()
+
+    def is_open(self):
+        if self.status == 1:
+            return True
+        else:
+            return False
+
+    def url(self):
+        st = "reservation_h_"
+        st += str(self.id) + ".html/" + self.code
+        return st

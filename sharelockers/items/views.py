@@ -7,6 +7,7 @@ from hubs.models import Hub
 from transactions.models import Reservation
 from django.views.generic.base import TemplateView
 from django.core.urlresolvers import reverse
+from django.contrib.messages.views import SuccessMessageMixin
 
 
 class MarketplaceView(django_views.ListView):
@@ -65,17 +66,20 @@ class ItemCreateView(CreateView):
     # form.save()
 
 
-class ReservationSellerView(UpdateView):
+class ReservationSellerView(SuccessMessageMixin, UpdateView):
     model = Reservation
     fields = ['buyer', 'instructions']
     template_name = "reservation/reservation_seller.html"
-    success_url = '/my_items.html'
+    success_url = 'reservation_seller_detail'
     reservation = None
 
     def dispatch(self, *args, **kwargs):
         item = Item.objects.get(pk=kwargs['pk'])
         self.reservation = item.active_reservation()
         return super(ReservationSellerView, self).dispatch(*args, **kwargs)
+
+    def get_success_message(self, cleaned_data):
+        return 'You have added the message "' + self.reservation.instructions + '"'
 
     def get_context_data(self, **kwargs):
         context = super(ReservationSellerView, self).get_context_data(**kwargs)
@@ -86,6 +90,9 @@ class ReservationSellerView(UpdateView):
 
     def get_object(self):
         return self.reservation
+
+    def get_success_url(self):
+        return reverse('reservation_seller_detail', kwargs={'pk':self.reservation.item.id})
 
 
 class ReservationBuyerView(CreateView):

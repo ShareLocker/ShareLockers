@@ -1,5 +1,4 @@
-{% extends "bs_base.html" %}
-{% load bootstrap3 %}
+{% extends "nav_base.html" %}
 {% block content %}
 
 {% if right_hash %}
@@ -10,16 +9,21 @@
 
 {% if reservation.item.locker %}
 
-<p>This reservation is intended for you and is currently open.
-	When you are at the locker, click the following button to unlock.</p>
-<p>Please do not share this link with other people without the
+<p>A user of Share Lockers has reserved an item for you! It has been stocked
+	in one of our web connected lockers, so
+	right now it is sitting there waiting for you to open it.
+	You don't even need an account. The locker can be opened with the button below.
+	Please do not share this link with other people without the
 	permission of the owner of the item.</p>
 <p>Make special care to avoid posting the link publically, since it controls
 	a real locker</p>
 
 <ul>
 	<li>Item: {{ reservation.item }}</li>
-	<li>Locker: {{ reservation.item.locker }}</li>
+	<li>Locker: {{ reservation.item.locker.address }}</li>
+	{% if reservation.instructions.exists %}
+	<li>Message: {{ reservation.instructions }}</li>
+	{% endif %}
 </ul>
 
 <form action="" method="post">

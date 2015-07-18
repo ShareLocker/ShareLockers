@@ -25,7 +25,7 @@ class Item(models.Model):
     photo = models.ImageField(upload_to=upload_photo_to, null=True, blank=True, default=None)
 
     def __str__(self):
-        return "{}'s {}".format(self.owner, self.title)
+        return "{}'s {}".format(self.owner.user.username, self.title)
 
     def is_reserved(self):
         flag = False

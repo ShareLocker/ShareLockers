@@ -57,7 +57,6 @@ class Item(models.Model):
     def active_reservation(self):
         res_ret = None
         for res in self.reservation_set.all():
-            print(res.status)
             if res.status == 1:
                 res_ret = res
         return res_ret

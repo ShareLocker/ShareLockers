@@ -15,7 +15,7 @@ class Profile(models.Model):
     credits = models.DecimalField(max_digits=5, decimal_places=2, default=100)
 
     def __str__(self):
-        return '{} (id: {})'.format(self.alias, self.id)
+        return '{} (id: {})'.format(self.user.username, self.id)
 
 
 local_users = ['Alan', 'John', 'Brendan', 'Falon', 'Manish']

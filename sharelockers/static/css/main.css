@@ -965,12 +965,16 @@ Hides the menu at `48em`, but modify this based on your app's needs.
   box-shadow: 10px 10px 5px #888888;
   overflow: auto; }
 
+#main .title {
+  line-height: 90%; }
+
 .container {
   padding: 0.5em 0;
   text-align: center;
-  height: 100vh; }
+  z-index: 1;
+  position: relative; }
 
-a:visited {
+h1 a:visited {
   color: inherit; }
 
 body {
@@ -992,6 +996,7 @@ h3, .tagline {
   font-family: "Kadwa", serif; }
 
 .my-page-header {
+  z-index: 1;
   padding: 3em 1.5em;
   position: fixed;
   top: 0;
@@ -1013,9 +1018,6 @@ ul li {
 
 a {
   text-decoration: none; }
-
-.info {
-  background-color: #eee; }
 
 button {
   font-size: 1em;
@@ -1120,6 +1122,7 @@ button:hover {
 
 .action-container {
   position: fixed;
+  max-width: 700px;
   height: 70%;
   width: 60%;
   top: 50%;
@@ -1153,6 +1156,12 @@ button:hover {
   .vpopout {
     height: 70%;
     width: 85%; } }
+
+@media (max-width: 48em) {
+  .vpopout {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%; } }
 
 .image-wrapper {
   height: 70%;
@@ -1224,11 +1233,9 @@ footer {
   margin-left: 2em; }
 
 .stock-container select, .stock-container span, .stock-container textarea, .stock-container input {
+  display: block;
   margin-bottom: .5em;
   margin-left: 2em; }
-
-.photo-input {
-  margin-left: 0em !important; }
 
 .stock-container :first-child {
   margin-top: 2em; }
@@ -1255,9 +1262,13 @@ footer {
   background-color: #5081FC;
   border: none; }
 
+fieldset {
+  border: none; }
+
 .info {
   color: #E25D3A;
-  font-size: 3em; }
+  font-size: 3em;
+  font-family: "Kadwa", serif; }
 
 .info-card {
   min-height: 22em;
@@ -1317,10 +1328,10 @@ h6 {
     opacity: 0.7; } }
 
 .hero-container {
+  z-index: 0;
   height: 100vh;
   padding-top: 10em;
   background: RGBA(69, 136, 156, 1);
-  z-index: -1;
   position: fixed;
   bottom: 0;
   left: 0;
@@ -1332,23 +1343,24 @@ h6 {
 
 .section1 {
   background-color: #eee;
-  height: 100vh;
   margin-top: 100vh; }
 
-.section3 {
-  padding: 0.5em;
-  text-align: center;
-  margin-bottom: 28em; }
-
-.section3 h1 {
-  padding: 0; }
-
 .section2 {
-  background-color: white;
-  background: url("../img/mockup.jpg");
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-  height: 100vh; }
+  background-color: white; }
+
+.section3 {
+  background-color: #eee;
+  padding: 0.5em;
+  text-align: center; }
+
+.about-section {
+  background-color: white; }
+
+.section5 {
+  margin-bottom: 30em; }
+
+.section5 h1 {
+  padding: 0; }
 
 .slideRight {
   animation-name: slideRight;
@@ -1393,73 +1405,13 @@ h6 {
   100% {
     -webkit-transform: translateX(0%); } }
 
-@font-face {
-  font-family: "Flaticon";
-  src: url("flaticon.eot");
-  src: url("flaticon.eot#iefix") format("embedded-opentype"), url("flaticon.woff") format("woff"), url("flaticon.ttf") format("truetype"), url("flaticon.svg") format("svg");
-  font-weight: normal;
-  font-style: normal; }
+.span_1_of_2 img {
+  width: 100%; }
 
-[class^="flaticon-"]:before, [class*=" flaticon-"]:before,
-[class^="flaticon-"]:after, [class*=" flaticon-"]:after {
-  font-family: Flaticon;
-  font-size: 20px;
-  font-style: normal;
-  margin-left: 20px; }
-
-.flaticon-add182:before {
-  content: "\e000"; }
-
-.flaticon-archive34:before {
-  content: "\e001"; }
-
-.flaticon-barcode12:before {
-  content: "\e002"; }
-
-.flaticon-businessman267:before {
-  content: "\e003"; }
-
-.flaticon-cancel19:before {
-  content: "\e004"; }
-
-.flaticon-computers7:before {
-  content: "\e005"; }
-
-.flaticon-days2:before {
-  content: "\e006"; }
-
-.flaticon-internet16:before {
-  content: "\e007"; }
-
-.flaticon-magnifying59:before {
-  content: "\e008"; }
-
-.flaticon-man237:before {
-  content: "\e009"; }
-
-.flaticon-money181:before {
-  content: "\e00a"; }
-
-.flaticon-payment7:before {
-  content: "\e00b"; }
-
-.flaticon-protected9:before {
-  content: "\e00c"; }
-
-.flaticon-round57:before {
-  content: "\e00d"; }
-
-.flaticon-rounded54:before {
-  content: "\e00e"; }
-
-.flaticon-servers1:before {
-  content: "\e00f"; }
-
-.flaticon-smartphone54:before {
-  content: "\e010"; }
-
-.flaticon-wireless29:before {
-  content: "\e011"; }
+.headshot {
+  max-height: 7em;
+  border-radius: 50%;
+  border: 2px solid #E25D3A; }
 
 .login {
   text-align: center;
@@ -1519,6 +1471,39 @@ h6 {
 .span_1_of_4 {
   width: 23.8%; }
 
+/*  GRID OF TWO  */
+.span_2_of_2 {
+  width: 30%; }
+
+.span_1_of_2 {
+  width: 60%; }
+
+/*  GRID OF THREE  */
+.span_3_of_3 {
+  width: 100%; }
+
+.span_2_of_3 {
+  width: 66.13%; }
+
+.span_1_of_3 {
+  width: 32.26%; }
+
+/*  GRID OF FIVE  */
+.span_5_of_5 {
+  width: 100%; }
+
+.span_4_of_5 {
+  width: 79.68%; }
+
+.span_3_of_5 {
+  width: 59.36%; }
+
+.span_2_of_5 {
+  width: 39.04%; }
+
+.span_1_of_5 {
+  width: 18.72%; }
+
 /*  GO FULL WIDTH BELOW 480 PIXELS */
 @media only screen and (max-width: 930px) {
   .col {
@@ -1526,13 +1511,21 @@ h6 {
   .span_1_of_4, .span_2_of_4, .span_3_of_4, .span_4_of_4 {
     width: 50%; }
   .action-call {
-    font-size: 1.5em; } }
+    font-size: 1.5em; }
+  .col {
+    margin: 1% 0 1% 0%; }
+  .span_1_of_5, .span_2_of_5, .span_3_of_5, .span_4_of_5, .span_5_of_5 {
+    width: 20%; } }
 
 @media only screen and (max-width: 800px) {
   .col {
     margin: 1% 0 1% 0%; }
   .span_1_of_4, .span_2_of_4, .span_3_of_4, .span_4_of_4 {
-    width: 100%; } }
+    width: 48%; }
+  .col {
+    margin: 1% 0 1% 0%; }
+  .span_1_of_5, .span_2_of_5, .span_3_of_5, .span_4_of_5, .span_5_of_5 {
+    width: 50%; } }
 
 @media only screen and (max-width: 500px) {
   .col {
@@ -1545,4 +1538,22 @@ h6 {
   h3 {
     font-size: 1.5em; }
   .action-call {
-    font-size: 1.8em; } }
+    font-size: 1.8em; }
+  .col {
+    margin: 1% 0 1% 0%; }
+  .span_1_of_5, .span_2_of_5, .span_3_of_5, .span_4_of_5, .span_5_of_5 {
+    width: 100%; }
+  .col {
+    margin: 1% 0 1% 0%; }
+  .span_3_of_3, .span_2_of_3, .span_1_of_3 {
+    width: 100%; }
+  .select {
+    width: 100%; }
+  .title {
+    margin-top: 0;
+    margin-bottom: 1em;
+    padding-top: 0; }
+  .section5 {
+    margin-top: 3em; }
+  .hero-container {
+    margin-bottom: 3em; } }

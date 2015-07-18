@@ -11,12 +11,12 @@ from django.utils import timezone
 def connected(request, akey):
     ip = get_ip(request)
     if Hub.objects.filter(secret_key=akey).exists():
-        print("Known hub connected at IP: "+ip)
+        print("Known hub connected at IP: " + ip)
         this_hub = Hub.objects.get(secret_key=akey, ip=ip)
         this_hub.save()
         this_hub.flag_connect()
     else:
-        print("New hub connected at IP: "+ip)
+        print("New hub connected at IP: " + ip)
         if Location.objects.count() == 0:
             loc1 = Location(description="place_holder", latitude=0.0,
                             longitude=0.0)
@@ -35,7 +35,7 @@ def connected(request, akey):
             user = User(username="blank_user", password="pass")
             user.save()
             user.set_password("pass")
-            user.save() #
+            user.save()  #
             owning_profile = Profile(user=user, alias="blank_user",
                                      description="hello world")
             owning_profile.save()
@@ -74,7 +74,7 @@ def poll(request, akey):
         this_hub = Hub.objects.get(secret_key=akey)
         this_hub.polled_at = timezone.now()
         if this_hub.ip != ip:
-            print("Warning: IP of controller changed to "+ip)
+            print("Warning: IP of controller changed to " + ip)
             this_hub.ip = ip
             this_hub.save()
         print(" hub " + this_hub.secret_key + " polled us.", end='')

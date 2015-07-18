@@ -37,7 +37,7 @@ module.exports = function (arr) {
 		var itemTitle = arr[i].item_set[0].title;
 		var itemDetails = arr[i].item_set[0].description;
 		var itemId = arr[i].item_set[0].id;
-		var itemPrice = arr[i].item_set[0].price;
+		//var itemPrice = arr[i].item_set[0].price;
 		
 		// if (currentUser == itemOwner ) { +'"'+
 			if (itemPhoto === null ) {

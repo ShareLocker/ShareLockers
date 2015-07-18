@@ -7,13 +7,13 @@ from profiles.views import ReservationCreateView
 urlpatterns = [
     url(r'^rest-auth/', include('rest_auth.urls')),
     url(r'^register/$', profiles_views.user_register, name="user_register"),
-    url(r'^login/$',  'django.contrib.auth.views.login',  name='view_login'),
-    url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}),
+    url(r'^login/$', 'django.contrib.auth.views.login', name='view_login'),
+    url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}, name='view_logout'),
     url(r'^charge/$', profiles_views.stripe_charge_view),
     url(r'^my_items.html$', users_views.SelfInventoryView.as_view(),
-                                    name='self_inventory'),
+        name='self_inventory'),
     url(r'^make_reservation(?P<pk>\d+).html$', users_views.ReservationCreateView.as_view(),
-                                    name='make_reservation'),
+        name='make_reservation'),
     url(r'^delete_reservation(?P<pk>\d+).html$', users_views.ReservationDeleteView.as_view(),
-                                    name='delete_reservation'),
+        name='delete_reservation'),
 ]

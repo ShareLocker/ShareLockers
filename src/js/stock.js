@@ -40,7 +40,11 @@ module.exports = function () {
 					var description = $('.item-description').val();
 					var price = $('.item-price').val();
 					var owner = $('.user-id').attr('data-id');
+<<<<<<< HEAD
 					var photo = $('.photo-input').val();
+=======
+					var photo = $('.item-photo').val();
+>>>>>>> c16b6029e8fd474d84c8884292e64f4b56c3a64e
 					console.log(photo);
 					data.append('photo', file);
 					data.append('title', title);

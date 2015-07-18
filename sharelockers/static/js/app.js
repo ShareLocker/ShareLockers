@@ -1,28 +1,29 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-// HEADER ANIMATION
-
 var $ = require("jquery");
 
-$(window).scroll(function() {
-  if ($(this).scrollTop() > 1){
-    $('.my-page-header').addClass("sticky");
-  } else {
-    $('.my-page-header').removeClass("sticky");
-  }
-});
-
-// Scroll Indicator
-
-$(window).scroll(function() {
-		$('.scroll').each(function(){
-		var imagePos = $(this).offset().top;
-
-		var topOfWindow = $(window).scrollTop();
-			if (imagePos < topOfWindow+400) {
-				$(this).addClass(".pulse");
-			}
-		});
+// HEADER ANIMATION
+$(function () {
+	
+	$(window).scroll(function() {
+	  if ($(this).scrollTop() > 1){
+	    $('.my-page-header').addClass("sticky");
+	  } else {
+	    $('.my-page-header').removeClass("sticky");
+	  }
 	});
+	
+	// Scroll Indicator
+	//var homeIconContainerTop = $('.home-icons').offset().top - ($(window).height());
+	
+	$(window).scroll(function() {
+		
+		if ($(window).scrollTop () > homeIconContainerTop) {
+			$('.home-icons').addClass('slideRight');
+		}
+			
+	});
+
+});
 
 // $(document).ready(function(){
 //   $(".scroll").animate( ".scroll" , 1000 , swing, complete);
@@ -98,7 +99,8 @@ var showLists =require('../showLists');
 
 router.route('dashboard', function () {
   show('dashboard');
-		
+	$('.this-user').html($('.user-id').attr('data-name'));
+  
 // RESPONSIVE DASHBOARD MENU
 			
 			(function () {
@@ -236,11 +238,11 @@ router.route('location/locker', function () {
 			method: 'GET', 
 			url: '/api/lockers/',
   		}).done(function (data){
+			 
 			console.log(data);
 			showLockers(data);
 			lockerGenerator(data);
 			stock();
-			//colorGen('.card');
 			$(document).ready(function() {
 				var currentUser = parseInt($('.user-id').attr('data-id'));
 		            $('.locker-wrapper').click(function() {
@@ -282,7 +284,7 @@ router.route('location/locker', function () {
 						
 		            });
 		            $('.close').click(function() {
-		                $('.action-container').hide('duration fast');
+		                $('.action-container').fadeOut('duration fast');
 						$('.stock-wrapper').fadeOut('duration fast');
 		            });
 					openLocker('.open-button');
@@ -414,7 +416,7 @@ module.exports = function (arr) {
 		var itemId = arr[i].item_set[0].id;
 		var itemPrice = arr[i].item_set[0].price;
 		
-		// if (currentUser == itemOwner ) { +'"'+
+		// if (currentUser == itemOwner ) 
 			if (itemPhoto === null ) {
 				var html = '<div data-photo="'+itemPhoto+'" data-price='+itemPrice+' data-owner='+itemOwner+' data-details="'+itemDetails+'" data-id='+itemId+' data-locker='+lockerId+' class="locker-wrapper"><div class="vlocker"><span class="card animated"><span class="lockerTitle">'+ lockerTitle + '<br>' + itemTitle +'</span></span></div></div>';
 				$('.locker-bank').append(html);

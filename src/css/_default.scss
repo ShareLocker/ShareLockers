@@ -4,11 +4,13 @@
 .container{
   padding: 0.5em 0;
   text-align: center;
-  height: 100vh;
+  // min-height: 100vh;
+  z-index: 1;
+  position: relative;
  
 }
 
-a:visited{ color: inherit; }
+h1 a:visited{ color: inherit; }
 
 body{
  background-color: RGBA(69, 136, 156, 0.5);
@@ -35,6 +37,7 @@ h3 ,.tagline{
 }
 
 .my-page-header{
+  z-index: 1;
   padding:3em 1.5em;
   position: fixed;
   top:0;
@@ -64,9 +67,6 @@ a{
   text-decoration: none;
 }
 
-.info{
-  background-color:#eee;
-}
 //BUTTONS
 
 button {
@@ -186,7 +186,13 @@ button:hover {
  transition: all 0.7s;
 }
 
+<<<<<<< HEAD
 .action-container{
+=======
+
+
+.vpopout {
+>>>>>>> c16b6029e8fd474d84c8884292e64f4b56c3a64e
   position: fixed;
   height: 70%;
   width: 60%;
@@ -224,6 +230,16 @@ button:hover {
       width: 85%;
 }
 }
+
+
+ @media (max-width: 48em) {
+    .vpopout {
+    margin-left: auto;
+    margin-right: auto;
+
+    width:100%;
+ }
+ }
 
 .image-wrapper {
  
@@ -338,4 +354,6 @@ footer{
   border: none;
 }
 
-
+fieldset{
+  border: none;
+}

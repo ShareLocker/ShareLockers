@@ -19,14 +19,15 @@ router.route('location/locker', function () {
 			method: 'GET', 
 			url: '/api/lockers/',
   		}).done(function (data){
+			 
 			console.log(data);
 			showLockers(data);
 			lockerGenerator(data);
 			stock();
-			//colorGen('.card');
 			$(document).ready(function() {
 				var currentUser = parseInt($('.user-id').attr('data-id'));
 		            $('.locker-wrapper').click(function() {
+<<<<<<< HEAD
 						if ($(this).data('id') !== undefined) {
 							if ($(this).data('photo') === null ) {
 								$('.item-photo').hide();
@@ -67,6 +68,14 @@ router.route('location/locker', function () {
 		            $('.close').click(function() {
 		                $('.action-container').hide('duration fast');
 						$('.stock-wrapper').fadeOut('duration fast');
+=======
+		                $(this).find('.vpopout').slideDown('duration fast');
+						$('.stock-wrapper').fadeIn('duration fast');
+		            });
+		            $('.locker-wrapper').mouseleave(function() {
+		                $(this).find('.vpopout').hide('duration fast');
+						$('.stock-wrapper').hide();
+>>>>>>> c16b6029e8fd474d84c8884292e64f4b56c3a64e
 		            });
 					openLocker('.open-button');
 					buyItem('.buy-button');

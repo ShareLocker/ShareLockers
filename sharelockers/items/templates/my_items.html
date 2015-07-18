@@ -41,6 +41,7 @@
 			<th>Item</th>
 			<th>Description</th>
 			<th>Price</th>
+			<th>View <br /> Reservation </th>
 			<th>Cancel <br /> Reservation</th>
 		</tr>
 	</thead>
@@ -51,6 +52,7 @@
 			<td>{{ item.title }}</td>
 			<td>{{ item.description }}</td>
 			<td>{{ item.price }}</td>
+			<td><a href="{% url 'reservation_seller_detail' pk=item.id %}">Details</a></td>
 			<td><a href="{% url 'delete_reservation' pk=item.id %}">Withdraw</a></td>
 		</tr>
 		{% endif %}

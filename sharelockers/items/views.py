@@ -68,7 +68,7 @@ class ItemCreateView(CreateView):
 
 class ReservationSellerView(SuccessMessageMixin, UpdateView):
     model = Reservation
-    fields = ['buyer', 'instructions']
+    fields = ['buyer', 'email', 'instructions']
     template_name = "reservation/reservation_seller.html"
     success_url = 'reservation_seller_detail'
     reservation = None

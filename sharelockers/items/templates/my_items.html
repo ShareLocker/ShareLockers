@@ -25,8 +25,8 @@
 			<td>{{ item.price }}</td>
 			<td><a href="{% url 'make_reservation' pk=item.id %}">Reserve</a></td>
 			<td>
-				{% if item.locker.exists %}
-				{{ item.locker }}
+				{% if item.locker %}
+				{{ item.locker.address }}
 				{% else %}
 				-
 				{% endif %}

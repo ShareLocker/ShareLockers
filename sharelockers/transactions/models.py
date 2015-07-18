@@ -60,6 +60,7 @@ class Reservation(models.Model):
     item = models.ForeignKey(Item)
     instructions = models.TextField(blank=True, null=True)
     code = models.CharField(db_index=True, max_length=255)
+    email = models.EmailField(blank=True, null=True)
 
     status_options = (
         (1, "reserved"),  # in locker, waiting for buyer

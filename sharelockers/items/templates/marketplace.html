@@ -4,9 +4,7 @@
 <h3>Available Items in Broad Marketplace</h3>
 <h2>Request item to propt owner to stock in their local set of Share Lockers</h2>
 
-{% bootstrap_pagination page_obj %}
-
-<table class="table table-striped">
+<table class="pure-table pure-table-bordered" align="center">
 	<thead>
 		<tr>
 			<th>Item</th>
@@ -26,9 +24,5 @@
 		{% endfor %}
 	</tbody>
 </table>
-
-{% if is_paginated %}
-    {% bootstrap_pagination page_obj %}
-{% endif %}
 
 {% endblock %}

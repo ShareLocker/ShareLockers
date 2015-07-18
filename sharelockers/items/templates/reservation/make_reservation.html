@@ -9,6 +9,23 @@
 
 <h2>Create Reservation</h2>
 
+<p>You can reserve an item so that only the person you grant access to can open
+    whatever locker it is in.</p>
+    <ul>
+        <li>Item: {{ item }}</li>
+    </ul>
+<p>
+    {% if item.locker %}
+    Since the item is currently in {{ item.locker.address }}, the recipient will
+    be notified that the item is ready to be picked up (if we have an email
+    on file for them).
+    {% else %}
+    Once you stock the item in a locker, the recipient will be notified that
+    the item is ready to be picked up (if we have an email on file for them).
+    {% endif %}
+</p>
+
+
 <div class="pure-g">
 <div class="pure-u-1-2">
 	<div class="l-box">

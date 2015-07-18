@@ -186,14 +186,10 @@ button:hover {
  transition: all 0.7s;
 }
 
-<<<<<<< HEAD
+
 .action-container{
-=======
-
-
-.vpopout {
->>>>>>> c16b6029e8fd474d84c8884292e64f4b56c3a64e
   position: fixed;
+  max-width: 700px;
   height: 70%;
   width: 60%;
   top: 50%;
@@ -201,6 +197,7 @@ button:hover {
 	transform: translate(-50%, -50%);
   display: none;
 }
+
 .vpopout {
   position: absolute;
   height: 100%;
@@ -318,12 +315,13 @@ footer{
   margin-left: 2em;
 }
 .stock-container select, .stock-container span, .stock-container textarea, .stock-container input{
+  display: block;
   margin-bottom: .5em;
   margin-left: 2em;
 }
-.photo-input {
-  margin-left: 0em !important;
-}
+// .photo-input {
+//   margin-left: 0em !important;
+// }
 .stock-container :first-child {
   margin-top: 2em;
 }

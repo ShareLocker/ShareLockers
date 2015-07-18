@@ -37,9 +37,9 @@ module.exports = function (arr) {
 		var itemTitle = arr[i].item_set[0].title;
 		var itemDetails = arr[i].item_set[0].description;
 		var itemId = arr[i].item_set[0].id;
-		//var itemPrice = arr[i].item_set[0].price;
+		var itemPrice = arr[i].item_set[0].price;
 		
-		// if (currentUser == itemOwner ) { +'"'+
+		// if (currentUser == itemOwner ) 
 			if (itemPhoto === null ) {
 				var html = '<div data-photo="'+itemPhoto+'" data-price='+itemPrice+' data-owner='+itemOwner+' data-details="'+itemDetails+'" data-id='+itemId+' data-locker='+lockerId+' class="locker-wrapper"><div class="vlocker"><span class="card animated"><span class="lockerTitle">'+ lockerTitle + '<br>' + itemTitle +'</span></span></div></div>';
 				$('.locker-bank').append(html);

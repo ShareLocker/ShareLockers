@@ -233,12 +233,12 @@ var colorGen = require('../colorGen');
 
 router.route('location/locker', function () {
 
-		
+
 		$.ajax({
-			method: 'GET', 
+			method: 'GET',
 			url: '/api/lockers/',
   		}).done(function (data){
-			 
+
 			console.log(data);
 			showLockers(data);
 			lockerGenerator(data);
@@ -252,7 +252,7 @@ router.route('location/locker', function () {
 							}
 							 else {
 								$('.item-photo').attr('src', $(this).data('photo'));
-								$('.item-photo').show(); 
+								$('.item-photo').show();
 							 }
 			                $('.lockerDetails').html($(this).data('details'));
 							$('.lockerDetails').append('<br>$');
@@ -261,8 +261,8 @@ router.route('location/locker', function () {
 								$('.open-button').attr('data-id', $(this).data('locker'));
 								$('.stock-button').hide();
 								$('.open-button').show();
-								
-								
+
+
 							}
 							else {
 								$('.buy-button').attr('data-id', $(this).data('id'));
@@ -277,11 +277,11 @@ router.route('location/locker', function () {
 							$('.lockerDetails').html('EMPTY');
 							$('.stock-button').show();
 							$('.open-button').show();
-							$('.buy-button').hide();								
+							$('.buy-button').hide();
 						}
 						$('.action-container').slideDown('duration fast');
 						$('.stock-wrapper').fadeIn('duration fast');
-						
+
 		            });
 		            $('.close').click(function() {
 		                $('.action-container').fadeOut('duration fast');
@@ -294,14 +294,14 @@ router.route('location/locker', function () {
 			// 	var username =$('.login-username').val();
 			// })
 		});
-		
+
 		// $.ajax({
-		// 	method: 'GET', 
+		// 	method: 'GET',
 		// 	url: '/api/profiles/',
   		// }).done(function (data){
 		// 	console.log(data);
 		// });
-		
+
 
 		function showLockers(data) {
 			var lockerTemplate = views['locker-list'];
@@ -313,6 +313,7 @@ router.route('location/locker', function () {
 
 
 });
+
 },{"../buyItem":2,"../colorGen":3,"../getCookie":9,"../lockerGenerator":11,"../openLocker":12,"../router":13,"../show":14,"../stock":17,"jquery":"jquery","underscore":"underscore","views":"views"}],8:[function(require,module,exports){
 var $ = require('jquery');
 var _ = require('underscore');
@@ -579,9 +580,9 @@ module.exports = function () {
 			 $('.stock-wrapper').hide();
 			 $('.stock-container').css("width", "0%");
 		 })
-	
+
 	$.ajax({
-			method: 'GET', 
+			method: 'GET',
 			url: '/api/owneditems/',
   		}).done(function (data){
 			console.log(data);
@@ -593,7 +594,7 @@ module.exports = function () {
 				$('.item-id').val($(".item-inventory option:selected").data('id'));
 			});
 				$('.item-stock').click(function (e) {
-				e.stopPropagation();	
+				e.stopPropagation();
 				e.preventDefault();
 					var data = new FormData();
 					var file = $('.photo-input').get(0).files[0];
@@ -612,16 +613,16 @@ module.exports = function () {
 					data.append('locker', lockerId);
 
 					console.log(data);
-				
-				
+
+
 					if ($('.item-id').val() == 0) {
 						if ( photo == 0 ) {
-									$.ajax({		
+									$.ajax({
 										beforeSend: function (request){
 							            request.setRequestHeader('X-CSRFToken', csrftoken);
 							         },
-									   
-										method: 'POST', 
+
+										method: 'POST',
 										url: '/api/owneditems/',
 										data: {'title': title,
 												'description': description,
@@ -633,15 +634,15 @@ module.exports = function () {
 											console.log(data);
 											setTimeout('parent.location.reload()',500);
 									});
-							
+
 						}
 						 else {
-									$.ajax({		
+									$.ajax({
 									beforeSend: function (request){
 						            request.setRequestHeader('X-CSRFToken', csrftoken);
 						           },
-								   
-									method: 'POST', 
+
+									method: 'POST',
 									url: '/api/owneditems/',
 									data: data,
 									//cache: false,
@@ -657,12 +658,12 @@ module.exports = function () {
 					else {
 						var itemId = $('.item-id').val();
 								if ( photo == 0 ) {
-										$.ajax({		
+										$.ajax({
 											beforeSend: function (request){
 								            request.setRequestHeader('X-CSRFToken', csrftoken);
 								         },
-										   
-											method: 'PUT', 
+
+											method: 'PUT',
 											url: '/api/owneditems/'+itemId,
 											data: {'title': title,
 													'description': description,
@@ -674,15 +675,15 @@ module.exports = function () {
 												console.log(data);
 												setTimeout('parent.location.reload()',500);
 										});
-								
+
 								}
 								else {
-									$.ajax({		
+									$.ajax({
 									beforeSend: function (request){
 						            request.setRequestHeader('X-CSRFToken', csrftoken);
 						           },
-								   
-									method: 'PUT', 
+
+									method: 'PUT',
 									url: '/api/owneditems/'+itemId,
 									data: data,
 									//cache: false,
@@ -694,12 +695,13 @@ module.exports = function () {
 										setTimeout('parent.location.reload()',500);
 									});
 							 }
-						
+
 					   }
 				});
 		  });
 	});
 };
+
 },{"../js/getCookie":9,"../js/router":13,"../js/show":14,"../js/showLists":15,"jquery":"jquery","underscore":"underscore","views":"views"}]},{},[10])
 
 

@@ -1,0 +1,117 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+	<link rel="shortcut icon" href="{% static 'favicon.ico' %}" />
+    <title>Share Lockers</title>
+    <link href='http://fonts.googleapis.com/css?family=Kadwa' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+
+</head>
+<body>
+
+<div class="pure-menu pure-menu-horizontal" align="center">
+    <ul class="pure-menu-list">
+        <li class="pure-menu-item"><h2 class="title">Share Lockers</h2></li>
+        <li class="pure-menu-item"><a href="/" class="pure-menu-link">main</a></li>
+    </ul>
+    <ul class="pure-menu-list">
+        {% if request.user.is_authenticated %}
+        <li class="pure-menu-item">Hi, {{ request.user.username }}</li>
+        <li class="pure-menu-item"><a href="{% url 'view_logout' %}" class="pure-menu-link">logout</a></li>
+        {% else %}
+        <li class="pure-menu-item"><a href="{% url 'view_login' %}" class="pure-menu-link">log in</a></li>
+        <li class="pure-menu-item"><a href="{% url 'user_register' %}" class="pure-menu-link">register</a></li>
+        {% endif %}
+    </ul>
+</div>
+
+<!-- <div>
+    <h1 class="title center"><a href="http://sharelockers.com/">Share Lockers</a></h1>
+</div> -->
+
+<div class="login">
+
+<style>
+.info, .success, .warning, .error, .validation {
+border: 1px solid;
+margin: 10px 0px;
+padding:15px 10px 15px 50px;
+background-repeat: no-repeat;
+background-position: 10px center;
+}
+.info {
+color: #00529B;
+background-color: #BDE5F8;
+}
+.success {
+color: #4F8A10;
+background-color: #DFF2BF;
+}
+.warning {
+color: #9F6000;
+background-color: #FEEFB3;
+}
+.error {
+color: #D8000C;
+background-color: #FFBABA;
+}
+ul{
+   position: relative;
+}
+ul li{
+  display: block;
+  margin: 10px;
+}
+</style>
+    {% if messages %}
+    <ol>
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+            {{ message }}
+        </li>
+        {% endfor %}
+    </ol>
+    {% endif %}
+
+{% block content %}
+{% endblock %}
+
+<p>&nbsp;</p>
+<hr />
+
+
+
+<h4>Navigation pages</h4>
+
+<div class="pure-g">
+    <div class="pure-u-1-3">
+      <h4>Administrator Tools</h4>
+      <ul class="pure-menu-list">
+    	  <li><a href="{% url 'view_locs' %}">Locations</a>, </li>
+    	  <li><a href="{% url 'view_hubs' %}">Hubs</a></li>
+      </ul>
+
+    </div>
+    <div class="pure-u-1-3">
+      <h4>Profile Tools</h4>
+      <ul class="pure-menu-list">
+    	  <li><a href="{% url 'self_inventory' %}">Your Items</a></li>
+      </ul>
+
+    </div>
+    <div class="pure-u-1-3">
+      <h4>Global Tools</h4>
+      <ul class="pure-menu-list">
+    	  <li><a href="{% url 'view_marketplace' pk=1 %}">Marketplace</a></li>
+      </ul>
+
+    </div>
+</div>
+
+</div>
+
+</body>
+</html>

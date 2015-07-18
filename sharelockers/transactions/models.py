@@ -54,12 +54,13 @@ class Request(models.Model):
 
 class Reservation(models.Model):
     buyer = models.ForeignKey(Profile, related_name="ready",
-                              related_query_name="ready_set", null=True)
+                              related_query_name="ready_set", blank=True, null=True)
     seller = models.ForeignKey(Profile, related_name="stocked",
                                related_query_name="stocked_set")
     item = models.ForeignKey(Item)
     instructions = models.TextField(blank=True, null=True)
     code = models.CharField(db_index=True, max_length=255)
+    email = models.EmailField(blank=True, null=True)
 
     status_options = (
         (1, "reserved"),  # in locker, waiting for buyer

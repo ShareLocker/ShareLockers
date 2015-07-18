@@ -17,9 +17,9 @@ module.exports = function () {
 			 $('.stock-wrapper').hide();
 			 $('.stock-container').css("width", "0%");
 		 })
-	
+
 	$.ajax({
-			method: 'GET', 
+			method: 'GET',
 			url: '/api/owneditems/',
   		}).done(function (data){
 			console.log(data);
@@ -31,7 +31,7 @@ module.exports = function () {
 				$('.item-id').val($(".item-inventory option:selected").data('id'));
 			});
 				$('.item-stock').click(function (e) {
-				e.stopPropagation();	
+				e.stopPropagation();
 				e.preventDefault();
 					var data = new FormData();
 					var file = $('.photo-input').get(0).files[0];
@@ -50,16 +50,16 @@ module.exports = function () {
 					data.append('locker', lockerId);
 
 					console.log(data);
-				
-				
+
+
 					if ($('.item-id').val() == 0) {
 						if ( photo == 0 ) {
-									$.ajax({		
+									$.ajax({
 										beforeSend: function (request){
 							            request.setRequestHeader('X-CSRFToken', csrftoken);
 							         },
-									   
-										method: 'POST', 
+
+										method: 'POST',
 										url: '/api/owneditems/',
 										data: {'title': title,
 												'description': description,
@@ -71,15 +71,15 @@ module.exports = function () {
 											console.log(data);
 											setTimeout('parent.location.reload()',500);
 									});
-							
+
 						}
 						 else {
-									$.ajax({		
+									$.ajax({
 									beforeSend: function (request){
 						            request.setRequestHeader('X-CSRFToken', csrftoken);
 						           },
-								   
-									method: 'POST', 
+
+									method: 'POST',
 									url: '/api/owneditems/',
 									data: data,
 									//cache: false,
@@ -95,12 +95,12 @@ module.exports = function () {
 					else {
 						var itemId = $('.item-id').val();
 								if ( photo == 0 ) {
-										$.ajax({		
+										$.ajax({
 											beforeSend: function (request){
 								            request.setRequestHeader('X-CSRFToken', csrftoken);
 								         },
-										   
-											method: 'PUT', 
+
+											method: 'PUT',
 											url: '/api/owneditems/'+itemId,
 											data: {'title': title,
 													'description': description,
@@ -112,15 +112,15 @@ module.exports = function () {
 												console.log(data);
 												setTimeout('parent.location.reload()',500);
 										});
-								
+
 								}
 								else {
-									$.ajax({		
+									$.ajax({
 									beforeSend: function (request){
 						            request.setRequestHeader('X-CSRFToken', csrftoken);
 						           },
-								   
-									method: 'PUT', 
+
+									method: 'PUT',
 									url: '/api/owneditems/'+itemId,
 									data: data,
 									//cache: false,
@@ -132,7 +132,7 @@ module.exports = function () {
 										setTimeout('parent.location.reload()',500);
 									});
 							 }
-						
+
 					   }
 				});
 		  });

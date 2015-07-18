@@ -15,22 +15,22 @@ module.exports = function (arr) {
 		var lockerTitle= arr[i].local_code;
 		var lockerActions= arr[i].actions;
 		var currentUser = $('.user-id').attr('data-id');
-		
-		
-		
-		
+
+
+
+
 		if (lockerActions[1] === "can_open" ){
 		var openHTML = '<div class="locker-wrapper" data-locker='+lockerId+'><div class="vlocker"><span class="card animated"><span class="lockerTitle">'+ lockerTitle +'<br>EMPTY</span></span></div></div>';
 		$('.locker-bank').append(openHTML);
 		}
-		
+
 		// else if (lockerActions[0] === 'can_stock'){
 		// var stockHtml = '<div class="vlocker"><span class="card animated"><span class="lockerTitle">'+ lockerTitle +'<br>EMPTY</span><div class="vpopout"><span class="lockerDetails">EMPTY</span><a href="#/stock/'+ lockerId +
 		// '" class="stock-button">STOCK</a></div></div>';
 		// $('.locker-bank').append(stockHtml);
 		// }
-		
-		
+
+
 		else {
 		var itemPhoto = arr[i].item_set[0].photo;
 		var itemOwner = arr[i].item_set[0].owner;
@@ -38,8 +38,13 @@ module.exports = function (arr) {
 		var itemDetails = arr[i].item_set[0].description;
 		var itemId = arr[i].item_set[0].id;
 		var itemPrice = arr[i].item_set[0].price;
+<<<<<<< HEAD
 		
 		// if (currentUser == itemOwner ) 
+=======
+
+		// if (currentUser == itemOwner ) { +'"'+
+>>>>>>> 953eda6b386c6e8bc29225c8a1e1eca1db8d4213
 			if (itemPhoto === null ) {
 				var html = '<div data-photo="'+itemPhoto+'" data-price='+itemPrice+' data-owner='+itemOwner+' data-details="'+itemDetails+'" data-id='+itemId+' data-locker='+lockerId+' class="locker-wrapper"><div class="vlocker"><span class="card animated"><span class="lockerTitle">'+ lockerTitle + '<br>' + itemTitle +'</span></span></div></div>';
 				$('.locker-bank').append(html);
@@ -58,8 +63,8 @@ module.exports = function (arr) {
 		// }
 		}
 
-		++i;	 
-		
+		++i;
+
 	};
 
 };

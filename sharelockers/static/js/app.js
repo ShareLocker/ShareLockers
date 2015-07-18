@@ -277,12 +277,12 @@ router.route('location/locker', function () {
 							$('.open-button').show();
 							$('.buy-button').hide();								
 						}
-						$('.vpopout').slideDown('duration fast');
+						$('.action-container').slideDown('duration fast');
 						$('.stock-wrapper').fadeIn('duration fast');
 						
 		            });
 		            $('.close').click(function() {
-		                $('.vpopout').hide('duration fast');
+		                $('.action-container').hide('duration fast');
 						$('.stock-wrapper').fadeOut('duration fast');
 		            });
 					openLocker('.open-button');
@@ -572,11 +572,10 @@ module.exports = function () {
 	 $('.stock-button').click(function() {
 		 var lockerId = $(this).attr('data-id');
 		 console.log(lockerId);
-		 $('.stock-wrapper').fadeIn('duration fast');
-		 $('.stock-container').fadeIn('duration fast');
+		 $('.stock-container').css("width", "100%");
 		 $('.close').click(function(){
 			 $('.stock-wrapper').hide();
-		 	 $('.stock-container').hide();
+			 $('.stock-container').css("width", "0%");
 		 })
 	
 	$.ajax({

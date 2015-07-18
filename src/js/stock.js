@@ -12,11 +12,10 @@ module.exports = function () {
 	 $('.stock-button').click(function() {
 		 var lockerId = $(this).attr('data-id');
 		 console.log(lockerId);
-		 $('.stock-wrapper').fadeIn('duration fast');
-		 $('.stock-container').fadeIn('duration fast');
+		 $('.stock-container').css("width", "100%");
 		 $('.close').click(function(){
 			 $('.stock-wrapper').hide();
-		 	 $('.stock-container').hide();
+			 $('.stock-container').css("width", "0%");
 		 })
 	
 	$.ajax({

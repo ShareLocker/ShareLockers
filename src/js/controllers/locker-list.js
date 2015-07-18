@@ -60,12 +60,12 @@ router.route('location/locker', function () {
 							$('.open-button').show();
 							$('.buy-button').hide();								
 						}
-						$('.vpopout').slideDown('duration fast');
+						$('.action-container').slideDown('duration fast');
 						$('.stock-wrapper').fadeIn('duration fast');
 						
 		            });
 		            $('.close').click(function() {
-		                $('.vpopout').hide('duration fast');
+		                $('.action-container').hide('duration fast');
 						$('.stock-wrapper').fadeOut('duration fast');
 		            });
 					openLocker('.open-button');

@@ -1280,6 +1280,21 @@ fieldset {
   transition: all 0.5s;
   overflow: hidden; }
 
+.buy-confirmation-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 0%;
+  background-color: #eee;
+  border-radius: .5em;
+  color: #FF4B4B;
+  z-index: 1000;
+  font-size: 1em;
+  font-weight: 100;
+  transition: all 0.5s;
+  overflow: hidden; }
+
 .info {
   color: #E25D3A;
   font-size: 3em;

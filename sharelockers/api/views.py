@@ -202,8 +202,14 @@ class PurchaseViewSet(viewsets.ModelViewSet):
         #         If this doesn't work, just return super()... as above instead
         # FIXME: Sanity check on how this Purchase is done
 
+
+
+
+import json
+
 def my_credits_view(request):
     try:
-        return JsonResponse({'credits': request.user.profile.credits})
+        data = {'credits': float(request.user.profile.credits)}
+        return HttpResponse(json.dumps(data), content_type = "application/json")
     except AttributeError:
-        return JsonResponse({'error': 'You must be logged in to see your credits.'})
+        return HttpResponse('Error: You must be logged in to see your credits.')

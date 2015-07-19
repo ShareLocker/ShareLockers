@@ -17,6 +17,8 @@ from items.forms import ItemForm
 import django.views.generic as django_views
 from django.views.generic.edit import CreateView
 from decimal import Decimal
+from django.core.mail import send_mail
+from sharelockers import settings
 
 
 def user_register(request):
@@ -45,6 +47,9 @@ def user_register(request):
                 request, messages.SUCCESS,
                 "Congratulations, {}, on creating your new account! You are now logged in.".format(
                     user.username))
+            send_mail("Welcome to Share Lockers",
+                    "Your account on sharelockers.come has been created!",
+                    settings.EMAIL_HOST_USER, [user.email], fail_silently=False)
             return redirect('view_index')
     return render(request, "profiles/register.html", {'user_form': user_form,
                                                       'profile_form': profile_form,

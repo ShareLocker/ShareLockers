@@ -1036,13 +1036,18 @@ button:hover {
   border: 1px solid black; }
 
 .buy-button {
+  display: none;
   position: absolute;
   top: 90%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%); }
 
+.stock-button {
+  display: none; }
+
 .open-button {
+  display: none;
   position: absolute;
   top: 90%;
   left: 50%;
@@ -1115,26 +1120,42 @@ button:hover {
   box-shadow: 0px 0px 0px 5px #003AC1;
   transition: all 0.7s; }
 
-.vpopout {
+.action-container {
   position: fixed;
-  height: 90%;
-  width: 50%;
+  max-width: 700px;
+  height: 70%;
+  width: 60%;
   top: 50%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
+  display: none; }
+
+.vpopout {
+  position: absolute;
+  height: 100%;
+  width: 100%;
   background-color: #0445EA;
-  z-index: 1000;
-  display: none;
+  z-index: 5;
   opacity: 0.95;
   border-radius: .5em; }
 
 .vpopout img {
+  margin-top: 3em;
+  display: block;
   border-radius: .5em;
-  -webkit-transform: translate(50%, 10%);
-  transform: translate(50%, 10%);
-  height: 50%;
-  width: 50%; }
+  height: auto;
+  width: 50%;
+  max-height: 250px;
+  max-width: 250px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: .5em; }
+
+@media (max-width: 48em) {
+  .vpopout {
+    height: 70%;
+    width: 85%; } }
 
 @media (max-width: 48em) {
   .vpopout {
@@ -1152,6 +1173,7 @@ button:hover {
   transform: translate(20%, 10%);
   background-color: black;
   opacity: 1;
+  border-radius: .5em;
   z-index: 1500; }
 
 .card img {
@@ -1170,6 +1192,7 @@ button:hover {
   transform: translate(-50%, -50%); }
 
 .lockerDetails {
+  padding-top: 1em;
   color: white;
   position: absolute;
   top: 70%;
@@ -1184,33 +1207,38 @@ footer {
 
 .stock-container {
   position: fixed;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 0%;
   background-color: #eee;
   border-radius: .5em;
   color: #FF4B4B;
   z-index: 1000;
-  padding: 2em;
   font-size: 1em;
-  padding-bottom: 4em;
   font-weight: 100;
-  display: none; }
+  transition: all 0.5s;
+  overflow: hidden; }
 
 .stock-item .item-stock {
   margin-top: 1em;
   position: absolute;
-  top: 87%;
+  top: 90%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%); }
 
-.stock-item input {
-  margin-bottom: .5em; }
+.stock-container h4 {
+  margin-bottom: .5em;
+  margin-left: 2em; }
 
-.stock-item textarea {
-  margin-bottom: .5em; }
+.stock-container select, .stock-container span, .stock-container textarea, .stock-container input {
+  display: block;
+  margin-bottom: .5em;
+  margin-left: 2em; }
+
+.stock-container :first-child {
+  margin-top: 2em; }
 
 .stock-wrapper {
   position: fixed;
@@ -1228,7 +1256,7 @@ footer {
   top: 10px;
   right: 10px;
   border-radius: 50%;
-  width: 1.45em; }
+  width: 1.8em; }
 
 .close:hover {
   background-color: #5081FC;

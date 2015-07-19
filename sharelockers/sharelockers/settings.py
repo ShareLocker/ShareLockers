@@ -40,6 +40,8 @@ INSTALLED_APPS = (
 
     'django_extensions',
     'rest_framework',
+    'rest_framework.authtoken',
+    'rest_auth',
 
     'hubs',
     'items',
@@ -49,6 +51,8 @@ INSTALLED_APPS = (
     'bootstrap3',
     'storages',
 )
+
+REST_SESSION_LOGIN = False
 
 AWS_STORAGE_BUCKET_NAME = 'sharelockers'
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')

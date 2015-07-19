@@ -1,10 +1,11 @@
-from django.conf.urls import url
+from django.conf.urls import include, url
 import profiles.views as profiles_views
 from profiles import views as users_views
 from profiles.views import ReservationCreateView
 # from django.views.generic import RedirectView
 
 urlpatterns = [
+    url(r'^rest-auth/', include('rest_auth.urls')),
     url(r'^register/$', profiles_views.user_register, name="user_register"),
     url(r'^login/$', 'django.contrib.auth.views.login', name='view_login'),
     url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}, name='view_logout'),

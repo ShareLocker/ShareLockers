@@ -12,7 +12,7 @@ var buyItem = require('../buyItem');
 var stock = require('../stock');
 var colorGen = require('../colorGen');
 
-router.route('location/locker', function () {
+module.exports = function () {
 
 
 		$.ajax({
@@ -88,9 +88,9 @@ router.route('location/locker', function () {
 			var lockerTemplate = views['locker-list'];
 		    var templateFn = _.template(lockerTemplate, { variable: 'm' });
 		    var lockerHTML = templateFn({ lockers: data });
-			$('.main-content').html(lockerHTML);
+			$('.content').append(lockerHTML);
 			return data;
 		}
 
 
-});
+};

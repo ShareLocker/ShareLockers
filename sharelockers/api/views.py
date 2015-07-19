@@ -1,3 +1,4 @@
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from rest_framework import viewsets, generics, permissions, serializers
 from lockers.models import Locker
@@ -200,3 +201,9 @@ class PurchaseViewSet(viewsets.ModelViewSet):
         # FIXME: How to return the full object rather than the limited one used for POSTing?
         #         If this doesn't work, just return super()... as above instead
         # FIXME: Sanity check on how this Purchase is done
+
+def my_credits_view(request):
+    try:
+        return JsonResponse({'credits': request.user.profile.credits})
+    except AttributeError:
+        return JsonResponse({'error': 'You must be logged in to see your credits.'})

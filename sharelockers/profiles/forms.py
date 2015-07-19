@@ -36,10 +36,10 @@ class ProfileForm(forms.ModelForm):
 class UserReservationForm(forms.ModelForm):
     class Meta:
         model = Reservation
-        fields = ('buyer',)
+        fields = ('buyer', 'email',)
 
 
 class HashReservationForm(forms.ModelForm):
     class Meta:
         model = Reservation
-        fields = ()
+        fields = ('email',)

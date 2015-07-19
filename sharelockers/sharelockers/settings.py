@@ -40,6 +40,8 @@ INSTALLED_APPS = (
 
     'django_extensions',
     'rest_framework',
+    'rest_framework.authtoken',
+    'rest_auth',
 
     'hubs',
     'items',
@@ -49,6 +51,8 @@ INSTALLED_APPS = (
     'bootstrap3',
     'storages',
 )
+
+REST_SESSION_LOGIN = False
 
 AWS_STORAGE_BUCKET_NAME = 'sharelockers'
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
@@ -124,3 +128,11 @@ LOGIN_REDIRECT_URL = '/#/dashboard'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'sharelockers@gmail.com'
+EMAIL_HOST_PASSWORD = 'OsterYpS'
+EMAIL_PORT = 587
+DEFAULT_FROM_EMAIL = 'sharelockers@gmail.com'
+SERVER_EMAIL = 'sharelockers@gmail.com'

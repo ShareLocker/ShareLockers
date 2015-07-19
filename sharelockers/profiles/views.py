@@ -7,6 +7,7 @@ from profiles.models import Profile
 from profiles.forms import UserForm, ProfileForm
 import stripe
 from django.http import HttpResponseRedirect, HttpResponse
+from django.core.urlresolvers import reverse
 from django.views.generic import TemplateView
 
 from profiles.forms import UserForm, ProfileForm, UserReservationForm, HashReservationForm
@@ -16,6 +17,8 @@ from items.forms import ItemForm
 import django.views.generic as django_views
 from django.views.generic.edit import CreateView
 from decimal import Decimal
+from django.core.mail import send_mail
+from sharelockers import settings
 
 
 def user_register(request):
@@ -44,6 +47,9 @@ def user_register(request):
                 request, messages.SUCCESS,
                 "Congratulations, {}, on creating your new account! You are now logged in.".format(
                     user.username))
+            send_mail("Welcome to Share Lockers",
+                    "Your account on sharelockers.come has been created!",
+                    settings.EMAIL_HOST_USER, [user.email], fail_silently=False)
             return redirect('view_index')
     return render(request, "profiles/register.html", {'user_form': user_form,
                                                       'profile_form': profile_form,
@@ -99,7 +105,7 @@ class SelfInventoryView(django_views.ListView):
 
 class ReservationCreateView(TemplateView):
     # form_class = UserReservationForm
-    success_url = "/my_items.html"
+    # success_url = "/my_items.html"
     template_name = "reservation/make_reservation.html"
     item = None
 
@@ -108,7 +114,7 @@ class ReservationCreateView(TemplateView):
         return super(ReservationCreateView, self).dispatch(*args, **kwargs)
 
     # def get_success_url(self):
-    #     return success_url
+    #     return reverse('reservation_seller_detail', kwargs = {'pk':self.item.id})
 
     def get_context_data(self, **kwargs):
         context = super(ReservationCreateView, self).get_context_data(**kwargs)
@@ -133,7 +139,6 @@ class ReservationCreateView(TemplateView):
             msg_text = "You have reserved " + self.item.title
             msg_text += " as a hash based reservation "
             messages.add_message(self.request, messages.SUCCESS, msg_text)
-            return HttpResponseRedirect(self.success_url)
         else:
             user_form = UserReservationForm(self.request.POST)
             reservation = user_form.save(commit=False)
@@ -144,8 +149,8 @@ class ReservationCreateView(TemplateView):
             msg_text = "You have reserved " + self.item.title
             msg_text += " for user " + reservation.buyer.alias
             messages.add_message(self.request, messages.SUCCESS, msg_text)
-            return HttpResponseRedirect(self.success_url)
-            # return super(ReservationCreateView, self).form_valid(form)
+        final_url = HttpResponseRedirect(reverse('reservation_seller_detail', kwargs = {'pk':self.item.id}))
+        return final_url
 
 
 class ReservationDeleteView(django_views.RedirectView):

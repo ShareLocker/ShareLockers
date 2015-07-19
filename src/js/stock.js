@@ -12,15 +12,14 @@ module.exports = function () {
 	 $('.stock-button').click(function() {
 		 var lockerId = $(this).attr('data-id');
 		 console.log(lockerId);
-		 $('.stock-wrapper').fadeIn('duration fast');
-		 $('.stock-container').fadeIn('duration fast');
+		 $('.stock-container').css("width", "100%");
 		 $('.close').click(function(){
 			 $('.stock-wrapper').hide();
-		 	 $('.stock-container').hide();
+			 $('.stock-container').css("width", "0%");
 		 })
-	
+
 	$.ajax({
-			method: 'GET', 
+			method: 'GET',
 			url: '/api/owneditems/',
   		}).done(function (data){
 			console.log(data);
@@ -32,16 +31,16 @@ module.exports = function () {
 				$('.item-id').val($(".item-inventory option:selected").data('id'));
 			});
 				$('.item-stock').click(function (e) {
-				e.stopPropagation();	
+				e.stopPropagation();
 				e.preventDefault();
 					var data = new FormData();
-					var file = $('.item-photo').get(0).files[0];
+					var file = $('.photo-input').get(0).files[0];
 					var csrftoken = getCookie('csrftoken');
 					var title = $('.item-title').val();
 					var description = $('.item-description').val();
 					var price = $('.item-price').val();
 					var owner = $('.user-id').attr('data-id');
-					var photo = $('.item-photo').val();
+					var photo = $('.photo-input').val();
 					console.log(photo);
 					data.append('photo', file);
 					data.append('title', title);
@@ -51,16 +50,16 @@ module.exports = function () {
 					data.append('locker', lockerId);
 
 					console.log(data);
-				
-				
+
+
 					if ($('.item-id').val() == 0) {
 						if ( photo == 0 ) {
-									$.ajax({		
+									$.ajax({
 										beforeSend: function (request){
 							            request.setRequestHeader('X-CSRFToken', csrftoken);
 							         },
-									   
-										method: 'POST', 
+
+										method: 'POST',
 										url: '/api/owneditems/',
 										data: {'title': title,
 												'description': description,
@@ -72,15 +71,15 @@ module.exports = function () {
 											console.log(data);
 											setTimeout('parent.location.reload()',500);
 									});
-							
+
 						}
 						 else {
-									$.ajax({		
+									$.ajax({
 									beforeSend: function (request){
 						            request.setRequestHeader('X-CSRFToken', csrftoken);
 						           },
-								   
-									method: 'POST', 
+
+									method: 'POST',
 									url: '/api/owneditems/',
 									data: data,
 									//cache: false,
@@ -96,12 +95,12 @@ module.exports = function () {
 					else {
 						var itemId = $('.item-id').val();
 								if ( photo == 0 ) {
-										$.ajax({		
+										$.ajax({
 											beforeSend: function (request){
 								            request.setRequestHeader('X-CSRFToken', csrftoken);
 								         },
-										   
-											method: 'PUT', 
+
+											method: 'PUT',
 											url: '/api/owneditems/'+itemId,
 											data: {'title': title,
 													'description': description,
@@ -113,15 +112,15 @@ module.exports = function () {
 												console.log(data);
 												setTimeout('parent.location.reload()',500);
 										});
-								
+
 								}
 								else {
-									$.ajax({		
+									$.ajax({
 									beforeSend: function (request){
 						            request.setRequestHeader('X-CSRFToken', csrftoken);
 						           },
-								   
-									method: 'PUT', 
+
+									method: 'PUT',
 									url: '/api/owneditems/'+itemId,
 									data: data,
 									//cache: false,
@@ -133,7 +132,7 @@ module.exports = function () {
 										setTimeout('parent.location.reload()',500);
 									});
 							 }
-						
+
 					   }
 				});
 		  });

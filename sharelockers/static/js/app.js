@@ -62,7 +62,7 @@ module.exports = function (button) {
 					console.log(data);
 				});
 				
-				document.location.href = '/#/location/locker'
+				document.location.href = '/#/dashboard'
 		});
 	
 }
@@ -95,11 +95,13 @@ var views = require('views');
 var router = require('../router');
 var show = require('../show');
 var showLists =require('../showLists');
+var lockers =require('../controllers/locker-list');
 
 
 router.route('dashboard', function () {
   show('dashboard');
 	$('.this-user').html($('.user-id').attr('data-name'));
+  lockers();
   
 // RESPONSIVE DASHBOARD MENU
 			
@@ -192,7 +194,7 @@ $('.profile').on('click', function() {
 		
 
 
-},{"../router":13,"../show":14,"../showLists":15,"jquery":"jquery","underscore":"underscore","views":"views"}],5:[function(require,module,exports){
+},{"../controllers/locker-list":7,"../router":13,"../show":14,"../showLists":15,"jquery":"jquery","underscore":"underscore","views":"views"}],5:[function(require,module,exports){
 'use strict';
 
 var $ = require('jquery');
@@ -231,7 +233,7 @@ var buyItem = require('../buyItem');
 var stock = require('../stock');
 var colorGen = require('../colorGen');
 
-router.route('location/locker', function () {
+module.exports = function () {
 
 
 		$.ajax({
@@ -307,12 +309,12 @@ router.route('location/locker', function () {
 			var lockerTemplate = views['locker-list'];
 		    var templateFn = _.template(lockerTemplate, { variable: 'm' });
 		    var lockerHTML = templateFn({ lockers: data });
-			$('.main-content').html(lockerHTML);
+			$('.content').append(lockerHTML);
 			return data;
 		}
 
 
-});
+};
 
 },{"../buyItem":2,"../colorGen":3,"../getCookie":9,"../lockerGenerator":11,"../openLocker":12,"../router":13,"../show":14,"../stock":17,"jquery":"jquery","underscore":"underscore","views":"views"}],8:[function(require,module,exports){
 var $ = require('jquery');

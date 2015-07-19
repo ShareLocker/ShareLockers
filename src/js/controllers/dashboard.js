@@ -6,11 +6,13 @@ var views = require('views');
 var router = require('../router');
 var show = require('../show');
 var showLists =require('../showLists');
+var lockers =require('../controllers/locker-list');
 
 
 router.route('dashboard', function () {
   show('dashboard');
 	$('.this-user').html($('.user-id').attr('data-name'));
+  lockers();
   
 // RESPONSIVE DASHBOARD MENU
 			

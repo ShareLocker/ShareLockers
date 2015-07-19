@@ -8,6 +8,9 @@
 
 
 {% if user.is_authenticated %}
+<p class="pure-control-group">
+    You are logged in as <b>{{ user.username }}</b>.
+</p>
 <p class="pure-control-group">To log in as a different user, first <a href="/logout/">log out</a> of your
     current account.</p>
     <p>Or view your <a href="/#/dashboard">dashboard</a></p>

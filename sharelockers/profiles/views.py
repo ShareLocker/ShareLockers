@@ -13,6 +13,7 @@ from django.views.generic import TemplateView
 from profiles.forms import UserForm, ProfileForm, UserReservationForm, HashReservationForm
 from items.models import Item
 from items.forms import ItemForm
+from hubs.models import Location
 # view classes
 import django.views.generic as django_views
 from django.views.generic.edit import CreateView
@@ -38,6 +39,8 @@ def user_register(request):
             # user.save() # You must call authenticate before login. :(
             # end extra password thing
             profile = profile_form.save(commit=False)
+            if Location.objects.count() > 0:
+                profile.location = Location.objects.all()[0]
             profile.user = user
             profile.save()
             user = authenticate(username=request.POST['username'],
@@ -125,8 +128,6 @@ class ReservationCreateView(TemplateView):
 
     def post(self, *args, **kwargs):
         if 'hash_reservation' in self.request.POST:
-            import random
-            import string
 
             print("hash form submitted")
             hash_form = HashReservationForm(self.request.POST)
@@ -134,7 +135,7 @@ class ReservationCreateView(TemplateView):
             reservation.item = self.item
             reservation.seller = self.request.user.profile
             reservation.status = 1
-            reservation.code = ''.join(random.choice(string.ascii_lowercase) for _ in range(8))
+            reservation.code = reservation.make_code()
             reservation.save()
             msg_text = "You have reserved " + self.item.title
             msg_text += " as a hash based reservation "

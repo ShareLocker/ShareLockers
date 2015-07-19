@@ -4,12 +4,14 @@ from lockers.models import Locker
 from profiles.models import Profile
 from hubs.models import Hub, Location
 from items.models import Item
-from transactions.models import Unlock, Purchase
+from transactions.models import Unlock, Purchase, Reservation, Request
 from .serializers import LockerSerializer, UserSerializer, ProfileSerializer, \
     HubSerializer, OwnedItemsSerializer, UnlockSerializer, PurchaseSerializer, \
     MakePurchaseSerializer
 from django.contrib.auth.models import User
 from rest_framework import status
+from django.core.mail import send_mail
+from sharelockers import settings
 
 from rest_framework.response import Response  # FIXME: Temporary
 
@@ -75,6 +77,26 @@ class OwnedItemViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         return Item.objects.filter(owner=self.request.user.profile)
 
+    # stocks item after locker has been opened, or updates item
+    def update(self, request, *args, **kwargs):
+        r = super(OwnedItemViewSet, self).update(request, *args, **kwargs)
+        if 'pk' in kwargs: # if not, this isn't working
+            item = Item.objects.get(pk=kwargs['pk'])
+            if item.has_request(): # was requested when stocked
+                # turn request into reservation
+                request = item.get_request()
+                buyer = request.buyer
+                reservation = Reservation(buyer=buyer, seller=request.seller,
+                                            item=item, status=1)
+                reservation.code = reservation.make_code()
+                reservation.save()
+                request.delete()
+                send_mail("Requested Item has Been Stocked!",
+                        """The item you requested has been stocked in a share locker by the owner.
+                        It is now available for pickup.""",
+                        settings.EMAIL_HOST_USER, [buyer.email], fail_silently=False)
+        return r
+
 
 class UnlockViewSet(viewsets.ModelViewSet):
     """
@@ -110,10 +132,11 @@ class UnlockViewSet(viewsets.ModelViewSet):
         # Set hub waiting/row/column for next time the hub polls the server
         print("Setting up for locker {} to open when server is polled".format(locker.local_code()))
         hub = locker.hub
-        hub.waiting = True
-        hub.waiting_col = locker.column
-        hub.waiting_row = locker.row
-        hub.save()
+        hub.poll_open(locker.column, locker.row)
+        # hub.waiting = True
+        # hub.waiting_col = locker.column
+        # hub.waiting_row = locker.row
+        # hub.save()
 
         # Destock the item from the locker
         if item:
@@ -181,7 +204,14 @@ class PurchaseViewSet(viewsets.ModelViewSet):
             raise serializers.ValidationError('Insufficient funds. Buy more credits to proceed with purchase.')
             return Response(serializer.data,
                             status=status.HTTP_402_PAYMENT_REQUIRED)  # FIXME: Delete after verifying that this will probably never be called
-
+        elif item.is_reserved():
+            reservation = item.active_reservation()
+            if reservation.buyer == buyer:
+                reservation.delete()
+            else:
+                print("This item is reserved for someone else.")
+                raise serializers.ValidationError('Attempted to purchase a reserved item without permissions.')
+                return Response(serializer.data, status=status.HTTP_401_UNATHORIZED)
 
         # Change owners
         print("Transferring ownership of item {} from {} to {}".format(item, seller, buyer))

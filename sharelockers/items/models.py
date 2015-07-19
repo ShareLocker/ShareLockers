@@ -27,6 +27,18 @@ class Item(models.Model):
     def __str__(self):
         return "{}'s {}".format(self.owner.user.username, self.title)
 
+    def has_request(self):
+        if self.request_set.count() > 0:
+            return True
+        else:
+            return False
+
+    def get_request(self):
+        if self.has_request:
+            return self.request_set.all()[0]
+        else:
+            return None
+
     def is_reserved(self):
         flag = False
         for res in self.reservation_set.all():

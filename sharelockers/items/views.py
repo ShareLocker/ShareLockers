@@ -8,6 +8,8 @@ from transactions.models import Reservation
 from django.views.generic.base import TemplateView
 from django.core.urlresolvers import reverse
 from django.contrib.messages.views import SuccessMessageMixin
+from django.core.mail import send_mail
+from sharelockers import settings
 
 
 class MarketplaceView(django_views.ListView):
@@ -18,7 +20,11 @@ class MarketplaceView(django_views.ListView):
     hub = None
 
     def dispatch(self, *args, **kwargs):
-        self.hub = Hub.objects.get(pk=kwargs['pk'])
+        print(' hub kwars '+str(kwargs))
+        self.hub = Hub.objects.all()[0]
+        if 'pk' in kwargs:
+            if kwargs['pk'] is not None:
+                self.hub = Hub.objects.get(pk=kwargs['pk'])
         return super(MarketplaceView, self).dispatch(*args, **kwargs)
 
     def get_queryset(self):
@@ -28,6 +34,14 @@ class MarketplaceView(django_views.ListView):
     def get_context_data(self, *args, **kwargs):
         context = super(MarketplaceView, self).get_context_data(**kwargs)
         context['hub'] = self.hub
+        hub_list = Hub.objects.all()
+        if len(hub_list) == 1:
+            context['hubs'] = None
+        else:
+            context['hubs'] = hub_list
+        context['items'] = Item.objects.filter(owner__location=self.hub.location,
+                        locker=None).exclude(owner_id=self.request.user.profile.id)
+        context['PHOTO_STATIC_URL'] = settings.PHOTO_STATIC_URL
         return context
 
 
@@ -51,6 +65,14 @@ class RequestCreateView(CreateView):
         form.instance.buyer = self.request.user
         form.instance.seller = self.item.owner
         form.instance.status = 1
+        send_mail("Your item has been requested!",
+                """The following was just requested by another user of Share Lockers:
+                Title: {}
+                Description: {}
+                That means that they are willing to pay your specified price of {} for it.
+                If you can't make it to deliver the item, please remove it in your dashboard.
+                -ShareLockers team""".format(self.item.title, self.item.description, self.item.price),
+                settings.EMAIL_HOST_USER, [self.item.owner.email], fail_silently=False)
         return super(RequestCreateView, self).form_valid(form)
 
 

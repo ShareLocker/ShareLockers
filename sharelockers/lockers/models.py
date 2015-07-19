@@ -25,6 +25,9 @@ class Locker(models.Model):
     def __str__(self):
         return 'h:{}-c:{}-r:{} :: {}'.format(self.hub, self.column, self.row, self.item_set.first())
 
+    def address(self):
+        return str(self.hub) + " " + self.local_code()
+
     def local_code(self):
         ret_st = ""
         ret_st += self.get_column_display()

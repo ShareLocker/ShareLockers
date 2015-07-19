@@ -31,7 +31,7 @@ module.exports = function (button) {
 					console.log(data);
 				});
 				
-				document.location.href = '/#/location/locker'
+				document.location.href = '/#/dashboard'
 		});
 	
 }

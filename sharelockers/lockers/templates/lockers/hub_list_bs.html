@@ -1,11 +1,10 @@
-{% extends "bs_base.html" %}
-{% load bootstrap3 %}
+{% extends "nav_base.html" %}
 {% block content %}
 
 <h3>Global list of connected hubs</h3>
 
 
-<table class="table table-striped">
+<table class="pure-table pure-table-bordered" align="center">
 	<thead>
 		<tr>
 			<th>Hub Name</th>
@@ -28,8 +27,5 @@
 	</tbody>
 </table>
 
-{% if is_paginated %}
-    {% bootstrap_pagination page_obj %}
-{% endif %}
 
 {% endblock %}

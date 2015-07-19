@@ -25,10 +25,6 @@ module.exports = function () {
 			lockerGenerator(data);
 			stock();
 			$(document).ready(function() {
-<<<<<<< HEAD
-		            $('.vlocker').click(function() {
-		                $(this).find('.vpopout').slideDown('duration fast');
-=======
 				var currentUser = parseInt($('.user-id').attr('data-id'));
 		            $('.locker-wrapper').click(function() {
 						if ($(this).data('id') !== undefined) {
@@ -65,19 +61,12 @@ module.exports = function () {
 							$('.buy-button').hide();
 						}
 						$('.action-container').slideDown('duration fast');
->>>>>>> 43cf0006fd49ecd2eae2b607278b2e27a623c00e
 						$('.stock-wrapper').fadeIn('duration fast');
 
 		            });
-<<<<<<< HEAD
-		            $('.vlocker').mouseleave(function() {
-		                $(this).find('.vpopout').hide('duration fast');
-						$('.stock-wrapper').hide();
-=======
 		            $('.close').click(function() {
 		                $('.action-container').fadeOut('duration fast');
 						$('.stock-wrapper').fadeOut('duration fast');
->>>>>>> 43cf0006fd49ecd2eae2b607278b2e27a623c00e
 		            });
 					openLocker('.open-button');
 					buyItem('.buy-button');

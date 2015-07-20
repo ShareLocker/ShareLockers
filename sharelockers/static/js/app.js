@@ -236,6 +236,7 @@ router.route('dashboard', function () {
 
 $('.items').on('click', function() {
   $(".generated").show();
+  $(".faq").hide();
     $.ajax({
     			method: 'GET', 
     			url: '/api/owneditems/',
@@ -251,7 +252,7 @@ $('.items').on('click', function() {
 $(".help").click(function(){
   
     $(".faq").show();
-    $(".generated").remove()
+    $(".generated").hide();
 });
 
 //api info for LOCATION TAB IS BELOW

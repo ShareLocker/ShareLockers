@@ -94,9 +94,10 @@ h6{
       RGBA(36, 40, 56, 0.5),
       RGBA(159, 129, 184, 1)
     ),
-    url("../img/city.jpg");
-    background-size: 100% 130%;
+    url("../img/city2.jpg");
+    background-size: 100% auto;
     background-repeat:no-repeat;
+		background-position: center center;
 
 }
 
@@ -214,4 +215,8 @@ h6{
 
 .section5{
 	background-color: #eee;
+}
+
+.section6{
+	display: none;
 }

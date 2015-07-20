@@ -1440,9 +1440,10 @@ h6 {
   left: 0;
   right: 0;
   top: 0;
-  background: linear-gradient(RGBA(36, 40, 56, 0.5), RGBA(159, 129, 184, 1)), url("../img/city.jpg");
-  background-size: 100% 130%;
-  background-repeat: no-repeat; }
+  background: linear-gradient(RGBA(36, 40, 56, 0.5), RGBA(159, 129, 184, 1)), url("../img/city2.jpg");
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+  background-position: center center; }
 
 .section1 {
   background-color: #eee;
@@ -1528,6 +1529,9 @@ h6 {
 
 .section5 {
   background-color: #eee; }
+
+.section6 {
+  display: none; }
 
 .login {
   text-align: center;
@@ -1669,7 +1673,18 @@ h6 {
     margin-top: 0;
     margin-bottom: 1em;
     padding-top: 0; }
-  .section5 {
-    margin-top: 3em; }
   .hero-container {
-    margin-bottom: 3em; } }
+    position: static;
+    margin: 0;
+    background: linear-gradient(RGBA(36, 40, 56, 0.5), RGBA(159, 129, 184, 1)), url("../img/city2.jpg");
+    background-size: 130% 100%;
+    background-repeat: no-repeat; }
+  .section1 {
+    margin-top: 0; }
+  .section5 {
+    margin-bottom: 0; }
+  .section6 {
+    display: block;
+    background: linear-gradient(RGBA(36, 40, 56, 0.5), RGBA(159, 129, 184, 1)), url("../img/city2.jpg");
+    background-size: 100% 100%;
+    background-repeat: no-repeat; } }

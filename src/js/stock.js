@@ -7,8 +7,10 @@ var router = require('../js/router');
 var getCookie = require('../js/getCookie');
 var show = require('../js/show');
 var showLists = require('../js/showLists');
+var openLocker = require('../js/openLocker');
 
 module.exports = function () {
+	
 	 $('.stock-button').click(function() {
 		 if ($('.user-id').html().length === 1) {
 				$('.not-loggedin-container').css("width", "100%");
@@ -57,8 +59,9 @@ module.exports = function () {
 				$('.item-id').val($(".item-inventory option:selected").data('id'));
 			});
 		  
-			 
+			 	
 				$('.item-stock').click(function (e) {
+				openLocker('.item-stock', owner);
 				e.stopPropagation();
 				e.preventDefault();
 					var data = new FormData();
@@ -82,87 +85,151 @@ module.exports = function () {
 
 					if ($('.item-id').val() == 0) {
 						if ( photo == 0 ) {
-									$.ajax({
-										beforeSend: function (request){
-							            request.setRequestHeader('X-CSRFToken', csrftoken);
-							         },
-
-										method: 'POST',
-										url: '/api/owneditems/',
-										data: {'title': title,
+							$.ajax({
+								beforeSend: function (request){
+								console.log(csrftoken)
+								request.setRequestHeader('X-CSRFToken', csrftoken);
+									 },
+										method: 'POST', 
+										url: '/api/unlocks/',
+										data: {
+											"waiting": true,
+											"profile": owner,
+											"locker": lockerId
+											}
+										  	}).done(function (x){
+												console.log(x);
+												alert("Locker Open");
+												$.ajax({
+													beforeSend: function (request){
+							            			request.setRequestHeader('X-CSRFToken', csrftoken);
+							        			 },
+												method: 'POST',
+												url: '/api/owneditems/',
+												data: {'title': title,
 												'description': description,
 												'price': price,
 												'owner': owner,
 												'locker': lockerId
 												}
-							  			}).done(function (data){
-											console.log(data);
-											setTimeout('parent.location.reload()',500);
-									});
+							  					}).done(function (data){
+												setTimeout('parent.location.reload()',500);
+												});
+											}).fail(function (data){
+													console.log(data);
+													alert("Unable to Open at this Time");
+												})
 
 						}
-						 else {
-									$.ajax({
+						 else {	
+							 $.ajax({
 									beforeSend: function (request){
-						            request.setRequestHeader('X-CSRFToken', csrftoken);
-						           },
+									request.setRequestHeader('X-CSRFToken', csrftoken);
+									},
+									method: 'POST', 
+									url: '/api/unlocks/',
+									data: {
+									"waiting": true,
+									"profile": owner,
+									"locker": lockerId
+									}
+									}).done(function (x){
+										alert("Locker Open");
+											$.ajax({
+												beforeSend: function (request){
+						            			request.setRequestHeader('X-CSRFToken', csrftoken);
+						          			 },
 
-									method: 'POST',
-									url: '/api/owneditems/',
-									data: data,
-									//cache: false,
-									dataType: 'json',
-			  						processData: false, // Don't process the files
-			  						contentType: false
-						  			}).done(function (data){
-										console.log(data);
-										setTimeout('parent.location.reload()',500);
+												method: 'POST',
+												url: '/api/owneditems/',
+												data: data,
+												dataType: 'json',
+			  									processData: false, // Don't process the files
+			  									contentType: false
+						  					}).done(function (data){
+												console.log(data);
+												setTimeout('parent.location.reload()',500);
 									});
+									}).fail(function (data){
+											alert("Unable to Open at this Time");
+									})
+								
 							 }
 					}
 					else {
 						var itemId = $('.item-id').val();
 								if ( photo == 0 ) {
-										$.ajax({
-											beforeSend: function (request){
-								            request.setRequestHeader('X-CSRFToken', csrftoken);
-								         },
-
-											method: 'PUT',
-											url: '/api/owneditems/'+itemId,
-											data: {'title': title,
-													'description': description,
-													'price': price,
-													'owner': owner,
-													'locker': lockerId
+									$.ajax({
+													beforeSend: function (request){
+												    request.setRequestHeader('X-CSRFToken', csrftoken);
+												    },
+													method: 'POST', 
+													url: '/api/unlocks/',
+													data: {
+													"waiting": true,
+													"profile": owner,
+													"locker": lockerId
 													}
-								  			}).done(function (data){
-												console.log(data);
-												setTimeout('parent.location.reload()',500);
-										});
+												  	}).done(function (x){
+														alert("Locker Open");
+														$.ajax({
+															beforeSend: function (request){
+												            request.setRequestHeader('X-CSRFToken', csrftoken);
+												         },
+				
+															method: 'PUT',
+															url: '/api/owneditems/'+itemId,
+															data: {'title': title,
+																	'description': description,
+																	'price': price,
+																	'owner': owner,
+																	'locker': lockerId
+																	}
+												  			}).done(function (data){
+																setTimeout('parent.location.reload()',500);
+														});	
+									}).fail(function (data){
+										alert("Unable to Open at this Time");
+									})
 
 								}
 								else {
 									$.ajax({
-									beforeSend: function (request){
-						            request.setRequestHeader('X-CSRFToken', csrftoken);
-						           },
-
-									method: 'PUT',
-									url: '/api/owneditems/'+itemId,
-									data: data,
-									//cache: false,
-									dataType: 'json',
-			  						processData: false, // Don't process the files
-			  						contentType: false
-						  			}).done(function (data){
-										console.log(data);
-										setTimeout('parent.location.reload()',500);
-									});
+											beforeSend: function (request){
+										    request.setRequestHeader('X-CSRFToken', csrftoken);
+										    },
+											method: 'POST', 
+											url: '/api/unlocks/',
+											data: {
+											"waiting": true,
+											"profile": owner,
+											"locker": lockerId
+											}
+										  	}).done(function (x){
+												alert("Locker Open");
+												$.ajax({
+													beforeSend: function (request){
+						           					 request.setRequestHeader('X-CSRFToken', csrftoken);
+						           				},
+													method: 'PUT',
+													url: '/api/owneditems/'+itemId,
+													data: data,
+													dataType: 'json',
+			  										processData: false, // Don't process the files
+			  										contentType: false
+						  						}).done(function (data){
+														setTimeout('parent.location.reload()',500);
+												});
+											}).fail(function (data){
+												alert("Unable to Open at this Time");
+											})
+									
 							 }
 
 					   }
+					   
 				});
 		  });
 	});
+	
 };

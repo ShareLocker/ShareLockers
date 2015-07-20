@@ -64,36 +64,49 @@ $('.items').on('click', function() {
     			
     });
    });
+   
+   
+   $('.help').on('click', function() {
+
+    $.ajax({
+    			method: 'GET', 
+    			url: '/api/help/',
+      		}).done(function (data){
+    			console.log(data);
+          showLists(data, 'my-items', '.generated');
+    			
+    });
+   });
 
 //api info for LOCATION TAB IS BELOW
 
-$('.location').on('click', function() {
+// $('.location').on('click', function() {
     
-    $.ajax({
-    			method: 'GET', 
-    			url: '/api/hubs/',
-      		}).done(function (data){
-    			console.log(data);
-          showLists(data, 'locations', '.generated');
+//     $.ajax({
+//     			method: 'GET', 
+//     			url: '/api/hubs/',
+//       		}).done(function (data){
+//     			console.log(data);
+//           showLists(data, 'locations', '.generated');
     			
-    });
+//     });
 
-});
+// });
 
 //api info for PROFILES TAB IS BELOW
   var buyerId = $('.user-id').attr('data-id');
   
-$('.profile').on('click', function() {
+// $('.profile').on('click', function() {
      
-    $.ajax({
-    			method: 'GET', 
-    			url: '/api/profiles/' + buyerId,
-      		}).done(function (data){
-    			console.log(data);
-          showLists(data, 'profile', '.generated');
+//     $.ajax({
+//     			method: 'GET', 
+//     			url: '/api/profiles/' + buyerId,
+//       		}).done(function (data){
+//     			console.log(data);
+//           showLists(data, 'profile', '.generated');
     			
-    });
-   });
+//     });
+//    });
 });
     
 

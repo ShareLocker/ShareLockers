@@ -157,7 +157,7 @@ module.exports = function (button) {
 						// 	console.log(data);
 						// })
 			}
-},{"../js/getCookie":9,"../js/openLocker":12,"jquery":"jquery","underscore":"underscore","views":"views"}],3:[function(require,module,exports){
+},{"../js/getCookie":10,"../js/openLocker":13,"jquery":"jquery","underscore":"underscore","views":"views"}],3:[function(require,module,exports){
 'use strict';
 
 var $ = require('jquery');
@@ -244,36 +244,49 @@ $('.items').on('click', function() {
     			
     });
    });
+   
+   
+   $('.help').on('click', function() {
+
+    $.ajax({
+    			method: 'GET', 
+    			url: '/api/help/',
+      		}).done(function (data){
+    			console.log(data);
+          showLists(data, 'my-items', '.generated');
+    			
+    });
+   });
 
 //api info for LOCATION TAB IS BELOW
 
-$('.location').on('click', function() {
+// $('.location').on('click', function() {
     
-    $.ajax({
-    			method: 'GET', 
-    			url: '/api/hubs/',
-      		}).done(function (data){
-    			console.log(data);
-          showLists(data, 'locations', '.generated');
+//     $.ajax({
+//     			method: 'GET', 
+//     			url: '/api/hubs/',
+//       		}).done(function (data){
+//     			console.log(data);
+//           showLists(data, 'locations', '.generated');
     			
-    });
+//     });
 
-});
+// });
 
 //api info for PROFILES TAB IS BELOW
   var buyerId = $('.user-id').attr('data-id');
   
-$('.profile').on('click', function() {
+// $('.profile').on('click', function() {
      
-    $.ajax({
-    			method: 'GET', 
-    			url: '/api/profiles/' + buyerId,
-      		}).done(function (data){
-    			console.log(data);
-          showLists(data, 'profile', '.generated');
+//     $.ajax({
+//     			method: 'GET', 
+//     			url: '/api/profiles/' + buyerId,
+//       		}).done(function (data){
+//     			console.log(data);
+//           showLists(data, 'profile', '.generated');
     			
-    });
-   });
+//     });
+//    });
 });
     
 
@@ -285,7 +298,9 @@ $('.profile').on('click', function() {
 		
 
 
-},{"../controllers/locker-list":7,"../router":13,"../show":14,"../showLists":15,"jquery":"jquery","underscore":"underscore","views":"views"}],5:[function(require,module,exports){
+},{"../controllers/locker-list":8,"../router":14,"../show":15,"../showLists":16,"jquery":"jquery","underscore":"underscore","views":"views"}],5:[function(require,module,exports){
+
+},{}],6:[function(require,module,exports){
 'use strict';
 
 var $ = require('jquery');
@@ -307,9 +322,9 @@ router.route('', function () {
 
 
 });
-},{"../router":13,"../show":14,"jquery":"jquery","underscore":"underscore","views":"views"}],6:[function(require,module,exports){
-
-},{}],7:[function(require,module,exports){
+},{"../router":14,"../show":15,"jquery":"jquery","underscore":"underscore","views":"views"}],7:[function(require,module,exports){
+arguments[4][5][0].apply(exports,arguments)
+},{"dup":5}],8:[function(require,module,exports){
 'use strict';
 
 var $ = require('jquery');
@@ -409,7 +424,7 @@ module.exports = function () {
 
 };
 
-},{"../buyItem":2,"../colorGen":3,"../getCookie":9,"../lockerGenerator":11,"../openLocker":12,"../router":13,"../show":14,"../stock":17,"jquery":"jquery","underscore":"underscore","views":"views"}],8:[function(require,module,exports){
+},{"../buyItem":2,"../colorGen":3,"../getCookie":10,"../lockerGenerator":12,"../openLocker":13,"../router":14,"../show":15,"../stock":18,"jquery":"jquery","underscore":"underscore","views":"views"}],9:[function(require,module,exports){
 var $ = require('jquery');
 var _ = require('underscore');
 var views = require('views');
@@ -432,7 +447,7 @@ router.route('my-items/user', function () {
 		  });
 		
  });
-},{"../getCookie":9,"../openLocker":12,"../router":13,"../show":14,"../showLists":15,"jquery":"jquery","underscore":"underscore","views":"views"}],9:[function(require,module,exports){
+},{"../getCookie":10,"../openLocker":13,"../router":14,"../show":15,"../showLists":16,"jquery":"jquery","underscore":"underscore","views":"views"}],10:[function(require,module,exports){
 'use strict';
 
 var $ = require('jquery');
@@ -456,7 +471,7 @@ module.exports = function getCookie(name) {
 		   return cookieValue;
 		
 };
-},{"jquery":"jquery","underscore":"underscore","views":"views"}],10:[function(require,module,exports){
+},{"jquery":"jquery","underscore":"underscore","views":"views"}],11:[function(require,module,exports){
 // TODO: put initialization logic here
 'use strict';
 
@@ -466,11 +481,11 @@ var router = require('./router');
 require('./animations');
 
 // Require all of our controllers
-({"controllers":({"dashboard":require("./controllers/dashboard.js"),"home":require("./controllers/home.js"),"locations":require("./controllers/locations.js"),"locker-list":require("./controllers/locker-list.js"),"my-items":require("./controllers/my-items.js")})});
+({"controllers":({"dashboard":require("./controllers/dashboard.js"),"help":require("./controllers/help.js"),"home":require("./controllers/home.js"),"locations":require("./controllers/locations.js"),"locker-list":require("./controllers/locker-list.js"),"my-items":require("./controllers/my-items.js")})});
 
 // Start the router
 router.init();
-},{"./animations":1,"./controllers/dashboard.js":4,"./controllers/home.js":5,"./controllers/locations.js":6,"./controllers/locker-list.js":7,"./controllers/my-items.js":8,"./router":13}],11:[function(require,module,exports){
+},{"./animations":1,"./controllers/dashboard.js":4,"./controllers/help.js":5,"./controllers/home.js":6,"./controllers/locations.js":7,"./controllers/locker-list.js":8,"./controllers/my-items.js":9,"./router":14}],12:[function(require,module,exports){
 'use strict';
 
 var $ = require('jquery');
@@ -536,7 +551,7 @@ module.exports = function (arr) {
 	};
 
 };
-},{"jquery":"jquery","underscore":"underscore","views":"views"}],12:[function(require,module,exports){
+},{"jquery":"jquery","underscore":"underscore","views":"views"}],13:[function(require,module,exports){
 'use strict';
 
 var $ = require ('jquery');
@@ -574,13 +589,13 @@ module.exports = function (button, user) {
 		});
 	
 }
-},{"../js/getCookie":9,"jquery":"jquery","underscore":"underscore","views":"views"}],13:[function(require,module,exports){
+},{"../js/getCookie":10,"jquery":"jquery","underscore":"underscore","views":"views"}],14:[function(require,module,exports){
 'use strict';
 
 var SortedRouter = require('./sorted-router');
 
 module.exports = new SortedRouter();
-},{"./sorted-router":16}],14:[function(require,module,exports){
+},{"./sorted-router":17}],15:[function(require,module,exports){
 'use strict';
 
 var $ = require('jquery');
@@ -594,7 +609,7 @@ module.exports = function (templateName, model) {
   
   $('.main-content').html(hydratedHTML);
 };
-},{"jquery":"jquery","underscore":"underscore","views":"views"}],15:[function(require,module,exports){
+},{"jquery":"jquery","underscore":"underscore","views":"views"}],16:[function(require,module,exports){
 'use strict';
 
 var $ = require('jquery');
@@ -608,7 +623,7 @@ module.exports = function showLists(data, view, html) {
 			$(html).html(listHTML);
 			return data;
 		};
-},{"jquery":"jquery","underscore":"underscore","views":"views"}],16:[function(require,module,exports){
+},{"jquery":"jquery","underscore":"underscore","views":"views"}],17:[function(require,module,exports){
 'use strict';
  
 var Backbone = require('backbone');
@@ -655,7 +670,7 @@ var SortedRouter = Backbone.Router.extend({
 });
  
 module.exports = SortedRouter;
-},{"backbone":"backbone","underscore":"underscore"}],17:[function(require,module,exports){
+},{"backbone":"backbone","underscore":"underscore"}],18:[function(require,module,exports){
 'use strict';
 
 var $ = require('jquery');
@@ -825,7 +840,7 @@ module.exports = function () {
 	});
 };
 
-},{"../js/getCookie":9,"../js/router":13,"../js/show":14,"../js/showLists":15,"jquery":"jquery","underscore":"underscore","views":"views"}]},{},[10])
+},{"../js/getCookie":10,"../js/router":14,"../js/show":15,"../js/showLists":16,"jquery":"jquery","underscore":"underscore","views":"views"}]},{},[11])
 
 
 //# sourceMappingURL=app.js.map

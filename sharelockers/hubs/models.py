@@ -32,9 +32,10 @@ class Hub(models.Model):
         return self.name
 
     def flag_connect(self):
-        import datetime
+        # import datetime
+        from django.utils import timezone
 
-        self.connected_at = datetime.datetime.now()
+        self.connected_at = timezone.now()
         self.polled_at = self.connected_at
         self.connected = True
         self.save()

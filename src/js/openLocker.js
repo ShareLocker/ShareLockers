@@ -5,11 +5,11 @@ var _ = require ('underscore');
 var views = require ('views');
 var getCookie = require ('../js/getCookie');
 
-module.exports = function (button) {
+module.exports = function (button, user) {
 	$(document).on('click', button ,function () {
 			console.log(this);
-			var id = this.getAttribute('data-id');
-			var profile = $('.user-id').attr('data-id');
+			var id = this.getAttribute('data-locker');
+			var profile = user;
 			var csrftoken = getCookie('csrftoken'); 
 			console.log(csrftoken);
 				$.ajax({

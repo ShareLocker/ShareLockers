@@ -1217,7 +1217,7 @@ footer {
   z-index: 1000;
   font-size: 1em;
   font-weight: 100;
-  transition: all 0.5s;
+  transition: all 0.2s;
   overflow: hidden; }
 
 .stock-item .item-stock {
@@ -1277,8 +1277,21 @@ fieldset {
   z-index: 1000;
   font-size: 1em;
   font-weight: 100;
-  transition: all 0.5s;
+  transition: all 0.2s;
   overflow: hidden; }
+
+.not-loggedin {
+  padding: 4em;
+  background-color: #fff;
+  border-radius: .5em;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); }
+
+.not-loggedin input {
+  margin-bottom: 1em; }
 
 .buy-confirmation-container {
   position: fixed;
@@ -1292,8 +1305,59 @@ fieldset {
   z-index: 1000;
   font-size: 1em;
   font-weight: 100;
-  transition: all 0.5s;
+  transition: all 0.2s;
   overflow: hidden; }
+
+.buy-confirmation {
+  padding: 4em;
+  background-color: #fff;
+  border-radius: .5em;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); }
+
+.buy-confirmation span, .buy-confirmation button {
+  margin-bottom: 1em;
+  margin-right: 1em;
+  line-height: 2em; }
+
+.confirm-btn {
+  background-color: #5081FC; }
+
+.buy-open-containter {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 0%;
+  background-color: #eee;
+  border-radius: .5em;
+  color: #FF4B4B;
+  z-index: 1000;
+  font-size: 1em;
+  font-weight: 100;
+  transition: all 0.2s;
+  overflow: hidden; }
+
+.buy-open {
+  padding: 4em;
+  background-color: #fff;
+  border-radius: .5em;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); }
+
+.buy-open button {
+  margin-bottom: 1em;
+  margin-right: 0.5em;
+  line-height: 2em; }
+
+.open-now {
+  background-color: #5081FC; }
 
 .info {
   color: #E25D3A;

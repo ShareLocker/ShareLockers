@@ -10,14 +10,40 @@ var showLists = require('../js/showLists');
 
 module.exports = function () {
 	 $('.stock-button').click(function() {
-		 var lockerId = $(this).attr('data-id');
-		 console.log(lockerId);
+		 if ($('.user-id').html().length === 1) {
+				$('.not-loggedin-container').css("width", "100%");
+				$('.stock-wrapper').show();
+						  $('.lgn-button').click(function(){
+							var csrftoken = getCookie('csrftoken'); 
+							var username = $('.username-login').val();
+							var password =$('.user-password').val();
+							$.ajax({
+								beforeSend: function (request){
+					            request.setRequestHeader('X-CSRFToken', csrftoken);
+					           },
+								method: 'POST', 
+								url: '/login/',
+								data: {
+								   "username": username,
+								   "password": password
+								}
+					  		  }).done(function (data){
+								  console.log(data);
+								  var id = data.match(/data-id="(\d+)/);
+								  var user = parseInt(id[1]);
+								  setTimeout('parent.location.reload()',500);
+							  }).fail(function(data){
+								  alert('oh no! try again');
+								  console.log(data);
+							  });
+					  });
+			}
+		 else {
 		 $('.stock-container').css("width", "100%");
-		 $('.close').click(function(){
-			 $('.stock-wrapper').hide();
-			 $('.stock-container').css("width", "0%");
-		 })
-
+		 };
+		 
+	var lockerId = $(this).attr('data-locker');
+	console.log(lockerId);
 	$.ajax({
 			method: 'GET',
 			url: '/api/owneditems/',
@@ -30,6 +56,8 @@ module.exports = function () {
 				$('.item-price').val($(".item-inventory option:selected").data('price'));
 				$('.item-id').val($(".item-inventory option:selected").data('id'));
 			});
+		  
+			 
 				$('.item-stock').click(function (e) {
 				e.stopPropagation();
 				e.preventDefault();

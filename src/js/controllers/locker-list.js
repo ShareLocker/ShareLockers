@@ -39,7 +39,7 @@ module.exports = function () {
 							$('.lockerDetails').append('<br>$');
 							$('.lockerDetails').append($(this).data('price'));
 							if ($(this).data('owner') === currentUser){
-								$('.open-button').attr('data-id', $(this).data('locker'));
+								$('.open-button').attr('data-locker', $(this).data('locker'));
 								$('.stock-button').hide();
 								$('.open-button').show();
 
@@ -47,13 +47,15 @@ module.exports = function () {
 							}
 							else {
 								$('.buy-button').attr('data-id', $(this).data('id'));
+								$('.buy-button').attr('data-price', $(this).data('price'));
+								$('.buy-button').attr('data-locker', $(this).data('locker'));
 								$('.stock-button').hide();
 								$('.buy-button').show();
 							}
 						}
 						else {
-							$('.open-button').attr('data-id', $(this).data('locker'));
-							$('.stock-button').attr('data-id', $(this).data('locker'));
+							$('.open-button').attr('data-locker', $(this).data('locker'));
+							$('.stock-button').attr('data-locker', $(this).data('locker'));
 							$('.item-photo').hide();
 							$('.lockerDetails').html('EMPTY');
 							$('.stock-button').show();
@@ -68,7 +70,7 @@ module.exports = function () {
 		                $('.action-container').fadeOut('duration fast');
 						$('.stock-wrapper').fadeOut('duration fast');
 		            });
-					openLocker('.open-button');
+					openLocker('.open-button', currentUser);
 					buyItem('.buy-button');
 		    });
 			// $('.login-submit').on('click', function(){

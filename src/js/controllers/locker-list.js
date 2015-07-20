@@ -59,7 +59,7 @@ module.exports = function () {
 							$('.item-photo').hide();
 							$('.lockerDetails').html('EMPTY');
 							$('.stock-button').show();
-							$('.open-button').show();
+							$('.open-button').hide();
 							$('.buy-button').hide();
 						}
 						$('.action-container').slideDown('duration fast');
@@ -69,6 +69,7 @@ module.exports = function () {
 		            $('.close').click(function() {
 		                $('.action-container').fadeOut('duration fast');
 						$('.stock-wrapper').fadeOut('duration fast');
+						$('.stock-container').css('width', "0%");
 		            });
 					openLocker('.open-button', currentUser);
 					buyItem('.buy-button');

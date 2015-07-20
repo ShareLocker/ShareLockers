@@ -11,7 +11,7 @@ router.route('', function () {
 	show('home');
 	$.ajax({
 			method: 'GET', 
-			url: '/api/profiles/',
+			url: 'https://sharelockers.herokuapp.com/api/profiles/',
   		}).done(function (data){
 			console.log(data);
 		});

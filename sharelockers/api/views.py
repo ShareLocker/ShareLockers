@@ -94,7 +94,7 @@ class OwnedItemViewSet(viewsets.ModelViewSet):
                 send_mail("Requested Item has Been Stocked!",
                         """The item you requested has been stocked in a share locker by the owner.
                         It is now available for pickup.""",
-                        settings.EMAIL_HOST_USER, [buyer.user.email], fail_silently=False)
+                        settings.EMAIL_HOST_USER, [buyer.user.email], fail_silently=settings.EMAIL_SILENT)
         return r
 
 

@@ -72,7 +72,7 @@ class RequestCreateView(CreateView):
                 That means that they are willing to pay your specified price of {} for it.
                 If you can't make it to deliver the item, please remove it in your dashboard.
                 -ShareLockers team""".format(self.item.title, self.item.description, self.item.price),
-                settings.EMAIL_HOST_USER, [self.item.owner.user.email], fail_silently=False)
+                settings.EMAIL_HOST_USER, [self.item.owner.user.email], fail_silently=settings.EMAIL_SILENT)
         msg_text = "Your request has been created: User " + self.item.title
         msg_text += " has been asked to stock the item " + self.item.title
         msg_text += " to the location " + self.request.user.profile.location.description
@@ -152,7 +152,7 @@ class ReservationBuyerView(CreateView):
 
 class ReservationHashView(CreateView):
     form_class = UnlockForm
-    success_url = "/my_items.html"
+    success_url = "/"
     template_name = "reservation/reservation_hash.html"
     item = None
     reservation = None

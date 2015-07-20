@@ -1419,6 +1419,16 @@ h6 {
   border-radius: 50%;
   border: 2px solid #E25D3A; }
 
+.contact-icon {
+  font-size: 2em;
+  color: black; }
+
+.contact-icon:hover {
+  color: #E25D3A; }
+
+.about-section p {
+  color: #E25D3A; }
+
 .login {
   text-align: center;
   background-color: rgba(234, 235, 230, 0.5);

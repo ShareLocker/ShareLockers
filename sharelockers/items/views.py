@@ -62,7 +62,7 @@ class RequestCreateView(CreateView):
 
     def form_valid(self, form):
         form.instance.item = self.item
-        form.instance.buyer = self.request.user
+        form.instance.buyer = self.request.user.profile
         form.instance.seller = self.item.owner
         form.instance.status = 1
         send_mail("Your item has been requested!",
@@ -72,7 +72,11 @@ class RequestCreateView(CreateView):
                 That means that they are willing to pay your specified price of {} for it.
                 If you can't make it to deliver the item, please remove it in your dashboard.
                 -ShareLockers team""".format(self.item.title, self.item.description, self.item.price),
-                settings.EMAIL_HOST_USER, [self.item.owner.email], fail_silently=False)
+                settings.EMAIL_HOST_USER, [self.item.owner.user.email], fail_silently=False)
+        msg_text = "Your request has been created: User " + self.item.title
+        msg_text += " has been asked to stock the item " + self.item.title
+        msg_text += " to the location " + self.request.user.profile.location.description
+        messages.add_message(self.request, messages.SUCCESS, msg_text)
         return super(RequestCreateView, self).form_valid(form)
 
 

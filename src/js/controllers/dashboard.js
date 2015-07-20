@@ -13,6 +13,7 @@ router.route('dashboard', function () {
   show('dashboard');
 	$('.this-user').html($('.user-id').attr('data-name'));
   lockers();
+  $(".this-credits").html($(".user-id").attr("data-credits"));
   
 // RESPONSIVE DASHBOARD MENU
 			

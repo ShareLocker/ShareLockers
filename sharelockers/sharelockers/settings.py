@@ -137,4 +137,4 @@ EMAIL_HOST_PASSWORD = 'OsterYpS'
 EMAIL_PORT = 587
 DEFAULT_FROM_EMAIL = 'sharelockers@gmail.com'
 SERVER_EMAIL = 'sharelockers@gmail.com'
-EMAIL_SILENT = False # change to True for production
+EMAIL_SILENT = True # change to True for production

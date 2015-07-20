@@ -13,6 +13,7 @@ from django.views.generic import TemplateView
 from profiles.forms import UserForm, ProfileForm, UserReservationForm, HashReservationForm
 from items.models import Item
 from items.forms import ItemForm
+from hubs.models import Location
 # view classes
 import django.views.generic as django_views
 from django.views.generic.edit import CreateView
@@ -38,6 +39,8 @@ def user_register(request):
             # user.save() # You must call authenticate before login. :(
             # end extra password thing
             profile = profile_form.save(commit=False)
+            if Location.objects.count() > 0:
+                profile.location = Location.objects.all()[0]
             profile.user = user
             profile.save()
             user = authenticate(username=request.POST['username'],
@@ -49,7 +52,7 @@ def user_register(request):
                     user.username))
             send_mail("Welcome to Share Lockers",
                     "Your account on sharelockers.come has been created!",
-                    settings.EMAIL_HOST_USER, [user.email], fail_silently=False)
+                    settings.EMAIL_HOST_USER, [user.email], fail_silently=settings.EMAIL_SILENT)
             return redirect('view_index')
     return render(request, "profiles/register.html", {'user_form': user_form,
                                                       'profile_form': profile_form,
@@ -125,30 +128,41 @@ class ReservationCreateView(TemplateView):
 
     def post(self, *args, **kwargs):
         if 'hash_reservation' in self.request.POST:
-            import random
-            import string
-
             print("hash form submitted")
             hash_form = HashReservationForm(self.request.POST)
             reservation = hash_form.save(commit=False)
             reservation.item = self.item
             reservation.seller = self.request.user.profile
             reservation.status = 1
-            reservation.code = ''.join(random.choice(string.ascii_lowercase) for _ in range(8))
+            reservation.code = reservation.make_code()
             reservation.save()
             msg_text = "You have reserved " + self.item.title
             msg_text += " as a hash based reservation "
             messages.add_message(self.request, messages.SUCCESS, msg_text)
+            use_email = reservation.email
         else:
             user_form = UserReservationForm(self.request.POST)
             reservation = user_form.save(commit=False)
             reservation.item = self.item
             reservation.seller = self.request.user.profile
             reservation.status = 1
+            if reservation.email is None:
+                reservation.email = reservation.buyer.user.email
             reservation.save()
             msg_text = "You have reserved " + self.item.title
             msg_text += " for user " + reservation.buyer.alias
             messages.add_message(self.request, messages.SUCCESS, msg_text)
+        if reservation.email is not None and reservation.item.locker is not None:
+            use_url = self.request.build_absolute_uri(reverse('view_index')) \
+                                  + reservation.url()
+            email_text = """A user of sharelockers.com, {}, has stocked an item and put
+you as the intended receiver. Now you can pick it up at your convienience.
+Just go to the ShareLockers location {} and open the locker {}, using the following URL:
+{}
+-ShareLockers team""".format(reservation.seller.user.username, reservation.seller.location
+                    , reservation.item.locker.address(), use_url)
+            send_mail("An Item is Ready for Pickup", email_text,
+                    settings.EMAIL_HOST_USER, [reservation.email], fail_silently=settings.EMAIL_SILENT)
         final_url = HttpResponseRedirect(reverse('reservation_seller_detail', kwargs = {'pk':self.item.id}))
         return final_url
 

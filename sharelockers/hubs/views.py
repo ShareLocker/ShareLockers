@@ -12,7 +12,10 @@ def connected(request, akey):
     ip = get_ip(request)
     if Hub.objects.filter(secret_key=akey).exists():
         print("Known hub connected at IP: " + ip)
-        this_hub = Hub.objects.get(secret_key=akey, ip=ip)
+        this_hub = Hub.objects.get(secret_key=akey)
+        if ip != this_hub.ip:
+            print("Hub connected with a new IP address. Assuming legitimiate.")
+            this_hub.ip = ip
         this_hub.save()
         this_hub.flag_connect()
     else:

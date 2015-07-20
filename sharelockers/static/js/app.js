@@ -35,13 +35,78 @@ var $ = require ('jquery');
 var _ = require ('underscore');
 var views = require ('views');
 var getCookie = require ('../js/getCookie');
+var openLocker =require ('../js/openLocker');
 
 module.exports = function (button) {
-	$(document).on('click', button ,function () {
-			console.log(this);
-			var itemId = this.getAttribute('data-id');
-			var buyerId = $('.user-id').attr('data-id');
+	var csrftoken = getCookie('csrftoken'); 
+	$(document).on('click', button, function (e) {
+		console.log($(this));
+		$('.lgn-button').attr('data-price', $(this).data('price'));
+		$('.lgn-button').attr('data-id', $(this).data('id'));
+		$('.lgn-button').attr('data-locker', $(this).data('locker'));
+		console.log($('.user-id').html().length);
+		if ($('.user-id').html().length === 1) {
+				$('.not-loggedin-container').css("width", "100%");
+				$('.stock-wrapper').show();
+			 $('.close').click(function(){
+				 $('.stock-wrapper').hide();
+				 $('.not-loggedin-container').css("width", "0%");
+				 $('.buy-confirmation-container').css("width", "0%");
+			});
+		$('.lgn-button').click(function(){
+				$('.buy-confirmation-container').css("width", "100%")
+				$('.cost').html($(this).data('price'));
+				$('.confirm-btn').attr('data-price', $(this).data('price'));
+				$('.confirm-btn').attr('data-id', $(this).data('id'));
+				$('.confirm-btn').attr('data-locker', $(this).data('locker'));
+				var username = $('.username-login').val();
+				var password =$('.user-password').val();
+				$.ajax({
+					beforeSend: function (request){
+		            request.setRequestHeader('X-CSRFToken', csrftoken);
+		           },
+					method: 'POST', 
+					url: '/login/',
+					data: {
+					   "username": username,
+					   "password": password
+					}
+					
+		  		}).done(function (data){
+					  console.log(data);
+					  var id = data.match(/data-id="(\d+)/);
+					  var user = parseInt(id[1]);
+					  $('.confirm-btn').attr('data-owner', user);
+				  }).fail(function(data){
+					alert('oh no! try again');
+					console.log(data);
+				});
+			});
+			$('.close').click(function(){
+				parent.location.reload();
+			});
+			$('.cancel-btn').click(function(){
+				parent.location.reload();
+			});
+			$('.open-later').click(function(){
+				parent.location.reload();
+			});
+		}
+		else {	
+				var user =  parseInt($('.user-id').data('id'));
+				console.log(user);
+				$('.buy-confirmation-container').css("width", "100%")
+				$('.cost').html($(this).data('price'));
+				$('.confirm-btn').attr('data-price', $(this).data('price'));
+				$('.confirm-btn').attr('data-id', $(this).data('id'));
+				$('.confirm-btn').attr('data-owner', user);
+				$('.confirm-btn').attr('data-locker', $(this).data('locker'));
+		}
+		$('.confirm-btn').click(function(){
 			var csrftoken = getCookie('csrftoken'); 
+			var itemId = this.getAttribute('data-id');
+			var user = this.getAttribute('data-owner');
+			$('.open-now').attr('data-locker', $(this).data('locker'));
 			console.log(csrftoken);
 				$.ajax({
 					beforeSend: function (request){
@@ -52,21 +117,47 @@ module.exports = function (button) {
 					url: '/api/purchases/',
 					data: {
 					   "item": itemId,
-					   "buyer": buyerId
+					   "buyer": user
 					}
 		  		}).done(function (data){
 					console.log(data);
-					setTimeout('parent.location.reload()',500);
 					alert("The Item is Yours!")
+					$('.buy-open-containter').css("width", "100%");
+					console.log($(this).data('locker'));
+					openLocker('.open-now', user);
 				}).fail(function(data){
 					console.log(data);
 				});
-				
-				document.location.href = '/#/dashboard'
 		});
-	
+		
+			
+		
+		
+		
+
+			
+				
+				
+
+	document.location.href = '/#/dashboard'
+});
 }
-},{"../js/getCookie":10,"jquery":"jquery","underscore":"underscore","views":"views"}],3:[function(require,module,exports){
+
+		function getCredits() {
+						// $.ajax({
+						// 	method: 'GET',
+						// 	contentType: 'application/json',
+						// 	URL: 'api/mycredits/'
+						// 	}).done(function (data){
+						// 	console.log(data);
+						// var credits = $('.user-id').attr('data-credits');
+						// 	$('.credits').html(credits);
+						// }).fail(function(data){
+						// 	alert('oh no! try again');
+						// 	console.log(data);
+						// })
+			}
+},{"../js/getCookie":10,"../js/openLocker":13,"jquery":"jquery","underscore":"underscore","views":"views"}],3:[function(require,module,exports){
 'use strict';
 
 var $ = require('jquery');
@@ -295,7 +386,7 @@ module.exports = function () {
 							$('.lockerDetails').append('<br>$');
 							$('.lockerDetails').append($(this).data('price'));
 							if ($(this).data('owner') === currentUser){
-								$('.open-button').attr('data-id', $(this).data('locker'));
+								$('.open-button').attr('data-locker', $(this).data('locker'));
 								$('.stock-button').hide();
 								$('.open-button').show();
 
@@ -303,13 +394,15 @@ module.exports = function () {
 							}
 							else {
 								$('.buy-button').attr('data-id', $(this).data('id'));
+								$('.buy-button').attr('data-price', $(this).data('price'));
+								$('.buy-button').attr('data-locker', $(this).data('locker'));
 								$('.stock-button').hide();
 								$('.buy-button').show();
 							}
 						}
 						else {
-							$('.open-button').attr('data-id', $(this).data('locker'));
-							$('.stock-button').attr('data-id', $(this).data('locker'));
+							$('.open-button').attr('data-locker', $(this).data('locker'));
+							$('.stock-button').attr('data-locker', $(this).data('locker'));
 							$('.item-photo').hide();
 							$('.lockerDetails').html('EMPTY');
 							$('.stock-button').show();
@@ -324,7 +417,7 @@ module.exports = function () {
 		                $('.action-container').fadeOut('duration fast');
 						$('.stock-wrapper').fadeOut('duration fast');
 		            });
-					openLocker('.open-button');
+					openLocker('.open-button', currentUser);
 					buyItem('.buy-button');
 		    });
 			// $('.login-submit').on('click', function(){
@@ -486,11 +579,11 @@ var _ = require ('underscore');
 var views = require ('views');
 var getCookie = require ('../js/getCookie');
 
-module.exports = function (button) {
+module.exports = function (button, user) {
 	$(document).on('click', button ,function () {
 			console.log(this);
-			var id = this.getAttribute('data-id');
-			var profile = $('.user-id').attr('data-id');
+			var id = this.getAttribute('data-locker');
+			var profile = user;
 			var csrftoken = getCookie('csrftoken'); 
 			console.log(csrftoken);
 				$.ajax({
@@ -610,14 +703,40 @@ var showLists = require('../js/showLists');
 
 module.exports = function () {
 	 $('.stock-button').click(function() {
-		 var lockerId = $(this).attr('data-id');
-		 console.log(lockerId);
+		 if ($('.user-id').html().length === 1) {
+				$('.not-loggedin-container').css("width", "100%");
+				$('.stock-wrapper').show();
+						  $('.lgn-button').click(function(){
+							var csrftoken = getCookie('csrftoken'); 
+							var username = $('.username-login').val();
+							var password =$('.user-password').val();
+							$.ajax({
+								beforeSend: function (request){
+					            request.setRequestHeader('X-CSRFToken', csrftoken);
+					           },
+								method: 'POST', 
+								url: '/login/',
+								data: {
+								   "username": username,
+								   "password": password
+								}
+					  		  }).done(function (data){
+								  console.log(data);
+								  var id = data.match(/data-id="(\d+)/);
+								  var user = parseInt(id[1]);
+								  setTimeout('parent.location.reload()',500);
+							  }).fail(function(data){
+								  alert('oh no! try again');
+								  console.log(data);
+							  });
+					  });
+			}
+		 else {
 		 $('.stock-container').css("width", "100%");
-		 $('.close').click(function(){
-			 $('.stock-wrapper').hide();
-			 $('.stock-container').css("width", "0%");
-		 })
-
+		 };
+		 
+	var lockerId = $(this).attr('data-locker');
+	console.log(lockerId);
 	$.ajax({
 			method: 'GET',
 			url: '/api/owneditems/',
@@ -630,6 +749,8 @@ module.exports = function () {
 				$('.item-price').val($(".item-inventory option:selected").data('price'));
 				$('.item-id').val($(".item-inventory option:selected").data('id'));
 			});
+		  
+			 
 				$('.item-stock').click(function (e) {
 				e.stopPropagation();
 				e.preventDefault();

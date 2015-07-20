@@ -73,6 +73,11 @@ class Reservation(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     ended_at = models.DateTimeField(null=True, blank=True)
 
+    def make_code(self):
+        import random
+        import string
+        return ''.join(random.choice(string.ascii_lowercase) for _ in range(20))
+
     def age(self):
         from django.utils import timezone
 

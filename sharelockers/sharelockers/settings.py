@@ -60,6 +60,7 @@ AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
 # STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 STATIC_URL = 'http://' + AWS_STORAGE_BUCKET_NAME + '.s3.amazonaws.com/'
+PHOTO_STATIC_URL = 'http://' + AWS_STORAGE_BUCKET_NAME + '.s3.amazonaws.com/'
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -136,3 +137,4 @@ EMAIL_HOST_PASSWORD = 'OsterYpS'
 EMAIL_PORT = 587
 DEFAULT_FROM_EMAIL = 'sharelockers@gmail.com'
 SERVER_EMAIL = 'sharelockers@gmail.com'
+EMAIL_SILENT = True # change to True for production

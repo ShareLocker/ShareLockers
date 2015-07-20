@@ -235,29 +235,24 @@ router.route('dashboard', function () {
 // api info for 'My Items' TAB IS BELOW	
 
 $('.items').on('click', function() {
-
+  $(".generated").show();
     $.ajax({
     			method: 'GET', 
     			url: '/api/owneditems/',
       		}).done(function (data){
     			console.log(data);
           showLists(data, 'my-items', '.generated');
-    			
+    		
     });
    });
    
    
-   $('.help').on('click', function() {
 
-    $.ajax({
-    			method: 'GET', 
-    			url: '/api/help/',
-      		}).done(function (data){
-    			console.log(data);
-          showLists(data, 'my-items', '.generated');
-    			
-    });
-   });
+$(".help").click(function(){
+  
+    $(".faq").show();
+    $(".generated").remove()
+});
 
 //api info for LOCATION TAB IS BELOW
 

@@ -208,8 +208,28 @@ $('.items').on('click', function() {
 
 
 },{"../controllers/locker-list":8,"../router":14,"../show":15,"../showLists":16,"jquery":"jquery","underscore":"underscore","views":"views"}],5:[function(require,module,exports){
+'use strict';
 
-},{}],6:[function(require,module,exports){
+var $ = require('jquery');
+var _ = require('underscore');
+var views = require('views');
+var router = require('../router');
+var show = require('../show');
+
+router.route('help', function () {
+		
+	show('help');
+	$.ajax({
+			method: 'GET', 
+			url: '/api/profiles/',
+  		}).done(function (data){
+			console.log(data);
+		});
+	
+
+
+});
+},{"../router":14,"../show":15,"jquery":"jquery","underscore":"underscore","views":"views"}],6:[function(require,module,exports){
 'use strict';
 
 var $ = require('jquery');
@@ -232,8 +252,8 @@ router.route('', function () {
 
 });
 },{"../router":14,"../show":15,"jquery":"jquery","underscore":"underscore","views":"views"}],7:[function(require,module,exports){
-arguments[4][5][0].apply(exports,arguments)
-},{"dup":5}],8:[function(require,module,exports){
+
+},{}],8:[function(require,module,exports){
 'use strict';
 
 var $ = require('jquery');

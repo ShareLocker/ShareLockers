@@ -956,17 +956,25 @@ Hides the menu at `48em`, but modify this based on your app's needs.
     left: 150px; } }
 
 /*MY STYLES*/
-.dash-card {
-  display: inline-block;
-  width: auto;
-  background-color: RGBA(233, 238, 241, 1);
-  padding: 1em;
-  border-radius: 5px;
-  box-shadow: 10px 10px 5px #888888;
-  overflow: auto; }
-
 #main .title {
   line-height: 90%; }
+
+.dash-card {
+  margin: 0;
+  display: inline-block;
+  background-color: RGBA(233, 238, 241, 1);
+  width: 20%;
+  height: auto;
+  /* padding: 1em; */
+  border-radius: 5px;
+  /* box-shadow: 10px 10px 5px #888888; */
+  /* overflow: auto; */ }
+
+.list-container, .generated {
+  margin-left: auto;
+  margin-right: auto;
+  /* width: 17%; */
+  text-align: center; }
 
 .container {
   padding: 0.5em 0;
@@ -1071,9 +1079,7 @@ button:hover {
 
 .list-container {
   margin-left: auto;
-  margin-right: auto;
-  width: 17%;
-  text-align: center; }
+  margin-right: auto; }
 
 .locker-header {
   font-size: 2em;

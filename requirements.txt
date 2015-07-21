@@ -15,5 +15,5 @@ django-boto==0.3.9
 django-storages-redux==1.2.3
 Pillow==2.8.2
 django-bootstrap3==6.1.0
-
+djrill==1.4.0
 django-rest-auth==0.4.0

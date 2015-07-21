@@ -11,9 +11,14 @@ urlpatterns = [
     url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}, name='view_logout'),
     url(r'^charge/$', profiles_views.stripe_charge_view),
     url(r'^my_items.html$', users_views.SelfInventoryView.as_view(),
-        name='self_inventory'),
+                            name='self_inventory'),
     url(r'^make_reservation(?P<pk>\d+).html$', users_views.ReservationCreateView.as_view(),
-        name='make_reservation'),
+                            name='make_reservation'),
     url(r'^delete_reservation(?P<pk>\d+).html$', users_views.ReservationDeleteView.as_view(),
-        name='delete_reservation'),
+                            name='delete_reservation'),
+    # Request management pages
+    url(r'^my_requests.html$', users_views.SelfRequestView.as_view(),
+                            name='self_requests'),
+    url(r'^delete_request(?P<pk>\d+).html$', users_views.RequestDeleteView.as_view(),
+                            name='delete_request'),
 ]

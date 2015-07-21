@@ -50,15 +50,19 @@ gulp.task('watch', function () {
   watch(src.allScss, function () {
     gulp.start('scss');
   });
-  
+
   watch(src.allImg, function () {
     gulp.start('img');
   });
-  
+
   watch(src.allFont, function () {
     gulp.start('font');
   });
 });
+
+gulp.task('copy-favicon', function() {
+    gulp.src('./src/favicon.ico').pipe(gulp.dest('sharelockers/static'))
+})
 
 // Deploy our src folder to gh-pages
 gulp.task('deploy', function() {
@@ -81,7 +85,7 @@ gulp.task('scss', function () {
 // Build our JavaScript files using browserify
 gulp.task('js', function () {
   var stream;
-  
+
   try {
     stream = browserify('./src/js/init.js', { debug: true })
     .transform('bulkify')
@@ -96,7 +100,7 @@ gulp.task('js', function () {
     console.error(ex);
     return;
   }
-  
+
   return stream
      .on('error', swallowError)
     .pipe(source('app.js'))

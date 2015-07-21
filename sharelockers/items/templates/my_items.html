@@ -12,6 +12,7 @@
 			<th>Item</th>
 			<th>Description</th>
 			<th>Price</th>
+			<th>Image</th>
 			<th>Make <br /> Reservation</th>
 			<th>Locker</th>
 		</tr>
@@ -23,6 +24,10 @@
 			<td>{{ item.title }}</td>
 			<td>{{ item.description }}</td>
 			<td>{{ item.price }}</td>
+			<td>{% if item.photo %}
+				<img src="{{PHOTO_STATIC_URL}}{{ item.photo }}" width=100 height=100 />
+				{% endif %}
+			</td>
 			<td><a href="{% url 'make_reservation' pk=item.id %}">Reserve</a></td>
 			<td>
 				{% if item.locker %}
@@ -75,9 +80,5 @@
 		{% endfor %}
 	</tbody>
 </table>
-
-{% if is_paginated %}
-    {% bootstrap_pagination page_obj %}
-{% endif %}
 
 {% endblock %}

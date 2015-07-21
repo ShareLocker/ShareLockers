@@ -14,6 +14,7 @@ from profiles.forms import UserForm, ProfileForm, UserReservationForm, HashReser
 from items.models import Item
 from items.forms import ItemForm
 from hubs.models import Location
+from transactions.models import Request
 # view classes
 import django.views.generic as django_views
 from django.views.generic.edit import CreateView
@@ -50,8 +51,15 @@ def user_register(request):
                 request, messages.SUCCESS,
                 "Congratulations, {}, on creating your new account! You are now logged in.".format(
                     user.username))
-            send_mail("Welcome to Share Lockers",
-                    "Your account on sharelockers.come has been created!",
+            send_mail("Welcome to Share Lockers","""\
+{},
+
+Your account on sharelockers.come has been created! \
+We look forward to seeing what you have to share. \
+You might start by stocking some items to sell, or by adding items you have \
+at home which you would be willing to sell.
+
+-ShareLockers Team""".format(user.username),
                     settings.EMAIL_HOST_USER, [user.email], fail_silently=settings.EMAIL_SILENT)
             return redirect('view_index')
     return render(request, "profiles/register.html", {'user_form': user_form,
@@ -155,12 +163,22 @@ class ReservationCreateView(TemplateView):
         if reservation.email is not None and reservation.item.locker is not None:
             use_url = self.request.build_absolute_uri(reverse('view_index')) \
                                   + reservation.url()
-            email_text = """A user of sharelockers.com, {}, has stocked an item and put
-you as the intended receiver. Now you can pick it up at your convienience.
+            email_text = """A user of sharelockers.com, {}, has stocked an item and put \
+your email as the intended receiver. Now you can pick it up at your convienience. \
 Just go to the ShareLockers location {} and open the locker {}, using the following URL:
 {}
+
+Details of the item reserved for you:
+Item: {}
+Details: {}
+
+If you did not want or expect to receive this, you have our deepest appologies, \
+and we hope to implement a no-email list and reporting functions in site updates \
+later on.
+
 -ShareLockers team""".format(reservation.seller.user.username, reservation.seller.location
-                    , reservation.item.locker.address(), use_url)
+                    , reservation.item.locker.address(), use_url, reservation.item.title,
+                    reservation.item.description)
             send_mail("An Item is Ready for Pickup", email_text,
                     settings.EMAIL_HOST_USER, [reservation.email], fail_silently=settings.EMAIL_SILENT)
         final_url = HttpResponseRedirect(reverse('reservation_seller_detail', kwargs = {'pk':self.item.id}))
@@ -180,3 +198,28 @@ class ReservationDeleteView(django_views.RedirectView):
         message_text = "You have lifted the reservation on " + item.title
         messages.add_message(self.request, messages.SUCCESS, message_text)
         return super(ReservationDeleteView, self).dispatch(*args, **kwargs)
+
+
+class SelfRequestView(django_views.ListView):
+    model = Request
+    template_name = "my_requests.html"
+    context_object_name = 'requests'
+    paginate_by = 100
+
+    def get_queryset(self):
+        profile = self.request.user.profile
+        return profile.want.all()
+
+
+class RequestDeleteView(django_views.RedirectView):
+    permanent = False
+    query_string = False
+    # pattern_name = 'self_inventory'
+    url = '/my_requests.html'
+
+    def dispatch(self, *args, **kwargs):
+        request = Request.objects.get(pk=kwargs['pk'])
+        message_text = "You have canceled the request on " + request.item.title
+        messages.add_message(self.request, messages.SUCCESS, message_text)
+        request.delete()
+        return super(RequestDeleteView, self).dispatch(*args, **kwargs)

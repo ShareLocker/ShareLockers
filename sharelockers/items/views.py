@@ -8,6 +8,7 @@ from transactions.models import Reservation
 from django.views.generic.base import TemplateView
 from django.core.urlresolvers import reverse
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib import messages
 from django.core.mail import send_mail
 from sharelockers import settings
 
@@ -65,15 +66,20 @@ class RequestCreateView(CreateView):
         form.instance.buyer = self.request.user.profile
         form.instance.seller = self.item.owner
         form.instance.status = 1
-        send_mail("Your item has been requested!",
-                """The following was just requested by another user of Share Lockers:
-                Title: {}
-                Description: {}
-                That means that they are willing to pay your specified price of {} for it.
-                If you can't make it to deliver the item, please remove it in your dashboard.
-                -ShareLockers team""".format(self.item.title, self.item.description, self.item.price),
+        send_mail("Your item has been requested!","""{},
+
+Your item was just requested by another user of Share Lockers. Item details:
+
+Title: {}
+Description: {}
+
+That means that they are willing to pay your specified price of {} for it. \
+If you can't make it to deliver the item, please decline this request \
+in your dashboard. As always, thank you for being a loyal user of ShareLockers.
+
+-ShareLockers team""".format(self.item.owner, self.item.title, self.item.description, self.item.price),
                 settings.EMAIL_HOST_USER, [self.item.owner.user.email], fail_silently=settings.EMAIL_SILENT)
-        msg_text = "Your request has been created: User " + self.item.title
+        msg_text = "Your request has been created: User " + self.request.user.username
         msg_text += " has been asked to stock the item " + self.item.title
         msg_text += " to the location " + self.request.user.profile.location.description
         messages.add_message(self.request, messages.SUCCESS, msg_text)
@@ -82,7 +88,7 @@ class RequestCreateView(CreateView):
 
 class ItemCreateView(CreateView):
     form_class = ItemForm
-    success_url = "my_items.html"
+    success_url = "/reservations/"
     template_name = "items/make_item.html"
 
     def form_valid(self, form):
@@ -123,7 +129,7 @@ class ReservationSellerView(SuccessMessageMixin, UpdateView):
 
 class ReservationBuyerView(CreateView):
     form_class = UnlockForm
-    success_url = "/my_items.html"
+    success_url = "/reservations/"
     template_name = "reservation/reservation_buyer.html"
     reservation = None
 

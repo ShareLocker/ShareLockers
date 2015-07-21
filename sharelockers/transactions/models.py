@@ -90,6 +90,6 @@ class Reservation(models.Model):
             return False
 
     def url(self):
-        st = "reservation_h_"
-        st += str(self.id) + ".html/" + self.code
+        st = "reservations/email/r="
+        st += str(self.id) + "/" + self.code
         return st

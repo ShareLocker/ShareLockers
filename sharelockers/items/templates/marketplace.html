@@ -28,7 +28,10 @@
 			<td>{{ item.title }}</td>
 			<td>{{ item.description }}</td>
 			<td>{{ item.price }}</td>
-			<td><img src="{{PHOTO_STATIC_URL}}{{ item.photo }}" width=100 height=100 /></td>
+			<td>{% if item.photo %}
+				<img src="{{PHOTO_STATIC_URL}}{{ item.photo }}" width=100 height=100 />
+				{% endif %}
+			</td>
 			<td><a href="{% url 'make_request' pk=item.id %}">Request</a></td>
 		</tr>
 		{% endfor %}

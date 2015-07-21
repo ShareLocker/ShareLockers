@@ -1,0 +1,44 @@
+{% extends "nav_base.html" %}
+{% load bootstrap3 %}
+{% block content %}
+
+<h3>List of items you have requested from other users</h3>
+
+<table class="pure-table pure-table-bordered" align="center">
+	<thead>
+		<tr>
+			<th>Item</th>
+			<th>Description</th>
+			<th>Price</th>
+			<th>Image</th>
+			<th>Cancel <br /> Request</th>
+			<th>Locker</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for req in requests %}
+		{% if not item.is_reserved %}
+		<tr>
+			<td>{{ req.item.title }}</td>
+			<td>{{ req.item.description }}</td>
+			<td>{{ req.item.price }}</td>
+			<td>{% if req.item.photo %}
+				<img src="{{PHOTO_STATIC_URL}}{{ req.item.photo }}" width=100 height=100 />
+				{% endif %}
+			</td>
+			<td><a href="{% url 'delete_request' pk=req.id %}">Cancel</a></td>
+			<td>
+				{% if req.item.locker %}
+				{{ req.item.locker.address }}
+				{% else %}
+				-
+				{% endif %}
+			</td>
+		</tr>
+		{% endif %}
+		{% endfor %}
+	</tbody>
+</table>
+
+
+{% endblock %}

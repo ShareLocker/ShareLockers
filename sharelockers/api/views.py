@@ -80,7 +80,8 @@ class OwnedItemViewSet(viewsets.ModelViewSet):
 
     # stocks item after locker has been opened, or updates item
     def update(self, request, *args, **kwargs):
-        r = super(OwnedItemViewSet, self).update(request, *args, **kwargs)
+        # print(dir(request))
+        # print(request.data)
         if 'pk' in kwargs: # if not, this isn't working
             item = Item.objects.get(pk=kwargs['pk'])
             if item.has_request(): # was requested when stocked
@@ -92,10 +93,21 @@ class OwnedItemViewSet(viewsets.ModelViewSet):
                 reservation.code = reservation.make_code()
                 reservation.save()
                 request.delete()
-                send_mail("Requested Item has Been Stocked!",
-                        """The item you requested has been stocked in a share locker by the owner.
-                        It is now available for pickup.""",
+                send_mail("Requested Item has Been Stocked!","""\
+The item you requested has been stocked in a share locker by the owner. \
+It is now available for pickup.
+Item details:
+Item: {}
+Details: {}
+Price: {}
+
+If the item has a non-zero price, then payment may be required for you to pick it \
+up. Thanks for using ShareLockers. Sharing is caring.
+
+-ShareLockers Team""".format(reservation.item.title, reservation.item.description,
+                        reservation.item.price),
                         settings.EMAIL_HOST_USER, [buyer.user.email], fail_silently=settings.EMAIL_SILENT)
+        r = super(OwnedItemViewSet, self).update(request, *args, **kwargs)
         return r
 
 

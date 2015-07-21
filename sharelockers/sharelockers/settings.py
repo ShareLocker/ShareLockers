@@ -50,7 +50,13 @@ INSTALLED_APPS = (
     'transactions',
     'bootstrap3',
     'storages',
+    'djrill',
 )
+
+MANDRILL_API_KEY = "mBHBvxPj5OhpGm1f_mvInA"
+EMAIL_BACKEND = "djrill.mail.backends.djrill.DjrillBackend"
+DEFAULT_FROM_EMAIL = "team@sharelockers.com"  # if you don't already have this in settings
+EMAIL_HOST_USER = "Share Lockers <email@sharelockers.com>"
 
 REST_SESSION_LOGIN = False
 
@@ -130,11 +136,12 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'sharelockers@gmail.com'
-EMAIL_HOST_PASSWORD = 'OsterYpS'
-EMAIL_PORT = 587
-DEFAULT_FROM_EMAIL = 'sharelockers@gmail.com'
-SERVER_EMAIL = 'sharelockers@gmail.com'
-EMAIL_SILENT = True # change to True for production
+# EMAIL_USE_TLS = True
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_HOST_USER = 'sharelockers@gmail.com'
+# EMAIL_HOST_PASSWORD = 'OsterYpS'
+# EMAIL_PORT = 587
+# DEFAULT_FROM_EMAIL = 'sharelockers@gmail.com'
+# SERVER_EMAIL = 'sharelockers@gmail.com'
+
+EMAIL_SILENT = False # change to True for production

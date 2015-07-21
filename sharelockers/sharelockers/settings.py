@@ -53,7 +53,7 @@ INSTALLED_APPS = (
     'djrill',
 )
 
-MANDRILL_API_KEY = "mBHBvxPj5OhpGm1f_mvInA"
+MANDRILL_API_KEY = os.environ.get('MANDRILL_API_KEY')
 EMAIL_BACKEND = "djrill.mail.backends.djrill.DjrillBackend"
 DEFAULT_FROM_EMAIL = "team@sharelockers.com"  # if you don't already have this in settings
 EMAIL_HOST_USER = "Share Lockers <email@sharelockers.com>"

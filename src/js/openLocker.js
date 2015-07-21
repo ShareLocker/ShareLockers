@@ -27,7 +27,7 @@ module.exports = function (button, user) {
 		  		}).done(function (data){
 					console.log(data);
 					alert("Locker Open");
-					setTimeout('parent.location.reload()',500);
+					setTimeout('parent.location.reload()',100);
 				}).fail(function (data){
 					console.log(data);
 					alert("Unable to Open at this Time");

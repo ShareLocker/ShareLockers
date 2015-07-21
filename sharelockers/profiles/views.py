@@ -103,6 +103,7 @@ def stripe_charge_view(request):
     # request.user.profile.stripe_token = token
 
 
+# @login_required
 class SelfInventoryView(django_views.ListView):
     model = Item
     template_name = "my_items.html"
@@ -116,7 +117,7 @@ class SelfInventoryView(django_views.ListView):
 
 class ReservationCreateView(TemplateView):
     # form_class = UserReservationForm
-    # success_url = "/my_items.html"
+    # success_url = "/reservations/"
     template_name = "reservation/make_reservation.html"
     item = None
 
@@ -189,7 +190,7 @@ class ReservationDeleteView(django_views.RedirectView):
     permanent = False
     query_string = False
     # pattern_name = 'self_inventory'
-    url = '/my_items.html'
+    url = '/reservations/'
 
     def dispatch(self, *args, **kwargs):
         item = Item.objects.get(pk=kwargs['pk'])

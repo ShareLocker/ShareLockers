@@ -88,7 +88,7 @@ in your dashboard. As always, thank you for being a loyal user of ShareLockers.
 
 class ItemCreateView(CreateView):
     form_class = ItemForm
-    success_url = "my_items.html"
+    success_url = "/reservations/"
     template_name = "items/make_item.html"
 
     def form_valid(self, form):
@@ -129,7 +129,7 @@ class ReservationSellerView(SuccessMessageMixin, UpdateView):
 
 class ReservationBuyerView(CreateView):
     form_class = UnlockForm
-    success_url = "/my_items.html"
+    success_url = "/reservations/"
     template_name = "reservation/reservation_buyer.html"
     reservation = None
 

@@ -14,7 +14,7 @@
 <div class="pure-menu pure-menu-horizontal" align="center">
     <ul class="pure-menu-list">
         <li class="pure-menu-item"><h2 class="title">Share Lockers</h2></li>
-        <li class="pure-menu-item"><a href="/" class="pure-menu-link">main</a></li>
+        <li class="pure-menu-item"><a href="/#/dashboard" class="pure-menu-link">dashboard</a></li>
     </ul>
     <ul class="pure-menu-list">
         {% if request.user.is_authenticated %}
@@ -90,7 +90,7 @@ ul li{
     <div class="pure-u-1-3">
       <h4>Administrator Tools</h4>
       <ul class="pure-menu-list">
-    	  <li><a href="{% url 'view_locs' %}">Locations</a>, </li>
+    	  <li><a href="{% url 'view_locs' %}">Locations</a></li>
     	  <li><a href="{% url 'view_hubs' %}">Hubs</a></li>
       </ul>
 
@@ -98,7 +98,7 @@ ul li{
     <div class="pure-u-1-3">
       <h4>Profile Tools</h4>
       <ul class="pure-menu-list">
-    	  <li><a href="{% url 'self_inventory' %}">Your Items</a></li>
+    	  <li><a href="{% url 'self_inventory' %}">Your Reserved Items</a></li>
     	  <li><a href="{% url 'self_requests' %}">Your Requests</a></li>
       </ul>
 

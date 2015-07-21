@@ -21,6 +21,7 @@ module.exports = function (button) {
 				 $('.stock-wrapper').hide();
 				 $('.not-loggedin-container').css("width", "0%");
 				 $('.buy-confirmation-container').css("width", "0%");
+				 $('.buy-open-container').css("width", "0%");
 			});
 		$('.lgn-button').click(function(){
 				$('.buy-confirmation-container').css("width", "100%")
@@ -70,6 +71,13 @@ module.exports = function (button) {
 				$('.confirm-btn').attr('data-id', $(this).data('id'));
 				$('.confirm-btn').attr('data-owner', user);
 				$('.confirm-btn').attr('data-locker', $(this).data('locker'));
+			$('.close').click(function(){
+				 $('.stock-wrapper').hide();
+				 $('.not-loggedin-container').css("width", "0%");
+				 $('.buy-confirmation-container').css("width", "0%");
+				 $('.buy-open-container').css("width", "0%");
+			});
+				 
 		}
 		$('.confirm-btn').click(function(){
 			var csrftoken = getCookie('csrftoken'); 
@@ -97,6 +105,16 @@ module.exports = function (button) {
 				}).fail(function(data){
 					console.log(data);
 				});
+		$('.cancel-btn').click(function(){
+			$('.stock-wrapper').hide();
+			$('.not-loggedin-container').css("width", "0%");
+			$('.buy-confirmation-container').css("width", "0%");
+		});
+		$('.open-later').click(function(){
+			$('.not-loggedin-container').css("width", "0%");
+			$('.buy-confirmation-container').css("width", "0%");
+			setTimeout('parent.location.reload()',100);
+		});
 		});
 		
 			
@@ -112,17 +130,3 @@ module.exports = function (button) {
 });
 }
 
-		function getCredits() {
-						// $.ajax({
-						// 	method: 'GET',
-						// 	contentType: 'application/json',
-						// 	URL: 'api/mycredits/'
-						// 	}).done(function (data){
-						// 	console.log(data);
-						// var credits = $('.user-id').attr('data-credits');
-						// 	$('.credits').html(credits);
-						// }).fail(function(data){
-						// 	alert('oh no! try again');
-						// 	console.log(data);
-						// })
-			}

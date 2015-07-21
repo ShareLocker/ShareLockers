@@ -982,7 +982,6 @@ Hides the menu at `48em`, but modify this based on your app's needs.
 .container {
   padding: 0.5em 0;
   text-align: center;
-  z-index: 1;
   position: relative; }
 
 h1 a:visited {
@@ -1075,7 +1074,6 @@ button:hover {
   color: black; }
 
 .locker-container {
-  padding-top: 1em;
   display: block;
   line-height: 1.7em;
   text-align: left; }
@@ -1131,21 +1129,36 @@ button:hover {
 
 .action-container {
   position: fixed;
-  max-width: 700px;
+  max-width: 500px;
+  max-height: 500px;
   height: 70%;
   width: 60%;
   top: 50%;
   left: 50%;
+  min-height: 450px;
+  min-width: 450px;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   display: none; }
+
+@media (max-width: 48em) {
+  .action-container {
+    position: fixed;
+    height: 80%;
+    width: 90%;
+    top: 50%;
+    left: 50%;
+    min-height: 50px;
+    min-width: 50px;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    display: none; } }
 
 .vpopout {
   position: absolute;
   height: 100%;
   width: 100%;
   background-color: #4DD0E1;
-  z-index: 5;
   opacity: 0.95;
   border-radius: .5em; }
 
@@ -1154,23 +1167,12 @@ button:hover {
   display: block;
   border-radius: .5em;
   height: auto;
-  width: 50%;
+  width: 60%;
   max-height: 250px;
   max-width: 250px;
   margin-left: auto;
   margin-right: auto;
   border-radius: .5em; }
-
-@media (max-width: 48em) {
-  .vpopout {
-    height: 70%;
-    width: 85%; } }
-
-@media (max-width: 48em) {
-  .vpopout {
-    margin-left: auto;
-    margin-right: auto;
-    width: 100%; } }
 
 .image-wrapper {
   height: 70%;
@@ -1178,19 +1180,17 @@ button:hover {
   border-radius: .5em;
   top: 50%;
   left: 50%;
-  -webkit-transform: translate(20%, 10%);
-  transform: translate(20%, 10%);
+  -webkit-transform: translate(20%, 20%);
+  transform: translate(20%, 20%);
   background-color: black;
   opacity: 1;
-  border-radius: .5em;
-  z-index: 1500; }
+  border-radius: .5em; }
 
 .card img {
   height: 100%;
   width: 100%;
   border-radius: .5em;
-  opacity: .5;
-  z-index: 1000; }
+  opacity: .5; }
 
 .lockerTitle {
   color: white;
@@ -1215,6 +1215,7 @@ footer {
   text-align: center; }
 
 .stock-container {
+  box-sizing: border-box;
   position: fixed;
   top: 0;
   right: 0;
@@ -1223,22 +1224,35 @@ footer {
   background-color: #eee;
   border-radius: .5em;
   color: #FF4B4B;
-  z-index: 1000;
-  font-size: 1em;
+  font-size: .85em;
   font-weight: 100;
-  transition: all 0.2s;
-  overflow: hidden; }
+  transition: all 0.2s; }
 
-.stock-item .item-stock {
-  margin-top: 1em;
+.stock-box {
+  background-color: #fff;
+  border-radius: .5em;
   position: absolute;
-  top: 90%;
+  width: 70%;
+  height: 90%;
+  top: 45%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  overflow: scroll; }
+
+@media (max-width: 48em) {
+  .stock-box {
+    width: 80%;
+    height: 90%; } }
+
+.item-stock {
+  position: absolute;
+  top: 93%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%); }
 
 .stock-container h4 {
-  margin-bottom: .5em;
   margin-left: 2em; }
 
 .stock-container select, .stock-container span, .stock-container textarea, .stock-container input {
@@ -1259,6 +1273,17 @@ footer {
   opacity: 0.7;
   display: none; }
 
+@media (max-width: 48em) {
+  .close {
+    font-size: .5em !important;
+    line-height: 1.2em !important;
+    position: fixed;
+    float: right;
+    top: 10px;
+    right: 10px;
+    border-radius: 50%;
+    width: 1.8em; } }
+
 .close {
   position: fixed;
   float: right;
@@ -1275,6 +1300,7 @@ fieldset {
   border: none; }
 
 .not-loggedin-container {
+  box-sizing: border-box;
   position: fixed;
   top: 0;
   right: 0;
@@ -1283,7 +1309,6 @@ fieldset {
   background-color: #eee;
   border-radius: .5em;
   color: #FF4B4B;
-  z-index: 1000;
   font-size: 1em;
   font-weight: 100;
   transition: all 0.2s;
@@ -1302,6 +1327,13 @@ fieldset {
 .not-loggedin input {
   margin-bottom: 1em; }
 
+@media (max-width: 48em) {
+  .not-loggedin {
+    padding: 1em;
+    text-align: center;
+    width: 70%;
+    height: 70%; } }
+
 .buy-confirmation-container {
   position: fixed;
   top: 0;
@@ -1311,21 +1343,30 @@ fieldset {
   background-color: #eee;
   border-radius: .5em;
   color: #FF4B4B;
-  z-index: 1000;
   font-size: 1em;
   font-weight: 100;
   transition: all 0.2s;
   overflow: hidden; }
 
 .buy-confirmation {
+  box-sizing: border-box;
   padding: 4em;
   background-color: #fff;
   border-radius: .5em;
   position: absolute;
+  width: 50%;
   top: 50%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%); }
+
+@media (max-width: 48em) {
+  .buy-confirmation {
+    padding: 1em;
+    padding-left: 3em;
+    text-align: left;
+    width: 70%;
+    height: 70%; } }
 
 .buy-confirmation span, .buy-confirmation button {
   margin-bottom: 1em;
@@ -1344,21 +1385,32 @@ fieldset {
   background-color: #eee;
   border-radius: .5em;
   color: #FF4B4B;
-  z-index: 1000;
   font-size: 1em;
   font-weight: 100;
   transition: all 0.2s;
   overflow: hidden; }
 
 .buy-open {
+  box-sizing: border-box;
+  font-size: 1.2em;
   padding: 4em;
   background-color: #fff;
   border-radius: .5em;
   position: absolute;
+  width: 70%;
   top: 50%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%); }
+  transform: translate(-50%, -50%);
+  line-height: 1em; }
+
+@media (max-width: 48em) {
+  .buy-open {
+    padding: 1em;
+    padding-left: 2em;
+    text-align: left;
+    width: 70%;
+    height: 70%; } }
 
 .buy-open button {
   margin-bottom: 1em;

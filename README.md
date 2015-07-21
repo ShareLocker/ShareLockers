@@ -1,3 +1,43 @@
+# Setup
+
+This app relies on several environment variables, and these are necessary
+to run on a server or in a testing environment. The commands are different
+for Heroku and for a local machine. Security keys should never be pushed in
+a commit, so this is a necessary setup process.
+
+To setup local variables on a Mac:
+
+    export AWS_ACCESS_KEY_ID="{key1}"
+    export AWS_SECRET_ACCESS_KEY="{key2}"
+    export MANDRILL_API_KEY="{key3}"
+
+To check that you've set the variables correctly, check that those variables
+are included in your overall list of environment variables, which outputs
+with the following command.
+
+    printenv
+
+To setup system variables on Heroku:
+
+    heroku config:set AWS_ACCESS_KEY_ID={key1}
+    heroku config:set AWS_SECRET_ACCESS_KEY={key1}
+    heroku config:set MANDRILL_API_KEY={key1}
+
+Note that the setting variables locally uses quotation marks, but heroku
+commands do not. This is intentional. To similarly print the environment
+variables, run:
+
+    heroku config
+
+As always, you should have a virtual environment set up and install the
+requirements. For the production environment:
+
+    pip install -r requirements.txt
+
+For the development environment:
+
+    pip install -r dev_requirements.txt
+
 # Instructions for Development Network
 
 1) install Node JS because it comes with npm
@@ -19,23 +59,26 @@ https://nodejs.org/
 5) plug in the Arduino / RasPi
 
 
-# Welcome to your new Django single-page app project!
+# Single Page App Template Setup
 
-This template will ease your way in building a single-page app backed by a Django API.
+The following command was run at the start of this project. It should not be run
+a second time. If you wish to use this template, see the following repo:
 
-To use this template, run:
+https://github.com/tiyd-python-2015-05/single-page-app-template
+
+The template was run with the following command:
 
 ```
-django-admin.py startproject YOUR_PROJECT_NAME --template=https://github.com/tiyd-python-2015-05/single-page-app-template/archive/master.zip --extension=py,md --name=Procfile
+django-admin.py startproject sharelockers --template=https://github.com/tiyd-python-2015-05/single-page-app-template/archive/master.zip --extension=py,md --name=Procfile
 ```
 
-Change YOUR_PROJECT_NAME before running the above.
-
-## Files you should know about
+## Places used for front-end
 
 * `sharelockers/templates/index.html` - This is where all your HTML should go. It has a few funny things in there. Make sure to use `\{% static "path/to/file.css" %\}` for all links to static files.
 
-* `sharelockers/static/` - All your static files go here. You can write them by hand or generate them with gulp or another tool.
+* `sharelockers/static/` - Do not put any files here. They will be removed by gulp.
+
+* `src/` - this is where gulpfile.js coppies from.
 
 ## Heroku instructions
 

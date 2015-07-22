@@ -1015,8 +1015,7 @@ h3, .tagline {
   left: 0; }
 
 .my-page-header.sticky {
-  padding: 1.5em;
-  background-color: RGBA(69, 136, 156, 0.5); }
+  padding: 1.5em; }
 
 ul {
   position: absolute;
@@ -1461,7 +1460,7 @@ h6 {
   background-color: white; }
 
 .section5 {
-  margin-bottom: 30em; }
+  margin-bottom: 35em; }
 
 .section5 h1 {
   padding: 0; }
@@ -1524,7 +1523,7 @@ h6 {
 .contact-icon:hover {
   color: #E25D3A; }
 
-.about-section p {
+.about-section h6 {
   color: #E25D3A; }
 
 .section5 {
@@ -1532,6 +1531,20 @@ h6 {
 
 .section6 {
   display: none; }
+
+.container p {
+  text-align: left;
+  padding: 0 0.5em; }
+
+.response {
+  padding-top: 10%; }
+
+.container input {
+  font-size: 2em;
+  display: inline-block; }
+
+.join {
+  display: inline-block; }
 
 .login {
   text-align: center;

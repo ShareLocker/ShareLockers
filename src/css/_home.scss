@@ -125,7 +125,7 @@ h6{
 }
 
 .section5{
-	margin-bottom:30em;
+	margin-bottom:35em;
 }
 .section5 h1{
   
@@ -209,7 +209,7 @@ h6{
 .contact-icon:hover{
 	color: #E25D3A;
 }
-.about-section p{
+.about-section h6{
 	color: #E25D3A;
 }
 
@@ -219,4 +219,24 @@ h6{
 
 .section6{
 	display: none;
+	
+}
+
+.container p{
+  text-align: left;
+  padding: 0 0.5em;
+}
+
+.response{
+	padding-top: 10%; 
+}
+
+.container input{
+	font-size: 2em;
+	display: inline-block;
+	
+}
+.join{
+	display: inline-block;
+
 }

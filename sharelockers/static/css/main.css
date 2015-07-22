@@ -1514,6 +1514,16 @@ fieldset {
   text-shadow: none;
   border: 1px solid #c1c1c1; }
 
+.make-reservation {
+  font-size: .7em;
+  width: 10%;
+  margin-left: 61%;
+  margin-right: auto; }
+
+.make-reservation:hover {
+  text-decoration: underline;
+  margin-top: -10px; }
+
 .info {
   color: #E25D3A;
   font-size: 3em;

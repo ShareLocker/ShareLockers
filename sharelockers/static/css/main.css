@@ -982,6 +982,7 @@ Hides the menu at `48em`, but modify this based on your app's needs.
 .container {
   padding: 0.5em 0;
   text-align: center;
+  z-index: 1;
   position: relative; }
 
 h1 a:visited {
@@ -1683,7 +1684,9 @@ h6 {
   color: #E25D3A; }
 
 .section5 {
-  background-color: #eee; }
+  background-color: #eee;
+  min-height: 5em;
+  padding-top: 1em; }
 
 .section6 {
   display: none; }
@@ -1696,11 +1699,18 @@ h6 {
   padding-top: 10%; }
 
 .container input {
-  font-size: 2em;
-  display: inline-block; }
+  font-size: 2em; }
 
 .join {
-  display: inline-block; }
+  margin-right: 20%; }
+
+.email {
+  float: left;
+  padding: 0.18em;
+  line-height: 1.5em;
+  margin-left: 20%;
+  border-radius: 10px;
+  border: 1px solid lightgray; }
 
 .login {
   text-align: center;

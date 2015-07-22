@@ -45,7 +45,7 @@ The content `<div>` is where all your content goes.
      color: #333;
      text-align: center;
      padding: 0.5em 2em 0;
-     border-bottom: 1px solid #eee;
+     //border-bottom: 1px solid #eee;
  }
     .header h1 {
         margin: 0.2em 0;
@@ -173,6 +173,7 @@ small screens.
     width: 2em;
     height: auto;
     padding: 2.1em 1.6em;
+    opacity: 0.1;
 }
 
     .menu-link:hover,

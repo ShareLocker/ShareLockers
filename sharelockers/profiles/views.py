@@ -103,6 +103,7 @@ def stripe_charge_view(request):
     # request.user.profile.stripe_token = token
 
 
+# @login_required
 class SelfInventoryView(django_views.ListView):
     model = Item
     template_name = "my_items.html"
@@ -114,9 +115,15 @@ class SelfInventoryView(django_views.ListView):
         return profile.item_set.all()
 
 
+    def get_context_data(self, **kwargs):
+        context = super(SelfInventoryView, self).get_context_data(**kwargs)
+        context['PHOTO_STATIC_URL'] = settings.PHOTO_STATIC_URL
+        return context
+
+
 class ReservationCreateView(TemplateView):
     # form_class = UserReservationForm
-    # success_url = "/my_items.html"
+    # success_url = "/reservations/"
     template_name = "reservation/make_reservation.html"
     item = None
 
@@ -154,13 +161,13 @@ class ReservationCreateView(TemplateView):
             reservation.item = self.item
             reservation.seller = self.request.user.profile
             reservation.status = 1
-            if reservation.email is None:
+            if "@" not in reservation.email:
                 reservation.email = reservation.buyer.user.email
             reservation.save()
             msg_text = "You have reserved " + self.item.title
             msg_text += " for user " + reservation.buyer.alias
             messages.add_message(self.request, messages.SUCCESS, msg_text)
-        if reservation.email is not None and reservation.item.locker is not None:
+        if "@" in reservation.email and reservation.item.locker is not None:
             use_url = self.request.build_absolute_uri(reverse('view_index')) \
                                   + reservation.url()
             email_text = """A user of sharelockers.com, {}, has stocked an item and put \
@@ -189,7 +196,7 @@ class ReservationDeleteView(django_views.RedirectView):
     permanent = False
     query_string = False
     # pattern_name = 'self_inventory'
-    url = '/my_items.html'
+    url = '/reservations/'
 
     def dispatch(self, *args, **kwargs):
         item = Item.objects.get(pk=kwargs['pk'])

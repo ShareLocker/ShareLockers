@@ -89,7 +89,11 @@ class Reservation(models.Model):
         else:
             return False
 
-    def url(self):
-        st = "reservation_h_"
-        st += str(self.id) + ".html/" + self.code
+    def url(self, for_buyer=False):
+        if not for_buyer:
+            st = "reservations/email/r="
+            st += str(self.id) + "/" + self.code
+        else:
+            st = "reservations/buyer/r="
+            st += str(self.id)
         return st

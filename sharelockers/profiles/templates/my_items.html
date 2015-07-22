@@ -6,8 +6,6 @@
 
 <p>Or, <a href="{% url 'make_item' %}">add a new item</a> to your inventory</p>
 
-<p>{{PHOTO_STATIC_URL}}</p>
-
 <table class="pure-table pure-table-bordered" align="center">
 	<thead>
 		<tr>
@@ -30,9 +28,7 @@
 				<img src="{{PHOTO_STATIC_URL}}{{ item.photo }}" width=100 height=100 />
 				{% endif %}
 			</td>
-			<td><a href="{% url 'make_reservation' pk=item.id %}">Reserve
-			<button class="lock"></span>
-			</a></td>
+			<td><a href="{% url 'make_reservation' pk=item.id %}">Reserve</a></td>
 			<td>
 				{% if item.locker %}
 				{{ item.locker.address }}
@@ -73,8 +69,8 @@
 			<td><a href="{% url 'reservation_seller_detail' pk=item.id %}">Details</a></td>
 			<td><a href="{% url 'delete_reservation' pk=item.id %}">Withdraw</a></td>
 			<td>
-				{% if item.locker.exists %}
-				{{ item.locker }}
+				{% if item.locker %}
+				{{ item.locker.address }}
 				{% else %}
 				-
 				{% endif %}

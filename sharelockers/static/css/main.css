@@ -780,8 +780,7 @@ The content `<div>` is where all your content goes.
   margin: 0;
   color: #333;
   text-align: center;
-  padding: 0.5em 2em 0;
-  border-bottom: 1px solid #eee; }
+  padding: 0.5em 2em 0; }
 
 .header h1 {
   margin: 0.2em 0;
@@ -896,7 +895,8 @@ small screens.
   z-index: 10;
   width: 2em;
   height: auto;
-  padding: 2.1em 1.6em; }
+  padding: 2.1em 1.6em;
+  opacity: 0.1; }
 
 .menu-link:hover,
 .menu-link:focus {
@@ -982,7 +982,6 @@ Hides the menu at `48em`, but modify this based on your app's needs.
 .container {
   padding: 0.5em 0;
   text-align: center;
-  z-index: 1;
   position: relative; }
 
 h1 a:visited {
@@ -1051,10 +1050,28 @@ button:hover {
   top: 90%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%); }
+  transform: translate(-50%, -50%);
+  background-color: #c1c1c1; }
+
+.buy:hover {
+  background-color: #eee;
+  color: #c1c1c1;
+  border: none;
+  text-shadow: none;
+  border: 1px solid #c1c1c1; }
 
 .stock-button {
-  display: none; }
+  display: none;
+  margin-top: .7em;
+  margin-left: .7em;
+  background-color: #c1c1c1; }
+
+.stock-button:hover {
+  background-color: #eee;
+  color: #c1c1c1;
+  border: none;
+  text-shadow: none;
+  border: 1px solid #c1c1c1; }
 
 .open-button {
   display: none;
@@ -1062,7 +1079,15 @@ button:hover {
   top: 90%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%); }
+  transform: translate(-50%, -50%);
+  background-color: #c1c1c1; }
+
+.open-button:hover {
+  background-color: #eee;
+  color: #c1c1c1;
+  border: none;
+  text-shadow: none;
+  border: 1px solid #c1c1c1; }
 
 .register-btn, .login-btn {
   background-color: #E25D3A;
@@ -1074,7 +1099,6 @@ button:hover {
   color: black; }
 
 .locker-container {
-  padding-top: 1em;
   display: block;
   line-height: 1.7em;
   text-align: left; }
@@ -1130,21 +1154,36 @@ button:hover {
 
 .action-container {
   position: fixed;
-  max-width: 700px;
+  max-width: 500px;
+  max-height: 500px;
   height: 70%;
   width: 60%;
   top: 50%;
   left: 50%;
+  min-height: 500px;
+  min-width: 500px;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   display: none; }
+
+@media (max-width: 48em) {
+  .action-container {
+    position: fixed;
+    height: 80%;
+    width: 90%;
+    top: 50%;
+    left: 50%;
+    min-height: 50px;
+    min-width: 50px;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    display: none; } }
 
 .vpopout {
   position: absolute;
   height: 100%;
   width: 100%;
   background-color: #4DD0E1;
-  z-index: 5;
   opacity: 0.95;
   border-radius: .5em; }
 
@@ -1153,23 +1192,12 @@ button:hover {
   display: block;
   border-radius: .5em;
   height: auto;
-  width: 50%;
+  width: 60%;
   max-height: 250px;
   max-width: 250px;
   margin-left: auto;
   margin-right: auto;
   border-radius: .5em; }
-
-@media (max-width: 48em) {
-  .vpopout {
-    height: 70%;
-    width: 85%; } }
-
-@media (max-width: 48em) {
-  .vpopout {
-    margin-left: auto;
-    margin-right: auto;
-    width: 100%; } }
 
 .image-wrapper {
   height: 70%;
@@ -1177,19 +1205,17 @@ button:hover {
   border-radius: .5em;
   top: 50%;
   left: 50%;
-  -webkit-transform: translate(20%, 10%);
-  transform: translate(20%, 10%);
+  -webkit-transform: translate(20%, 20%);
+  transform: translate(20%, 20%);
   background-color: black;
   opacity: 1;
-  border-radius: .5em;
-  z-index: 1500; }
+  border-radius: .5em; }
 
 .card img {
   height: 100%;
   width: 100%;
   border-radius: .5em;
-  opacity: .5;
-  z-index: 1000; }
+  opacity: .5; }
 
 .lockerTitle {
   color: white;
@@ -1214,30 +1240,55 @@ footer {
   text-align: center; }
 
 .stock-container {
+  box-sizing: border-box;
   position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
   width: 0%;
+  min-height: 500px;
   background-color: #eee;
   border-radius: .5em;
   color: #FF4B4B;
-  z-index: 1000;
-  font-size: 1em;
+  font-size: .85em;
   font-weight: 100;
-  transition: all 0.2s;
-  overflow: hidden; }
+  transition: all 0.2s; }
 
-.stock-item .item-stock {
-  margin-top: 1em;
+.stock-box {
+  background-color: #fff;
+  border-radius: .5em;
   position: absolute;
-  top: 90%;
+  width: 70%;
+  height: 90%;
+  top: 45%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%); }
+  transform: translate(-50%, -50%);
+  overflow: scroll;
+  min-height: 450px; }
+
+@media (max-width: 48em) {
+  .stock-box {
+    width: 100%;
+    height: 100%;
+    min-height: 450px; } }
+
+.item-stock {
+  position: absolute;
+  top: 93%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  background-color: #2CBFCA; }
+
+.item-stock:hover {
+  background-color: #fff;
+  color: #2CBFCA;
+  border: none;
+  text-shadow: none;
+  border: 1px solid #2CBFCA; }
 
 .stock-container h4 {
-  margin-bottom: .5em;
   margin-left: 2em; }
 
 .stock-container select, .stock-container span, .stock-container textarea, .stock-container input {
@@ -1264,16 +1315,33 @@ footer {
   top: 10px;
   right: 10px;
   border-radius: 50%;
-  width: 1.8em; }
+  width: 1.8em;
+  z-index: 5;
+  background-color: #c1c1c1; }
 
 .close:hover {
-  background-color: #5081FC;
-  border: none; }
+  background-color: #eee;
+  color: #c1c1c1;
+  border: none;
+  text-shadow: none;
+  border: 1px solid #c1c1c1; }
+
+@media (max-width: 48em) {
+  .close {
+    font-size: .8em !important;
+    line-height: 1.2em !important;
+    position: fixed;
+    float: right;
+    top: 10px;
+    right: 10px;
+    border-radius: 50%;
+    width: 1.8em; } }
 
 fieldset {
   border: none; }
 
 .not-loggedin-container {
+  box-sizing: border-box;
   position: fixed;
   top: 0;
   right: 0;
@@ -1282,7 +1350,6 @@ fieldset {
   background-color: #eee;
   border-radius: .5em;
   color: #FF4B4B;
-  z-index: 1000;
   font-size: 1em;
   font-weight: 100;
   transition: all 0.2s;
@@ -1301,6 +1368,23 @@ fieldset {
 .not-loggedin input {
   margin-bottom: 1em; }
 
+@media (max-width: 48em) {
+  .not-loggedin {
+    padding: 1em;
+    text-align: center;
+    width: 70%;
+    height: 70%; } }
+
+.lgn-button {
+  background-color: #2CBFCA; }
+
+.lgn-button:hover {
+  background-color: #fff;
+  color: #2CBFCA;
+  border: none;
+  text-shadow: none;
+  border: 1px solid #2CBFCA; }
+
 .buy-confirmation-container {
   position: fixed;
   top: 0;
@@ -1310,21 +1394,33 @@ fieldset {
   background-color: #eee;
   border-radius: .5em;
   color: #FF4B4B;
-  z-index: 1000;
   font-size: 1em;
   font-weight: 100;
   transition: all 0.2s;
   overflow: hidden; }
 
 .buy-confirmation {
+  box-sizing: border-box;
   padding: 4em;
   background-color: #fff;
   border-radius: .5em;
   position: absolute;
+  width: 70%;
   top: 50%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%); }
+
+.buy-confirmation button {
+  margin-top: 2em; }
+
+@media (max-width: 48em) {
+  .buy-confirmation {
+    padding: 1em;
+    padding-left: 3em;
+    text-align: left;
+    width: 70%;
+    height: 70%; } }
 
 .buy-confirmation span, .buy-confirmation button {
   margin-bottom: 1em;
@@ -1332,7 +1428,28 @@ fieldset {
   line-height: 2em; }
 
 .confirm-btn {
-  background-color: #5081FC; }
+  background-color: #2CBFCA; }
+
+.confirm-btn:hover {
+  background-color: #fff;
+  color: #2CBFCA;
+  border: none;
+  text-shadow: none;
+  border: 1px solid #2CBFCA; }
+
+.cancel-btn {
+  background-color: #c1c1c1; }
+
+.cancel-btn:hover {
+  background-color: #eee;
+  color: #c1c1c1;
+  border: none;
+  text-shadow: none;
+  border: 1px solid #c1c1c1; }
+
+@media (max-width: 48em) {
+  .buy-confirmation button {
+    margin-top: 1em; } }
 
 .buy-open-containter {
   position: fixed;
@@ -1343,21 +1460,33 @@ fieldset {
   background-color: #eee;
   border-radius: .5em;
   color: #FF4B4B;
-  z-index: 1000;
   font-size: 1em;
   font-weight: 100;
   transition: all 0.2s;
   overflow: hidden; }
 
 .buy-open {
-  padding: 4em;
+  padding-top: 5em;
+  box-sizing: border-box;
+  font-size: 1.1em;
+  padding: 3em;
   background-color: #fff;
   border-radius: .5em;
   position: absolute;
+  width: 80%;
   top: 50%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%); }
+  transform: translate(-50%, -50%);
+  line-height: 1.2em; }
+
+@media (max-width: 48em) {
+  .buy-open {
+    padding: 1em;
+    padding-left: 2em;
+    text-align: left;
+    width: 70%;
+    height: 70%; } }
 
 .buy-open button {
   margin-bottom: 1em;
@@ -1365,7 +1494,34 @@ fieldset {
   line-height: 2em; }
 
 .open-now {
-  background-color: #5081FC; }
+  background-color: #2CBFCA; }
+
+.open-now:hover {
+  background-color: #fff;
+  color: #2CBFCA;
+  border: none;
+  text-shadow: none;
+  border: 1px solid #2CBFCA; }
+
+.open-later {
+  background-color: #c1c1c1; }
+
+.open-later:hover {
+  background-color: #eee;
+  color: #c1c1c1;
+  border: none;
+  text-shadow: none;
+  border: 1px solid #c1c1c1; }
+
+.make-reservation {
+  font-size: .7em;
+  width: 10%;
+  margin-left: 61%;
+  margin-right: auto; }
+
+.make-reservation:hover {
+  text-decoration: underline;
+  margin-top: -10px; }
 
 .info {
   color: #E25D3A;

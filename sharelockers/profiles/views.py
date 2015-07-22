@@ -115,6 +115,12 @@ class SelfInventoryView(django_views.ListView):
         return profile.item_set.all()
 
 
+    def get_context_data(self, **kwargs):
+        context = super(SelfInventoryView, self).get_context_data(**kwargs)
+        context['PHOTO_STATIC_URL'] = settings.PHOTO_STATIC_URL
+        return context
+
+
 class ReservationCreateView(TemplateView):
     # form_class = UserReservationForm
     # success_url = "/reservations/"
@@ -133,7 +139,6 @@ class ReservationCreateView(TemplateView):
         context['item'] = self.item
         context['hash_form'] = HashReservationForm()
         context['user_form'] = UserReservationForm()
-        context['PHOTO_STATIC_URL'] = settings.PHOTO_STATIC_URL
         return context
 
     def post(self, *args, **kwargs):

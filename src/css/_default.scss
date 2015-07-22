@@ -91,11 +91,32 @@ button:hover {
 	top: 90%;
 	left: 50%;
 	transform: translate(-50%, -50%);
+  background-color: #c1c1c1;;
+}
+
+.buy:hover {
+  background-color: #eee;
+  color: #c1c1c1;;
+  border: none;
+  text-shadow: none;
+  border: 1px solid #c1c1c1;;
 }
 
 .stock-button {
   display: none;
+  margin-top: .7em;
+  margin-left: .7em;
+  background-color: #c1c1c1;
 }
+
+.stock-button:hover {
+  background-color: #eee;
+  color: #c1c1c1;
+  border: none;
+  text-shadow: none;
+  border: 1px solid #c1c1c1;
+}
+
 
 .open-button {
   display: none;
@@ -103,6 +124,15 @@ button:hover {
 	top: 90%;
 	left: 50%;
 	transform: translate(-50%, -50%);
+  background-color: #c1c1c1;;
+}
+
+.open-button:hover {
+  background-color: #eee;
+  color: #c1c1c1;;
+  border: none;
+  text-shadow: none;
+  border: 1px solid #c1c1c1;;
 }
 
 
@@ -194,8 +224,8 @@ button:hover {
   width: 60%;
   top: 50%;
 	left: 50%;
-  min-height: 450px;
-  min-width: 450px;
+  min-height: 500px;
+  min-width: 500px;
 	transform: translate(-50%, -50%);
   display: none;
 }
@@ -297,6 +327,7 @@ footer{
 	right: 0;
   bottom: 0;
   width: 0%;
+  min-height: 500px;
   background-color: #eee;
   border-radius: .5em;
   color: #FF4B4B;
@@ -316,12 +347,14 @@ footer{
 	left: 50%;
 	transform: translate(-50%, -50%);
   overflow: scroll;
+  min-height: 450px;
 }
 
 @media (max-width: 48em) {
   .stock-box{
-    width: 80%;
-    height: 90%;
+    width: 100%;
+    height: 100%;
+    min-height: 450px;
   }
 }
 
@@ -331,6 +364,15 @@ footer{
 	top: 93%;
 	left: 50%;
 	transform: translate(-50%, -50%);
+  background-color: #2CBFCA;
+}
+
+.item-stock:hover {
+  background-color: #fff;
+  color: #2CBFCA;
+  border: none;
+  text-shadow: none;
+  border: 1px solid #2CBFCA;
 }
 .stock-container h4, {
   margin-left: 2em;
@@ -360,9 +402,30 @@ footer{
   opacity: 0.7;
   display: none;
 }
+
+
+.close {
+  position: fixed;
+  float: right;
+  top: 10px;
+  right: 10px;
+  border-radius: 50%;
+  width: 1.8em;
+  z-index: 5;
+  background-color: #c1c1c1;
+}
+
+.close:hover {
+  background-color: #eee;
+  color: #c1c1c1;
+  border: none;
+  text-shadow: none;
+  border: 1px solid #c1c1c1;
+}
+
 @media (max-width: 48em) {
 .close {
-  font-size: .5em !important;
+  font-size: .8em !important;
   line-height: 1.2em !important;
   position: fixed;
   float: right;
@@ -372,20 +435,6 @@ footer{
   width: 1.8em;
 }
 
-}
-
-.close {
-  position: fixed;
-  float: right;
-  top: 10px;
-  right: 10px;
-  border-radius: 50%;
-  width: 1.8em;
-}
-
-.close:hover {
-  background-color: #5081FC;
-  border: none;
 }
 
 fieldset{
@@ -431,6 +480,16 @@ fieldset{
     height: 70%;
   }
 }
+.lgn-button {
+  background-color: #2CBFCA;
+}
+.lgn-button:hover{
+  background-color: #fff;
+  color: #2CBFCA;
+  border: none;
+  text-shadow: none;
+  border: 1px solid #2CBFCA;
+}
 
 .buy-confirmation-container {
   position: fixed;
@@ -454,11 +513,14 @@ fieldset{
   background-color: #fff;
   border-radius: .5em;
   position: absolute;
-  width: 50%;
+  width: 70%;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 }
+.buy-confirmation button {
+ margin-top: 2em;
+} 
 
 @media (max-width: 48em) {
   .buy-confirmation{
@@ -476,7 +538,33 @@ fieldset{
 }
 
 .confirm-btn {
-  background-color: #5081FC;
+  background-color: #2CBFCA;
+}
+
+.confirm-btn:hover {
+  background-color: #fff;
+  color: #2CBFCA;
+  border: none;
+  text-shadow: none;
+  border: 1px solid #2CBFCA;
+}
+
+.cancel-btn {
+  background-color: #c1c1c1;
+}
+
+.cancel-btn:hover {
+  background-color: #eee;
+  color: #c1c1c1;
+  border: none;
+  text-shadow: none;
+  border: 1px solid #c1c1c1;
+}
+
+@media (max-width: 48em) {
+ .buy-confirmation button {
+    margin-top: 1em;
+  }
 }
 
 .buy-open-containter {
@@ -496,17 +584,18 @@ fieldset{
 }
 
 .buy-open {
+  padding-top: 5em;
   box-sizing: border-box;
-  font-size: 1.2em;
-  padding: 4em;
+  font-size: 1.1em;
+  padding: 3em;
   background-color: #fff;
   border-radius: .5em;
   position: absolute;
-  width: 70%;
+  width: 80%;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-  line-height: 1em;
+  line-height: 1.2em;
 }
 
 @media (max-width: 48em) {
@@ -519,6 +608,8 @@ fieldset{
   }
 }
 
+
+
 .buy-open button {
   margin-bottom: 1em;
   margin-right: 0.5em;
@@ -526,5 +617,25 @@ fieldset{
 }
 
 .open-now {
-  background-color: #5081FC;
+  background-color: #2CBFCA;
+}
+
+.open-now:hover {
+  background-color: #fff;
+  color: #2CBFCA;
+  border: none;
+  text-shadow: none;
+  border: 1px solid #2CBFCA;
+}
+
+.open-later{
+  background-color: #c1c1c1;
+}
+
+.open-later:hover {
+  background-color: #eee;
+  color: #c1c1c1;
+  border: none;
+  text-shadow: none;
+  border: 1px solid #c1c1c1;
 }

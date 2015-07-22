@@ -136,8 +136,10 @@ module.exports = function (button) {
 				}).fail(function(data){
 					console.log(data);
 				});
+
+		});
+		
 		$('.cancel-btn').click(function(){
-			$('.stock-wrapper').hide();
 			$('.not-loggedin-container').css("width", "0%");
 			$('.buy-confirmation-container').css("width", "0%");
 		});
@@ -146,9 +148,6 @@ module.exports = function (button) {
 			$('.buy-confirmation-container').css("width", "0%");
 			setTimeout('parent.location.reload()',100);
 		});
-		});
-		
-			
 		
 		
 		
@@ -735,6 +734,10 @@ module.exports = function () {
 								  console.log(data);
 							  });
 					  });
+				 $('.close').click(function(){
+					 $('.stock-wrapper').hide();
+					 $('.not-loggedin-container').css("width", "0%");
+				 });
 			}
 		 else {
 		 $('.stock-container').css("width", "100%");

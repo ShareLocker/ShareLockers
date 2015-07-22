@@ -155,13 +155,13 @@ class ReservationCreateView(TemplateView):
             reservation.item = self.item
             reservation.seller = self.request.user.profile
             reservation.status = 1
-            if reservation.email is None:
+            if "@" not in reservation.email:
                 reservation.email = reservation.buyer.user.email
             reservation.save()
             msg_text = "You have reserved " + self.item.title
             msg_text += " for user " + reservation.buyer.alias
             messages.add_message(self.request, messages.SUCCESS, msg_text)
-        if reservation.email is not None and reservation.item.locker is not None:
+        if "@" in reservation.email and reservation.item.locker is not None:
             use_url = self.request.build_absolute_uri(reverse('view_index')) \
                                   + reservation.url()
             email_text = """A user of sharelockers.com, {}, has stocked an item and put \

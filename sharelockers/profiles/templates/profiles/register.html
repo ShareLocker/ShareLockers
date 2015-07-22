@@ -4,10 +4,11 @@
 
 {% block content %}
   <div class="login">
-{% if user.is_authenticated %}
+{% if False %} {# FIXME: re-enable this after demo ... if user.is_authenticated %} #}
     <p class="pure-control-group"><a href="/logout/">log out</a> to create a new account</p>
-    <p class="pure-control-group">Or view your <a href="/#/dashboard/">dashboard</a></p>
-{% else %}
+    <p class="pure-control-group">Or view your <a href="/#/dashboard">dashboard</a></p>
+{% elif user.is_superuser%} {# FIXME: remove restriction after demo#}
+
     <h2 >Register</h2>
 
     <form class="pure-form pure-form-aligned" method="POST" action="{% url 'user_register' %}">
@@ -20,7 +21,11 @@
 
         <button class="register-btn"  type="submit" name="submit" value="Register">Register</button>
     </form>
+
+{% else %}
+     <p class="pure-control-group">Thank you for your interest in ShareLockers. New user registration will be available after the demo.</p>
 {% endif %}
+
  </div>
 {% endblock %}
 

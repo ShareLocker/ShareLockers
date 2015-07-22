@@ -133,6 +133,7 @@ class ReservationCreateView(TemplateView):
         context['item'] = self.item
         context['hash_form'] = HashReservationForm()
         context['user_form'] = UserReservationForm()
+        context['PHOTO_STATIC_URL'] = settings.PHOTO_STATIC_URL
         return context
 
     def post(self, *args, **kwargs):

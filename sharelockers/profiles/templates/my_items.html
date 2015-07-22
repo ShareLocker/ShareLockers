@@ -69,8 +69,8 @@
 			<td><a href="{% url 'reservation_seller_detail' pk=item.id %}">Details</a></td>
 			<td><a href="{% url 'delete_reservation' pk=item.id %}">Withdraw</a></td>
 			<td>
-				{% if item.locker.exists %}
-				{{ item.locker }}
+				{% if item.locker %}
+				{{ item.locker.address }}
 				{% else %}
 				-
 				{% endif %}

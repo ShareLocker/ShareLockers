@@ -39,6 +39,10 @@ module.exports = function () {
 								  console.log(data);
 							  });
 					  });
+				 $('.close').click(function(){
+					 $('.stock-wrapper').hide();
+					 $('.not-loggedin-container').css("width", "0%");
+				 });
 			}
 		 else {
 		 $('.stock-container').css("width", "100%");

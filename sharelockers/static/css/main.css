@@ -1637,13 +1637,12 @@ fieldset {
     transform: translate(-50%, -50%); } }
 
 .close-help {
-  position: fixed;
+  position: absolute;
   float: right;
   top: 10px;
   right: 10px;
   border-radius: 50%;
   width: 1.8em;
-  z-index: 5;
   background-color: #c1c1c1; }
 
 .close-help:hover {
@@ -1657,7 +1656,6 @@ fieldset {
   .close-help {
     font-size: .8em !important;
     line-height: 1.2em !important;
-    position: fixed;
     float: right;
     top: 10px;
     right: 10px;

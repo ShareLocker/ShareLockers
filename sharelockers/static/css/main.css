@@ -760,11 +760,11 @@ This is the parent `<div>` that contains the menu and the content area.
   padding-left: 0; }
 
 #layout.active #menu {
-  left: 150px;
-  width: 150px; }
+  left: 170px;
+  width: 170px; }
 
 #layout.active .menu-link {
-  left: 150px; }
+  left: 170px; }
 
 /*
 The content `<div>` is where all your content goes.
@@ -774,7 +774,8 @@ The content `<div>` is where all your content goes.
   padding: 0 2em;
   max-width: 100%;
   margin-bottom: 50px;
-  line-height: 1.6em; }
+  line-height: 1.6em;
+  color: #444; }
 
 .header {
   margin: 0;
@@ -803,9 +804,9 @@ The `#menu` `<div>` is the parent `<div>` that contains the `.pure-menu` that
 appears on the left side of the page.
 */
 #menu {
-  margin-left: -150px;
+  margin-left: -170px;
   /* "#menu" width */
-  width: 150px;
+  width: 170px;
   position: fixed;
   top: 0;
   left: 0;
@@ -814,7 +815,8 @@ appears on the left side of the page.
   /* so the menu or its navicon stays above all content */
   background: #191818;
   overflow-y: auto;
-  -webkit-overflow-scrolling: touch; }
+  -webkit-overflow-scrolling: touch;
+  opacity: .9; }
 
 /*
     All anchors inside the menu should be styled like this.
@@ -896,7 +898,7 @@ small screens.
   width: 2em;
   height: auto;
   padding: 2.1em 1.6em;
-  opacity: 0.1; }
+  opacity: 0.5; }
 
 .menu-link:hover,
 .menu-link:focus {
@@ -922,6 +924,10 @@ small screens.
 .menu-link span:after {
   margin-top: 0.6em; }
 
+#menu button {
+  text-align: center;
+  width: 8.7em; }
+
 /* -- Responsive Styles (Media Queries) ------------------------------------- */
 /*
 Hides the menu at `48em`, but modify this based on your app's needs.
@@ -932,17 +938,17 @@ Hides the menu at `48em`, but modify this based on your app's needs.
     padding-left: 2em;
     padding-right: 2em; }
   #layout {
-    padding-left: 150px;
+    padding-left: 170px;
     /* left col width "#menu" */
     left: 0; }
   #menu {
-    left: 150px; }
+    left: 170px; }
   .menu-link {
     position: fixed;
-    left: 150px;
+    left: 170px;
     display: none; }
   #layout.active .menu-link {
-    left: 150px; } }
+    left: 170px; } }
 
 @media (max-width: 48em) {
   /* Only apply this when the window is small. Otherwise, the following
@@ -953,7 +959,7 @@ Hides the menu at `48em`, but modify this based on your app's needs.
     */
   #layout.active {
     position: relative;
-    left: 150px; } }
+    left: 170px; } }
 
 /*MY STYLES*/
 #main .title {
@@ -1161,7 +1167,7 @@ button:hover {
   width: 60%;
   top: 50%;
   left: 50%;
-  min-height: 500px;
+  min-height: 450px;
   min-width: 500px;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
@@ -1266,13 +1272,14 @@ footer {
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   overflow: scroll;
-  min-height: 450px; }
+  min-height: 400px; }
 
 @media (max-width: 48em) {
   .stock-box {
     width: 100%;
     height: 100%;
-    min-height: 450px; } }
+    min-height: 400px;
+    font-size: .8em; } }
 
 .item-stock {
   position: absolute;
@@ -1317,7 +1324,7 @@ footer {
   right: 10px;
   border-radius: 50%;
   width: 1.8em;
-  z-index: 5;
+  z-index: 10;
   background-color: #c1c1c1; }
 
 .close:hover {
@@ -1420,8 +1427,8 @@ fieldset {
     padding: 1em;
     padding-left: 3em;
     text-align: left;
-    width: 70%;
-    height: 70%; } }
+    width: 100%;
+    height: 100%; } }
 
 .buy-confirmation span, .buy-confirmation button {
   margin-bottom: 1em;
@@ -1600,6 +1607,67 @@ fieldset {
     right: 10px;
     border-radius: 50%;
     width: 1.8em; } }
+
+.faq-container {
+  padding: 2em;
+  box-sizing: border-box;
+  z-index: 6;
+  position: fixed;
+  display: none;
+  background-color: #444;
+  border-radius: .5em;
+  color: #eee;
+  font-size: 1em;
+  font-weight: 100;
+  transition: all 0.2s;
+  top: 50%;
+  left: 55%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  box-shadow: 4px 4px 28px 0px rgba(0, 0, 0, 0.75);
+  height: 50%;
+  width: 60%;
+  overflow: scroll; }
+
+@media (max-width: 48em) {
+  .faq-container {
+    width: 80%;
+    height: 50%;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%); } }
+
+.close-help {
+  position: fixed;
+  float: right;
+  top: 10px;
+  right: 10px;
+  border-radius: 50%;
+  width: 1.8em;
+  z-index: 5;
+  background-color: #c1c1c1; }
+
+.close-help:hover {
+  background-color: #eee;
+  color: #c1c1c1;
+  border: none;
+  text-shadow: none;
+  border: 1px solid #c1c1c1; }
+
+@media (max-width: 48em) {
+  .close-help {
+    font-size: .8em !important;
+    line-height: 1.2em !important;
+    position: fixed;
+    float: right;
+    top: 10px;
+    right: 10px;
+    border-radius: 50%;
+    width: 1.8em; } }
+
+.user-id {
+  display: none; }
 
 .info {
   color: #E25D3A;

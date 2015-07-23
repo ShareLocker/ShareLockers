@@ -11,7 +11,7 @@
 
             <ul class="pure-menu-list">
               
-                <li class="pure-menu-item items"><button class="icon-archive pure-menu-link"> My Items</button></li>        
+                <li class="pure-menu-item items"><button class="icon-archive pure-menu-link">Reservations</button></li>        
                 
                 <li class="pure-menu-item help"><button class="icon-question-1 pure-menu-link"> Help  </button></li> 
                 
@@ -24,16 +24,7 @@
                 <li class="pure-menu-item logout"><a href="logout/"><button class="icon-sign-out pure-menu-link"> Log Out</button></a></li>
             </ul>
         </div>
-        <form action="/charge/" method="POST">
-  <script
-    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-    data-key="pk_test_6pRNASCoBOKtIshFeQd4XMUh"
-    data-amount="2000"
-    data-name="Demo Site"
-    data-description="2 widgets ($20.00)"
-    data-image="/128x128.png">
-  </script>
-</form>
+
     </div>
 
 <!--API SECTION is BELLOW-->
@@ -46,8 +37,10 @@
         <div class="content">
           <h2 class="center ">Credits: <span class="this-credits"></span></h2>
           
-            <div class="generated"></div>
-             <div class="faq">
+      <div class="generated"></div>
+    <div class="faq-container">
+        <button class="close-help">X</button>
+             <!--<div class="faq">-->
                <h2>Help Section</h2>
 
                 <p> This will be istructions walking the user through the process!</p>
@@ -57,7 +50,8 @@
                 <p> This will be istructions walking the user through the process!</p>
                 
                 <p> This will be istructions walking the user through the process!</p>
-             </div>
+             <!--</div>-->
+      </div>
         </div>
     </div>
 </div>

@@ -10,7 +10,7 @@ var lockerGenerator = require('../lockerGenerator');
 var openLocker = require('../openLocker');
 var buyItem = require('../buyItem');
 var stock = require('../stock');
-var colorGen = require('../colorGen');
+
 
 module.exports = function () {
 

@@ -4,6 +4,7 @@ var $ = require ('jquery');
 var _ = require ('underscore');
 var views = require ('views');
 var getCookie = require ('../js/getCookie');
+var alertStatus = require('../js/alertStatus');
 
 module.exports = function (button, user) {
 	$(document).on('click', button ,function () {
@@ -26,11 +27,11 @@ module.exports = function (button, user) {
 					}
 		  		}).done(function (data){
 					console.log(data);
-					alert("Locker Open");
+					alertStatus("Locker open");
 					setTimeout('parent.location.reload()',100);
 				}).fail(function (data){
 					console.log(data);
-					alert("Unable to Open at this Time");
+					alertStatus("Unable to open at this time");
 				})
 		});
 	

@@ -8,6 +8,7 @@ var getCookie = require('../js/getCookie');
 var show = require('../js/show');
 var showLists = require('../js/showLists');
 var openLocker = require('../js/openLocker');
+var alertStatus = require('../js/alertStatus');
 
 module.exports = function () {
 	
@@ -35,7 +36,7 @@ module.exports = function () {
 								  var user = parseInt(id[1]);
 								  setTimeout('parent.location.reload()',500);
 							  }).fail(function(data){
-								  alert('oh no! try again');
+								  alertStatus('Unable to open at this time');
 								  console.log(data);
 							  });
 					  });
@@ -103,7 +104,7 @@ module.exports = function () {
 											}
 										  	}).done(function (x){
 												console.log(x);
-												alert("Locker Open");
+												alertStatus("Locker Open");
 												$.ajax({
 													beforeSend: function (request){
 							            			request.setRequestHeader('X-CSRFToken', csrftoken);
@@ -121,7 +122,7 @@ module.exports = function () {
 												});
 											}).fail(function (data){
 													console.log(data);
-													alert("Unable to Open at this Time");
+													alertStatus("Unable to open at this time");
 												})
 
 						}
@@ -138,7 +139,7 @@ module.exports = function () {
 									"locker": lockerId
 									}
 									}).done(function (x){
-										alert("Locker Open");
+										alertStatus("Locker Open");
 											$.ajax({
 												beforeSend: function (request){
 						            			request.setRequestHeader('X-CSRFToken', csrftoken);
@@ -155,7 +156,7 @@ module.exports = function () {
 												setTimeout('parent.location.reload()',500);
 									});
 									}).fail(function (data){
-											alert("Unable to Open at this Time");
+											alertStatus("Unable to open at this time");
 									})
 								
 							 }
@@ -175,7 +176,7 @@ module.exports = function () {
 													"locker": lockerId
 													}
 												  	}).done(function (x){
-														alert("Locker Open");
+														alertStatus("Locker Open");
 														$.ajax({
 															beforeSend: function (request){
 												            request.setRequestHeader('X-CSRFToken', csrftoken);
@@ -193,7 +194,7 @@ module.exports = function () {
 																setTimeout('parent.location.reload()',500);
 														});	
 									}).fail(function (data){
-										alert("Unable to Open at this Time");
+										alertStatus("Unable to open at this time");
 									})
 
 								}
@@ -210,7 +211,7 @@ module.exports = function () {
 											"locker": lockerId
 											}
 										  	}).done(function (x){
-												alert("Locker Open");
+												alertStatus("Locker Open");
 												$.ajax({
 													beforeSend: function (request){
 						           					 request.setRequestHeader('X-CSRFToken', csrftoken);
@@ -225,7 +226,7 @@ module.exports = function () {
 														setTimeout('parent.location.reload()',500);
 												});
 											}).fail(function (data){
-												alert("Unable to Open at this Time");
+												alertStatus("Unable to open at this time");
 											})
 									
 							 }

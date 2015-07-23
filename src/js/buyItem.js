@@ -5,6 +5,7 @@ var _ = require ('underscore');
 var views = require ('views');
 var getCookie = require ('../js/getCookie');
 var openLocker =require ('../js/openLocker');
+var alertStatus = require('../js/alertStatus');
 
 module.exports = function (button) {
 	var csrftoken = getCookie('csrftoken'); 
@@ -48,8 +49,7 @@ module.exports = function (button) {
 					  var user = parseInt(id[1]);
 					  $('.confirm-btn').attr('data-owner', user);
 				  }).fail(function(data){
-					alert('oh no! try again');
-					console.log(data);
+					alertStatus('oh no! try again');
 				});
 			});
 			$('.close').click(function(){
@@ -98,12 +98,13 @@ module.exports = function (button) {
 					}
 		  		}).done(function (data){
 					console.log(data);
-					alert("The Item is Yours!")
+					
 					$('.buy-open-containter').css("width", "100%");
 					console.log($(this).data('locker'));
 					openLocker('.open-now', user);
 				}).fail(function(data){
-					console.log(data);
+					alertStatus("Item could not be purchased");
+					console.log(data.responseText);
 				});
 
 		});

@@ -1,39 +1,58 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-var $ = require("jquery");
+'use strict';
 
-// HEADER ANIMATION
-$(function () {
-	
-	$(window).scroll(function() {
-	  if ($(this).scrollTop() > 1){
-	    $('.my-page-header').addClass("sticky");
-	  } else {
-	    $('.my-page-header').removeClass("sticky");
-	  }
+var $ = require('jquery');
+var _ = require('underscore');
+var views = require('views');
+
+module.exports = function (msg) {
+	$('.message').html(msg);
+ 	$('.alert-container').show();
+  	$('.message').html(msg);
+	$('.close-alert').click(function(){
+		 $('.alert-container').hide();
+	 });
+	$('.alert-button').click(function(){
+		 $('.alert-container').hide();
 	});
-	
-	// Scroll Indicator
-	var homeIconContainerTop = $('.home-icons').offset().top - ($(window).height());
-	
-	var homeIconContainerTop2 = $('.home-icons2').offset().top - ($(window).height());
-	
-	$(window).scroll(function() {
-		
-		if ($(window).scrollTop () > homeIconContainerTop) {
-			$('.home-icons').addClass('slideRight');
-		}
-		if ($(window).scrollTop () > homeIconContainerTop2) {
-			$('.home-icons2').addClass('slideRight');
-		}
-			
-	});
-
-});
-
-// $(document).ready(function(){
-//   $(".scroll").animate( ".scroll" , 1000 , swing, complete);
+};
+},{"jquery":"jquery","underscore":"underscore","views":"views"}],2:[function(require,module,exports){
+// var $ = require("jquery");
+//
+// // HEADER ANIMATION
+// $(function () {
+//
+// 	$(window).scroll(function() {
+// 	  if ($(this).scrollTop() > 1){
+// 	    $('.my-page-header').addClass("sticky");
+// 	  } else {
+// 	    $('.my-page-header').removeClass("sticky");
+// 	  }
+// 	});
+//
+// 	// Scroll Indicator
+// 	var homeIconContainerTop = $('.home-icons').offset().top - ($(window).height());
+//
+// 	var homeIconContainerTop2 = $('.home-icons2').offset().top - ($(window).height());
+//
+// 	$(window).scroll(function() {
+//
+// 		if ($(window).scrollTop () > homeIconContainerTop) {
+// 			$('.home-icons').addClass('slideRight');
+// 		}
+// 		if ($(window).scrollTop () > homeIconContainerTop2) {
+// 			$('.home-icons2').addClass('slideRight');
+// 		}
+//
+// 	});
+//
 // });
-},{"jquery":"jquery"}],2:[function(require,module,exports){
+//
+// // $(document).ready(function(){
+// //   $(".scroll").animate( ".scroll" , 1000 , swing, complete);
+// // });
+
+},{}],3:[function(require,module,exports){
 'use strict';
 
 var $ = require ('jquery');
@@ -41,6 +60,7 @@ var _ = require ('underscore');
 var views = require ('views');
 var getCookie = require ('../js/getCookie');
 var openLocker =require ('../js/openLocker');
+var alertStatus = require('../js/alertStatus');
 
 module.exports = function (button) {
 	var csrftoken = getCookie('csrftoken'); 
@@ -84,8 +104,7 @@ module.exports = function (button) {
 					  var user = parseInt(id[1]);
 					  $('.confirm-btn').attr('data-owner', user);
 				  }).fail(function(data){
-					alert('oh no! try again');
-					console.log(data);
+					alertStatus('oh no! try again');
 				});
 			});
 			$('.close').click(function(){
@@ -134,12 +153,13 @@ module.exports = function (button) {
 					}
 		  		}).done(function (data){
 					console.log(data);
-					alert("The Item is Yours!")
+					
 					$('.buy-open-containter').css("width", "100%");
 					console.log($(this).data('locker'));
 					openLocker('.open-now', user);
 				}).fail(function(data){
-					console.log(data);
+					alertStatus("Item could not be purchased");
+					console.log(data.responseText);
 				});
 
 		});
@@ -166,27 +186,7 @@ module.exports = function (button) {
 }
 
 
-},{"../js/getCookie":10,"../js/openLocker":13,"jquery":"jquery","underscore":"underscore","views":"views"}],3:[function(require,module,exports){
-'use strict';
-
-var $ = require('jquery');
-var _ = require('underscore');
-
-module.exports = function (selector) {
-	$(document).on('click', function (){
-      var hex = '0123456789ABCDEF'.split('');
-      var color = '#';
-      for (var i = 0; i < 6; i++ ) {
-        color += hex[Math.floor(Math.random() * 16)];
-      }
-	 $(selector).css("border-color", color);
-       $(selector).css({ boxShadow: '1px 3px 6px' + color +''});
-      
-});
-};
-
-
-},{"jquery":"jquery","underscore":"underscore"}],4:[function(require,module,exports){
+},{"../js/alertStatus":1,"../js/getCookie":10,"../js/openLocker":13,"jquery":"jquery","underscore":"underscore","views":"views"}],4:[function(require,module,exports){
 'use strict';
 
 var $ = require('jquery');
@@ -363,7 +363,7 @@ var lockerGenerator = require('../lockerGenerator');
 var openLocker = require('../openLocker');
 var buyItem = require('../buyItem');
 var stock = require('../stock');
-var colorGen = require('../colorGen');
+
 
 module.exports = function () {
 
@@ -451,7 +451,7 @@ module.exports = function () {
 
 };
 
-},{"../buyItem":2,"../colorGen":3,"../getCookie":10,"../lockerGenerator":12,"../openLocker":13,"../router":14,"../show":15,"../stock":18,"jquery":"jquery","underscore":"underscore","views":"views"}],9:[function(require,module,exports){
+},{"../buyItem":3,"../getCookie":10,"../lockerGenerator":12,"../openLocker":13,"../router":14,"../show":15,"../stock":18,"jquery":"jquery","underscore":"underscore","views":"views"}],9:[function(require,module,exports){
 var $ = require('jquery');
 var _ = require('underscore');
 var views = require('views');
@@ -512,7 +512,7 @@ require('./animations');
 
 // Start the router
 router.init();
-},{"./animations":1,"./controllers/dashboard.js":4,"./controllers/help.js":5,"./controllers/home.js":6,"./controllers/locations.js":7,"./controllers/locker-list.js":8,"./controllers/my-items.js":9,"./router":14}],12:[function(require,module,exports){
+},{"./animations":2,"./controllers/dashboard.js":4,"./controllers/help.js":5,"./controllers/home.js":6,"./controllers/locations.js":7,"./controllers/locker-list.js":8,"./controllers/my-items.js":9,"./router":14}],12:[function(require,module,exports){
 'use strict';
 
 var $ = require('jquery');
@@ -585,6 +585,7 @@ var $ = require ('jquery');
 var _ = require ('underscore');
 var views = require ('views');
 var getCookie = require ('../js/getCookie');
+var alertStatus = require('../js/alertStatus');
 
 module.exports = function (button, user) {
 	$(document).on('click', button ,function () {
@@ -607,16 +608,16 @@ module.exports = function (button, user) {
 					}
 		  		}).done(function (data){
 					console.log(data);
-					alert("Locker Open");
+					alertStatus("Locker open");
 					setTimeout('parent.location.reload()',100);
 				}).fail(function (data){
 					console.log(data);
-					alert("Unable to Open at this Time");
+					alertStatus("Unable to open at this time");
 				})
 		});
 	
 }
-},{"../js/getCookie":10,"jquery":"jquery","underscore":"underscore","views":"views"}],14:[function(require,module,exports){
+},{"../js/alertStatus":1,"../js/getCookie":10,"jquery":"jquery","underscore":"underscore","views":"views"}],14:[function(require,module,exports){
 'use strict';
 
 var SortedRouter = require('./sorted-router');
@@ -708,6 +709,7 @@ var getCookie = require('../js/getCookie');
 var show = require('../js/show');
 var showLists = require('../js/showLists');
 var openLocker = require('../js/openLocker');
+var alertStatus = require('../js/alertStatus');
 
 module.exports = function () {
 	
@@ -735,7 +737,7 @@ module.exports = function () {
 								  var user = parseInt(id[1]);
 								  setTimeout('parent.location.reload()',500);
 							  }).fail(function(data){
-								  alert('oh no! try again');
+								  alertStatus('Unable to open at this time');
 								  console.log(data);
 							  });
 					  });
@@ -803,7 +805,7 @@ module.exports = function () {
 											}
 										  	}).done(function (x){
 												console.log(x);
-												alert("Locker Open");
+												alertStatus("Locker Open");
 												$.ajax({
 													beforeSend: function (request){
 							            			request.setRequestHeader('X-CSRFToken', csrftoken);
@@ -821,7 +823,7 @@ module.exports = function () {
 												});
 											}).fail(function (data){
 													console.log(data);
-													alert("Unable to Open at this Time");
+													alertStatus("Unable to open at this time");
 												})
 
 						}
@@ -838,7 +840,7 @@ module.exports = function () {
 									"locker": lockerId
 									}
 									}).done(function (x){
-										alert("Locker Open");
+										alertStatus("Locker Open");
 											$.ajax({
 												beforeSend: function (request){
 						            			request.setRequestHeader('X-CSRFToken', csrftoken);
@@ -855,7 +857,7 @@ module.exports = function () {
 												setTimeout('parent.location.reload()',500);
 									});
 									}).fail(function (data){
-											alert("Unable to Open at this Time");
+											alertStatus("Unable to open at this time");
 									})
 								
 							 }
@@ -875,7 +877,7 @@ module.exports = function () {
 													"locker": lockerId
 													}
 												  	}).done(function (x){
-														alert("Locker Open");
+														alertStatus("Locker Open");
 														$.ajax({
 															beforeSend: function (request){
 												            request.setRequestHeader('X-CSRFToken', csrftoken);
@@ -893,7 +895,7 @@ module.exports = function () {
 																setTimeout('parent.location.reload()',500);
 														});	
 									}).fail(function (data){
-										alert("Unable to Open at this Time");
+										alertStatus("Unable to open at this time");
 									})
 
 								}
@@ -910,7 +912,7 @@ module.exports = function () {
 											"locker": lockerId
 											}
 										  	}).done(function (x){
-												alert("Locker Open");
+												alertStatus("Locker Open");
 												$.ajax({
 													beforeSend: function (request){
 						           					 request.setRequestHeader('X-CSRFToken', csrftoken);
@@ -925,7 +927,7 @@ module.exports = function () {
 														setTimeout('parent.location.reload()',500);
 												});
 											}).fail(function (data){
-												alert("Unable to Open at this Time");
+												alertStatus("Unable to open at this time");
 											})
 									
 							 }
@@ -938,7 +940,7 @@ module.exports = function () {
 	
 };
 
-},{"../js/getCookie":10,"../js/openLocker":13,"../js/router":14,"../js/show":15,"../js/showLists":16,"jquery":"jquery","underscore":"underscore","views":"views"}]},{},[11])
+},{"../js/alertStatus":1,"../js/getCookie":10,"../js/openLocker":13,"../js/router":14,"../js/show":15,"../js/showLists":16,"jquery":"jquery","underscore":"underscore","views":"views"}]},{},[11])
 
 
 //# sourceMappingURL=app.js.map

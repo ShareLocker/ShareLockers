@@ -1054,7 +1054,7 @@ button:hover {
   transform: translate(-50%, -50%);
   background-color: #c1c1c1; }
 
-.buy:hover {
+.buy-button:hover {
   background-color: #eee;
   color: #c1c1c1;
   border: none;
@@ -1523,6 +1523,83 @@ fieldset {
 .make-reservation:hover {
   text-decoration: underline;
   margin-top: -10px; }
+
+.alert-container {
+  box-sizing: border-box;
+  z-index: 6;
+  position: fixed;
+  display: none;
+  background-color: #fff;
+  border-radius: .5em;
+  color: #FF4B4B;
+  font-size: 1em;
+  font-weight: 100;
+  transition: all 0.2s;
+  width: 30%;
+  height: 40%;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  box-shadow: 4px 4px 28px 0px rgba(0, 0, 0, 0.75);
+  min-width: 200px;
+  min-height: 200px; }
+
+.alert {
+  text-align: center;
+  padding: 4em 4em 2em 4em;
+  background-color: #eee;
+  border-radius: .5em;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); }
+
+@media (max-width: 48em) {
+  .alert {
+    padding: 3em;
+    text-align: center;
+    width: 30%;
+    height: 30%; } }
+
+.alert-button {
+  background-color: #2CBFCA;
+  margin-top: 1em; }
+
+.alert-button:hover {
+  background-color: #fff;
+  color: #2CBFCA;
+  border: none;
+  text-shadow: none; }
+
+.close-alert {
+  position: fixed;
+  float: right;
+  top: 10px;
+  right: 10px;
+  border-radius: 50%;
+  width: 1.8em;
+  z-index: 5;
+  background-color: #c1c1c1; }
+
+.close-alert:hover {
+  background-color: #eee;
+  color: #c1c1c1;
+  border: none;
+  text-shadow: none;
+  border: 1px solid #c1c1c1; }
+
+@media (max-width: 48em) {
+  .close-alert {
+    font-size: .8em !important;
+    line-height: 1.2em !important;
+    position: fixed;
+    float: right;
+    top: 10px;
+    right: 10px;
+    border-radius: 50%;
+    width: 1.8em; } }
 
 .info {
   color: #E25D3A;

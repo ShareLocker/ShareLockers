@@ -21,12 +21,12 @@ This is the parent `<div>` that contains the menu and the content area.
     padding-left: 0;
 }
     #layout.active #menu {
-        left: 150px;
-        width: 150px;
+        left: 170px;
+        width: 170px;
     }
 
     #layout.active .menu-link {
-        left: 150px;
+        left: 170px;
     }
 /*
 The content `<div>` is where all your content goes.
@@ -37,6 +37,7 @@ The content `<div>` is where all your content goes.
     max-width: 100%;
     margin-bottom: 50px;
     line-height: 1.6em;
+    color: #444;
     
 }
 
@@ -73,8 +74,8 @@ appears on the left side of the page.
 */
 
 #menu {
-    margin-left: -150px; /* "#menu" width */
-    width: 150px;
+    margin-left: -170px; /* "#menu" width */
+    width: 170px;
     position: fixed;
     top: 0;
     left: 0;
@@ -83,6 +84,7 @@ appears on the left side of the page.
     background: #191818;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
+    opacity: .9;
 }
     /*
     All anchors inside the menu should be styled like this.
@@ -173,7 +175,7 @@ small screens.
     width: 2em;
     height: auto;
     padding: 2.1em 1.6em;
-    opacity: 0.1;
+    opacity: 0.5;
 }
 
     .menu-link:hover,
@@ -204,6 +206,11 @@ small screens.
         .menu-link span:after {
             margin-top: 0.6em;
         }
+        
+        #menu button{
+            text-align: center;
+            width: 8.7em;
+        }
 
 
 /* -- Responsive Styles (Media Queries) ------------------------------------- */
@@ -220,23 +227,25 @@ Hides the menu at `48em`, but modify this based on your app's needs.
     }
 
     #layout {
-        padding-left: 150px; /* left col width "#menu" */
+        padding-left: 170px; /* left col width "#menu" */
         left: 0;
     }
     #menu {
-        left: 150px;
+        left: 170px;
     }
 
     .menu-link {
         position: fixed;
-        left: 150px;
+        left: 170px;
         display: none;
     }
 
     #layout.active .menu-link {
-        left: 150px;
+        left: 170px;
     }
+    
 }
+
 
 @media (max-width: 48em) {
     /* Only apply this when the window is small. Otherwise, the following
@@ -247,8 +256,9 @@ Hides the menu at `48em`, but modify this based on your app's needs.
     */
     #layout.active {
         position: relative;
-        left: 150px;
+        left: 170px;
     }
+
 }
 
 /*MY STYLES*/

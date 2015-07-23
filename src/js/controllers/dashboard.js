@@ -55,25 +55,31 @@ router.route('dashboard', function () {
 // api info for 'My Items' TAB IS BELOW	
 
 $('.items').on('click', function() {
-  $(".generated").show();
-  $(".faq").hide();
-    $.ajax({
-    			method: 'GET', 
-    			url: '/api/owneditems/',
-      		}).done(function (data){
-    			console.log(data);
-          showLists(data, 'my-items', '.generated');
+  window.location.href = '/reservations/';
+  // //$(".generated").show();
+  // $(".faq").hide();
+  //   $.ajax({
+  //   			method: 'GET', 
+  //   			url: '/api/owneditems/',
+  //     		}).done(function (data){
+  //   			console.log(data);
+  //         showLists(data, 'my-items', '.generated');
     		
-    });
+    // });
    });
    
    
 
 $(".help").click(function(){
   
+    $(".faq-container").show();
     $(".faq").show();
     $(".generated").hide();
 });
+
+$(".close-help").click(function(){
+    $(".faq-container").hide();
+})
 
 //api info for LOCATION TAB IS BELOW
 

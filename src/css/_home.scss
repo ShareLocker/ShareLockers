@@ -215,6 +215,8 @@ h6{
 
 .section5{
 	background-color: #eee;
+	min-height: 5em;
+	padding-top: 1em;
 }
 
 .section6{
@@ -233,10 +235,22 @@ h6{
 
 .container input{
 	font-size: 2em;
-	display: inline-block;
+	
 	
 }
 .join{
-	display: inline-block;
-
+	margin-right: 20%;	
 }
+
+.email{
+	float: left;
+	padding: 0.18em;
+	line-height: 1.5em;
+	margin-left:20%;
+	border-radius: 10px;
+	border: 1px solid lightgray ;
+}
+
+// .section5{
+	
+// }

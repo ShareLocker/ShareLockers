@@ -1184,8 +1184,7 @@ button:hover {
     min-width: 50px;
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
-    display: none;
-    overflow: scroll; } }
+    display: none; } }
 
 .vpopout {
   position: absolute;
@@ -1402,11 +1401,11 @@ fieldset {
   color: #FF4B4B;
   font-size: 1em;
   font-weight: 100;
-  transition: all 0.2s;
-  overflow: hidden; }
+  transition: all 0.2s; }
 
 .buy-confirmation {
   box-sizing: border-box;
+  overflow: auto;
   padding: 4em;
   background-color: #fff;
   border-radius: .5em;
@@ -1469,7 +1468,7 @@ fieldset {
   font-size: 1em;
   font-weight: 100;
   transition: all 0.2s;
-  overflow: hidden; }
+  overflow: auto; }
 
 .buy-open {
   padding-top: 5em;

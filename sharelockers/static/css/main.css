@@ -1992,7 +1992,10 @@ h6 {
   .title {
     margin-top: 0;
     margin-bottom: 1em;
-    padding-top: 0; }
+    padding-top: 0;
+    font-size: 3.5em; }
+  .tagline {
+    font-size: 1.6em; }
   .hero-container {
     position: static;
     margin: 0;

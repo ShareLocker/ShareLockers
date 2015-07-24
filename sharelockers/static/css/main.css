@@ -1891,17 +1891,14 @@ h6 {
   .col {
     margin: 1% 0 1% 0%; }
   .span_1_of_5, .span_2_of_5, .span_3_of_5, .span_4_of_5, .span_5_of_5 {
-    width: 20%; } }
-
-@media only screen and (max-width: 800px) {
-  .col {
-    margin: 1% 0 1% 0%; }
-  .span_1_of_4, .span_2_of_4, .span_3_of_4, .span_4_of_4 {
-    width: 48%; }
-  .col {
-    margin: 1% 0 1% 0%; }
-  .span_1_of_5, .span_2_of_5, .span_3_of_5, .span_4_of_5, .span_5_of_5 {
-    width: 50%; } }
+    width: 20%; }
+  .email {
+    margin-left: 0.9em;
+    text-align: 2px; }
+  .join {
+    margin-left: 2em;
+    font-size: 1.5em;
+    margin-top: 0.3em; } }
 
 @media only screen and (max-width: 500px) {
   .col {
@@ -1915,6 +1912,30 @@ h6 {
     font-size: 1.5em; }
   .action-call {
     font-size: 1.8em; }
+  .email {
+    margin-left: 10%;
+    margin-bottom: 10px; }
+  .join {
+    font-size: 1.5em;
+    margin-left: 10%; } }
+
+@media only screen and (max-width: 500px) and (max-width: 800px) {
+  .col {
+    margin: 1% 0 1% 0%; }
+  .span_1_of_4, .span_2_of_4, .span_3_of_4, .span_4_of_4 {
+    width: 48%; }
+  .col {
+    margin: 1% 0 1% 0%; }
+  .span_1_of_5, .span_2_of_5, .span_3_of_5, .span_4_of_5, .span_5_of_5 {
+    width: 50%; }
+  .email {
+    margin-left: 10%;
+    margin-bottom: 10px; }
+  .join {
+    font-size: 1.5em;
+    margin-left: 10%; } }
+
+@media only screen and (max-width: 500px) {
   .col {
     margin: 1% 0 1% 0%; }
   .span_1_of_5, .span_2_of_5, .span_3_of_5, .span_4_of_5, .span_5_of_5 {

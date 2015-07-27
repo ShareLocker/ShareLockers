@@ -2,7 +2,7 @@ from .settings import *
 import os
 
 SECRET_KEY = os.environ['SECRET_KEY']
-DEBUG = True #fixme; disable debug for production
+DEBUG = False  #fixme; disable debug for production
 
 
 

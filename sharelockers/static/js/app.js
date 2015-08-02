@@ -55,136 +55,125 @@ module.exports = function (msg) {
 },{}],3:[function(require,module,exports){
 'use strict';
 
-var $ = require ('jquery');
-var _ = require ('underscore');
-var views = require ('views');
-var getCookie = require ('../js/getCookie');
-var openLocker =require ('../js/openLocker');
+var $ = require('jquery');
+var _ = require('underscore');
+var views = require('views');
+var getCookie = require('../js/getCookie');
+var openLocker = require('../js/openLocker');
 var alertStatus = require('../js/alertStatus');
 
-module.exports = function (button) {
-	var csrftoken = getCookie('csrftoken'); 
-	$(document).on('click', button, function (e) {
-		console.log($(this));
-		$('.lgn-button').attr('data-price', $(this).data('price'));
-		$('.lgn-button').attr('data-id', $(this).data('id'));
-		$('.lgn-button').attr('data-locker', $(this).data('locker'));
-		console.log($('.user-id').html().length);
-		if ($('.user-id').html().length === 1) {
-				$('.not-loggedin-container').css("width", "100%");
-				$('.stock-wrapper').show();
-			 $('.close').click(function(){
-				 $('.stock-wrapper').hide();
-				 $('.not-loggedin-container').css("width", "0%");
-				 $('.buy-confirmation-container').css("width", "0%");
-				 $('.buy-open-container').css("width", "0%");
-			});
-		$('.lgn-button').click(function(){
-				$('.buy-confirmation-container').css("width", "100%")
-				$('.cost').html($(this).data('price'));
-				$('.confirm-btn').attr('data-price', $(this).data('price'));
-				$('.confirm-btn').attr('data-id', $(this).data('id'));
-				$('.confirm-btn').attr('data-locker', $(this).data('locker'));
-				var username = $('.username-login').val();
-				var password =$('.user-password').val();
-				$.ajax({
-					beforeSend: function (request){
-		            request.setRequestHeader('X-CSRFToken', csrftoken);
-		           },
-					method: 'POST', 
-					url: '/login/',
-					data: {
-					   "username": username,
-					   "password": password
-					}
-					
-		  		}).done(function (data){
-					  console.log(data);
-					  var id = data.match(/data-id="(\d+)/);
-					  var user = parseInt(id[1]);
-					  $('.confirm-btn').attr('data-owner', user);
-				  }).fail(function(data){
-					alertStatus('oh no! try again');
-				});
-			});
-			$('.close').click(function(){
-				parent.location.reload();
-			});
-			$('.cancel-btn').click(function(){
-				parent.location.reload();
-			});
-			$('.open-later').click(function(){
-				parent.location.reload();
-			});
-		}
-		else {	
-				var user =  parseInt($('.user-id').data('id'));
-				console.log(user);
-				$('.buy-confirmation-container').css("width", "100%")
-				$('.cost').html($(this).data('price'));
-				$('.confirm-btn').attr('data-price', $(this).data('price'));
-				$('.confirm-btn').attr('data-id', $(this).data('id'));
-				$('.confirm-btn').attr('data-owner', user);
-				$('.confirm-btn').attr('data-locker', $(this).data('locker'));
-			$('.close').click(function(){
-				 $('.stock-wrapper').hide();
-				 $('.not-loggedin-container').css("width", "0%");
-				 $('.buy-confirmation-container').css("width", "0%");
-				 $('.buy-open-container').css("width", "0%");
-			});
-				 
-		}
-		$('.confirm-btn').click(function(){
-			var csrftoken = getCookie('csrftoken'); 
-			var itemId = this.getAttribute('data-id');
-			var user = this.getAttribute('data-owner');
-			$('.open-now').attr('data-locker', $(this).data('locker'));
-			console.log(csrftoken);
-				$.ajax({
-					beforeSend: function (request){
-					console.log(csrftoken)
-		            request.setRequestHeader('X-CSRFToken', csrftoken);
-		           },
-					method: 'POST', 
-					url: '/api/purchases/',
-					data: {
-					   "item": itemId,
-					   "buyer": user
-					}
-		  		}).done(function (data){
-					console.log(data);
-					
-					$('.buy-open-containter').css("width", "100%");
-					console.log($(this).data('locker'));
-					openLocker('.open-now', user);
-				}).fail(function(data){
-					alertStatus("Item could not be purchased");
-					console.log(data.responseText);
-				});
+module.exports = function(button) {
+    var csrftoken = getCookie('csrftoken');
+    $(document).on('click', button, function(e) {
+        console.log($(this));
+        $('.lgn-button').attr('data-price', $(this).data('price'));
+        $('.lgn-button').attr('data-id', $(this).data('id'));
+        $('.lgn-button').attr('data-locker', $(this).data('locker'));
+        console.log($('.user-id').html().length);
+        if ($('.user-id').html().length === 1) {
+            $('.not-loggedin-container').css("width", "100%");
+            $('.stock-wrapper').show();
+            $('.close').click(function() {
+                $('.stock-wrapper').hide();
+                $('.not-loggedin-container').css("width", "0%");
+                $('.buy-confirmation-container').css("width", "0%");
+                $('.buy-open-container').css("width", "0%");
+            });
+            $('.lgn-button').click(function() {
+                $('.buy-confirmation-container').css("width", "100%")
+                $('.cost').html($(this).data('price'));
+                $('.confirm-btn').attr('data-price', $(this).data('price'));
+                $('.confirm-btn').attr('data-id', $(this).data('id'));
+                $('.confirm-btn').attr('data-locker', $(this).data('locker'));
+                var username = $('.username-login').val();
+                var password = $('.user-password').val();
+                $.ajax({
+                    beforeSend: function(request) {
+                        request.setRequestHeader('X-CSRFToken', csrftoken);
+                    },
+                    method: 'POST',
+                    url: '/login/',
+                    data: {
+                        "username": username,
+                        "password": password
+                    }
 
-		});
-		
-		$('.cancel-btn').click(function(){
-			$('.not-loggedin-container').css("width", "0%");
-			$('.buy-confirmation-container').css("width", "0%");
-		});
-		$('.open-later').click(function(){
-			$('.not-loggedin-container').css("width", "0%");
-			$('.buy-confirmation-container').css("width", "0%");
-			setTimeout('parent.location.reload()',100);
-		});
-		
-		
-		
+                }).done(function(data) {
+                    console.log(data);
+                    var id = data.match(/data-id="(\d+)/);
+                    var user = parseInt(id[1]);
+                    $('.confirm-btn').attr('data-owner', user);
+                }).fail(function(data) {
+                    alertStatus('oh no! try again');
+                });
+            });
+            $('.close').click(function() {
+                parent.location.reload();
+            });
+            $('.cancel-btn').click(function() {
+                parent.location.reload();
+            });
+            $('.open-later').click(function() {
+                parent.location.reload();
+            });
+        } else {
+            var user = parseInt($('.user-id').data('id'));
+            console.log(user);
+            $('.buy-confirmation-container').css("width", "100%")
+            $('.cost').html($(this).data('price'));
+            $('.confirm-btn').attr('data-price', $(this).data('price'));
+            $('.confirm-btn').attr('data-id', $(this).data('id'));
+            $('.confirm-btn').attr('data-owner', user);
+            $('.confirm-btn').attr('data-locker', $(this).data('locker'));
+            $('.close').click(function() {
+                $('.stock-wrapper').hide();
+                $('.not-loggedin-container').css("width", "0%");
+                $('.buy-confirmation-container').css("width", "0%");
+                $('.buy-open-container').css("width", "0%");
+            });
+        }
+        $('.confirm-btn').click(function() {
+            var csrftoken = getCookie('csrftoken');
+            var itemId = this.getAttribute('data-id');
+            var user = this.getAttribute('data-owner');
+            $('.open-now').attr('data-locker', $(this).data('locker'));
+            console.log(csrftoken);
+            $.ajax({
+                beforeSend: function(request) {
+                    console.log(csrftoken)
+                    request.setRequestHeader('X-CSRFToken', csrftoken);
+                },
+                method: 'POST',
+                url: '/api/purchases/',
+                data: {
+                    "item": itemId,
+                    "buyer": user
+                }
+            }).done(function(data) {
+                console.log(data);
 
-			
-				
-				
+                $('.buy-open-containter').css("width", "100%");
+                console.log($(this).data('locker'));
+                openLocker('.open-now', user);
+            }).fail(function(data) {
+                alertStatus("Item could not be purchased");
+                console.log(data.responseText);
+            });
 
-	document.location.href = '/#/dashboard'
-});
+        });
+
+        $('.cancel-btn').click(function() {
+            $('.not-loggedin-container').css("width", "0%");
+            $('.buy-confirmation-container').css("width", "0%");
+        });
+        $('.open-later').click(function() {
+            $('.not-loggedin-container').css("width", "0%");
+            $('.buy-confirmation-container').css("width", "0%");
+            setTimeout('parent.location.reload()', 100);
+        });
+        document.location.href = '/#/dashboard'
+    });
 }
-
 
 },{"../js/alertStatus":1,"../js/getCookie":10,"../js/openLocker":13,"jquery":"jquery","underscore":"underscore","views":"views"}],4:[function(require,module,exports){
 'use strict';
@@ -488,21 +477,21 @@ var _ = require('underscore');
 var views = require('views');
 
 module.exports = function getCookie(name) {
-   			var cookieValue = null;
-   			if (document.cookie && document.cookie != '') {
-       		var cookies = document.cookie.split(';');
-       		for (var i = 0; i < cookies.length; i++) {
-           	var cookie = $.trim(cookies[i]);
-           // Does this cookie string begin with the name we want?
-           if (cookie.substring(0, name.length + 1) == (name + '=')) {
-               cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-               break;
-          	 }
-       		}	
-   		   }
-		   console.log(cookieValue);
-		   return cookieValue;
-		
+    var cookieValue = null;
+    if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = $.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    console.log(cookieValue);
+    return cookieValue;
+
 };
 },{"jquery":"jquery","underscore":"underscore","views":"views"}],11:[function(require,module,exports){
 // TODO: put initialization logic here
@@ -527,101 +516,81 @@ var views = require('views');
 
 
 
-module.exports = function (arr) {
-  var i = 0;
+module.exports = function(arr) {
+    var i = 0;
 
-	while ( i < arr.length) {
-		console.log(arr);
-		var lockerId = arr[i].id
-		var lockerTitle= arr[i].local_code;
-		var lockerActions= arr[i].actions;
-		var currentUser = $('.user-id').attr('data-id');
-		
-		
-		
-		
-		if (lockerActions[1] === "can_open" ){
-		var openHTML = '<div class="locker-wrapper" data-locker='+lockerId+'><div class="vlocker"><span class="card animated"><span class="lockerTitle">'+ lockerTitle +'<br>EMPTY</span></span></div></div>';
-		$('.locker-bank').append(openHTML);
-		}
-		
-		// else if (lockerActions[0] === 'can_stock'){
-		// var stockHtml = '<div class="vlocker"><span class="card animated"><span class="lockerTitle">'+ lockerTitle +'<br>EMPTY</span><div class="vpopout"><span class="lockerDetails">EMPTY</span><a href="#/stock/'+ lockerId +
-		// '" class="stock-button">STOCK</a></div></div>';
-		// $('.locker-bank').append(stockHtml);
-		// }
-		
-		
+    while (i < arr.length) {
+        console.log(arr);
+        var lockerId = arr[i].id
+        var lockerTitle = arr[i].local_code;
+        var lockerActions = arr[i].actions;
+        var currentUser = $('.user-id').attr('data-id');
+
+        if (lockerActions[1] === "can_open") {
+            var openHTML = '<div class="locker-wrapper" data-locker=' + lockerId + '><div class="vlocker"><span class="card animated"><span class="lockerTitle">' + lockerTitle + '<br>EMPTY</span></span></div></div>';
+            $('.locker-bank').append(openHTML);
+        } 
 		else {
-		var itemPhoto = arr[i].item_set[0].photo;
-		var itemOwner = arr[i].item_set[0].owner;
-		var itemTitle = arr[i].item_set[0].title;
-		var itemDetails = arr[i].item_set[0].description;
-		var itemId = arr[i].item_set[0].id;
-		var itemPrice = arr[i].item_set[0].price;
-		
-		// if (currentUser == itemOwner ) 
-			if (itemPhoto === null ) {
-				var html = '<div data-photo="'+itemPhoto+'" data-price='+itemPrice+' data-owner='+itemOwner+' data-details="'+itemDetails+'" data-id='+itemId+' data-locker='+lockerId+' class="locker-wrapper"><div class="vlocker"><span class="card animated"><span class="lockerTitle">'+ lockerTitle + '<br>' + itemTitle +'</span></span></div></div>';
-				$('.locker-bank').append(html);
-			}
-			else {
-				var ownerHtml = '<div data-photo="'+itemPhoto+'" data-price='+itemPrice+' data-owner='+itemOwner+' data-details="'+itemDetails+'" data-id='+itemId+' data-locker='+lockerId+' class="locker-wrapper"><div class="vlocker"><span class="card animated"><div class="image-wrapper"><img src='+itemPhoto+'></div><span class="lockerTitle">'+ lockerTitle + '<br>' + itemTitle +'</span></span></div></div>';
-				$('.locker-bank').append(ownerHtml);
-			}
-		// 	console.log(currentUser);
-		// 	console.log(itemOwner);
-		// }
-		// else {
+            var itemPhoto = arr[i].item_set[0].photo;
+            var itemOwner = arr[i].item_set[0].owner;
+            var itemTitle = arr[i].item_set[0].title;
+            var itemDetails = arr[i].item_set[0].description;
+            var itemId = arr[i].item_set[0].id;
+            var itemPrice = arr[i].item_set[0].price;
+	            if (itemPhoto === null) {
+	                var html = '<div data-photo="' + itemPhoto + '" data-price=' + itemPrice + ' data-owner=' + itemOwner + ' data-details="' + itemDetails + '" data-id=' + itemId + ' data-locker=' + lockerId + ' class="locker-wrapper"><div class="vlocker"><span class="card animated"><span class="lockerTitle">' + lockerTitle + '<br>' + itemTitle + '</span></span></div></div>';
+	                $('.locker-bank').append(html);
+	            } 
+				else {
+	                var ownerHtml = '<div data-photo="' + itemPhoto + '" data-price=' + itemPrice + ' data-owner=' + itemOwner + ' data-details="' + itemDetails + '" data-id=' + itemId + ' data-locker=' + lockerId + ' class="locker-wrapper"><div class="vlocker"><span class="card animated"><div class="image-wrapper"><img src=' + itemPhoto + '></div><span class="lockerTitle">' + lockerTitle + '<br>' + itemTitle + '</span></span></div></div>';
+	                $('.locker-bank').append(ownerHtml);
+	            }
 
-		// 	var buyHtml = '<div class="locker-wrapper"><div class="locker-containter><div class="vlocker"><span class="card animated"><div class="image-wrapper"><img src='+itemPhoto+'></div><span class="lockerTitle">'+ lockerTitle + '<br>' + itemTitle +'</span></div><div class="vpopout"><img src='+itemPhoto+'><span class="lockerDetails">'+ itemDetails +'<br>'+'$'+ itemPrice + '</span><button class="buy-button" data-id = '+itemId+'>Buy</button></div><button class="close">X</button></div></div>';
-		// 	$('.locker-bank').append(buyHtml);
-		// }
-		}
+        }
 
-		++i;	 
-		
-	};
+        ++i;
+
+    };
 
 };
 },{"jquery":"jquery","underscore":"underscore","views":"views"}],13:[function(require,module,exports){
 'use strict';
 
-var $ = require ('jquery');
-var _ = require ('underscore');
-var views = require ('views');
-var getCookie = require ('../js/getCookie');
+var $ = require('jquery');
+var _ = require('underscore');
+var views = require('views');
+var getCookie = require('../js/getCookie');
 var alertStatus = require('../js/alertStatus');
 
-module.exports = function (button, user) {
-	$(document).on('click', button ,function () {
-			console.log(this);
-			var id = this.getAttribute('data-locker');
-			var profile = user;
-			var csrftoken = getCookie('csrftoken'); 
-			console.log(csrftoken);
-				$.ajax({
-					beforeSend: function (request){
-					console.log(csrftoken)
-		            request.setRequestHeader('X-CSRFToken', csrftoken);
-		           },
-					method: 'POST', 
-					url: '/api/unlocks/',
-					data: {
-					   "waiting": true,
-					   "profile": profile,
-					   "locker": id
-					}
-		  		}).done(function (data){
-					console.log(data);
-					alertStatus("Locker open");
-					setTimeout('parent.location.reload()',100);
-				}).fail(function (data){
-					console.log(data);
-					alertStatus("Unable to open at this time");
-				})
-		});
-	
+module.exports = function(button, user) {
+    $(document).on('click', button, function() {
+        console.log(this);
+        var id = this.getAttribute('data-locker');
+        var profile = user;
+        var csrftoken = getCookie('csrftoken');
+        console.log(csrftoken);
+        $.ajax({
+            beforeSend: function(request) {
+                console.log(csrftoken)
+                request.setRequestHeader('X-CSRFToken', csrftoken);
+            },
+            method: 'POST',
+            url: '/api/unlocks/',
+            data: {
+                "waiting": true,
+                "profile": profile,
+                "locker": id
+            }
+        }).done(function(data) {
+            console.log(data);
+            alertStatus("Locker open");
+            setTimeout('parent.location.reload()', 100);
+        }).fail(function(data) {
+            console.log(data);
+            alertStatus("Unable to open at this time");
+        })
+    });
+
 }
 },{"../js/alertStatus":1,"../js/getCookie":10,"jquery":"jquery","underscore":"underscore","views":"views"}],14:[function(require,module,exports){
 'use strict';
@@ -656,7 +625,7 @@ module.exports = function showLists(data, view, html) {
 		    var listHTML = templateFn({ items: data });
 			$(html).html(listHTML);
 			return data;
-		};
+};
 },{"jquery":"jquery","underscore":"underscore","views":"views"}],17:[function(require,module,exports){
 'use strict';
  
@@ -717,233 +686,228 @@ var showLists = require('../js/showLists');
 var openLocker = require('../js/openLocker');
 var alertStatus = require('../js/alertStatus');
 
-module.exports = function () {
-	
-	 $('.stock-button').click(function() {
-		 if ($('.user-id').html().length === 1) {
-				$('.not-loggedin-container').css("width", "100%");
-				$('.stock-wrapper').show();
-						  $('.lgn-button').click(function(){
-							var csrftoken = getCookie('csrftoken'); 
-							var username = $('.username-login').val();
-							var password =$('.user-password').val();
-							$.ajax({
-								beforeSend: function (request){
-					            request.setRequestHeader('X-CSRFToken', csrftoken);
-					           },
-								method: 'POST', 
-								url: '/login/',
-								data: {
-								   "username": username,
-								   "password": password
-								}
-					  		  }).done(function (data){
-								  console.log(data);
-								  var id = data.match(/data-id="(\d+)/);
-								  var user = parseInt(id[1]);
-								  setTimeout('parent.location.reload()',500);
-							  }).fail(function(data){
-								  alertStatus('Unable to open at this time');
-								  console.log(data);
-							  });
-					  });
-				 $('.close').click(function(){
-					 $('.stock-wrapper').hide();
-					 $('.not-loggedin-container').css("width", "0%");
-				 });
-			}
-		 else {
-		 $('.stock-container').css("width", "100%");
-		 };
-		 
-	var lockerId = $(this).attr('data-locker');
-	console.log(lockerId);
-	$.ajax({
-			method: 'GET',
-			url: '/api/owneditems/',
-  		}).done(function (data){
-			console.log(data);
-			showLists(data, 'stock', '.item-select');
-			$('.item-inventory').on('change', function () {
-				$('.item-title').val($(".item-inventory option:selected").data('title'));
-				$('.item-description').val($(".item-inventory option:selected").data('description'));
-				$('.item-price').val($(".item-inventory option:selected").data('price'));
-				$('.item-id').val($(".item-inventory option:selected").data('id'));
-			});
-		  
-			 	
-				$('.item-stock').click(function (e) {
-				openLocker('.item-stock', owner);
-				e.stopPropagation();
-				e.preventDefault();
-					var data = new FormData();
-					var file = $('.photo-input').get(0).files[0];
-					var csrftoken = getCookie('csrftoken');
-					var title = $('.item-title').val();
-					var description = $('.item-description').val();
-					var price = $('.item-price').val();
-					var owner = $('.user-id').attr('data-id');
-					var photo = $('.photo-input').val();
-					console.log(photo);
-					data.append('photo', file);
-					data.append('title', title);
-					data.append('description', description);
-					data.append('price', price);
-					data.append('owner', owner);
-					data.append('locker', lockerId);
+module.exports = function() {
 
-					console.log(data);
+    $('.stock-button').click(function() {
+        if ($('.user-id').html().length === 1) {
+            $('.not-loggedin-container').css("width", "100%");
+            $('.stock-wrapper').show();
+            $('.lgn-button').click(function() {
+                var csrftoken = getCookie('csrftoken');
+                var username = $('.username-login').val();
+                var password = $('.user-password').val();
+                $.ajax({
+                    beforeSend: function(request) {
+                        request.setRequestHeader('X-CSRFToken', csrftoken);
+                    },
+                    method: 'POST',
+                    url: '/login/',
+                    data: {
+                        "username": username,
+                        "password": password
+                    }
+                }).done(function(data) {
+                    console.log(data);
+                    var id = data.match(/data-id="(\d+)/);
+                    var user = parseInt(id[1]);
+                    setTimeout('parent.location.reload()', 500);
+                }).fail(function(data) {
+                    alertStatus('Unable to open at this time');
+                    console.log(data);
+                });
+            });
+            $('.close').click(function() {
+                $('.stock-wrapper').hide();
+                $('.not-loggedin-container').css("width", "0%");
+            });
+        } else {
+            $('.stock-container').css("width", "100%");
+        };
+
+        var lockerId = $(this).attr('data-locker');
+        console.log(lockerId);
+        $.ajax({
+            method: 'GET',
+            url: '/api/owneditems/',
+        }).done(function(data) {
+            console.log(data);
+            showLists(data, 'stock', '.item-select');
+            $('.item-inventory').on('change', function() {
+                $('.item-title').val($(".item-inventory option:selected").data('title'));
+                $('.item-description').val($(".item-inventory option:selected").data('description'));
+                $('.item-price').val($(".item-inventory option:selected").data('price'));
+                $('.item-id').val($(".item-inventory option:selected").data('id'));
+            });
 
 
-					if ($('.item-id').val() == 0) {
-						if ( photo == 0 ) {
-							$.ajax({
-								beforeSend: function (request){
-								console.log(csrftoken)
-								request.setRequestHeader('X-CSRFToken', csrftoken);
-									 },
-										method: 'POST', 
-										url: '/api/unlocks/',
-										data: {
-											"waiting": true,
-											"profile": owner,
-											"locker": lockerId
-											}
-										  	}).done(function (x){
-												console.log(x);
-												alertStatus("Locker Open");
-												$.ajax({
-													beforeSend: function (request){
-							            			request.setRequestHeader('X-CSRFToken', csrftoken);
-							        			 },
-												method: 'POST',
-												url: '/api/owneditems/',
-												data: {'title': title,
-												'description': description,
-												'price': price,
-												'owner': owner,
-												'locker': lockerId
-												}
-							  					}).done(function (data){
-												setTimeout('parent.location.reload()',500);
-												});
-											}).fail(function (data){
-													console.log(data);
-													alertStatus("Unable to open at this time");
-												})
+            $('.item-stock').click(function(e) {
+                openLocker('.item-stock', owner);
+                e.stopPropagation();
+                e.preventDefault();
+                var data = new FormData();
+                var file = $('.photo-input').get(0).files[0];
+                var csrftoken = getCookie('csrftoken');
+                var title = $('.item-title').val();
+                var description = $('.item-description').val();
+                var price = $('.item-price').val();
+                var owner = $('.user-id').attr('data-id');
+                var photo = $('.photo-input').val();
+                console.log(photo);
+                data.append('photo', file);
+                data.append('title', title);
+                data.append('description', description);
+                data.append('price', price);
+                data.append('owner', owner);
+                data.append('locker', lockerId);
 
-						}
-						 else {	
-							 $.ajax({
-									beforeSend: function (request){
-									request.setRequestHeader('X-CSRFToken', csrftoken);
-									},
-									method: 'POST', 
-									url: '/api/unlocks/',
-									data: {
-									"waiting": true,
-									"profile": owner,
-									"locker": lockerId
-									}
-									}).done(function (x){
-										alertStatus("Locker Open");
-											$.ajax({
-												beforeSend: function (request){
-						            			request.setRequestHeader('X-CSRFToken', csrftoken);
-						          			 },
+                if ($('.item-id').val() == 0) {
+                    if (photo == 0) {
+                        $.ajax({
+                            beforeSend: function(request) {
+                                console.log(csrftoken)
+                                request.setRequestHeader('X-CSRFToken', csrftoken);
+                            },
+                            method: 'POST',
+                            url: '/api/unlocks/',
+                            data: {
+                                "waiting": true,
+                                "profile": owner,
+                                "locker": lockerId
+                            }
+                        }).done(function(x) {
+                            console.log(x);
+                            alertStatus("Locker Open");
+                            $.ajax({
+                                beforeSend: function(request) {
+                                    request.setRequestHeader('X-CSRFToken', csrftoken);
+                                },
+                                method: 'POST',
+                                url: '/api/owneditems/',
+                                data: {
+                                    'title': title,
+                                    'description': description,
+                                    'price': price,
+                                    'owner': owner,
+                                    'locker': lockerId
+                                }
+                            }).done(function(data) {
+                                setTimeout('parent.location.reload()', 500);
+                            });
+                        }).fail(function(data) {
+                            console.log(data);
+                            alertStatus("Unable to open at this time");
+                        })
 
-												method: 'POST',
-												url: '/api/owneditems/',
-												data: data,
-												dataType: 'json',
-			  									processData: false, // Don't process the files
-			  									contentType: false
-						  					}).done(function (data){
-												console.log(data);
-												setTimeout('parent.location.reload()',500);
-									});
-									}).fail(function (data){
-											alertStatus("Unable to open at this time");
-									})
-								
-							 }
-					}
-					else {
-						var itemId = $('.item-id').val();
-								if ( photo == 0 ) {
-									$.ajax({
-													beforeSend: function (request){
-												    request.setRequestHeader('X-CSRFToken', csrftoken);
-												    },
-													method: 'POST', 
-													url: '/api/unlocks/',
-													data: {
-													"waiting": true,
-													"profile": owner,
-													"locker": lockerId
-													}
-												  	}).done(function (x){
-														alertStatus("Locker Open");
-														$.ajax({
-															beforeSend: function (request){
-												            request.setRequestHeader('X-CSRFToken', csrftoken);
-												         },
-				
-															method: 'PUT',
-															url: '/api/owneditems/'+itemId,
-															data: {'title': title,
-																	'description': description,
-																	'price': price,
-																	'owner': owner,
-																	'locker': lockerId
-																	}
-												  			}).done(function (data){
-																setTimeout('parent.location.reload()',500);
-														});	
-									}).fail(function (data){
-										alertStatus("Unable to open at this time");
-									})
+                    } else {
+                        $.ajax({
+                            beforeSend: function(request) {
+                                request.setRequestHeader('X-CSRFToken', csrftoken);
+                            },
+                            method: 'POST',
+                            url: '/api/unlocks/',
+                            data: {
+                                "waiting": true,
+                                "profile": owner,
+                                "locker": lockerId
+                            }
+                        }).done(function(x) {
+                            alertStatus("Locker Open");
+                            $.ajax({
+                                beforeSend: function(request) {
+                                    request.setRequestHeader('X-CSRFToken', csrftoken);
+                                },
 
-								}
-								else {
-									$.ajax({
-											beforeSend: function (request){
-										    request.setRequestHeader('X-CSRFToken', csrftoken);
-										    },
-											method: 'POST', 
-											url: '/api/unlocks/',
-											data: {
-											"waiting": true,
-											"profile": owner,
-											"locker": lockerId
-											}
-										  	}).done(function (x){
-												alertStatus("Locker Open");
-												$.ajax({
-													beforeSend: function (request){
-						           					 request.setRequestHeader('X-CSRFToken', csrftoken);
-						           				},
-													method: 'PUT',
-													url: '/api/owneditems/'+itemId,
-													data: data,
-													dataType: 'json',
-			  										processData: false, // Don't process the files
-			  										contentType: false
-						  						}).done(function (data){
-														setTimeout('parent.location.reload()',500);
-												});
-											}).fail(function (data){
-												alertStatus("Unable to open at this time");
-											})
-									
-							 }
+                                method: 'POST',
+                                url: '/api/owneditems/',
+                                data: data,
+                                dataType: 'json',
+                                processData: false, // Don't process the files
+                                contentType: false
+                            }).done(function(data) {
+                                console.log(data);
+                                setTimeout('parent.location.reload()', 500);
+                            });
+                        }).fail(function(data) {
+                            alertStatus("Unable to open at this time");
+                        })
 
-					   }
-					   
-				});
-		  });
-	});
-	
+                    }
+                } else {
+                    var itemId = $('.item-id').val();
+                    if (photo == 0) {
+                        $.ajax({
+                            beforeSend: function(request) {
+                                request.setRequestHeader('X-CSRFToken', csrftoken);
+                            },
+                            method: 'POST',
+                            url: '/api/unlocks/',
+                            data: {
+                                "waiting": true,
+                                "profile": owner,
+                                "locker": lockerId
+                            }
+                        }).done(function(x) {
+                            alertStatus("Locker Open");
+                            $.ajax({
+                                beforeSend: function(request) {
+                                    request.setRequestHeader('X-CSRFToken', csrftoken);
+                                },
+
+                                method: 'PUT',
+                                url: '/api/owneditems/' + itemId,
+                                data: {
+                                    'title': title,
+                                    'description': description,
+                                    'price': price,
+                                    'owner': owner,
+                                    'locker': lockerId
+                                }
+                            }).done(function(data) {
+                                setTimeout('parent.location.reload()', 500);
+                            });
+                        }).fail(function(data) {
+                            alertStatus("Unable to open at this time");
+                        })
+
+                    } else {
+                        $.ajax({
+                            beforeSend: function(request) {
+                                request.setRequestHeader('X-CSRFToken', csrftoken);
+                            },
+                            method: 'POST',
+                            url: '/api/unlocks/',
+                            data: {
+                                "waiting": true,
+                                "profile": owner,
+                                "locker": lockerId
+                            }
+                        }).done(function(x) {
+                            alertStatus("Locker Open");
+                            $.ajax({
+                                beforeSend: function(request) {
+                                    request.setRequestHeader('X-CSRFToken', csrftoken);
+                                },
+                                method: 'PUT',
+                                url: '/api/owneditems/' + itemId,
+                                data: data,
+                                dataType: 'json',
+                                processData: false, // Don't process the files
+                                contentType: false
+                            }).done(function(data) {
+                                setTimeout('parent.location.reload()', 500);
+                            });
+                        }).fail(function(data) {
+                            alertStatus("Unable to open at this time");
+                        })
+
+                    }
+
+                }
+
+            });
+        });
+    });
+
 };
 
 },{"../js/alertStatus":1,"../js/getCookie":10,"../js/openLocker":13,"../js/router":14,"../js/show":15,"../js/showLists":16,"jquery":"jquery","underscore":"underscore","views":"views"}]},{},[11])

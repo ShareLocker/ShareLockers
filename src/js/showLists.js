@@ -10,4 +10,4 @@ module.exports = function showLists(data, view, html) {
 		    var listHTML = templateFn({ items: data });
 			$(html).html(listHTML);
 			return data;
-		};
+};
